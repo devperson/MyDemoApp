@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">   
+	<style name="MainTheme" parent="Theme.Material3.Light">
+		<item name="android:windowBackground">@android:color/white</item>
+		<item name="colorPrimary">#2196F3</item>
+		<!-- colorPrimaryDark is used for the status bar -->
+		<item name="colorPrimaryDark">#1976D2</item>
+		<!-- colorAccent is used as the default value for colorControlActivated
+         which is used to tint widgets -->
+		<item name="colorAccent">#1989FC</item>
+
+		<!-- Active thumb color & Active track color(30% transparency) -->
+		<item name="colorControlActivated">#2196F3</item>
+		
+
+		<!--Add system padding, so to not overlap bottom navigation & top status bars-->
+		
+		<!--<item name="popupMenuStyle">@style/Widget.App.PopupMenu</item>-->
+	</style>
+
+</resources>

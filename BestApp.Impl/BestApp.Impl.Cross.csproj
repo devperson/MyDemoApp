@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DryIoc.dll" Version="4.5.0" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.General.csproj" />
+    <ProjectReference Include="..\BestApp.Domain\BestApp.Abstraction.Domain.csproj" />
+    <ProjectReference Include="..\Common.Abstrtactions\BestApp.Abstraction.Common.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,98 @@
+﻿using BestApp.Abstraction.General.Platform;
+using BestApp.ViewModels;
+using BestApp.X.Droid.Utils;
+using System.Globalization;
+
+namespace BestApp.X.Droid
+{    
+    public class Bootstrap
+    {
+       // private ILoggingService loggingService;
+
+        public void RegisterTypes(IPageNavigationService pageNavigationService)
+        {
+            var container = DryIocContainerExtension.CreateInstance();
+            ContainerLocator.SetContainerExtension(container);
+            //var containerRegistry = ContainerLocator.Current;
+            var dryIocContainer = (DryIocContainerExtension)container;
+
+            SetCulture();
+
+            //register app, infrastructure services
+            Impl.Cross.Registerar.RegisterTypes(dryIocContainer.Instance);
+            Impl.Droid.Registerar.RegisterTypes(dryIocContainer.Instance);
+
+            //register ViewModel for navigation
+        }
+
+
+        private static void SetCulture()
+        {
+            CultureInfo englishUSCulture = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentCulture = englishUSCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = englishUSCulture;
+        }
+
+        public async Task NavigateToPageAsync(IPageNavigationService pageNavigationService)
+        {
+            await pageNavigationService.Navigate($"/{nameof(MainViewModel)}", animated: false);
+
+            //this.loggingService = ContainerLocator.Container.Resolve<ILoggingService>();
+            //this.SubscribeToUnhandledErrors();
+
+            //var appService = ContainerLocator.Container.Resolve<AppService>();
+            //appService.ResolveAppServer("Test");
+
+            //var userService = ContainerLocator.Container.Resolve<AccountService>();
+            //userService.Init();
+            //LogDeviceAppDetails(userService);
+
+            //if (userService.HasAccount)
+            //{
+            //    await pageNavigationService.Navigate($"/{nameof(HomeViewModel)}", animated: false);
+            //}
+            //else
+            //{
+            //    await pageNavigationService.Navigate($"/{nameof(LoginViewModel)}", animated: false);
+            //}
+        }
+
+        //private void LogDeviceAppDetails(AccountService userService)
+        //{
+        //    this.loggingService.Header($"\n********************************************************* \n" +
+        //        $"     DATE: {DateTimeOffset.Now} \n" +
+        //        $"********************************************************* \n");
+
+        //    this.loggingService.Header($"\n********************************************************* \n" +
+        //        $"     APP BUILD VERSION: {AppInfo.VersionString} ({AppInfo.BuildString}) \n" +
+        //        $"********************************************************* \n");
+        //    if (userService.HasAccount)
+        //    {
+        //        this.loggingService.Header($"\n********************************************************* \n" +
+        //            $"      USERNAME: {userService.MyInfo.Name}, Email: {userService.MyInfo.Email}, ID: {userService.MyInfo.ID} \n" +
+        //            $"********************************************************* \n");
+        //    }
+
+        //    var deviceService = ContainerLocator.Container.Resolve<IDevice>();
+        //    this.loggingService.Header($"\n********************************************************* \n" +
+        //        $"      DEVICE NAME: {deviceService.DeviceInfo.Name} \n" +
+        //        $"      PLATFORM: {deviceService.DeviceInfo.Platform} \n" +
+        //        $"      OS VERSION: {deviceService.DeviceInfo.Version} \n" +
+        //        $"      MODEL: {deviceService.DeviceInfo.Model} \n" +
+        //        $"      MANUFACTURER: {deviceService.DeviceInfo.Manufacturer} \n" +
+        //        $"      IDIOM: {deviceService.DeviceInfo.Idiom} \n" +
+        //        $"      DEVICE TYPE: {deviceService.DeviceInfo.DeviceType} \n" +
+        //        $"      OS VERSION STRING: {deviceService.DeviceInfo.VersionString} \n" +
+        //        $"********************************************************* \n");
+
+        //    //log local db folder info
+        //    var directoryService = ContainerLocator.Container.Resolve<IDirectoryService>();
+        //    var dbFolderInfo = directoryService.GetLogInfoForDbDirectory();
+        //    this.loggingService.Header($"\n********************************************************* \n" +
+        //                              $"{dbFolderInfo} \n"+
+        //                              $"********************************************************* \n");
+        //}
+
+
+    }
+}
