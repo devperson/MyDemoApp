@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.Impl.Cross.AppService
+namespace BestApp.Impl.Cross.Map
 {
-    internal static class ASMapper
+    internal static class AppMapper
     {
-        internal static void RegisterManualMapping(TypeAdapterConfig config)
+        internal static void RegisterMapping(TypeAdapterConfig config)
         {
             config.NewConfig<Product, ProductDto>()
                   .Map(dest => dest.Id, src => src.Id)

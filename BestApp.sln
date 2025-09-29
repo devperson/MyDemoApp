@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestApp.Impl.Droid", "BestA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.ServiceImpl", "UnitTest.ServiceImpl\UnitTest.ServiceImpl.csproj", "{3893818B-08BF-4BF2-87C3-05D25167593C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.ViewModel", "UnitTest.ViewModel\UnitTest.ViewModel.csproj", "{056B52F5-8652-4B8C-8FBB-0D93A1957D7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{3893818B-08BF-4BF2-87C3-05D25167593C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3893818B-08BF-4BF2-87C3-05D25167593C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3893818B-08BF-4BF2-87C3-05D25167593C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{056B52F5-8652-4B8C-8FBB-0D93A1957D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{056B52F5-8652-4B8C-8FBB-0D93A1957D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{056B52F5-8652-4B8C-8FBB-0D93A1957D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{056B52F5-8652-4B8C-8FBB-0D93A1957D7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿namespace BestApp.Abstraction.Domain.Events
+﻿namespace BestApp.Abstraction.General.Events
 {
     public class ProductCreated
     {
