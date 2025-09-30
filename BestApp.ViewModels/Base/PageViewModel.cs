@@ -1,8 +1,10 @@
 ﻿using BestApp.Abstraction.General.Platform;
 using Common.Abstrtactions;
+using Logging.Aspects;
 
 namespace BestApp.ViewModels.Base
 {
+    [LogMethods]
     public class PageViewModel : NavigatingBaseViewModel, IPageLifecycleAware
     {
         public PageViewModel(InjectedServices services) : base(services)

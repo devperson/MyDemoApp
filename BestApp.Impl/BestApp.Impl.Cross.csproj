@@ -9,7 +9,11 @@
   <ItemGroup>
     <PackageReference Include="DryIoc.dll" Version="4.5.0" />
     <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="MethodDecorator.Fody" Version="1.1.1" />
+	<PackageReference Include="Fody" Version="6.5.1" />
     <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
+	<PackageReference Include="NLog" Version="6.0.4" />
+	<PackageReference Include="Sentry" Version="5.14.1" />	
   </ItemGroup>
 
   <ItemGroup>

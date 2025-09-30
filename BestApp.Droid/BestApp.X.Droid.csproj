@@ -18,8 +18,9 @@
   <ItemGroup>
     <PackageReference Include="DryIoc.dll" Version="4.5.0" />
     <PackageReference Include="Prism.Core" Version="9.0.537" />
-	<PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.2" />
-	<PackageReference Include="Xamarin.Google.Android.Material" Version="1.11.0.2" />
+	<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.82" />
+	<PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.5" />
+	<PackageReference Include="Xamarin.Google.Android.Material" Version="1.11.0.2" />	  
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BestApp.Impl.Droid\BestApp.Impl.Droid.csproj" />

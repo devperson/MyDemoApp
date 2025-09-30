@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.Abstraction.General.AppService
+namespace BestApp.Abstraction.General.AppService.Dto
 {
     public class Some<T>
     {
@@ -14,7 +14,7 @@ namespace BestApp.Abstraction.General.AppService
         public Some() { }
         public Some(Exception ex)
         {
-            this.Exception = ex;
+            Exception = ex;
         }
         public Some(T value) 
         {
@@ -25,15 +25,15 @@ namespace BestApp.Abstraction.General.AppService
         {
             get
             {
-                if(this.value != null)
-                    return this.value;
+                if(value != null)
+                    return value;
                 throw new InvalidOperationException("value is null");
             }
         }
 
         public bool Success
         {
-            get { return this.value != null; }
+            get { return value != null; }
         }
 
         public Exception? Exception { get; set; }

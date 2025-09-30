@@ -1,14 +1,17 @@
 ﻿using BestApp.Abstraction.Domain.Entities;
-using BestApp.Abstraction.General.AppService.Services;
 using BestApp.Abstraction.General.Infasructures;
 using BestApp.Impl.Cross.Infasructures.Repositories.Tables;
 using BestApp.Impl.Cross.Infasructures.Repositories;
-using BestApp.Impl.Shared.AppService.Products;
+using BestApp.Impl.Cross.AppService.Products;
 using DryIoc;
 using Mapster;
 using MapsterMapper;
 using BestApp.Impl.Cross.Map;
-using System.Threading.Tasks;
+using Common.Abstrtactions;
+using BestApp.Impl.Cross.Common;
+using BestApp.Impl.Cross.Infasructures;
+using BestApp.Abstraction.General.AppService;
+
 
 namespace BestApp.Impl.Cross
 {
@@ -17,25 +20,29 @@ namespace BestApp.Impl.Cross
         public static async Task RegisterTypes(IContainer container)
         {
             //register mapper
-            var config = new TypeAdapterConfig();                        
+            var config = new TypeAdapterConfig();
             container.RegisterInstance(config);
             // Register Mapster's service
             container.Register<IMapper, Mapper>(Reuse.Singleton);
 
-            //register repo            
+            //Register Common
+            container.Register<IFileLoger, NLogFileLoger>(Reuse.Singleton);            
+            container.Register<ILoggingService, AppLoggingService>(Reuse.Singleton);
+
+            //register infrastructures            
             RepoMapper.RegisterMapping(config);
             //container.Register<IRepository<Product>, MockRepository<Product, ProductTable>>();
             container.Register<IRepository<Product>, SqliteRepository<Product, ProductTable>>();
-            container.Register<DbConnectionInitilizer>(Reuse.Transient);
-            
+            container.Register<IDatabaseInfo, DatabaseInfo>(Reuse.Singleton);
+            container.Register<IErrorTrackingService, ErrorTrackingService>(Reuse.Singleton);
+
+
             //register appService
             AppMapper.RegisterMapping(config);
             container.Register<IProductService, ProductService>(Reuse.Singleton);
 
+            
 
-            //custom initializing
-            var dbInitilizer = container.Resolve<DbConnectionInitilizer>();
-            await dbInitilizer.RegisterDbConnection(container);
         }
     }
 }

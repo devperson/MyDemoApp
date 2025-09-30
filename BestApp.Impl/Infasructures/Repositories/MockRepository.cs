@@ -1,11 +1,13 @@
 ﻿using BestApp.Abstraction.Domain.Entities;
 using BestApp.Abstraction.General.Infasructures;
 using BestApp.Impl.Cross.Infasructures.Repositories.Tables;
+using Logging.Aspects;
 using MapsterMapper;
 
 namespace BestApp.Impl.Cross.Infasructures.Repositories
 {
-    public class MockRepository<TEntity, Table> : IRepository<TEntity>
+    [LogMethods]
+    internal class MockRepository<TEntity, Table> : IRepository<TEntity>
         where TEntity : Entity
         where Table : ITable
     {

@@ -1,15 +1,12 @@
-﻿using BestApp.Abstraction.General.AppService.Services;
+﻿using BestApp.Abstraction.General.AppService;
 using BestApp.Abstraction.General.UI;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.ItemViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Logging.Aspects;
 
 namespace BestApp.ViewModels
 {
+    [LogMethods]
     public class CreateProductViewModel : PageViewModel
     {
         private readonly Lazy<IProductService> productService;

@@ -1,17 +1,12 @@
-﻿using BestApp.Abstraction.General.AppService.Services;
-using BestApp.Abstraction.General.Platform;
+﻿using BestApp.Abstraction.General.AppService;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.ItemViewModel;
-using Common.Abstrtactions;
-using System;
-using System.Collections.Generic;
+using Logging.Aspects;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BestApp.ViewModels
 {
+    [LogMethods]
     public class MainViewModel : PageViewModel
     {
         private readonly Lazy<IProductService> productService;

@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="MethodDecorator.Fody" Version="1.1.1" />
+		<PackageReference Include="Fody" Version="6.5.1" />
+	</ItemGroup>
+
 </Project>

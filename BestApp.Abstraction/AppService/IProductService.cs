@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.Abstraction.General.AppService.Services
+namespace BestApp.Abstraction.General.AppService
 {
     public interface IProductService
     {

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.Abstraction.General.Infasructures
+namespace BestApp.Abstraction.General.Platform
 {
     public interface IDirectoryService
     {
+        string GetCacheDir();
+        string GetAppDataDir();        
         string GetDbPath();
     }
 }

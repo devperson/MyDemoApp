@@ -1,22 +1,23 @@
 ﻿using BestApp.Abstraction.General.Infasructures;
 using BestApp.Abstraction.Domain.Entities;
-using BestApp.Abstraction.General.AppService.Services;
 using BestApp.Abstraction.General.AppService.Dto;
-using BestApp.Abstraction.General.AppService;
 using Common.Abstrtactions;
 using MapsterMapper;
+using BestApp.Abstraction.General.AppService;
+using Logging.Aspects;
 
-namespace BestApp.Impl.Shared.AppService.Products
+namespace BestApp.Impl.Cross.AppService.Products
 {
+    [LogMethods]
     internal class ProductService : IProductService
     {
-        readonly IRepository<Product> productRepository;
-        private readonly ILoggingService loggingService;
-        private readonly IMapper mapper;
+        readonly Lazy<IRepository<Product>> productRepository;
+        private readonly Lazy<ILoggingService> loggingService;
+        private readonly Lazy<IMapper> mapper;
 
-        public ProductService(IRepository<Product> productRepository, 
-                              ILoggingService loggingService,
-                              IMapper mapper)
+        public ProductService(Lazy<IRepository<Product>> productRepository,
+                              Lazy<ILoggingService> loggingService,
+                              Lazy<IMapper> mapper)
         {
             this.productRepository = productRepository;
             this.loggingService = loggingService;
@@ -25,17 +26,17 @@ namespace BestApp.Impl.Shared.AppService.Products
 
         public Task<Some<ProductDto>> Get(int productId)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 try
                 {
-                    var product = this.productRepository.FindById(productId);
-                    var dtoProduct = mapper.Map<ProductDto>(product);
+                    var product = await this.productRepository.Value.FindById(productId);
+                    var dtoProduct = mapper.Value.Map<ProductDto>(product);
                     return new Some<ProductDto>(dtoProduct);
                 }
                 catch (Exception ex)
                 {
-                    loggingService.TrackError(ex);
+                    loggingService.Value.TrackError(ex);
                     return new Some<ProductDto>(ex);
                 }
             });
@@ -43,19 +44,19 @@ namespace BestApp.Impl.Shared.AppService.Products
 
         public Task<Some<ProductDto>> Add(string name, int quantity, decimal cost)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 try
                 {
                     var product = Product.Create(name, quantity, cost);
-                    this.productRepository.Add(product);
+                    await this.productRepository.Value.Add(product);
 
-                    var dtoProduct = mapper.Map<ProductDto>(product);                    
+                    var dtoProduct = mapper.Value.Map<ProductDto>(product);                    
                     return new Some<ProductDto>(dtoProduct);
                 }
                 catch (Exception ex)
                 {
-                    loggingService.TrackError(ex);
+                    loggingService.Value.TrackError(ex);
                     return new Some<ProductDto>(ex);
                 }
             });            
@@ -63,17 +64,17 @@ namespace BestApp.Impl.Shared.AppService.Products
 
         public Task<Some<List<ProductDto>>> GetSome(int count, int skip)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 try
                 {
-                    var result = this.productRepository.Take(count, skip);
-                    var dtoList = mapper.Map<List<ProductDto>>(result);
+                    var result = await this.productRepository.Value.Take(count, skip);
+                    var dtoList = mapper.Value.Map<List<ProductDto>>(result);
                     return new Some<List<ProductDto>>(dtoList);
                 }
                 catch (Exception ex)
                 {
-                    loggingService.TrackError(ex);
+                    loggingService.Value.TrackError(ex);
                     return new Some<List<ProductDto>>(ex);
                 }
             });

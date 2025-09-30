@@ -1,4 +1,4 @@
-﻿using BestApp.Abstraction.General.Infasructures;
+﻿using BestApp.Abstraction.General.Platform;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +23,7 @@ namespace UnitTest.ServiceImpl.Impl
         public string GetDbPath()
         {
             var myDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var dbDir = Path.Combine(myDir, "Database");
+            var dbDir = Path.Combine(myDir, "testDatabaseDir");
             if (!Directory.Exists(dbDir))
             {
                 Directory.CreateDirectory(dbDir);
@@ -32,6 +32,30 @@ namespace UnitTest.ServiceImpl.Impl
             var dbPath = Path.Combine(dbDir, DbName_Suffix);
 
             return dbPath;
+        }
+
+        public string GetCacheDir()
+        {
+            var myDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var cacheDir = Path.Combine(myDir, "testDirCache");
+            if (!Directory.Exists(cacheDir))
+            {
+                Directory.CreateDirectory(cacheDir);
+            }
+
+            return cacheDir;
+        }
+
+        public string GetAppDataDir()
+        {
+            var myDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var dataDir = Path.Combine(myDir, "testDataDir");
+            if (!Directory.Exists(dataDir))
+            {
+                Directory.CreateDirectory(dataDir);
+            }
+
+            return dataDir;
         }
     }
 }
