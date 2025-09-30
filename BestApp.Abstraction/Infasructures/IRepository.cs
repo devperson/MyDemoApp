@@ -10,11 +10,11 @@ namespace BestApp.Abstraction.General.Infasructures
     public interface IRepository<TEntity> where TEntity : Entity
     {
         //TEntity FindById(Guid id);
-        TEntity FindById(int id);
-        List<TEntity> Take(int count, int skip);
+        Task<TEntity> FindById(int id);
+        Task<List<TEntity>> Take(int count, int skip);
         //TEntity FindOne(ISpecification<TEntity> spec);
         //IEnumerable<TEntity> Find(ISpecification<TEntity> spec);
-        void Add(TEntity entity);
-        void Remove(TEntity entity);
+        Task Add(TEntity entity);
+        Task Remove(TEntity entity);
     }
 }

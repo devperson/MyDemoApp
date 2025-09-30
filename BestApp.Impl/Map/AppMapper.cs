@@ -13,9 +13,10 @@ namespace BestApp.Impl.Cross.Map
     {
         internal static void RegisterMapping(TypeAdapterConfig config)
         {
-            config.NewConfig<Product, ProductDto>()
-                  .Map(dest => dest.Id, src => src.Id)
-                  .Map(dest => dest.Name, src => src.Name);
+            config.NewConfig<Product, ProductDto>().TwoWays();
+            //config.NewConfig<Product, ProductDto>()
+            //      .Map(dest => dest.Id, src => src.Id)
+            //      .Map(dest => dest.Name, src => src.Name);
 
         }
 

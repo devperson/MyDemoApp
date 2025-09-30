@@ -9,7 +9,7 @@ using KYChat.Controls.Navigation;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using FragmentManager = AndroidX.Fragment.App.FragmentManager;
 using INavigationParameters = BestApp.Abstraction.General.Platform.INavigationParameters;
-using NavigationParameters = BestApp.X.Droid.Navigation.NavigationParameters;
+using NavigationParameters = BestApp.ViewModels.NavigationParameters;
 
 namespace BestApp.X.Droid
 {
