@@ -1,14 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+using UnitTest.ViewModel.Base;
 
 namespace UnitTest.ViewModel
 {
     [TestClass]
-    public class MainViewModelTest
+    public class MainViewModelTest : IoCAware
     {
         [TestMethod]
-        public void TestMethod1()
+        public void T1_1TestLoadMethod()
         {
+
         }
     }
 }

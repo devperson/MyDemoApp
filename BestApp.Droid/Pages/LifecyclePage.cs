@@ -2,11 +2,6 @@
 using Android.Views.Animations;
 using Android.Views;
 using AndroidX.Core.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BestApp.X.Droid.Pages
 {

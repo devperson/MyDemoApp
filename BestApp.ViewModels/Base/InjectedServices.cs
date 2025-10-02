@@ -19,5 +19,6 @@ namespace BestApp.ViewModels.Base
         public IEventAggregator EventAggregator => Container.Resolve<IEventAggregator>();
         public ILoggingService LoggingService => Container.Resolve<ILoggingService>();
         public IPopupAlert PopupAlertService=> Container.Resolve<IPopupAlert>();
+        public IPlatformErrorService PlatformError => Container.Resolve<IPlatformErrorService>();
     }
 }

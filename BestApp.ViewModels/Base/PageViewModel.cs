@@ -1,6 +1,7 @@
 ﻿using BestApp.Abstraction.General.Platform;
 using Common.Abstrtactions;
 using Logging.Aspects;
+using System.Net;
 
 namespace BestApp.ViewModels.Base
 {
@@ -46,34 +47,66 @@ namespace BestApp.ViewModels.Base
             
         }
 
-
+        /// <summary>
+        /// Shows aler/error message
+        /// Use this method when exception happened for user triggered action
+        /// </summary>
+        /// <param name="x"></param>
         public void HandleUIError(Exception x)
         {
             Services.LoggingService.TrackError(x);
             Services.PopupAlertService.ShowError("Oops something went wrong, please try again later.");
-            //if (x is HttpRequestException && x.Message.Contains("status code does not indicate"))
+            //Check is SERVER API error
+            if (x is HttpRequestException && x.Message.Contains("status code does not indicate"))
+            {
+                var error = x.Message.Replace("Response status code does not indicate success:", string.Empty);                
+                Services.PopupAlertService.ShowError($"It seems server is not available, please try again later. ErrorCode: {error}");
+            }
+            else if (IsNoInternetException(x))//Is no Internet error
+            {                
+                Services.PopupAlertService.ShowError($"It looks like there may be an issue with your connection. Please check your internet connection and try again.");
+            }
+            else //show general error message
+            {
+                //ToastSeverity = SeverityType.Error;
+                //if (x is RestDataServiceException)
+                //{
+                //    ToastMessage = "Internal Server Error. Please try again later.";
+                //}
+                //else
+                {
+                    Services.PopupAlertService.ShowError("Oops something went wrong, please try again later.");
+                }
+            }
+        }
+
+        protected bool IsNoInternetException(Exception ex)
+        {
+            if (ex is OperationCanceledException)
+            {
+                //happens when request timeout 
+                return true;
+            }
+
+            if (ex is WebException)
+            {
+                return true;
+            }
+
+            var noInternet = Services.PlatformError.IsHttpRareError(ex);
+            //if (!noInternet)
             //{
-            //    var error = x.Message.Replace("Response status code does not indicate success:", string.Empty);
-            //    ToastSeverity = SeverityType.Error;
-            //    ToastMessage = $"It seems server is not available, please try again later. ErrorCode: {error}";
+            //    noInternet = !Services.DeviceInfo.HasInternetConnection;
             //}
-            //else if (IsNoInternetException(x))
-            //{
-            //    ToastSeverity = SeverityType.Error;
-            //    ToastMessage = $"It looks like there may be an issue with your connection. Please check your internet connection and try again.";
-            //}
-            //else
-            //{
-            //    ToastSeverity = SeverityType.Error;
-            //    if (x is RestDataServiceException)
-            //    {
-            //        ToastMessage = "Internal Server Error. Please try again later.";
-            //    }
-            //    else
-            //    {
-            //        ToastMessage = "Oops something went wrong, please try again later.";
-            //    }
-            //}
+
+            if (noInternet)
+            {
+                //HandleNoInternet(asyncAction);
+                return true;
+            }
+            else
+                return false;
+
         }
     }
 }

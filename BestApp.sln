@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.ServiceImpl", "Uni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.ViewModel", "UnitTest.ViewModel\UnitTest.ViewModel.csproj", "{056B52F5-8652-4B8C-8FBB-0D93A1957D7E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Abstractions", "Abstractions", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_UnitTest", "_UnitTest", "{CFA2FA68-05B6-4EA1-A0CB-B1D904F7EE57}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +72,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D3E7A546-1510-475B-A074-BD1BAF656C0B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{CA20A1D0-EB74-4865-91A5-B420815CF57E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{04EBA470-1DA9-42BD-AED9-E03C29E4E658} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{3893818B-08BF-4BF2-87C3-05D25167593C} = {CFA2FA68-05B6-4EA1-A0CB-B1D904F7EE57}
+		{056B52F5-8652-4B8C-8FBB-0D93A1957D7E} = {CFA2FA68-05B6-4EA1-A0CB-B1D904F7EE57}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8073DB3F-5A93-4BF4-A1EE-529ABB40D0F1}

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnitTest.ServiceImpl.Base;
 
-namespace UnitTest.ServiceImpl.Tests
+namespace UnitTest.ServiceImpl
 {
     [TestClass]
     public class ProductTest : IoCAware

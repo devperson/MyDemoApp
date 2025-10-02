@@ -55,40 +55,41 @@ namespace BestApp.Impl.Cross.Infasructures
         {
             SentrySdk.Init(options =>
             {
-                options.Dsn = "https://7bb20165ff7e127e9afccc36e232a381@o4504288014434304.ingest.sentry.io/4505826616344576";
+                options.Dsn = "https://e2232a39fbb65cd0fd4beba2b0954c87@o4507288977080320.ingest.de.sentry.io/4510120095842384";
                 options.Debug = false;
                 options.TracesSampleRate = 0.1;
                 options.AutoSessionTracking = true;
+                options.Environment = "internal";
 
                 //options.Debug = true; // Enable Sentry internal logging
                 //options.DiagnosticLevel = SentryLevel.Debug;
 
                 options.SetBeforeSend((ev, hint) =>
                 {
-                    if (ev.Exception is AggregateException aggEx)
-                    {
-                        if (aggEx.InnerExceptions.Any(ex =>
-                        {
-                            var fullName = ex.GetType().FullName?.ToLower() ?? "";
-                            if (fullName.Contains("illegalstateexception") || fullName.Contains("runtimeexception"))
-                            {
-                                return false;
-                            }
-                            return fullName is "java.lang.illegalstateexception" or "java.lang.runtimeexception";
-                        }))
-                        {
-                            // Ignore the event
-                            return null;
-                        }
-                    }
-                    else
-                    {
-                        var fullName = ev.Exception?.GetType().FullName?.ToLower() ?? "";
-                        if (fullName.Contains("illegalstateexception") || fullName.Contains("runtimeexception"))
-                        {
-                            return null;
-                        }
-                    }
+                    //if (ev.Exception is AggregateException aggEx)
+                    //{
+                    //    if (aggEx.InnerExceptions.Any(ex =>
+                    //    {
+                    //        var fullName = ex.GetType().FullName?.ToLower() ?? "";
+                    //        if (fullName.Contains("illegalstateexception") || fullName.Contains("runtimeexception"))
+                    //        {
+                    //            return false;
+                    //        }
+                    //        return fullName is "java.lang.illegalstateexception" or "java.lang.runtimeexception";
+                    //    }))
+                    //    {
+                    //        // Ignore the event
+                    //        return null;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    var fullName = ev.Exception?.GetType().FullName?.ToLower() ?? "";
+                    //    if (fullName.Contains("illegalstateexception") || fullName.Contains("runtimeexception"))
+                    //    {
+                    //        return null;
+                    //    }
+                    //}
 
                     //BeforeSend is fired for every event (crash, handled exception, log, or message)
                     //Unhandled crashes typically do not contain attachments.

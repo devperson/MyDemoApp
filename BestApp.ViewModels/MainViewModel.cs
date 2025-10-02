@@ -56,11 +56,11 @@ namespace BestApp.ViewModels
         {
             try
             {
-                throw new NotImplementedException();
+                await Navigate(nameof(CreateProductViewModel));
             }
             catch (Exception ex)
             {
-                Services.LoggingService.TrackError(ex);
+                HandleUIError(ex);
             }
         }
 
@@ -72,12 +72,12 @@ namespace BestApp.ViewModels
             }
             catch(Exception ex)
             {
-                Services.LoggingService.TrackError(ex);
+                HandleUIError(ex);
             }
         }
 
 
-        private async Task LoadData()
+        public async Task LoadData()
         {
             try
             {

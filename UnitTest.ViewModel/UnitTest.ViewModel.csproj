@@ -14,9 +14,25 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Include="..\UnitTest.ServiceImpl\Impl\DirectoryService.cs" Link="Impl\DirectoryService.cs" />
+	  <Compile Include="..\UnitTest.ServiceImpl\Impl\MockAppLogging.cs" Link="Impl\MockAppLogging.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
 		<PackageReference Include="MSTest.TestAdapter" Version="3.0.4" />
 		<PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
 		<PackageReference Include="DryIoc.dll" Version="4.5.0.0" />
+		<PackageReference Include="Moq" Version="4.20.70.0" />
+		<PackageReference Include="Mapster" Version="7.4.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Impl\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.General.csproj" />
+	  <ProjectReference Include="..\BestApp.ViewModels\BestApp.ViewModels.csproj" />
 	</ItemGroup>
 </Project>

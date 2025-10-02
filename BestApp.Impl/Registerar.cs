@@ -17,11 +17,11 @@ namespace BestApp.Impl.Cross
 {
     public static class Registerar
     {
-        public static async Task RegisterTypes(IContainer container)
+        public static void RegisterTypes(IContainer container)
         {
             //register mapper
-            var config = new TypeAdapterConfig();
-            container.RegisterInstance(config);
+            var mapperConfig = new TypeAdapterConfig();
+            container.RegisterInstance(mapperConfig);
             // Register Mapster's service
             container.Register<IMapper, Mapper>(Reuse.Singleton);
 
@@ -30,7 +30,7 @@ namespace BestApp.Impl.Cross
             container.Register<ILoggingService, AppLoggingService>(Reuse.Singleton);
 
             //register infrastructures            
-            RepoMapper.RegisterMapping(config);
+            RepoMapper.RegisterMapping(mapperConfig);
             //container.Register<IRepository<Product>, MockRepository<Product, ProductTable>>();
             container.Register<IRepository<Product>, SqliteRepository<Product, ProductTable>>();
             container.Register<IDatabaseInfo, DatabaseInfo>(Reuse.Singleton);
@@ -38,11 +38,13 @@ namespace BestApp.Impl.Cross
 
 
             //register appService
-            AppMapper.RegisterMapping(config);
+            RegisterAppService(container, mapperConfig);
+        }
+
+        public static void RegisterAppService(IContainer container, TypeAdapterConfig mapperConfig)
+        {
+            AppMapper.RegisterMapping(mapperConfig);
             container.Register<IProductService, ProductService>(Reuse.Singleton);
-
-            
-
         }
     }
 }

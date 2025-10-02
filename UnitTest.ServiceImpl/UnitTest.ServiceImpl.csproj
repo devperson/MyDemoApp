@@ -17,10 +17,15 @@
 	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
 	  <PackageReference Include="MSTest.TestAdapter" Version="3.0.4" />
 	  <PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
-	  <PackageReference Include="DryIoc.dll" Version="4.5.0.0" />   
+	  <PackageReference Include="DryIoc.dll" Version="4.5.0.0" />
+	  <PackageReference Include="Mapster" Version="7.4.0" />
   </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\BestApp.Impl\BestApp.Impl.Cross.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Tests\" />
   </ItemGroup> 
 </Project>

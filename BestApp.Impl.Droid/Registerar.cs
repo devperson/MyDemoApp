@@ -12,7 +12,8 @@ namespace BestApp.Impl.Droid
         public static void RegisterTypes(IContainer container)
         {            
             container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
-            container.Register<IPopupAlert, MockPopup>(Reuse.Singleton);            
+            container.Register<IPopupAlert, MockPopup>(Reuse.Singleton);
+            container.Register<IPlatformErrorService, PlatformErrorService>(Reuse.Singleton);
         }
     }
 }
