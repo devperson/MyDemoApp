@@ -2,19 +2,20 @@
 using BestApp.Abstraction.General.UI;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Helper;
-using BestApp.ViewModels.ItemViewModel;
+using BestApp.ViewModels.Helper.Commands;
+using BestApp.ViewModels.Movies.ItemViewModel;
 using Logging.Aspects;
 
-namespace BestApp.ViewModels
+namespace BestApp.ViewModels.Movies
 {
     [LogMethods]
-    public class CreateMovieViewModel : PageViewModel
+    public class AddEditMoviePageViewModel : PageViewModel
     {
         private readonly Lazy<IMovieService> movieService;
         private readonly Lazy<IPopupAlert> popupAlert;
         public const string NEW_ITEM = "newItem";
 
-        public CreateMovieViewModel(InjectedServices services, 
+        public AddEditMoviePageViewModel(InjectedServices services, 
                                       Lazy<IMovieService> movieService, 
                                       Lazy<IPopupAlert> popupAlert) : base(services)
         {

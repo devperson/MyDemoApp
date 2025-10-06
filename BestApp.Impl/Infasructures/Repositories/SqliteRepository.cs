@@ -9,9 +9,9 @@ using System.Data;
 namespace BestApp.Impl.Cross.Infasructures.Repositories
 {
     [LogMethods]
-    internal class SqliteRepository<TEntity, Table> : IRepository<TEntity>
+    internal class SqliteRepository<TEntity, Tb> : IRepository<TEntity>
         where TEntity : Entity
-        where Table : ITable, new()
+        where Tb : ITable, new()
     {
         
         private SQLiteAsyncConnection database;
@@ -30,15 +30,14 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
         public async Task<List<TEntity>> GetList(int count=-1, int skip = 0)
         {
             EnsureInitalized();
-
-            List<Table> list = null;
+            List<Tb> list = null;
             if(count == -1)
             {
-                list = await database.Table<Table>().ToListAsync();
+                list = await database.Table<Tb>().ToListAsync();
             }
             else
             {
-                list = await database.Table<Table>().Skip(skip).Take(count).ToListAsync();
+                list = await database.Table<Tb>().Skip(skip).Take(count).ToListAsync();
             }            
             var entities = list.Select(s => mapper.Value.Map<TEntity>(s)).ToList();
             return entities;    
@@ -48,7 +47,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
         {
             EnsureInitalized();
 
-            var row = await database.Table<Table>().FirstOrDefaultAsync(x => x.Id == id);
+            var row = await database.Table<Tb>().FirstOrDefaultAsync(x => x.Id == id);
             var entity = mapper.Value.Map<TEntity>(row);
 
             return entity;
@@ -61,7 +60,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             try
             {                
                 EnsureInitalized();
-                var record = mapper.Value.Map<Table>(entity);
+                var record = mapper.Value.Map<Tb>(entity);
                 //var dbTable = database.Table<Table>();
                 await database.InsertAsync(record);
 
@@ -80,7 +79,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             {  
                 EnsureInitalized();
 
-                var record = mapper.Value.Map<Table>(entity);
+                var record = mapper.Value.Map<Tb>(entity);
                 await database.DeleteAsync(record);
             }
             finally
@@ -125,10 +124,10 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
                 //logging events
                 EnsureInitalized();
                 //get all ids for tracking
-                var tableName = typeof(Table).Name; 
+                var tableName = typeof(Tb).Name; 
                 var ids = await database.QueryScalarsAsync<int>($"SELECT Id FROM {tableName}");
                 //delete all records
-                await database.DeleteAllAsync<Table>();
+                await database.DeleteAllAsync<Tb>();
                 //track event
                 var customValues = string.Join(",", ids);
                 var deleteEvent = EventsTb.Create(tableName, "DELETE", reason, customValues);
@@ -146,7 +145,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             try
             {
                 EnsureInitalized();
-                var records = entities.Select(s=> mapper.Value.Map<Table>(s)).ToList();
+                var records = entities.Select(s=> mapper.Value.Map<Tb>(s)).ToList();
                 await database.InsertAllAsync(records);
 
                 //set id

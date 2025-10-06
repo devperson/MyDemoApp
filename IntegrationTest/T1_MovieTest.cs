@@ -1,4 +1,5 @@
 ﻿using BestApp.ViewModels;
+using BestApp.ViewModels.Movies;
 using IntegrationTest.Base;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -12,9 +13,9 @@ namespace IntegrationTest
         [TestMethod]
         public async Task T1_1TestMainPageLoad()
         {
-            await Navigate(nameof(MainViewModel));
+            await Navigate(nameof(MoviesPageViewModel));
             await Task.Delay(5000);
-            var mainVm = GetNextPage<MainViewModel>();
+            var mainVm = GetNextPage<MoviesPageViewModel>();
             //validate
             Assert.IsTrue(mainVm.MovieItems.Count > 0);
             EnsureNoError();
@@ -23,21 +24,21 @@ namespace IntegrationTest
         [TestMethod]
         public async Task T1_2TestAddMoview()
         {
-            await Navigate(nameof(MainViewModel));
+            await Navigate(nameof(MoviesPageViewModel));
             await Task.Delay(1000);
-            var mainVm = GetNextPage<MainViewModel>();
+            var mainVm = GetNextPage<MoviesPageViewModel>();
             var oldMovieCount = mainVm.MovieItems.Count;
 
             await mainVm.AddCommand.ExecuteAsync();
             //navigated to create page
-            var createMovieVm = GetNextPage<CreateMovieViewModel>();
+            var createMovieVm = GetNextPage<AddEditMoviePageViewModel>();
             createMovieVm.Name = "integration test movie 1";
             createMovieVm.Overview = "just testing integration test";
             //create movie
             await createMovieVm.CreateCommand.ExecuteAsync();
             EnsureNoError();
             //navigated back to main page
-            mainVm = GetNextPage<MainViewModel>();
+            mainVm = GetNextPage<MoviesPageViewModel>();
             var newCount = mainVm.MovieItems.Count;
             //validate
             Assert.IsTrue(newCount == oldMovieCount + 1, "The old items count should increase to one item");

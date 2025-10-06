@@ -1,13 +1,8 @@
 ﻿using BestApp.Abstraction.General.UI;
-using BestApp.ViewModels;
+using BestApp.ViewModels.Movies;
 using Common.Abstrtactions;
 using DryIoc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnitTest.ViewModel.Base;
 
 namespace UnitTest.ViewModel
@@ -20,7 +15,7 @@ namespace UnitTest.ViewModel
         {
             var loggingService = Container.Resolve<ILoggingService>();
             var popupAlert = Container.Resolve<IPopupAlert>();
-            var createVm = Container.Resolve<CreateMovieViewModel>();            
+            var createVm = Container.Resolve<AddEditMoviePageViewModel>();            
             int errorCount = 0;
             popupAlert.PopupShowed += (s, popupType) =>
             {

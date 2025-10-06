@@ -1,5 +1,5 @@
 ﻿using BestApp.ViewModels.Base;
-using BestApp.X.Droid.Pages;
+using BestApp.X.Droid.Pages.Base;
 using INavigationParameters = BestApp.Abstraction.General.Platform.INavigationParameters;
 
 namespace KYChat.Controls.Navigation;

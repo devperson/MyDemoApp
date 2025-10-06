@@ -2,9 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>    
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ItemViewModel\**" />
+    <EmbeddedResource Remove="ItemViewModel\**" />
+    <None Remove="ItemViewModel\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DryIoc.dll" Version="4.5.0" />

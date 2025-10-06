@@ -57,12 +57,6 @@
 /.vs/BestApp/v17/TestStore/OutputMessages/19de38ba-eccd-b643-6940-8406bfe615e4/StandardOutput.txt
 /UnitTest.InfrasImpl/obj
 /UnitTest.InfrasImpl/bin
-/.vs/BestApp/FileContentIndex/2bdb3e8b-d1ab-4173-99f7-ffc4e5a6eda9.vsidx
-/.vs/BestApp/FileContentIndex/465ece93-f5f0-4407-853e-8947f2687617.vsidx
-/.vs/BestApp/FileContentIndex/69a92e96-4586-4994-959c-3039aff90741.vsidx
-/.vs/BestApp/FileContentIndex/a1ace3f5-e39c-4279-88b8-850e62994763.vsidx
-/.vs/BestApp/FileContentIndex/aea99898-e052-4c7d-b99a-a9ef763359d6.vsidx
-/.vs/BestApp/v17/TestStore/0/015.testlog
-/.vs/BestApp/v17/TestStore/OutputMessages/ad1194f7-761a-54d6-3542-156905d54f54/StandardOutput.txt
-/IntegrationTest/bin
+/.vs
 /IntegrationTest/obj
+/IntegrationTest/bin

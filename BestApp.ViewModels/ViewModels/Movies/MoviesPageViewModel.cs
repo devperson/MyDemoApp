@@ -2,27 +2,28 @@
 using BestApp.Abstraction.General.Infasructures;
 using BestApp.Abstraction.General.Infasructures.Events;
 using BestApp.ViewModels.Base;
-using BestApp.ViewModels.ItemViewModel;
+using BestApp.ViewModels.Helper.Commands;
+using BestApp.ViewModels.Movies.ItemViewModel;
 using Logging.Aspects;
 using System.Collections.ObjectModel;
 using BestApp.ViewModels.Extensions;
 
-namespace BestApp.ViewModels
+namespace BestApp.ViewModels.Movies
 {
     [LogMethods]
-    public class MainViewModel : PageViewModel
+    public class MoviesPageViewModel : PageViewModel
     {        
         private readonly Lazy<IMovieService> movieService;
         private readonly Lazy<IInfrastructureServices> infrastructureServices;
         private AuthErrorEvent authErrorEvent;
 
-        public MainViewModel(InjectedServices services, Lazy<IMovieService> movieService, Lazy<IInfrastructureServices> infrastructureServices) : base(services)
+        public MoviesPageViewModel(InjectedServices services, Lazy<IMovieService> movieService, Lazy<IInfrastructureServices> infrastructureServices) : base(services)
         {
             
             this.movieService = movieService;
             this.infrastructureServices = infrastructureServices;
             AddCommand = new AsyncCommand(OnAddCommand);
-            ItemSelectedCommand = new AsyncCommand(OnItemSelectedCommand);
+            ItemTappedCommand = new AsyncCommand(OnItemTappedCommand);
 
             authErrorEvent = services.EventAggregator.GetEvent<AuthErrorEvent>();
             authErrorEvent.Subscribe(HandleAuthErrorEvent);
@@ -30,7 +31,7 @@ namespace BestApp.ViewModels
 
         public ObservableCollection<MovieItemViewModel> MovieItems { get; set; }
         public AsyncCommand AddCommand { get; set; }
-        public AsyncCommand ItemSelectedCommand { get; set; }
+        public AsyncCommand ItemTappedCommand { get; set; }
 
         
 
@@ -75,9 +76,9 @@ namespace BestApp.ViewModels
 
             try
             {
-                if (parameters.ContainsKey(CreateMovieViewModel.NEW_ITEM))
+                if (parameters.ContainsKey(AddEditMoviePageViewModel.NEW_ITEM))
                 {
-                    var newProduct = parameters.GetValue<MovieItemViewModel>(CreateMovieViewModel.NEW_ITEM);
+                    var newProduct = parameters.GetValue<MovieItemViewModel>(AddEditMoviePageViewModel.NEW_ITEM);
                     MovieItems.Add(newProduct);
                 }
             }
@@ -89,17 +90,20 @@ namespace BestApp.ViewModels
 
         protected override async Task OnRefreshCommand(object arg)
         {
+            IsRefreshing = true;
             await ShowLoadingAndHandleError(async () =>
             {
                 await LoadData(remoteList: true);
             });
+
+            IsRefreshing = false;
         }
 
         private async Task OnAddCommand(object arg)
         {
             try
             {
-                await Navigate(nameof(CreateMovieViewModel));
+                await Navigate(nameof(AddEditMoviePageViewModel));
             }
             catch (Exception ex)
             {
@@ -107,7 +111,7 @@ namespace BestApp.ViewModels
             }
         }
 
-        private Task OnItemSelectedCommand(object arg)
+        private Task OnItemTappedCommand(object arg)
         {
             try
             {
@@ -137,7 +141,7 @@ namespace BestApp.ViewModels
                 loggingOut = true;
 
                 var currentPageViewModel = GetCurrentPageViewModel();
-                if (!(currentPageViewModel is MainViewModel))
+                if (!(currentPageViewModel is MoviesPageViewModel))
                     await currentPageViewModel.NavigateToRoot();
 
                 ////force to log out

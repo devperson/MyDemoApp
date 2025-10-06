@@ -56,8 +56,8 @@ namespace BestApp.Impl.Cross
             //Sqlite            
             RepoMapper.RegisterMapping(mapperConfig);
             container.Register<ILocalDbInitilizer, SqliteDbInitilizer>(Reuse.Singleton);
-            container.Register<IRepository<Product>, SqliteRepository<Product, ProductTable>>(Reuse.Singleton);
-            container.Register<IRepository<Movie>, SqliteRepository<Movie, MoviewTb>>(Reuse.Singleton);
+            container.Register<IRepository<Product>, SqliteRepository<Product, ProductTb>>(Reuse.Singleton);
+            container.Register<IRepository<Movie>, SqliteRepository<Movie, MovieTb>>(Reuse.Singleton);
             container.Register<IDatabaseInfo, DatabaseInfo>(Reuse.Singleton);            
             //rest service
             container.Register<IRestClient, RestClient>();

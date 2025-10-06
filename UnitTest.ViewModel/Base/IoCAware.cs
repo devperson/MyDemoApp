@@ -4,8 +4,8 @@ using BestApp.Abstraction.General.Infasructures;
 using BestApp.Abstraction.General.Infasructures.Events;
 using BestApp.Abstraction.General.Platform;
 using BestApp.Abstraction.General.UI;
-using BestApp.ViewModels;
 using BestApp.ViewModels.Base;
+using BestApp.ViewModels.Movies;
 using Common.Abstrtactions;
 using DryIoc;
 using Logging.Aspects;
@@ -100,8 +100,8 @@ namespace UnitTest.ViewModel.Base
 
             //viewmodels
             container.Register<InjectedServices>();
-            container.Register<MainViewModel>();
-            container.Register<CreateMovieViewModel>();
+            container.Register<MoviesPageViewModel>();
+            container.Register<AddEditMoviePageViewModel>();
         }
     }
 }

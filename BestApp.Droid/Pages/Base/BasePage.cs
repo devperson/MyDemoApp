@@ -3,7 +3,7 @@ using BestApp.ViewModels.Base;
 using BestApp.X.Droid.Utils;
 using Common.Abstrtactions;
 
-namespace BestApp.X.Droid.Pages
+namespace BestApp.X.Droid.Pages.Base
 {
     public class BasePage : AndroidX.Fragment.App.Fragment, IDispatchEventListener
     {
@@ -23,8 +23,8 @@ namespace BestApp.X.Droid.Pages
         {
             base.OnCreate(savedInstanceState);
 
-            if (this.loggingService == null)
-                this.loggingService = ContainerLocator.Container.Resolve<ILoggingService>();
+            if (loggingService == null)
+                loggingService = ContainerLocator.Container.Resolve<ILoggingService>();
         }
 
 

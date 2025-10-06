@@ -15,8 +15,8 @@ namespace BestApp.Impl.Cross.Map
         internal static void RegisterMapping(TypeAdapterConfig config)
         {
             //register mapping
-            config.NewConfig<Product, ProductTable>().TwoWays();
-            config.NewConfig<MoviewTb, MoviewTb>().TwoWays();
+            config.NewConfig<Product, ProductTb>().TwoWays();
+            config.NewConfig<Movie, MovieTb>().TwoWays();
         }
     }
 }

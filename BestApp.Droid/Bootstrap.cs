@@ -1,8 +1,14 @@
-﻿using BestApp.Abstraction.General.Platform;
-using BestApp.ViewModels;
+﻿using BestApp.Abstraction.Common;
+using BestApp.Abstraction.General.Platform;
+using BestApp.ViewModels.Login;
+using BestApp.ViewModels.Movies;
+using BestApp.X.Droid.Pages.Login;
+using BestApp.X.Droid.Pages.Movies;
 using BestApp.X.Droid.Utils;
 using Common.Abstrtactions;
 using Logging.Aspects;
+using DryIoc;
+using KYChat.Controls.Navigation;
 using System.Globalization;
 
 namespace BestApp.X.Droid
@@ -17,14 +23,7 @@ namespace BestApp.X.Droid
             ContainerLocator.SetContainerExtension(container);
             //var containerRegistry = ContainerLocator.Current;
             var dryIocContainer = (DryIocContainerExtension)container;
-
-            var constImpl = new ConstantImpl()
-            {
-                ServerUrlHost = "https://api.themoviedb.org/3/",
-            };
-            container.RegisterInstance(constImpl);
-
-            
+            container.RegisterSingleton<IConstants, ConstantImpl>();
 
             //register app, infrastructure services            
             Impl.Cross.Registerar.RegisterTypes(dryIocContainer.Instance);
@@ -32,12 +31,18 @@ namespace BestApp.X.Droid
             LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
 
             //register ViewModel for navigation
+            container.RegisterPageForNavigation<LoginPage, LoginPageViewModel>();
+            container.RegisterPageForNavigation<MoviesPage, MoviesPageViewModel>();
+            container.RegisterPageForNavigation<MovieDetailPage, MovieDetailPageViewModel>();
+            container.RegisterPageForNavigation<AddEditMoviePage, AddEditMoviePageViewModel>();            
         }
 
 
         public async Task NavigateToPageAsync(IPageNavigationService pageNavigationService)
         {
-            await pageNavigationService.Navigate($"/{nameof(MainViewModel)}", animated: false);
+            await pageNavigationService.Navigate($"/{nameof(LoginPageViewModel)}", animated: false);
+
+            //await pageNavigationService.Navigate($"/{nameof(MoviesPageViewModel)}", animated: false);
 
             //this.loggingService = ContainerLocator.Container.Resolve<ILoggingService>();
             //this.SubscribeToUnhandledErrors();

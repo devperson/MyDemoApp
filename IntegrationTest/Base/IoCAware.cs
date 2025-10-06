@@ -14,6 +14,7 @@ using Logging.Aspects;
 using Mapster;
 using MapsterMapper;
 using UnitTest.Impl;
+using BestApp.ViewModels.Movies;
 
 namespace IntegrationTest.Base
 {
@@ -68,8 +69,8 @@ namespace IntegrationTest.Base
 
             //viewmodels
             container.Register<InjectedServices>();
-            container.RegisterViewModel<MainViewModel>();
-            container.RegisterViewModel<CreateMovieViewModel>();
+            container.RegisterViewModel<MoviesPageViewModel>();
+            container.RegisterViewModel<AddEditMoviePageViewModel>();
 
             Logger = container.Resolve<ILoggingService>();
             LogMethodsAttribute.LoggingService = Logger;

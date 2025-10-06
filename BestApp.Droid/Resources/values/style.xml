@@ -17,4 +17,36 @@
 		<!--<item name="popupMenuStyle">@style/Widget.App.PopupMenu</item>-->
 	</style>
 
+
+	<style name="BaseColorButtonStyle" parent="Widget.Material3.Button">
+		<item name="android:layout_height">55dp</item>
+		<item name="android:minHeight">55dp</item>
+		<item name="android:textSize">16sp</item>
+		<item name="android:textColor">@color/white</item>
+	</style>
+
+	<style name="PrimaryButtonStyle" parent="BaseColorButtonStyle">
+		<item name="backgroundTint">@drawable/bg_btn_primary_selector</item>
+	</style>
+
+
+	<style name="IconButtonStyle" parent="Widget.Material3.Button.IconButton">
+		<item name="iconTint">@color/LabelColor</item>
+		<item name="backgroundTint">@color/white</item>
+		<item name="iconSize">25dp</item>
+	</style>
+
+	<style name="editTextStyle">
+		<item name="android:textSize">16sp</item>
+		<item name="android:layout_height">45dp</item>
+		<item name="android:background">@drawable/bg_edit_text_selector</item>
+		<item name="android:gravity">center_vertical</item>
+		<item name="android:maxLines">1</item>
+		<item name="android:paddingLeft">20dp</item>
+		<item name="android:paddingTop">10dp</item>
+		<item name="android:paddingBottom">10dp</item>
+		<item name="android:paddingRight">20dp</item>
+		<item name="android:textColor">@color/black</item>
+	</style>
+
 </resources>

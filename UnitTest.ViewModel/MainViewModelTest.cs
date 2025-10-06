@@ -1,9 +1,8 @@
-﻿using BestApp.ViewModels;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTest.ViewModel.Base;
 using DryIoc;
-using System.Threading.Tasks;
 using Common.Abstrtactions;
+using BestApp.ViewModels.Movies;
 
 namespace UnitTest.ViewModel
 {
@@ -13,7 +12,7 @@ namespace UnitTest.ViewModel
         [TestMethod]
         public async Task T1_1TestLoadMethod()
         {
-            var mainVm = Container.Resolve<MainViewModel>();
+            var mainVm = Container.Resolve<MoviesPageViewModel>();
             await mainVm.LoadData();
 
             Assert.IsTrue(mainVm.MovieItems.Any());
@@ -24,7 +23,7 @@ namespace UnitTest.ViewModel
         [TestMethod]
         public async Task T1_2TestNavigateToCreateProduct()
         {
-            var mainVm = Container.Resolve<MainViewModel>();
+            var mainVm = Container.Resolve<MoviesPageViewModel>();
             await mainVm.AddCommand.ExecuteAsync();
 
             var loggingService = Container.Resolve<ILoggingService>();
@@ -34,13 +33,11 @@ namespace UnitTest.ViewModel
         [TestMethod]
         public async Task T1_3TestPullRefresh()
         {
-            var mainVm = Container.Resolve<MainViewModel>();
+            var mainVm = Container.Resolve<MoviesPageViewModel>();
             await mainVm.RefreshCommand.ExecuteAsync();
 
             var loggingService = Container.Resolve<ILoggingService>();
             Assert.IsFalse(loggingService.HasError);
         }
-
-
     }
 }

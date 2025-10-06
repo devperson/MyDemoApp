@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.X.Droid.Pages
+namespace BestApp.X.Droid.Pages.Base
 {
     internal class PageEnterAnimationListner : Java.Lang.Object, Animation.IAnimationListener //Animator.IAnimatorListener
     {
@@ -21,7 +21,7 @@ namespace BestApp.X.Droid.Pages
         {
             MainActivity.Instance.RunOnUiThread(() =>
             {
-                this.page.OnPageEnterAnimationCompleted();
+                page.OnPageEnterAnimationCompleted();
             });
         }
 

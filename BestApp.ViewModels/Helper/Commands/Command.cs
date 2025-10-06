@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Windows.Input;
 
-namespace BestApp.ViewModels
+namespace BestApp.ViewModels.Helper.Commands
 {
     public sealed class Command<T> : Command
     {

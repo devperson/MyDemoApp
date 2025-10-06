@@ -2,10 +2,11 @@
 using Android.Views.Animations;
 using Android.Views;
 using AndroidX.Core.View;
+using BestApp.X.Droid.Utils;
 
-namespace BestApp.X.Droid.Pages
+namespace BestApp.X.Droid.Pages.Base
 {
-    public class LifecyclePage : BasePage, global::AndroidX.Core.View.IOnApplyWindowInsetsListener
+    public class LifecyclePage : BasePage, IOnApplyWindowInsetsListener
     {
         protected TextView txtTitle;
         protected Button btnBack;
@@ -26,27 +27,27 @@ namespace BestApp.X.Droid.Pages
         {
             base.OnCreate(savedInstanceState);
 
-            loggingService.Log($"{this.GetType().Name}.OnCreate() (from base)");
+            loggingService.Log($"{GetType().Name}.OnCreate() (from base)");
 
-            this.ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
         }
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
-            loggingService.Log($"{this.GetType().Name}.OnViewCreated() (from base)");
+            loggingService.Log($"{GetType().Name}.OnViewCreated() (from base)");
 
             base.OnViewCreated(view, savedInstanceState);
 
             //this.txtTitle = view.FindViewById<TextView>(Resource.Id.txtTitle);
-            //this.btnBack = view.FindViewById<Button>(Resource.Id.btnBack);
-            //if (this.btnBack != null)
-            //{
-            //    this.btnBack.Visibility = ViewModel.CanGoBack.ToVisibility();
-            //    if (this.btnBack.Visibility == ViewStates.Visible)
-            //    {
-            //        this.btnBack.Click += BtnBack_Click;
-            //    }
-            //}
+            this.btnBack = view.FindViewById<Button>(Resource.Id.btnBack);
+            if (this.btnBack != null)
+            {
+                this.btnBack.Visibility = ViewModel.CanGoBack.ToVisibility();
+                if (this.btnBack.Visibility == ViewStates.Visible)
+                {
+                    this.btnBack.Click += BtnBack_Click;
+                }
+            }
 
             //add loading indicator            
             //this.loadingView = (FrameLayout)LayoutInflater.From(this.Context).Inflate(Resource.Layout.fragment_loading_indicator, view as ViewGroup, false);
@@ -68,7 +69,7 @@ namespace BestApp.X.Droid.Pages
 
             if (rootLayout != null)
             {
-                rootLayout.AddView(this.loadingView);
+                rootLayout.AddView(loadingView);
             }
 
             HandleSoftInput();
@@ -159,7 +160,7 @@ namespace BestApp.X.Droid.Pages
 
         public override Animation OnCreateAnimation(int transit, bool enter, int nextAnim)
         {
-            loggingService.Log($"{this.GetType().Name}.OnCreateAnimation() (from base)");
+            loggingService.Log($"{GetType().Name}.OnCreateAnimation() (from base)");
 
             if (enter && IsPageEnterAnimationCompleted == false && nextAnim > 0)
             {
@@ -182,7 +183,7 @@ namespace BestApp.X.Droid.Pages
 
         public override void OnSaveInstanceState(Bundle outState)
         {
-            loggingService.Log($"{this.GetType().Name}.OnSaveInstanceState() (from base)");
+            loggingService.Log($"{GetType().Name}.OnSaveInstanceState() (from base)");
 
             base.OnSaveInstanceState(outState);
         }
@@ -190,32 +191,32 @@ namespace BestApp.X.Droid.Pages
         #region Lifecycle Events
         public override void OnHiddenChanged(bool hidden)
         {
-            loggingService.Log($"{this.GetType().Name}.OnHiddenChanged(hidden={hidden}) (from base)");
+            loggingService.Log($"{GetType().Name}.OnHiddenChanged(hidden={hidden}) (from base)");
 
             base.OnHiddenChanged(hidden);
 
             if (hidden)
             {
-                this.ViewModel?.OnDisappearing();
-                this.OnViewDisappearing();
+                ViewModel?.OnDisappearing();
+                OnViewDisappearing();
             }
             else
             {
-                this.ViewModel?.OnAppearing();
-                this.OnViewAppearing();
+                ViewModel?.OnAppearing();
+                OnViewAppearing();
             }
         }
 
         public override void OnStart()
         {
-            loggingService.Log($"{this.GetType().Name}.OnStart() (from base)");
+            loggingService.Log($"{GetType().Name}.OnStart() (from base)");
 
             isVisible = true;
 
             if (IsCurrentPage() && isVisible)
             {
-                this.ViewModel?.OnAppearing();
-                this.OnViewAppearing();
+                ViewModel?.OnAppearing();
+                OnViewAppearing();
             }
 
             base.OnStart();
@@ -223,7 +224,7 @@ namespace BestApp.X.Droid.Pages
 
         public override async void OnResume()
         {
-            loggingService.Log($"{this.GetType().Name}.OnResume() (from base)");
+            loggingService.Log($"{GetType().Name}.OnResume() (from base)");
 
             base.OnResume();
 
@@ -236,14 +237,14 @@ namespace BestApp.X.Droid.Pages
             {
                 onApprearedSent = true;
                 await Task.Delay(600);
-                this.ViewModel?.OnAppeared();
-                this.OnViewAppeared();
+                ViewModel?.OnAppeared();
+                OnViewAppeared();
             }
         }
 
         public override void OnPause()
         {
-            loggingService.Log($"{this.GetType().Name}.OnPause() (from base)");
+            loggingService.Log($"{GetType().Name}.OnPause() (from base)");
 
             isVisible = false;
 
@@ -252,13 +253,13 @@ namespace BestApp.X.Droid.Pages
 
         public override void OnStop()
         {
-            loggingService.Log($"{this.GetType().Name}.OnStop() (from base)");
+            loggingService.Log($"{GetType().Name}.OnStop() (from base)");
 
             isVisible = false;
             if (IsCurrentPage())
             {
-                this.ViewModel?.OnDisappearing();
-                this.OnViewDisappearing();
+                ViewModel?.OnDisappearing();
+                OnViewDisappearing();
             }
 
             base.OnStop();
@@ -281,7 +282,7 @@ namespace BestApp.X.Droid.Pages
 
         public override void OnDestroyView()
         {
-            loggingService.Log($"{this.GetType().Name}.OnDestroyView() (from base)");
+            loggingService.Log($"{GetType().Name}.OnDestroyView() (from base)");
 
             base.OnDestroyView();
 
@@ -295,7 +296,7 @@ namespace BestApp.X.Droid.Pages
 
         public override void OnDestroy()
         {
-            loggingService.Log($"{this.GetType().Name}.OnDestroy() (from base)");
+            loggingService.Log($"{GetType().Name}.OnDestroy() (from base)");
 
             base.OnDestroy();
 
@@ -305,14 +306,14 @@ namespace BestApp.X.Droid.Pages
                 pageAnimationListener = null;
             }
 
-            this.ViewModel.PropertyChanged -= ViewModel_PropertyChanged;
-            this.ViewModel?.Destroy();
+            ViewModel.PropertyChanged -= ViewModel_PropertyChanged;
+            ViewModel?.Destroy();
         }
         #endregion
 
         private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            loggingService.Log($"{this.GetType().Name}.ViewModel_PropertyChanged({e.PropertyName})");
+            loggingService.Log($"{GetType().Name}.ViewModel_PropertyChanged({e.PropertyName})");
 
             //if (e.PropertyName == BusyLoadingProp)
             //{
@@ -347,7 +348,7 @@ namespace BestApp.X.Droid.Pages
 
         }
 
-        private async void BtnBack_Click(object sender, System.EventArgs e)
+        private async void BtnBack_Click(object sender, EventArgs e)
         {
             await ViewModel.BackCommand.ExecuteAsync();
         }

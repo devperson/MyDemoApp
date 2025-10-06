@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace BestApp.ViewModels
+namespace BestApp.ViewModels.Helper.Commands
 {
     public class WeakEventManager
     {
