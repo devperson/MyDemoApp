@@ -1,4 +1,5 @@
 ﻿using BestApp.Abstraction.General.Platform;
+using BestApp.ViewModels.Helper.Commands;
 using System.Text;
 using INavigationParameters = BestApp.Abstraction.General.Platform.INavigationParameters;
 

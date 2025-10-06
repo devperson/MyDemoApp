@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BestApp.Impl.Cross.Infasructures.Repositories.Tables
 {
-    internal class MoviewTb : ITable
+    internal class MovieTb : ITable
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

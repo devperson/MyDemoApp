@@ -3,8 +3,8 @@ using BestApp.Abstraction.General.AppService.Dto;
 using BestApp.Abstraction.General.Infasructures;
 using BestApp.Abstraction.General.Platform;
 using BestApp.Abstraction.General.UI;
-using BestApp.ViewModels;
 using BestApp.ViewModels.Base;
+using BestApp.ViewModels.ViewModels.Movies;
 using Common.Abstrtactions;
 using DryIoc;
 using Mapster;
@@ -91,8 +91,8 @@ namespace UnitTest.ViewModel.Base
             container.Register<IPopupAlert, MockPopup>(Reuse.Singleton);
 
 
-            container.Register<MainViewModel>();
-            container.Register<CreateMovieViewModel>();
+            container.Register<MoviesPageViewModel>();
+            container.Register<AddEditMoviePageViewModel>();
         }
     }
 }

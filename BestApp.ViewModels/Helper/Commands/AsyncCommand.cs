@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace BestApp.ViewModels
+namespace BestApp.ViewModels.Helper.Commands
 {
     // <summary>
     /// Simplifies using an "async" method as the implementor of a Command.

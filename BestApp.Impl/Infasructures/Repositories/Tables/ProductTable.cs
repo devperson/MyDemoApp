@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BestApp.Impl.Cross.Infasructures.Repositories.Tables
 {
-    public class ProductTable : ITable
+    public class ProductTb : ITable
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

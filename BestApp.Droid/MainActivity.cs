@@ -3,6 +3,8 @@
 using Android.Runtime;
 using Android.Views;
 using AndroidX.AppCompat.App;
+using BestApp.ViewModels.Base;
+using BestApp.X.Droid.Pages.Base;
 using Common.Abstrtactions;
 using Microsoft.Maui.ApplicationModel;
 using System.Globalization;
@@ -63,6 +65,21 @@ namespace BestApp.X.Droid
             CultureInfo.DefaultThreadCurrentUICulture = englishUSCulture;
         }
 
+        public PageViewModel GetCurrentViewModel()
+        {
+            var vm = this.pageNavigationService.GetCurrentPageModel() as PageViewModel;
+            return vm;
+        }
 
+        public PageViewModel GetRootPageViewModel()
+        {
+            var vm = this.pageNavigationService.GetRootPageModel() as PageViewModel;
+            return vm;
+        }
+
+        public LifecyclePage GetCurrentPage()
+        {
+            return this.pageNavigationService.GetCurrentPage();
+        }
     }
 }

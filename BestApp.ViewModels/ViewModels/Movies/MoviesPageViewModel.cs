@@ -2,32 +2,33 @@
 using BestApp.Abstraction.General.AppService;
 using BestApp.Abstraction.General.Infasructures;
 using BestApp.ViewModels.Base;
-using BestApp.ViewModels.ItemViewModel;
+using BestApp.ViewModels.Helper.Commands;
+using BestApp.ViewModels.Movies.ItemViewModel;
 using Logging.Aspects;
 using System.Collections.ObjectModel;
 
-namespace BestApp.ViewModels
+namespace BestApp.ViewModels.Movies
 {
     [LogMethods]
-    public class MainViewModel : PageViewModel
+    public class MoviesPageViewModel : PageViewModel
     {        
         private readonly Lazy<IMovieService> movieService;
         private readonly Lazy<IInfrastructureServices> infrastructureServices;
 
-        public MainViewModel(InjectedServices services, Lazy<IMovieService> movieService, Lazy<IInfrastructureServices> infrastructureServices) : base(services)
+        public MoviesPageViewModel(InjectedServices services, Lazy<IMovieService> movieService, Lazy<IInfrastructureServices> infrastructureServices) : base(services)
         {
             
             this.movieService = movieService;
             this.infrastructureServices = infrastructureServices;
             AddCommand = new AsyncCommand(OnAddCommand);
-            ItemSelectedCommand = new AsyncCommand(OnItemSelectedCommand);
+            ItemTappedCommand = new AsyncCommand(OnItemTappedCommand);
         }
 
         
 
         public ObservableCollection<MovieItemViewModel> MovieItems { get; set; }
         public AsyncCommand AddCommand { get; set; }
-        public AsyncCommand ItemSelectedCommand { get; set; }
+        public AsyncCommand ItemTappedCommand { get; set; }
 
         public override void Initialize(Abstraction.General.Platform.INavigationParameters parameters)
         {
@@ -70,9 +71,9 @@ namespace BestApp.ViewModels
 
             try
             {
-                if (parameters.ContainsKey(CreateMovieViewModel.NEW_ITEM))
+                if (parameters.ContainsKey(AddEditMoviePageViewModel.NEW_ITEM))
                 {
-                    var newProduct = parameters.GetValue<MovieItemViewModel>(CreateMovieViewModel.NEW_ITEM);
+                    var newProduct = parameters.GetValue<MovieItemViewModel>(AddEditMoviePageViewModel.NEW_ITEM);
                     MovieItems.Add(newProduct);
                 }
             }
@@ -84,10 +85,13 @@ namespace BestApp.ViewModels
 
         protected override async Task OnRefreshCommand(object arg)
         {
+            IsRefreshing = true;
             await ShowLoadingAndHandleError(async () =>
             {
                 await LoadData(remoteList: true);
             });
+
+            IsRefreshing = false;
         }
 
         private async Task OnAddCommand(object arg)
@@ -102,7 +106,7 @@ namespace BestApp.ViewModels
             }
         }
 
-        private Task OnItemSelectedCommand(object arg)
+        private Task OnItemTappedCommand(object arg)
         {
             try
             {

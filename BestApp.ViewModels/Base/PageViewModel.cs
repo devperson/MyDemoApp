@@ -1,5 +1,6 @@
 ﻿using BestApp.Abstraction.General.Platform;
 using BestApp.ViewModels.Helper;
+using BestApp.ViewModels.Helper.Commands;
 using Common.Abstrtactions;
 using Example;
 using Logging.Aspects;
@@ -22,6 +23,7 @@ namespace BestApp.ViewModels.Base
         public bool BusyLoading { get; set; }
         public AsyncCommand RefreshCommand { get; set; }
         private bool isFirstTimeAppears = true;
+        public bool IsRefreshing { get; set; }
 
         public virtual void OnAppearing()
         {

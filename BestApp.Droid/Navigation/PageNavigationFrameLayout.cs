@@ -2,7 +2,7 @@
 using Android.Runtime;
 using Android.Util;
 using BestApp.Abstraction.General.Platform;
-using BestApp.X.Droid.Pages;
+using BestApp.X.Droid.Pages.Base;
 using BestApp.X.Droid.Utils;
 using Common.Abstrtactions;
 using KYChat.Controls.Navigation;

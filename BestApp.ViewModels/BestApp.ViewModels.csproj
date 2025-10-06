@@ -2,8 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>    
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +16,10 @@
   <ItemGroup>
     <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.General.csproj" />
     <ProjectReference Include="..\Common.Abstrtactions\BestApp.Abstraction.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ItemViewModel\" />
   </ItemGroup>
 
 </Project>
