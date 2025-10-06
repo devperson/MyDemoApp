@@ -3,18 +3,16 @@ using BestApp.Abstraction.General.Infasructures.Exceptions;
 using BestApp.Abstraction.General.Infasructures.REST;
 using Common.Abstrtactions;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BestApp.Impl.Cross.Infasructures.REST
 {
     internal class MovieRestService : RestService, IMovieRestService
     {
-        public MovieRestService(Lazy<ILoggingService> loggingService, Lazy<IAuthTokenService> authTokenService, Lazy<IRestClient> restClient) : base(loggingService, authTokenService, restClient)
+        public MovieRestService(Lazy<ILoggingService> loggingService, 
+                                Lazy<IAuthTokenService> authTokenService, 
+                                Lazy<IRestClient> restClient, 
+                                Lazy<IEventAggregator> eventAggregator, 
+                                RequestQueueList requestQueues) : base(loggingService, authTokenService, restClient, eventAggregator, requestQueues)
         {
         }
 

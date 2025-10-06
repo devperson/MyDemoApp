@@ -29,13 +29,18 @@ namespace BestApp.Impl.Cross
             container.Register<IMapper, Mapper>(Reuse.Singleton);
 
             //Register Common
-            container.Register<IFileLoger, NLogFileLoger>(Reuse.Singleton);            
-            container.Register<ILoggingService, AppLoggingService>(Reuse.Singleton);
-
+            RegisterCommon(container);
             //register infrastructures           
             RegisterInfrastructureService(container, mapperConfig);
             //register appService
             RegisterAppService(container, mapperConfig);
+        }
+
+        public static void RegisterCommon(IContainer container)
+        {
+            container.Register<IFileLoger, NLogFileLoger>(Reuse.Singleton);
+            container.Register<ILoggingService, AppLoggingService>(Reuse.Singleton);
+            container.Register<IEventAggregator, EventAggregator>(Reuse.Singleton);
         }
 
         public static void RegisterAppService(IContainer container, TypeAdapterConfig mapperConfig)
@@ -56,6 +61,7 @@ namespace BestApp.Impl.Cross
             container.Register<IDatabaseInfo, DatabaseInfo>(Reuse.Singleton);            
             //rest service
             container.Register<IRestClient, RestClient>();
+            container.Register<RequestQueueList>();
             container.Register<IAuthTokenService, AuthTokenService>(Reuse.Singleton);
             container.Register<IRestQueueService, RequestQueueList>(Reuse.Singleton);
             container.Register<IPorductRestService, ProductRestService>(Reuse.Singleton);

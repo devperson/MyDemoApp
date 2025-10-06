@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTest.Impl
+namespace UnitTest.InfrasImpl.Impl
 {
     internal class DirectoryService : IDirectoryService
     {
@@ -23,7 +23,7 @@ namespace UnitTest.Impl
         public string GetDbPath()
         {
             var myDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var dbDir = Path.Combine(myDir, "AppServiceTestDatabaseDir");
+            var dbDir = Path.Combine(myDir, "InfraTestDatabaseDir");
             if (!Directory.Exists(dbDir))
             {
                 Directory.CreateDirectory(dbDir);
@@ -37,7 +37,7 @@ namespace UnitTest.Impl
         public string GetCacheDir()
         {
             var myDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var cacheDir = Path.Combine(myDir, "AppServiceTestDirCache");
+            var cacheDir = Path.Combine(myDir, "InfraTestDirCache");
             if (!Directory.Exists(cacheDir))
             {
                 Directory.CreateDirectory(cacheDir);
@@ -49,7 +49,7 @@ namespace UnitTest.Impl
         public string GetAppDataDir()
         {
             var myDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var dataDir = Path.Combine(myDir, "AppServiceTestDataDir");
+            var dataDir = Path.Combine(myDir, "InfraTestDataDir");
             if (!Directory.Exists(dataDir))
             {
                 Directory.CreateDirectory(dataDir);

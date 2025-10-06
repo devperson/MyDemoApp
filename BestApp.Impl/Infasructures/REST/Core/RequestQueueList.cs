@@ -4,7 +4,7 @@ using System.Timers;
 
 namespace BestApp.Impl.Cross.Infasructures.REST
 {
-    public class RequestQueueList : List<RequestQueueItem>, IRestQueueService
+    internal class RequestQueueList : List<RequestQueueItem>, IRestQueueService
     {
         public RequestQueueList(Lazy<ILoggingService> loggingService)
         {
@@ -78,12 +78,12 @@ namespace BestApp.Impl.Cross.Infasructures.REST
 
                     if (canStart)
                     {
-                        RequestStarted?.Invoke(this, item);
+                        OnRequestStarted(item);                        
                         item.RunRequest();
                     }
                     else
                     {
-                        RequestPending?.Invoke(this, currentList.LastOrDefault());
+                        OnRequestPending(currentList.LastOrDefault());                        
                     }
                 }
             }
@@ -102,7 +102,7 @@ namespace BestApp.Impl.Cross.Infasructures.REST
 
         public async void OnItemCompleted(RequestQueueItem requestQueueItem)
         {
-            RequestCompleted?.Invoke(this, requestQueueItem);
+            OnRequestCompleted(requestQueueItem);
             //CheckForSimilarRequest(requestQueueItem);
 
             var currentCount = this.Count;
@@ -150,6 +150,55 @@ namespace BestApp.Impl.Cross.Infasructures.REST
             }
         }
 
+        private void OnRequestPending(RequestQueueItem item)
+        {
+            try
+            {
+                loggingService.Value.Log($"Waiting to running requests to complete. {GetQueueInfo()}");
+                RequestPending?.Invoke(this, item);
+            }
+            catch (Exception ex)
+            {
+                loggingService.Value.LogError(ex, string.Empty);
+            }
+        }
+
+        private void OnRequestStarted(RequestQueueItem e)
+        {
+            try
+            {
+                loggingService.Value.Log($"The next request {e.Id} started. {GetQueueInfo()}");
+            }
+            catch (Exception ex)
+            {
+                loggingService.Value.LogError(ex, string.Empty);
+            }
+        }
+
+        private void OnRequestCompleted(RequestQueueItem e)
+        {
+            try
+            {
+                loggingService.Value.Log($"The request {e.Id} completed. {GetQueueInfo()}");
+            }
+            catch (Exception ex)
+            {
+                loggingService.Value.LogError(ex, string.Empty);
+            }
+        }
+
+        private string GetQueueInfo()
+        {
+            var list = this.ToList();
+            var totalCount = list.Count;
+            var runningCount = list.Count(s => s.IsRunning);
+            var priorityCount = list.Count(s => s.Priority == Priority.HIGH);
+            var infoStr = $"Queue total count: {totalCount}, running count: {runningCount}, high priority count: {priorityCount}";
+
+            return infoStr;
+        }
+
+
         //private void CheckForSimilarRequest(RequestQueueItem requestQueueItem)
         //{
         //    var theSameQuery = this.Where(s => s.Id == requestQueueItem.Id).ToList();
@@ -164,7 +213,7 @@ namespace BestApp.Impl.Cross.Infasructures.REST
         //}
     }
 
-    public class RequestQueueItem
+    internal class RequestQueueItem
     {      
         public DateTime StartedAt { get; set; }
         public RequestQueueList ParentList { get; set; }

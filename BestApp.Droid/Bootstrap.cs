@@ -1,6 +1,8 @@
 ﻿using BestApp.Abstraction.General.Platform;
 using BestApp.ViewModels;
 using BestApp.X.Droid.Utils;
+using Common.Abstrtactions;
+using Logging.Aspects;
 using System.Globalization;
 
 namespace BestApp.X.Droid
@@ -24,9 +26,10 @@ namespace BestApp.X.Droid
 
             
 
-            //register app, infrastructure services
+            //register app, infrastructure services            
             Impl.Cross.Registerar.RegisterTypes(dryIocContainer.Instance);
             Impl.Droid.Registerar.RegisterTypes(dryIocContainer.Instance);
+            LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
 
             //register ViewModel for navigation
         }

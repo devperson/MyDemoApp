@@ -3,11 +3,6 @@ using BestApp.Abstraction.General.Infasructures.REST;
 using BestApp.Abstraction.General.Platform;
 using Common.Abstrtactions;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BestApp.Impl.Cross.Infasructures.REST
 {
@@ -65,7 +60,7 @@ namespace BestApp.Impl.Cross.Infasructures.REST
 
         public Task<AuthTokenDetails> GetAuthTokenDetails()
         {
-            return Task.Run<AuthTokenDetails>(() =>
+            return Task.Run(() =>
             {
                 var authTokenJson = preferencesService.Value.Get("user_at", string.Empty);
                 if (!string.IsNullOrEmpty(authTokenJson))

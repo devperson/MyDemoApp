@@ -94,18 +94,7 @@ namespace UnitTest.Impl
         {
             return string.Empty;
         }
-
-        public void ForceToLog(string message, Exception ex)
-        {
-            //for debug
-            Debug.WriteLine(message);
-            Debug.WriteLine(ex);
-        }
-
-        public void ForceToLog(Exception ex)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public MemoryStream GetCompressedLogFileStream(bool getOnlyLastSession = false)
         {

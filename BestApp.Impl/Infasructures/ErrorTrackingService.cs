@@ -103,8 +103,11 @@ namespace BestApp.Impl.Cross.Infasructures
 
                         var newLogPath = CreatePathForAttachment();
                         var logBytes = logger.GetLastSessionLogBytes();
-                        File.WriteAllBytes(newLogPath, logBytes);
-                        hint.AddAttachment(newLogPath, AttachmentType.Default, "application/x-zip-compressed");
+                        if (logBytes != null)
+                        {
+                            File.WriteAllBytes(newLogPath, logBytes);
+                            hint.AddAttachment(newLogPath, AttachmentType.Default, "application/x-zip-compressed");
+                        }
                     }
 
                     return ev;

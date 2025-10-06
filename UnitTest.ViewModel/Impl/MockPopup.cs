@@ -1,4 +1,5 @@
 ﻿using BestApp.Abstraction.General.UI;
+using Logging.Aspects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace UnitTest.ViewModel.Impl
 {
+    [LogMethods]
     internal class MockPopup : IPopupAlert
     {
         public event EventHandler<PopupAlertType> PopupShowed;

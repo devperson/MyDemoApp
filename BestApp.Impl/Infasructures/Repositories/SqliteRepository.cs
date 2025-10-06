@@ -29,6 +29,8 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
         
         public async Task<List<TEntity>> GetList(int count=-1, int skip = 0)
         {
+            EnsureInitalized();
+
             List<Table> list = null;
             if(count == -1)
             {

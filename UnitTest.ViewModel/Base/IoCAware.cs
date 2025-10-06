@@ -1,12 +1,14 @@
 ﻿using BestApp.Abstraction.General.AppService;
 using BestApp.Abstraction.General.AppService.Dto;
 using BestApp.Abstraction.General.Infasructures;
+using BestApp.Abstraction.General.Infasructures.Events;
 using BestApp.Abstraction.General.Platform;
 using BestApp.Abstraction.General.UI;
 using BestApp.ViewModels;
 using BestApp.ViewModels.Base;
 using Common.Abstrtactions;
 using DryIoc;
+using Logging.Aspects;
 using Mapster;
 using MapsterMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -55,6 +57,15 @@ namespace UnitTest.ViewModel.Base
             //Register Common
             container.Register<ILoggingService, MockAppLogging>(Reuse.Singleton);
             container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
+            container.Register<IEventAggregator, EventAggregator>(Reuse.Singleton);
+            LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
+
+            //infrastructures
+            var mockInfraService = new Mock<IInfrastructureServices> { DefaultValue = DefaultValue.Mock };
+            var mockEventAggregator = new Mock<IEventAggregator> { DefaultValue = DefaultValue.Mock };            
+            mockEventAggregator.Setup(ea => ea.GetEvent<AuthErrorEvent>()).Returns(new AuthErrorEvent());//mock events
+            container.RegisterInstance(mockInfraService.Object);
+            container.RegisterInstance(mockEventAggregator.Object);
 
             //register app services
             var mockMovieService = new Mock<IMovieService> { DefaultValue = DefaultValue.Mock };
@@ -76,21 +87,19 @@ namespace UnitTest.ViewModel.Base
                 Name = "Test movie1", 
                 Overview = "test overview1"
             }));
-            container.RegisterInstance(mockMovieService.Object);                        
+            container.RegisterInstance(mockMovieService.Object);
 
-            //register ViewModel's required services
-            var mockNavigationService = new Mock<IPageNavigationService> { DefaultValue = DefaultValue.Mock };
-            var mockEventAggregator = new Mock<IEventAggregator> { DefaultValue = DefaultValue.Mock };            
-            var mockPlatformService = new Mock<IPlatformErrorService> { DefaultValue = DefaultValue.Mock };
-            var mockInfraService = new Mock<IInfrastructureServices> { DefaultValue = DefaultValue.Mock };
-            container.RegisterInstance(mockNavigationService.Object);
-            container.RegisterInstance(mockEventAggregator.Object);            
-            container.RegisterInstance(mockPlatformService.Object);
-            container.RegisterInstance(mockInfraService.Object);
-            container.Register<InjectedServices>();
+
+
+            //Platform services
+            var mockNavigationService = new Mock<IPageNavigationService> { DefaultValue = DefaultValue.Mock };           
+            var mockPlatformService = new Mock<IPlatformErrorService> { DefaultValue = DefaultValue.Mock };                             
+            container.RegisterInstance(mockNavigationService.Object);            
+            container.RegisterInstance(mockPlatformService.Object);            
             container.Register<IPopupAlert, MockPopup>(Reuse.Singleton);
 
-
+            //viewmodels
+            container.Register<InjectedServices>();
             container.Register<MainViewModel>();
             container.Register<CreateMovieViewModel>();
         }

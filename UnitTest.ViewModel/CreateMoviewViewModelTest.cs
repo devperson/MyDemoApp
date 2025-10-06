@@ -13,7 +13,7 @@ using UnitTest.ViewModel.Base;
 namespace UnitTest.ViewModel
 {
     [TestClass]
-    public class CreateProductViewModelTest : IoCAware
+    public class CreateMoviewViewModelTest : IoCAware
     {
         [TestMethod]
         public async Task T2_1TestCreateProduct()
@@ -42,7 +42,7 @@ namespace UnitTest.ViewModel
             //note that name, overview should be the same that the moq expects (name:"Test movie1", Overview:test overview1) (see IoC registration)
             await createVm.CreateCommand.ExecuteAsync();
             Assert.IsTrue(errorCount == 2, "validation error");
-            Assert.IsTrue(loggingService.LastError is ArgumentException, "There is another error beside validation error");
+            Assert.IsFalse(loggingService.HasError, "There is another error beside validation error");
         }
     }
 }

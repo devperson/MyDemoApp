@@ -1,64 +1,105 @@
-﻿using BestApp.Abstraction.General.Infasructures.REST;
+﻿using BestApp.Abstraction.General.Infasructures.Events;
+using BestApp.Abstraction.General.Infasructures.Exceptions;
+using BestApp.Abstraction.General.Infasructures.REST;
 using Common.Abstrtactions;
-using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BestApp.Impl.Cross.Infasructures.REST
 {
     internal class RestService
     {
-        public RestService(Lazy<ILoggingService> loggingService, Lazy<IAuthTokenService> authTokenService, Lazy<IRestClient> restClient)
+        public RestService(Lazy<ILoggingService> loggingService, 
+                           Lazy<IAuthTokenService> authTokenService, 
+                           Lazy<IRestClient> restClient, 
+                           Lazy<IEventAggregator> eventAggregator,
+                           RequestQueueList requestQueues)
         {
             this.loggingService = loggingService;            
             this.authTokenService = authTokenService;
             this.restClient = restClient;
-            QueueList = new RequestQueueList(loggingService);
-            QueueList.RequestStarted += QueueList_RequestStarted;
-            QueueList.RequestPending += QueueList_RequestPending;
-            QueueList.RequestCompleted += QueueList_RequestCompleted;
+            this.eventAggregator = eventAggregator;
+            QueueList = requestQueues;
         }
                 
         private RequestQueueList QueueList = null;
         private readonly Lazy<ILoggingService> loggingService;        
         private readonly Lazy<IAuthTokenService> authTokenService;
         private readonly Lazy<IRestClient> restClient;
-        private string Tag = "RestClientService: ";                
-        public const int RETRY_COUNT = 4;
-        
+        private readonly Lazy<IEventAggregator> eventAggregator;
+        private string Tag = "RestClientService: ";       
 
        
         protected Task<T> Get<T>(RestRequest restRequest)
         {
-            return MakeWebRequest<T>(RestMethod.GET, restRequest);
+            return CatchAuthErrors(() =>
+            {
+                return MakeWebRequest<T>(RestMethod.GET, restRequest);
+            });
+            
         }
 
         protected Task<T> Post<T>(RestRequest restRequest)
         {
-            return MakeWebRequest<T>(RestMethod.POST, restRequest);
+            return CatchAuthErrors(() =>
+            {
+                return MakeWebRequest<T>(RestMethod.POST, restRequest);
+            });
         }
 
         protected Task Put(RestRequest restRequest)
         {
-            return MakeWebRequest<object>(RestMethod.PUT, restRequest);         
+            return CatchAuthErrors(() =>
+            {
+                return MakeWebRequest<object>(RestMethod.PUT, restRequest);
+            });                
         }
 
         protected Task<object> Delete(RestRequest restRequest)
         {
-            return MakeWebRequest<object>(RestMethod.DELETE, restRequest);
+            return CatchAuthErrors(() =>
+            {
+                return MakeWebRequest<object>(RestMethod.DELETE, restRequest);
+            });
+            
         }
 
         protected virtual T Deserialize<T>(string json)
         {
-            var obj = JsonConvert.DeserializeObject<T>(json);
-            return obj;
+            //check response for error
+            if(json.Contains("error:"))
+            {
+                var obj = JsonConvert.DeserializeObject<JObject>(json);
+                if(obj.ContainsKey("error"))
+                {
+                    var error = obj["error"].ToString();
+                    throw new RestApiException(error);
+                }
+            }            
+
+            var model = JsonConvert.DeserializeObject<T>(json);            
+            return model;
+        }
+
+        private async Task<T> CatchAuthErrors<T>(Func<Task<T>> requestAction)
+        {
+            try
+            {
+                var result = await requestAction();
+                return result;
+            }
+            catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                //invalid access token
+                eventAggregator.Value.GetEvent<AuthErrorEvent>().Publish();
+                throw;
+            }
+            catch (AuthExpiredException)
+            {
+                //invalid access token
+                eventAggregator.Value.GetEvent<AuthErrorEvent>().Publish();
+                throw;
+            }
         }
 
         private async Task<T> MakeWebRequest<T>(RestMethod restMethod, RestRequest restRequest)
@@ -106,53 +147,7 @@ namespace BestApp.Impl.Cross.Infasructures.REST
             return item.CompletionSource.Task;
         }
 
-        private void QueueList_RequestPending(object sender, RequestQueueItem e)
-        {
-            try
-            {
-                Log($"Waiting to running requests to complete. {GetQueueInfo()}");
-            }
-            catch (Exception ex)
-            {
-                loggingService.Value.LogError(ex, string.Empty);
-            }
-        }
-
-        private void QueueList_RequestStarted(object sender, RequestQueueItem e)
-        {
-            try
-            {
-                Log($"The next request {e.Id} started. {GetQueueInfo()}");
-            }
-            catch (Exception ex)
-            {
-                loggingService.Value.LogError(ex, string.Empty);
-            }
-        }
-
-        private void QueueList_RequestCompleted(object sender, RequestQueueItem e)
-        {
-            try
-            {
-                Log($"The request {e.Id} completed. {GetQueueInfo()}");
-            }
-            catch (Exception ex)
-            {
-                loggingService.Value.LogError(ex, string.Empty);
-            }
-        }
-
-        private string GetQueueInfo()
-        {
-            var list = QueueList.ToList();
-            var totalCount = list.Count;
-            var runningCount = list.Count(s => s.IsRunning);
-            var priorityCount = list.Count(s => s.Priority == Priority.HIGH);
-            var infoStr = $"Queue total count: {totalCount}, running count: {runningCount}, high priority count: {priorityCount}";
-
-            return infoStr;
-        }
-
+        
         private void Log(string message)
         {
             loggingService.Value.Log($"{Tag}{message}");

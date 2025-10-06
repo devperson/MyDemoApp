@@ -12,6 +12,7 @@ using BestApp.Abstraction.General.Infasructures.REST;
 using BestApp.Abstraction.General.AppService.Dto;
 using BestApp.Abstraction.General.AppService;
 using Moq;
+using Logging.Aspects;
 
 namespace UnitTest.ServiceImpl.Base
 {
@@ -51,6 +52,8 @@ namespace UnitTest.ServiceImpl.Base
             //Register Common
             container.Register<ILoggingService, MockAppLogging>(Reuse.Singleton);
             container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
+            container.Register<IEventAggregator, EventAggregator>(Reuse.Singleton);
+            LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
 
             //register infrastructures            
             container.Register<IRepository<Product>, MockRepository<Product>>();

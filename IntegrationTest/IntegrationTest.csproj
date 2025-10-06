@@ -12,7 +12,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Include="..\UnitTest.InfrasImpl\Impl\PreferenceService.cs" Link="Impl\PreferenceService.cs" />
 	  <Compile Include="..\UnitTest.ServiceImpl\Impl\MockAppLogging.cs" Link="Impl\MockAppLogging.cs" />
+	  <Compile Include="..\UnitTest.ViewModel\Impl\MockPopup.cs" Link="Impl\MockPopup.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -22,11 +24,13 @@
 		<PackageReference Include="DryIoc.dll" Version="4.5.0.0" />
 		<PackageReference Include="Moq" Version="4.20.70.0" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
+		<PackageReference Include="Prism.Core" Version="9.0.537" />
+		<PackageReference Include="MethodDecorator.Fody" Version="1.1.1" />
+		<PackageReference Include="Fody" Version="6.5.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.General.csproj" />
 	  <ProjectReference Include="..\BestApp.Impl\BestApp.Impl.Cross.csproj" />
-	  <ProjectReference Include="..\Common.Abstrtactions\BestApp.Abstraction.Common.csproj" />
+	  <ProjectReference Include="..\BestApp.ViewModels\BestApp.ViewModels.csproj" />
 	</ItemGroup>
 </Project>

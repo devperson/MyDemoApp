@@ -8,6 +8,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BestApp.Abstraction.General.Platform;
 
 namespace BestApp.Impl.Cross.Common
 {
@@ -17,6 +18,12 @@ namespace BestApp.Impl.Cross.Common
         private string _logDir;
         private string _logFileName;
         private string currentLogPath;
+        private readonly Lazy<IDirectoryService> directory;
+
+        public NLogFileLoger(Lazy<IDirectoryService> directory)
+        {
+            this.directory = directory;
+        }
 
         public void Init()
         {
@@ -176,7 +183,8 @@ namespace BestApp.Impl.Cross.Common
 
         public string GetLogsFolder()
         {
-            var path = Path.Combine(GetUserAppDataPath(), "NLog");
+            var appDataDir = directory.Value.GetAppDataDir();
+            var path = Path.Combine(appDataDir, "NLog");
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);

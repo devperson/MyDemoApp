@@ -1,10 +1,11 @@
-﻿using BestApp.Abstraction.Common;
-using BestApp.Abstraction.General.AppService;
+﻿using BestApp.Abstraction.General.AppService;
 using BestApp.Abstraction.General.Infasructures;
+using BestApp.Abstraction.General.Infasructures.Events;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.ItemViewModel;
 using Logging.Aspects;
 using System.Collections.ObjectModel;
+using BestApp.ViewModels.Extensions;
 
 namespace BestApp.ViewModels
 {
@@ -13,6 +14,7 @@ namespace BestApp.ViewModels
     {        
         private readonly Lazy<IMovieService> movieService;
         private readonly Lazy<IInfrastructureServices> infrastructureServices;
+        private AuthErrorEvent authErrorEvent;
 
         public MainViewModel(InjectedServices services, Lazy<IMovieService> movieService, Lazy<IInfrastructureServices> infrastructureServices) : base(services)
         {
@@ -21,13 +23,16 @@ namespace BestApp.ViewModels
             this.infrastructureServices = infrastructureServices;
             AddCommand = new AsyncCommand(OnAddCommand);
             ItemSelectedCommand = new AsyncCommand(OnItemSelectedCommand);
-        }
 
-        
+            authErrorEvent = services.EventAggregator.GetEvent<AuthErrorEvent>();
+            authErrorEvent.Subscribe(HandleAuthErrorEvent);
+        }
 
         public ObservableCollection<MovieItemViewModel> MovieItems { get; set; }
         public AsyncCommand AddCommand { get; set; }
         public AsyncCommand ItemSelectedCommand { get; set; }
+
+        
 
         public override void Initialize(Abstraction.General.Platform.INavigationParameters parameters)
         {
@@ -94,7 +99,7 @@ namespace BestApp.ViewModels
         {
             try
             {
-                await Navigate(nameof(MovieItemViewModel));
+                await Navigate(nameof(CreateMovieViewModel));
             }
             catch (Exception ex)
             {
@@ -114,6 +119,64 @@ namespace BestApp.ViewModels
             }
 
             return Task.CompletedTask;
+        }
+
+        private readonly SemaphoreSlim semaphoreAuthError = new(1, 1);
+        private bool loggingOut = false;
+        private async void HandleAuthErrorEvent()
+        {
+            try
+            {
+                await semaphoreAuthError.WaitAsync();
+                if (loggingOut)
+                {
+                    // we have already handling this event, so we can just ignore this thread
+                    Services.LoggingService.LogWarning("Skip HandleAuthErrorEvent() because it is handled by other thread (semaphoreAuthError.Wait(0) == false)");
+                    return;
+                }
+                loggingOut = true;
+
+                var currentPageViewModel = GetCurrentPageViewModel();
+                if (!(currentPageViewModel is MainViewModel))
+                    await currentPageViewModel.NavigateToRoot();
+
+                ////force to log out
+                //this.LoadingText = "Logging out...";
+                //BusyLoading = true;
+                //var loginVm = Service.Container.Resolve<LoginViewModel>();
+                //bool logOut = false;
+                //while (!logOut)
+                //{
+                //    try
+                //    {
+                //        await loginVm.SignOut();
+                //        logOut = true;
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        Service.LoggingService.LogWarning($"{TAG}Failed to log out. Attempt to log out again. Exception details: {ex}");
+                //        await Task.Delay(800);
+                //    }
+                //}
+
+                //string logoutMessage = string.Empty;
+                //if (reason == LogOutReasonType.ServerRequested)
+                //    logoutMessage = "You're currently signed in on another device. For your security, this device has been signed out.";
+                ////run this in the main thread
+                //await Navigate($"../{nameof(LoginViewModel)}", new NavigationParameters()
+                //            {
+                //                {LoginViewModel.SKIP_CLEARING, true },
+                //                {LoginViewModel.LOG_OUT_MESSAGE, logoutMessage },
+                //            });
+            }
+            catch (Exception ex)
+            {
+                Services.LoggingService.TrackError(ex);
+            }
+            finally
+            {
+                semaphoreAuthError.SecureRelease();
+            }
         }
 
 

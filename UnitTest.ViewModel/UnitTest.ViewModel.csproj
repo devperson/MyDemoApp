@@ -14,7 +14,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Include="..\UnitTest.ServiceImpl\Impl\DirectoryService.cs" Link="Impl\DirectoryService.cs" />
 	  <Compile Include="..\UnitTest.ServiceImpl\Impl\MockAppLogging.cs" Link="Impl\MockAppLogging.cs" />
 	</ItemGroup>
 

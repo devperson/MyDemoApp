@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +14,7 @@
 	<PackageReference Include="NLog" Version="6.0.4" />
 	<PackageReference Include="Sentry" Version="5.14.1" />
 	<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	<PackageReference Include="Prism.Core" Version="9.0.537" />
   </ItemGroup>
 
   <ItemGroup>

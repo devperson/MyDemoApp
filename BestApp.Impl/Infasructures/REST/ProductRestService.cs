@@ -11,7 +11,11 @@ namespace BestApp.Impl.Cross.Infasructures.REST
 {
     internal class ProductRestService : RestService, IPorductRestService
     {
-        public ProductRestService(Lazy<ILoggingService> loggingService, Lazy<IAuthTokenService> authTokenService, Lazy<IRestClient> restClient) : base(loggingService, authTokenService, restClient)
+        public ProductRestService(Lazy<ILoggingService> loggingService, 
+                                  Lazy<IAuthTokenService> authTokenService, 
+                                  Lazy<IRestClient> restClient,
+                                  Lazy<IEventAggregator> eventAggregator,
+                                  RequestQueueList requestQueues) : base(loggingService, authTokenService, restClient, eventAggregator,requestQueues)
         {
         }
 

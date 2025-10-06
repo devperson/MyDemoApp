@@ -3,6 +3,7 @@ using BestApp.Abstraction.General.Infasructures;
 using BestApp.Abstraction.General.Platform;
 using Common.Abstrtactions;
 using DryIoc;
+using Logging.Aspects;
 using Mapster;
 using MapsterMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -41,12 +42,8 @@ namespace UnitTest.InfrasImpl.Base
 
         private static void RegisterTypes(IContainer container)
         {
-            //register IConstants
-            var constImpl = new ConstImpl()
-            {
-                ServerUrlHost = "https://api.themoviedb.org/3/",
-            };
-            Container.RegisterInstance<IConstants>(constImpl);
+            //register IConstants            
+            Container.Register<IConstants, ConstImpl>(Reuse.Singleton);
 
             //register mapper
             var mapperConfig = new TypeAdapterConfig();
@@ -58,6 +55,8 @@ namespace UnitTest.InfrasImpl.Base
             container.Register<ILoggingService, MockAppLogging>(Reuse.Singleton);
             container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
             container.Register<IPreferencesService, PreferenceService>(Reuse.Singleton);
+            container.Register<IEventAggregator, EventAggregator>(Reuse.Singleton);
+            LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
 
             BestApp.Impl.Cross.Registerar.RegisterInfrastructureService(container, mapperConfig);
             

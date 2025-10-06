@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTest.InfrasImpl.Impl
+namespace IntegrationTest.Impl
 {
     internal class ConstImpl : IConstants
     {
