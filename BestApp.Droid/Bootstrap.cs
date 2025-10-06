@@ -16,7 +16,13 @@ namespace BestApp.X.Droid
             //var containerRegistry = ContainerLocator.Current;
             var dryIocContainer = (DryIocContainerExtension)container;
 
-            SetCulture();
+            var constImpl = new ConstantImpl()
+            {
+                ServerUrlHost = "https://api.themoviedb.org/3/",
+            };
+            container.RegisterInstance(constImpl);
+
+            
 
             //register app, infrastructure services
             Impl.Cross.Registerar.RegisterTypes(dryIocContainer.Instance);
@@ -25,13 +31,6 @@ namespace BestApp.X.Droid
             //register ViewModel for navigation
         }
 
-
-        private static void SetCulture()
-        {
-            CultureInfo englishUSCulture = new CultureInfo("en-US");
-            CultureInfo.DefaultThreadCurrentCulture = englishUSCulture;
-            CultureInfo.DefaultThreadCurrentUICulture = englishUSCulture;
-        }
 
         public async Task NavigateToPageAsync(IPageNavigationService pageNavigationService)
         {

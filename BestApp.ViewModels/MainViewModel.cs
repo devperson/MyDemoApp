@@ -1,4 +1,6 @@
-﻿using BestApp.Abstraction.General.AppService;
+﻿using BestApp.Abstraction.Common;
+using BestApp.Abstraction.General.AppService;
+using BestApp.Abstraction.General.Infasructures;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.ItemViewModel;
 using Logging.Aspects;
@@ -8,28 +10,56 @@ namespace BestApp.ViewModels
 {
     [LogMethods]
     public class MainViewModel : PageViewModel
-    {
-        private readonly Lazy<IProductService> productService;
+    {        
+        private readonly Lazy<IMovieService> movieService;
+        private readonly Lazy<IInfrastructureServices> infrastructureServices;
 
-        public MainViewModel(InjectedServices services, Lazy<IProductService> productService) : base(services)
+        public MainViewModel(InjectedServices services, Lazy<IMovieService> movieService, Lazy<IInfrastructureServices> infrastructureServices) : base(services)
         {
-            this.productService = productService;
-
+            
+            this.movieService = movieService;
+            this.infrastructureServices = infrastructureServices;
             AddCommand = new AsyncCommand(OnAddCommand);
             ItemSelectedCommand = new AsyncCommand(OnItemSelectedCommand);
         }
 
         
 
-        public ObservableCollection<ProductItemViewModel> ProductItems { get; set; }
+        public ObservableCollection<MovieItemViewModel> MovieItems { get; set; }
         public AsyncCommand AddCommand { get; set; }
         public AsyncCommand ItemSelectedCommand { get; set; }
+
+        public override void Initialize(Abstraction.General.Platform.INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+                        
+            //init infrastructure services (ie local storage, rest api)
+            infrastructureServices.Value.Start();
+        }
+
+        public override void PausedToBackground()
+        {
+            infrastructureServices.Value.Pause();
+        }
+
+        public override void ResumedFromBackground()
+        {
+            infrastructureServices.Value.Resume();
+        }
+
+        public override void Destroy()
+        {
+            infrastructureServices.Value.Stop();
+        }
 
         public override async void OnFirstTimeAppears()
         {
             base.OnFirstTimeAppears();
 
-            await LoadData();
+            await ShowLoadingAndHandleError(async () =>
+            {
+                await LoadData();
+            });
         }
 
        
@@ -40,23 +70,31 @@ namespace BestApp.ViewModels
 
             try
             {
-                if (parameters.ContainsKey(CreateProductViewModel.NEW_PRODUCT_PARAM))
+                if (parameters.ContainsKey(CreateMovieViewModel.NEW_ITEM))
                 {
-                    var newProduct = parameters.GetValue<ProductItemViewModel>(CreateProductViewModel.NEW_PRODUCT_PARAM);
-                    ProductItems.Add(newProduct);
+                    var newProduct = parameters.GetValue<MovieItemViewModel>(CreateMovieViewModel.NEW_ITEM);
+                    MovieItems.Add(newProduct);
                 }
             }
             catch (Exception ex)
             {
                 Services.LoggingService.TrackError(ex);
             }
+        }
+
+        protected override async Task OnRefreshCommand(object arg)
+        {
+            await ShowLoadingAndHandleError(async () =>
+            {
+                await LoadData(remoteList: true);
+            });
         }
 
         private async Task OnAddCommand(object arg)
         {
             try
             {
-                await Navigate(nameof(CreateProductViewModel));
+                await Navigate(nameof(MovieItemViewModel));
             }
             catch (Exception ex)
             {
@@ -64,34 +102,31 @@ namespace BestApp.ViewModels
             }
         }
 
-        private async Task OnItemSelectedCommand(object arg)
+        private Task OnItemSelectedCommand(object arg)
         {
             try
             {
-                throw new NotImplementedException();
+                
             }
             catch(Exception ex)
             {
                 HandleUIError(ex);
             }
+
+            return Task.CompletedTask;
         }
 
 
-        public async Task LoadData()
+        public async Task LoadData(bool remoteList = false)
         {
-            try
+            var result = await movieService.Value.GetList(remoteList: remoteList);
+            if (result.Success)
             {
-                var result = await productService.Value.GetSome(10, 0);
-                if (result.Success)
-                {
-                    var list = result.Value.Select(x => new ProductItemViewModel(x));
-                    ProductItems = new ObservableCollection<ProductItemViewModel>(list);
-                }
-            }
-            catch (Exception ex)
-            {
-                Services.LoggingService.TrackError(ex);
-            }
+                var list = result.Value.Select(x => new MovieItemViewModel(x));
+                MovieItems = new ObservableCollection<MovieItemViewModel>(list);
+            }            
         }
+
+
     }
 }

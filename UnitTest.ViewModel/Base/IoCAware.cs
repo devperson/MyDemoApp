@@ -1,15 +1,18 @@
 ﻿using BestApp.Abstraction.General.AppService;
 using BestApp.Abstraction.General.AppService.Dto;
+using BestApp.Abstraction.General.Infasructures;
 using BestApp.Abstraction.General.Platform;
 using BestApp.Abstraction.General.UI;
+using BestApp.ViewModels;
+using BestApp.ViewModels.Base;
 using Common.Abstrtactions;
 using DryIoc;
-using ImTools;
 using Mapster;
 using MapsterMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using UnitTest.ServiceImpl.Impl;
+using UnitTest.Impl;
+using UnitTest.ViewModel.Impl;
 
 namespace UnitTest.ViewModel.Base
 {
@@ -54,26 +57,42 @@ namespace UnitTest.ViewModel.Base
             container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
 
             //register app services
-            var mockProductService = new Mock<IProductService> { DefaultValue = DefaultValue.Mock };
-            mockProductService.Setup(x => x.GetSome(10, 0)).ReturnsAsync(new Some<List<ProductDto>>(
-            new List<ProductDto>
+            var mockMovieService = new Mock<IMovieService> { DefaultValue = DefaultValue.Mock };
+            //get local data
+            mockMovieService.Setup(x => x.GetList(-1, 0, false)).ReturnsAsync(new Some<List<MovieDto>>(
+            new List<MovieDto>
             {
-                new ProductDto { Id = 1, Name = "Test prod1", Cost =5, Quantity=1 }
+                new MovieDto { Id = 1, Name = "Test movie1", Overview = "overview test1" }
             }));
-            mockProductService.Setup(x => x.Add("Test prod1", 1, 5)).ReturnsAsync(new Some<ProductDto>(new ProductDto()
-            { Id = 1, Name = "Test prod1", Cost = 5, Quantity = 1 }));
-            container.RegisterInstance(mockProductService.Object);
+            //get remote data
+            mockMovieService.Setup(x => x.GetList(-1, 0, true)).ReturnsAsync(new Some<List<MovieDto>>(
+            new List<MovieDto>
+            {
+                new MovieDto { Id = 1, Name = "Test movie1", Overview = "overview test1" }
+            }));
+            mockMovieService.Setup(x => x.Add("Test movie1", "test overview1", string.Empty)).ReturnsAsync(new Some<MovieDto>(new MovieDto()
+            { 
+                Id = 1, 
+                Name = "Test movie1", 
+                Overview = "test overview1"
+            }));
+            container.RegisterInstance(mockMovieService.Object);                        
 
             //register ViewModel's required services
             var mockNavigationService = new Mock<IPageNavigationService> { DefaultValue = DefaultValue.Mock };
-            var mockEventAggregator = new Mock<IEventAggregator> { DefaultValue = DefaultValue.Mock };
-            var mockPopupService = new Mock<IPopupAlert> { DefaultValue = DefaultValue.Mock };
+            var mockEventAggregator = new Mock<IEventAggregator> { DefaultValue = DefaultValue.Mock };            
             var mockPlatformService = new Mock<IPlatformErrorService> { DefaultValue = DefaultValue.Mock };
+            var mockInfraService = new Mock<IInfrastructureServices> { DefaultValue = DefaultValue.Mock };
             container.RegisterInstance(mockNavigationService.Object);
-            container.RegisterInstance(mockEventAggregator.Object);
-            container.RegisterInstance(mockPopupService.Object);
+            container.RegisterInstance(mockEventAggregator.Object);            
             container.RegisterInstance(mockPlatformService.Object);
-            //await BestApp.Impl.Cross.Registerar.RegisterTypes(container);            
+            container.RegisterInstance(mockInfraService.Object);
+            container.Register<InjectedServices>();
+            container.Register<IPopupAlert, MockPopup>(Reuse.Singleton);
+
+
+            container.Register<MainViewModel>();
+            container.Register<CreateMovieViewModel>();
         }
     }
 }

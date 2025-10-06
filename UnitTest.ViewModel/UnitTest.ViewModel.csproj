@@ -28,10 +28,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Impl\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.General.csproj" />
 	  <ProjectReference Include="..\BestApp.ViewModels\BestApp.ViewModels.csproj" />
 	</ItemGroup>

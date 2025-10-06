@@ -1,4 +1,5 @@
-﻿using BestApp.Abstraction.General.Platform;
+﻿using BestApp.Abstraction.General.Infasructures;
+using BestApp.Abstraction.General.Platform;
 using BestApp.Abstraction.General.UI;
 using Common.Abstrtactions;
 using DryIoc;
@@ -19,6 +20,6 @@ namespace BestApp.ViewModels.Base
         public IEventAggregator EventAggregator => Container.Resolve<IEventAggregator>();
         public ILoggingService LoggingService => Container.Resolve<ILoggingService>();
         public IPopupAlert PopupAlertService=> Container.Resolve<IPopupAlert>();
-        public IPlatformErrorService PlatformError => Container.Resolve<IPlatformErrorService>();
+        public IPlatformErrorService PlatformError => Container.Resolve<IPlatformErrorService>();        
     }
 }

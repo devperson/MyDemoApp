@@ -1,7 +1,7 @@
 ﻿using Common.Abstrtactions;
 using System.Diagnostics;
 
-namespace UnitTest.ServiceImpl.Impl
+namespace UnitTest.Impl
 {
     internal class MockAppLogging : ILoggingService
     {

@@ -11,7 +11,8 @@ namespace BestApp.ViewModels.Base
         //private ClickUtil bkClUtl = new ClickUtil();  
         public NavigatingBaseViewModel(InjectedServices services)
         {
-            this.BackCommand = new AsyncCommand(OnBackCommand);          
+            this.BackCommand = new AsyncCommand(OnBackCommand);
+            Services = services;
         }
 
         public virtual void OnNavigatedFrom(INavigationParameters parameters)

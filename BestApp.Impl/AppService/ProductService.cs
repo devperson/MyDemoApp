@@ -68,7 +68,7 @@ namespace BestApp.Impl.Cross.AppService.Products
             {
                 try
                 {
-                    var result = await this.productRepository.Value.Take(count, skip);
+                    var result = await this.productRepository.Value.GetList(count, skip);
                     var dtoList = mapper.Value.Map<List<ProductDto>>(result);
                     return new Some<List<ProductDto>>(dtoList);
                 }

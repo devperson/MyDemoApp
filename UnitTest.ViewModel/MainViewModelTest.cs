@@ -1,5 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BestApp.ViewModels;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTest.ViewModel.Base;
+using DryIoc;
+using System.Threading.Tasks;
+using Common.Abstrtactions;
 
 namespace UnitTest.ViewModel
 {
@@ -7,9 +11,36 @@ namespace UnitTest.ViewModel
     public class MainViewModelTest : IoCAware
     {
         [TestMethod]
-        public void T1_1TestLoadMethod()
+        public async Task T1_1TestLoadMethod()
         {
+            var mainVm = Container.Resolve<MainViewModel>();
+            await mainVm.LoadData();
 
+            Assert.IsTrue(mainVm.MovieItems.Any());
+            var loggingService = Container.Resolve<ILoggingService>();
+            Assert.IsFalse(loggingService.HasError);
         }
+
+        [TestMethod]
+        public async Task T1_2TestNavigateToCreateProduct()
+        {
+            var mainVm = Container.Resolve<MainViewModel>();
+            await mainVm.AddCommand.ExecuteAsync();
+
+            var loggingService = Container.Resolve<ILoggingService>();
+            Assert.IsFalse(loggingService.HasError);
+        }
+
+        [TestMethod]
+        public async Task T1_3TestPullRefresh()
+        {
+            var mainVm = Container.Resolve<MainViewModel>();
+            await mainVm.RefreshCommand.ExecuteAsync();
+
+            var loggingService = Container.Resolve<ILoggingService>();
+            Assert.IsFalse(loggingService.HasError);
+        }
+
+
     }
 }

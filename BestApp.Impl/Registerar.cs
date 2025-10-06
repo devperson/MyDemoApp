@@ -11,6 +11,9 @@ using Common.Abstrtactions;
 using BestApp.Impl.Cross.Common;
 using BestApp.Impl.Cross.Infasructures;
 using BestApp.Abstraction.General.AppService;
+using BestApp.Abstraction.General.Infasructures.REST;
+using BestApp.Impl.Cross.Infasructures.REST;
+using BestApp.Impl.Cross.AppService;
 
 
 namespace BestApp.Impl.Cross
@@ -29,14 +32,8 @@ namespace BestApp.Impl.Cross
             container.Register<IFileLoger, NLogFileLoger>(Reuse.Singleton);            
             container.Register<ILoggingService, AppLoggingService>(Reuse.Singleton);
 
-            //register infrastructures            
-            RepoMapper.RegisterMapping(mapperConfig);
-            //container.Register<IRepository<Product>, MockRepository<Product, ProductTable>>();
-            container.Register<IRepository<Product>, SqliteRepository<Product, ProductTable>>();
-            container.Register<IDatabaseInfo, DatabaseInfo>(Reuse.Singleton);
-            container.Register<IErrorTrackingService, ErrorTrackingService>(Reuse.Singleton);
-
-
+            //register infrastructures           
+            RegisterInfrastructureService(container, mapperConfig);
             //register appService
             RegisterAppService(container, mapperConfig);
         }
@@ -45,6 +42,27 @@ namespace BestApp.Impl.Cross
         {
             AppMapper.RegisterMapping(mapperConfig);
             container.Register<IProductService, ProductService>(Reuse.Singleton);
+            container.Register<IMovieService, MovieService>(Reuse.Singleton);
+        }
+
+        public static void RegisterInfrastructureService(IContainer container, TypeAdapterConfig mapperConfig)
+        {
+            //register infrastructures            
+            //Sqlite            
+            RepoMapper.RegisterMapping(mapperConfig);
+            container.Register<ILocalDbInitilizer, SqliteDbInitilizer>(Reuse.Singleton);
+            container.Register<IRepository<Product>, SqliteRepository<Product, ProductTable>>(Reuse.Singleton);
+            container.Register<IRepository<Movie>, SqliteRepository<Movie, MoviewTb>>(Reuse.Singleton);
+            container.Register<IDatabaseInfo, DatabaseInfo>(Reuse.Singleton);            
+            //rest service
+            container.Register<IRestClient, RestClient>();
+            container.Register<IAuthTokenService, AuthTokenService>(Reuse.Singleton);
+            container.Register<IRestQueueService, RequestQueueList>(Reuse.Singleton);
+            container.Register<IPorductRestService, ProductRestService>(Reuse.Singleton);
+            container.Register<IMovieRestService, MovieRestService>(Reuse.Singleton);
+            //common
+            container.Register<IErrorTrackingService, ErrorTrackingService>(Reuse.Singleton);
+            container.Register<IInfrastructureServices, InfrastructureService>(Reuse.Singleton);
         }
     }
 }

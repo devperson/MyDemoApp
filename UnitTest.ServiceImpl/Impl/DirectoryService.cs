@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTest.ServiceImpl.Impl
+namespace UnitTest.Impl
 {
     internal class DirectoryService : IDirectoryService
     {

@@ -16,6 +16,7 @@ namespace BestApp.Impl.Cross.Map
         {
             //register mapping
             config.NewConfig<Product, ProductTable>().TwoWays();
+            config.NewConfig<MoviewTb, MoviewTb>().TwoWays();
         }
     }
 }

@@ -1,18 +1,17 @@
 ﻿using BestApp.Abstraction.Domain.Entities;
-using BestApp.Abstraction.General.AppService;
 using BestApp.Abstraction.General.Infasructures;
 using BestApp.Abstraction.General.Platform;
-using BestApp.Impl.Cross.Common;
-using BestApp.Impl.Cross.Infasructures.Repositories.Tables;
-using BestApp.Impl.Cross.Infasructures;
 using Common.Abstrtactions;
 using DryIoc;
 using Mapster;
 using MapsterMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
-using UnitTest.ServiceImpl.Impl;
 using BestApp.Impl.Cross.Infasructures.Repositories;
+using UnitTest.Impl;
+using BestApp.Abstraction.General.Infasructures.REST;
+using BestApp.Abstraction.General.AppService.Dto;
+using BestApp.Abstraction.General.AppService;
+using Moq;
 
 namespace UnitTest.ServiceImpl.Base
 {
@@ -55,6 +54,17 @@ namespace UnitTest.ServiceImpl.Base
 
             //register infrastructures            
             container.Register<IRepository<Product>, MockRepository<Product>>();
+            container.Register<IRepository<Movie>, MockRepository<Movie>>();
+            var mockMovieRestService = new Mock<IMovieRestService> { DefaultValue = DefaultValue.Mock };
+            mockMovieRestService.Setup(x => x.GetMovieRestlist()).ReturnsAsync([
+                new Movie 
+                { 
+                    Id = 1, 
+                    Name = "remote movie sample", 
+                    Overview = "some good overview", 
+                    PosterUrl = string.Empty,
+                }]);
+            container.RegisterInstance<IMovieRestService>(mockMovieRestService.Object);
 
 
             //register appService

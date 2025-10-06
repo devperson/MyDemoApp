@@ -25,7 +25,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             return Task.FromResult(row);
         }
 
-        public virtual Task<List<TEntity>> Take(int count, int skip)
+        public virtual Task<List<TEntity>> GetList(int count = -1, int skip = 0)
         {
             var rows = records.Skip(skip).Take(count).ToList();            
 
@@ -34,7 +34,12 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
 
         public virtual Task Add(TEntity entity)
         {
-            entity.Id = entity.Id + 1;
+            var lastRecord = records.LastOrDefault();
+            if (lastRecord != null)
+                entity.Id = lastRecord.Id + 1;
+            else
+                entity.Id = 1;
+
             records.Add(entity);
 
             return Task.CompletedTask;
@@ -52,6 +57,25 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             var old = await FindById(entity.Id);
             records.Remove(old);
             records.Add(entity);
+        }
+
+        public Task AddAll(List<TEntity> entities)
+        {
+            for (int i = 0; i < entities.Count; i++)
+            {
+                entities[i].Id = i + 1;
+            }
+            records.Clear();
+            records.AddRange(entities);
+
+            return Task.CompletedTask;
+        }
+
+        public Task Clear(string reason)
+        {
+            records.Clear();
+
+            return Task.CompletedTask;
         }
 
         //public TEntity FindOne(ISpecification<TEntity> spec)

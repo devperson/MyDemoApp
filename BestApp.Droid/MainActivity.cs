@@ -5,6 +5,7 @@ using Android.Views;
 using AndroidX.AppCompat.App;
 using Common.Abstrtactions;
 using Microsoft.Maui.ApplicationModel;
+using System.Globalization;
 
 namespace BestApp.X.Droid
 {
@@ -21,6 +22,7 @@ namespace BestApp.X.Droid
         {
             base.OnCreate(savedInstanceState);
 
+            SetCulture();
             Platform.Init(this, savedInstanceState);
             Instance = this;
             // Set our view from the "main" layout resource
@@ -52,6 +54,15 @@ namespace BestApp.X.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
+
+        private static void SetCulture()
+        {
+            CultureInfo englishUSCulture = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentCulture = englishUSCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = englishUSCulture;
+        }
+
 
     }
 }
