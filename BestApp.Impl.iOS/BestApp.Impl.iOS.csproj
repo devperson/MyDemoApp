@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net8.0-ios</TargetFramework>
+		<DefineConstants>$(DefineConstants);IOS_NET</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DefineConstants>$(DefineConstants);SimulCompatibility;</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<AtlasTexture Remove="Resources\**" />
+		<BundleResource Remove="Resources\**" />
+		<Compile Remove="Resources\**" />
+		<CoreMLModel Remove="Resources\**" />
+		<EmbeddedResource Remove="Resources\**" />
+		<ImageAsset Remove="Resources\**" />
+		<InterfaceDefinition Remove="Resources\**" />
+		<Metal Remove="Resources\**" />
+		<None Remove="Resources\**" />
+		<SceneKitAsset Remove="Resources\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="..\BestApp.Impl.Droid\Platform\DirectoryService.cs" Link="Platform\DirectoryService.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.82" />
+		<PackageReference Include="MethodDecorator.Fody" Version="1.1.1" />
+		<PackageReference Include="Fody" Version="6.5.1" />
+		<PackageReference Include="DryIoc.dll" Version="4.5.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.General.csproj" />
+	  <ProjectReference Include="..\Common.Abstrtactions\BestApp.Abstraction.Common.csproj" />
+	</ItemGroup>
+</Project>

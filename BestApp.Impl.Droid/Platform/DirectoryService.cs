@@ -2,12 +2,8 @@
 using BestApp.Abstraction.General.Platform;
 using Microsoft.Maui.Storage;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BestApp.Impl.Droid.Platform
+namespace BestApp.Impl.Platform
 {
     internal class DirectoryService : IDirectoryService
     {
