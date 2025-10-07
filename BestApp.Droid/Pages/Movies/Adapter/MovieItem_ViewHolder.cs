@@ -50,13 +50,9 @@ public class MovieItem_ViewHolder : RecyclerView.ViewHolder
             this.itemView.Click += ItemView_Click;            
         }
     }
-
-    ClickUtil itemTapUtl = new ClickUtil();
+        
     private void ItemView_Click(object sender, EventArgs e)
     {
-        if (!itemTapUtl.IsOneClickEvent())
-            return;
-
         var itemView = sender as ViewGroup;
         var clickItem = itemView.Tag.ToModel() as MovieItemViewModel;
         var pageVm = MainActivity.Instance.GetCurrentViewModel() as MoviesPageViewModel;

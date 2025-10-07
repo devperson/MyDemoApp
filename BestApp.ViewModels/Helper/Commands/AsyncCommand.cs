@@ -16,7 +16,7 @@ namespace BestApp.ViewModels.Helper.Commands
     {
         Func<object, Task> _execute;
         Func<object, bool> _canExecute;
-
+        ClickUtil doubleClickChecker = new ClickUtil();
         /// <summary>
         /// Use this constructor for commands that have a command parameter.
         /// </summary>
@@ -43,7 +43,13 @@ namespace BestApp.ViewModels.Helper.Commands
 
         public bool CanExecute(object param = null) => _canExecute.Invoke(param);
 
-        public Task ExecuteAsync(object param = null) => _execute.Invoke(param);
+        public Task ExecuteAsync(object param = null)
+        {
+            if (!doubleClickChecker.IsOneClickEvent())
+                return Task.CompletedTask;
+
+            return _execute.Invoke(param);
+        }
 
         public async void Execute(object param = null)
         {

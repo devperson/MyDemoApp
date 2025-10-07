@@ -15,8 +15,7 @@ namespace BestApp.ViewModels.Base
 {
     [LogMethods]
     public class PageViewModel : NavigatingBaseViewModel, IPageLifecycleAware
-    {
-        protected ClickUtil clickUtil = new ClickUtil();
+    {        
         private bool isFirstTimeAppears = true;
         private AppResumedEvent appResumedEvent;
         private AppPausedEvent appPausedEvent;
@@ -122,16 +121,29 @@ namespace BestApp.ViewModels.Base
         }
 
         /// <summary>
-        /// This method is recommended to be called in a Command. Because it uses clickUtil which is 
-        /// class level varible (ExecuteOnlyOnceAsync) which is not recommended to be used multiple places or 
-        /// to call it in two different places simultaneously in one class
+        /// This method is recommended to be called in a Command. 
         /// </summary>
         /// <param name="asyncAction">action to be executed</param>
         /// <param name="OnComplete">success lambada</param>
         /// <returns></returns>
         public async Task ShowLoading(Func<Task> asyncAction, Action<bool> OnComplete = null)
-        {
-            await clickUtil.ExecuteOnlyOnceAsync(async () =>
+        {           
+            try
+            {
+                BusyLoading = true;
+                await asyncAction();
+                OnComplete?.Invoke(true);
+            }
+            finally
+            {
+                BusyLoading = false;
+            }
+        }
+
+        public async Task ShowLoadingAndHandleError(Func<Task> asyncAction, Action<bool> OnComplete = null, bool skipCheckInternet = false)
+        {           
+            bool success = false;
+            try
             {
                 //if (!Service.DeviceInfo.HasInternetConnection)
                 //{
@@ -141,43 +153,14 @@ namespace BestApp.ViewModels.Base
                 //    return;
                 //}
 
-                try
-                {
-                    BusyLoading = true;
-                    await asyncAction();
-                    OnComplete?.Invoke(true);
-                }
-                finally
-                {
-                    BusyLoading = false;
-                }
-            });
-        }
-
-        public async Task ShowLoadingAndHandleError(Func<Task> asyncAction, Action<bool> OnComplete = null, bool skipCheckInternet = false)
-        {
-            await clickUtil.ExecuteOnlyOnceAsync(async () =>
+                BusyLoading = true;
+                success = await ExecuteAndHandleError(asyncAction);
+            }
+            finally
             {
-                bool success = false;
-                try
-                {
-                    //if (!Service.DeviceInfo.HasInternetConnection)
-                    //{
-
-                    //    Services.PopupAlertService.ShowError(Strings.Error_NoInternet);
-                    //    OnComplete?.Invoke(false);
-                    //    return;
-                    //}
-
-                    BusyLoading = true;
-                    success = await ExecuteAndHandleError(asyncAction);
-                }
-                finally
-                {
-                    BusyLoading = false;
-                    OnComplete?.Invoke(success);
-                }
-            });
+                BusyLoading = false;
+                OnComplete?.Invoke(success);
+            }
         }
 
         protected async Task<bool> ExecuteAndHandleError(Func<Task> asyncAction)
