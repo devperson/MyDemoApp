@@ -2,6 +2,7 @@
 using BestApp.Abstraction.General.UI;
 using BestApp.Impl.Droid.Platform;
 using BestApp.Impl.Droid.UI;
+using BestApp.Impl.Platform;
 using Common.Abstrtactions;
 using DryIoc;
 
