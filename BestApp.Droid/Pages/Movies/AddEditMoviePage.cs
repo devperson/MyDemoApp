@@ -13,7 +13,8 @@ namespace BestApp.X.Droid.Pages.Movies;
 
 public class AddEditMoviePage : LifecyclePage
 {
-    private Button btnPhoto, btnSave;
+    private ViewGroup btnPhoto;
+    private Button btnSave;
     private ImageView imgView;
     private TextView txtName, txtDesc;
 
@@ -32,7 +33,7 @@ public class AddEditMoviePage : LifecyclePage
     public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         var fragmentView = inflater.Inflate(Resource.Layout.page_movie_add_edit, container, false);
-        btnPhoto = fragmentView.FindViewById<Button>(Resource.Id.btnPhoto);
+        btnPhoto = fragmentView.FindViewById<ViewGroup>(Resource.Id.btnPhoto);
         btnSave = fragmentView.FindViewById<Button>(Resource.Id.btnSave);
 
         imgView = fragmentView.FindViewById<ImageView>(Resource.Id.imgView);

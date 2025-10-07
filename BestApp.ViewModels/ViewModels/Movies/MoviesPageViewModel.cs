@@ -35,12 +35,17 @@ namespace BestApp.ViewModels.Movies
 
         
 
-        public override void Initialize(Abstraction.General.UI.Navigation.INavigationParameters parameters)
+        public async override void Initialize(Abstraction.General.UI.Navigation.INavigationParameters parameters)
         {
             base.Initialize(parameters);
                         
             //init infrastructure services (ie local storage, rest api)
-            infrastructureServices.Value.Start();
+            await infrastructureServices.Value.Start();
+
+            await ShowLoadingAndHandleError(async () =>
+            {
+                await LoadData();
+            });
         }
 
         public override void PausedToBackground()
@@ -62,10 +67,7 @@ namespace BestApp.ViewModels.Movies
         {
             base.OnFirstTimeAppears();
 
-            await ShowLoadingAndHandleError(async () =>
-            {
-                await LoadData();
-            });
+            
         }
 
        

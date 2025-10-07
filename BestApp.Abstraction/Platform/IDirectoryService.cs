@@ -9,7 +9,6 @@ namespace BestApp.Abstraction.General.Platform
     public interface IDirectoryService
     {
         string GetCacheDir();
-        string GetAppDataDir();        
-        string GetDbPath();
+        string GetAppDataDir();                
     }
 }

@@ -10,11 +10,9 @@
 
 		<!-- Active thumb color & Active track color(30% transparency) -->
 		<item name="colorControlActivated">#2196F3</item>
-		
 
-		<!--Add system padding, so to not overlap bottom navigation & top status bars-->
-		
-		<!--<item name="popupMenuStyle">@style/Widget.App.PopupMenu</item>-->
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
 	</style>
 
 

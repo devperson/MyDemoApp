@@ -2,10 +2,12 @@
 using BestApp.Abstraction.General.Infasructures.Exceptions;
 using BestApp.Abstraction.General.Infasructures.REST;
 using Common.Abstrtactions;
+using Logging.Aspects;
 using Newtonsoft.Json;
 
 namespace BestApp.Impl.Cross.Infasructures.REST
 {
+    [LogMethods]
     internal class MovieRestService : RestService, IMovieRestService
     {
         public MovieRestService(Lazy<ILoggingService> loggingService, 

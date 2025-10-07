@@ -1,6 +1,7 @@
 ﻿using BestApp.Abstraction.Common;
 using BestApp.Abstraction.General.Infasructures;
 using BestApp.Abstraction.General.Infasructures.REST;
+using Logging.Aspects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,7 @@ namespace BestApp.Impl.Cross.Infasructures
     ///   <item><description><see cref="IRestQueueService"/> — Manages queued REST requests, allowing pausing and resuming when app state changes.</description></item>
     /// </list>
     /// </summary>
+    [LogMethods]
     internal class InfrastructureService : IInfrastructureServices
     {
         private readonly Lazy<ILocalDbInitilizer> localDbInitilizer;

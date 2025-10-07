@@ -4,11 +4,13 @@ using BestApp.Abstraction.General.AppService.Dto;
 using BestApp.Abstraction.General.Infasructures;
 using BestApp.Abstraction.General.Infasructures.REST;
 using Common.Abstrtactions;
+using Logging.Aspects;
 using MapsterMapper;
 using static SQLite.SQLite3;
 
 namespace BestApp.Impl.Cross.AppService
 {
+    [LogMethods]
     internal class MovieService : IMovieService
     {
         private readonly Lazy<IRepository<Movie>> movieRepository;

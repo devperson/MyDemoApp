@@ -27,6 +27,7 @@
 		<PackageReference Include="Prism.Core" Version="9.0.537" />
 		<PackageReference Include="MethodDecorator.Fody" Version="1.1.1" />
 		<PackageReference Include="Fody" Version="6.5.1" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 	</ItemGroup>
 
 	<ItemGroup>

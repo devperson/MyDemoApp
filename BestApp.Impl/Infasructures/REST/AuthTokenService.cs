@@ -2,10 +2,12 @@
 using BestApp.Abstraction.General.Infasructures.REST;
 using BestApp.Abstraction.General.Platform;
 using Common.Abstrtactions;
+using Logging.Aspects;
 using Newtonsoft.Json;
 
 namespace BestApp.Impl.Cross.Infasructures.REST
 {
+    [LogMethods]
     internal class AuthTokenService : IAuthTokenService
     {
         private readonly Lazy<IPreferencesService> preferencesService;

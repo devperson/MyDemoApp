@@ -67,10 +67,10 @@ namespace BestApp.X.Droid.Pages.Base
                     rootLayout = scrollView.GetChildAt(0) as ViewGroup;
             }
 
-            if (rootLayout != null)
-            {
-                rootLayout.AddView(loadingView);
-            }
+            //if (rootLayout != null)
+            //{
+            //    rootLayout.AddView(loadingView);
+            //}
 
             HandleSoftInput();
         }
@@ -339,7 +339,7 @@ namespace BestApp.X.Droid.Pages.Base
             //}
             //else
             //{
-            //    OnViewModelPropertyChanged(e.PropertyName);
+                OnViewModelPropertyChanged(e.PropertyName);
             //}
         }
 

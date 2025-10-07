@@ -2,6 +2,7 @@
 using BestApp.Abstraction.General.Platform;
 using BestApp.Impl.Cross.Infasructures.Repositories.Tables;
 using Common.Abstrtactions;
+using Logging.Aspects;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -12,40 +13,48 @@ using System.Threading.Tasks;
 
 namespace BestApp.Impl.Cross.Infasructures.Repositories
 {
+    [LogMethods]
     internal class SqliteDbInitilizer : ILocalDbInitilizer
     {
-        public SqliteDbInitilizer(Lazy<IDirectoryService> directoryService, Lazy<ILoggingService> loggingService)
+        public SqliteDbInitilizer(Lazy<IDatabaseInfo> databaseInfo, Lazy<ILoggingService> loggingService)
         {
-            this.directoryService = directoryService;
+            this.databaseInfo = databaseInfo;
             this.loggingService = loggingService;
         }
         private SQLiteAsyncConnection database;
         private bool isInited;
-        private readonly Lazy<IDirectoryService> directoryService;
+        private readonly Lazy<IDatabaseInfo> databaseInfo;
         private readonly Lazy<ILoggingService> loggingService;
 
         public async Task Init()
         {
-            if (!isInited)
+            try
             {
-                isInited = true;
-                if (database != null)
+                if (!isInited)
                 {
-                    await database.CloseAsync();
+                    isInited = true;
+                    if (database != null)
+                    {
+                        await database.CloseAsync();
+                    }
+
+                    var path = databaseInfo.Value.GetDbPath();
+                    database = new SQLiteAsyncConnection(path);
+
+                    await database.CreateTableAsync<EventsTb>();
+                    await database.CreateTableAsync<ProductTb>();
+                    await database.CreateTableAsync<MovieTb>();
+
+                    loggingService.Value.Log($"SqliteDbInitilizer is inited! path: {path}");
                 }
-
-                var path = directoryService.Value.GetDbPath();
-                database = new SQLiteAsyncConnection(path);
-
-                await database.CreateTableAsync<EventsTb>();
-                await database.CreateTableAsync<ProductTb>();
-                await database.CreateTableAsync<MovieTb>();
-
-                loggingService.Value.Log($"SqliteDbInitilizer is inited! path: {path}");
+                else
+                {
+                    loggingService.Value.LogWarning($"SqliteDbInitilizer skip Init() because isInited:True");
+                }
             }
-            else
-            {
-                loggingService.Value.LogWarning($"SqliteDbInitilizer skip Init() because isInited:True");
+            catch (Exception ex)
+            {                
+                loggingService.Value.TrackError(ex);
             }
         }
 

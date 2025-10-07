@@ -10,6 +10,8 @@ using DryIoc;
 using KYChat.Controls.Navigation;
 using System.Globalization;
 using BestApp.Abstraction.General.UI.Navigation;
+using BestApp.ViewModels.Base;
+using Prism.Ioc;
 
 namespace BestApp.X.Droid
 {    
@@ -21,14 +23,17 @@ namespace BestApp.X.Droid
         {
             var container = DryIocContainerExtension.CreateInstance();
             ContainerLocator.SetContainerExtension(container);
-            //var containerRegistry = ContainerLocator.Current;
-            var dryIocContainer = (DryIocContainerExtension)container;
+
+            //register navigation service            
+            container.RegisterInstance(pageNavigationService);
+            container.Register<InjectedServices>();            
             container.RegisterSingleton<IConstants, ConstantImpl>();
 
             //register app, infrastructure services            
+            var dryIocContainer = (DryIocContainerExtension)container;
             Impl.Cross.Registerar.RegisterTypes(dryIocContainer.Instance);
             Impl.Droid.Registerar.RegisterTypes(dryIocContainer.Instance);
-            LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
+            LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();            
 
             //register ViewModel for navigation
             container.RegisterPageForNavigation<LoginPage, LoginPageViewModel>();
