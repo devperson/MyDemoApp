@@ -1,14 +1,13 @@
-﻿using BestApp.Abstraction.General.Infasructures;
-using BestApp.Abstraction.General.Platform;
+﻿using BestApp.Abstraction.General.Platform;
 using BestApp.Abstraction.General.UI;
+using BestApp.Abstraction.General.UI.Navigation;
 using Common.Abstrtactions;
 using DryIoc;
 
 namespace BestApp.ViewModels.Base
 {
     public class InjectedServices
-    {
-        private Lazy<IContainer> container;
+    {        
         public InjectedServices(IPageNavigationService navigationService, IContainer container)
         {
             NavigationService = navigationService;

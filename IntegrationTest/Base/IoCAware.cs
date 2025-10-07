@@ -15,6 +15,7 @@ using Mapster;
 using MapsterMapper;
 using UnitTest.Impl;
 using BestApp.ViewModels.Movies;
+using BestApp.Abstraction.General.UI.Navigation;
 
 namespace IntegrationTest.Base
 {

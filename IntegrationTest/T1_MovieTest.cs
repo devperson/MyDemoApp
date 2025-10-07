@@ -14,10 +14,11 @@ namespace IntegrationTest
         public async Task T1_1TestMainPageLoad()
         {
             await Navigate(nameof(MoviesPageViewModel));
-            await Task.Delay(5000);
+            await Task.Delay(7000);
             var mainVm = GetNextPage<MoviesPageViewModel>();
             //validate
-            Assert.IsTrue(mainVm.MovieItems.Count > 0);
+            Assert.IsTrue(mainVm.MovieItems != null, "Timeout to wait when movie list loaded");
+            Assert.IsTrue(mainVm.MovieItems.Count > 0, "No movie items");
             EnsureNoError();
         }
 

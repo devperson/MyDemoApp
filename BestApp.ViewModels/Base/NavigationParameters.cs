@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BestApp.ViewModels
 {
-    public class NavigationParameters : IEnumerable<KeyValuePair<string, object>>, BestApp.Abstraction.General.Platform.INavigationParameters
+    public class NavigationParameters : IEnumerable<KeyValuePair<string, object>>, Abstraction.General.UI.Navigation.INavigationParameters
     {
         private readonly List<KeyValuePair<string, object>> _entries = new List<KeyValuePair<string, object>>();
 

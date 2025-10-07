@@ -1,5 +1,4 @@
 ﻿using BestApp.Abstraction.Common;
-using BestApp.Abstraction.General.Platform;
 using BestApp.ViewModels.Login;
 using BestApp.ViewModels.Movies;
 using BestApp.X.Droid.Pages.Login;
@@ -10,6 +9,7 @@ using Logging.Aspects;
 using DryIoc;
 using KYChat.Controls.Navigation;
 using System.Globalization;
+using BestApp.Abstraction.General.UI.Navigation;
 
 namespace BestApp.X.Droid
 {    

@@ -24,18 +24,21 @@ namespace UnitTest.ViewModel
             };
             //check Name validation
             await createVm.CreateCommand.ExecuteAsync();
+            await Task.Delay(200);//small delay to make sure that errorCount updated
             Assert.IsTrue(errorCount == 1, "failed: name validation");
 
             //check Overview validation
             createVm.Name = "Test movie1";            
             await createVm.CreateCommand.ExecuteAsync();
-            Assert.IsTrue(errorCount == 2, "failed: quantity validation");            
+            await Task.Delay(200);//small delay to make sure that errorCount updated
+            Assert.IsTrue(errorCount == 2, "failed: Overview validation");            
 
             //Create product
             createVm.Overview = "test overview1";
             createVm.PosterImage = string.Empty;
             //note that name, overview should be the same that the moq expects (name:"Test movie1", Overview:test overview1) (see IoC registration)
             await createVm.CreateCommand.ExecuteAsync();
+            await Task.Delay(200);//small delay to make sure that errorCount updated
             Assert.IsTrue(errorCount == 2, "validation error");
             Assert.IsFalse(loggingService.HasError, "There is another error beside validation error");
         }

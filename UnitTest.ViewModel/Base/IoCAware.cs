@@ -4,7 +4,9 @@ using BestApp.Abstraction.General.Infasructures;
 using BestApp.Abstraction.General.Infasructures.Events;
 using BestApp.Abstraction.General.Platform;
 using BestApp.Abstraction.General.UI;
+using BestApp.Abstraction.General.UI.Navigation;
 using BestApp.ViewModels.Base;
+using BestApp.ViewModels.Events;
 using BestApp.ViewModels.Movies;
 using Common.Abstrtactions;
 using DryIoc;
@@ -62,8 +64,11 @@ namespace UnitTest.ViewModel.Base
 
             //infrastructures
             var mockInfraService = new Mock<IInfrastructureServices> { DefaultValue = DefaultValue.Mock };
-            var mockEventAggregator = new Mock<IEventAggregator> { DefaultValue = DefaultValue.Mock };            
-            mockEventAggregator.Setup(ea => ea.GetEvent<AuthErrorEvent>()).Returns(new AuthErrorEvent());//mock events
+            var mockEventAggregator = new Mock<IEventAggregator> { DefaultValue = DefaultValue.Mock };
+            //mock events
+            mockEventAggregator.Setup(ea => ea.GetEvent<AuthErrorEvent>()).Returns(new AuthErrorEvent());
+            mockEventAggregator.Setup(ea => ea.GetEvent<AppResumedEvent>()).Returns(new AppResumedEvent());
+            mockEventAggregator.Setup(ea => ea.GetEvent<AppPausedEvent>()).Returns(new AppPausedEvent());
             container.RegisterInstance(mockInfraService.Object);
             container.RegisterInstance(mockEventAggregator.Object);
 

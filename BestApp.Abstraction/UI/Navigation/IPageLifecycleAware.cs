@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.ViewModels.Base
+namespace BestApp.Abstraction.General.UI.Navigation
 {
     public interface IPageLifecycleAware
     {

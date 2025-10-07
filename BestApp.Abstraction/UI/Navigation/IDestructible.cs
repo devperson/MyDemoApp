@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.ViewModels.Base
+namespace BestApp.Abstraction.General.UI.Navigation
 {
     /// <summary>
     /// Interface for objects that require cleanup of resources prior to Disposal

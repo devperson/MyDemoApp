@@ -35,7 +35,7 @@ namespace BestApp.ViewModels.Movies
 
         
 
-        public override void Initialize(Abstraction.General.Platform.INavigationParameters parameters)
+        public override void Initialize(Abstraction.General.UI.Navigation.INavigationParameters parameters)
         {
             base.Initialize(parameters);
                         
@@ -70,7 +70,7 @@ namespace BestApp.ViewModels.Movies
 
        
 
-        public override void OnNavigatedTo(Abstraction.General.Platform.INavigationParameters parameters)
+        public override void OnNavigatedTo(Abstraction.General.UI.Navigation.INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
