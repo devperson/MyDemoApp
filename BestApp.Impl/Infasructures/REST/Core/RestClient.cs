@@ -1,5 +1,5 @@
 ﻿using BestApp.Abstraction.Common;
-using BestApp.Abstraction.General.Infasructures.REST;
+using BestApp.Abstraction.Main.Infasructures.REST;
 using Common.Abstrtactions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

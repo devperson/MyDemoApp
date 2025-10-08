@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.Abstraction.General.UI
+namespace BestApp.Abstraction.Main.UI
 {
     public interface IPopupAlert
     {

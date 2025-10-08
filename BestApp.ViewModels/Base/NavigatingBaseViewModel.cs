@@ -1,7 +1,7 @@
-﻿using BestApp.Abstraction.General.UI.Navigation;
+﻿using BestApp.Abstraction.Main.UI.Navigation;
 using BestApp.ViewModels.Helper.Commands;
 using System.Text;
-using INavigationParameters = BestApp.Abstraction.General.UI.Navigation.INavigationParameters;
+using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
 
 namespace BestApp.ViewModels.Base
 {

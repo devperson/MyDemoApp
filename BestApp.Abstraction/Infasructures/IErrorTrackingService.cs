@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.Abstraction.General.Infasructures
+namespace BestApp.Abstraction.Main.Infasructures
 {
     public interface IErrorTrackingService
     {

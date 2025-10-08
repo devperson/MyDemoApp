@@ -1,4 +1,4 @@
-﻿namespace BestApp.Abstraction.General.AppService.Events
+﻿namespace BestApp.Abstraction.Main.AppService.Events
 {
     public class ProductCreated
     {

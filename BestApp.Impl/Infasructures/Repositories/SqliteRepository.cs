@@ -1,5 +1,5 @@
 ﻿using BestApp.Abstraction.Domain.Entities;
-using BestApp.Abstraction.General.Infasructures;
+using BestApp.Abstraction.Main.Infasructures;
 using BestApp.Impl.Cross.Infasructures.Repositories.Tables;
 using Logging.Aspects;
 using MapsterMapper;

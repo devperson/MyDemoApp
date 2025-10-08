@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BestApp.Abstraction.General.AppService.Dto
+namespace BestApp.Abstraction.Main.AppService.Dto
 {
     public class ProductDto
     {

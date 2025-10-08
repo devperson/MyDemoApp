@@ -1,14 +1,14 @@
 ﻿using Android.Content;
 using Android.Runtime;
 using Android.Util;
-using BestApp.Abstraction.General.UI.Navigation;
+using BestApp.Abstraction.Main.UI.Navigation;
 using BestApp.X.Droid.Pages.Base;
 using BestApp.X.Droid.Utils;
 using Common.Abstrtactions;
 using KYChat.Controls.Navigation;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using FragmentManager = AndroidX.Fragment.App.FragmentManager;
-using INavigationParameters = BestApp.Abstraction.General.UI.Navigation.INavigationParameters;
+using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
 using NavigationParameters = BestApp.ViewModels.NavigationParameters;
 
 namespace BestApp.X.Droid

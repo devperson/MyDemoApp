@@ -1,5 +1,5 @@
 ﻿using BestApp.Abstraction.Domain.Entities;
-using BestApp.Abstraction.General.AppService.Dto;
+using BestApp.Abstraction.Main.AppService.Dto;
 using Mapster;
 using System;
 using System.Collections.Generic;

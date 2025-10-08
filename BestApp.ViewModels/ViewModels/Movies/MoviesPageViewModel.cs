@@ -1,6 +1,6 @@
-﻿using BestApp.Abstraction.General.AppService;
-using BestApp.Abstraction.General.Infasructures;
-using BestApp.Abstraction.General.Infasructures.Events;
+﻿using BestApp.Abstraction.Main.AppService;
+using BestApp.Abstraction.Main.Infasructures;
+using BestApp.Abstraction.Main.Infasructures.Events;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Helper.Commands;
 using BestApp.ViewModels.Movies.ItemViewModel;
@@ -35,7 +35,7 @@ namespace BestApp.ViewModels.Movies
 
         
 
-        public async override void Initialize(Abstraction.General.UI.Navigation.INavigationParameters parameters)
+        public async override void Initialize(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
         {
             base.Initialize(parameters);
                         
@@ -72,7 +72,7 @@ namespace BestApp.ViewModels.Movies
 
        
 
-        public override void OnNavigatedTo(Abstraction.General.UI.Navigation.INavigationParameters parameters)
+        public override void OnNavigatedTo(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using INavigationParameters = BestApp.Abstraction.General.UI.Navigation.INavigationParameters;
+using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
 
-namespace BestApp.Abstraction.General.UI.Navigation
+namespace BestApp.Abstraction.Main.UI.Navigation
 {
     public interface IInitialize
     {

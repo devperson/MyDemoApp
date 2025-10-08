@@ -1,4 +1,4 @@
-﻿using BestApp.Abstraction.General.UI;
+﻿using BestApp.Abstraction.Main.UI;
 using BestApp.ViewModels.Movies;
 using Common.Abstrtactions;
 using DryIoc;

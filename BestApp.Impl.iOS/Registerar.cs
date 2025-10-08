@@ -1,5 +1,5 @@
-﻿using BestApp.Abstraction.General.Platform;
-using BestApp.Abstraction.General.UI;
+﻿using BestApp.Abstraction.Main.Platform;
+using BestApp.Abstraction.Main.UI;
 using BestApp.Impl.iOS.Platform;
 using BestApp.Impl.iOS.UI;
 using BestApp.Impl.Platform;

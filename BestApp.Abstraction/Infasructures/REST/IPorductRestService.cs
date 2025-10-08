@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.Abstraction.General.Infasructures.REST
+namespace BestApp.Abstraction.Main.Infasructures.REST
 {
     public interface IPorductRestService
     {

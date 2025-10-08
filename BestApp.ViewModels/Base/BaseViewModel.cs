@@ -1,6 +1,6 @@
-﻿using BestApp.Abstraction.General.UI.Navigation;
-using IDestructible = BestApp.Abstraction.General.UI.Navigation.IDestructible;
-using INavigationParameters = BestApp.Abstraction.General.UI.Navigation.INavigationParameters;
+﻿using BestApp.Abstraction.Main.UI.Navigation;
+using IDestructible = BestApp.Abstraction.Main.UI.Navigation.IDestructible;
+using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
 
 namespace BestApp.ViewModels.Base
 {

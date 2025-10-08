@@ -1,9 +1,9 @@
-﻿using BestApp.Abstraction.General.Platform;
+﻿using BestApp.Abstraction.Main.Platform;
 using Common.Abstrtactions;
 using DryIoc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using BestApp.Abstraction.General.UI;
+using BestApp.Abstraction.Main.UI;
 using UnitTest.ViewModel.Impl;
 using IntegrationTest.Impl;
 using BestApp.ViewModels;
@@ -15,7 +15,7 @@ using Mapster;
 using MapsterMapper;
 using UnitTest.Impl;
 using BestApp.ViewModels.Movies;
-using BestApp.Abstraction.General.UI.Navigation;
+using BestApp.Abstraction.Main.UI.Navigation;
 
 namespace IntegrationTest.Base
 {

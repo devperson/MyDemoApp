@@ -1,4 +1,4 @@
-﻿using BestApp.Abstraction.General.UI.Navigation;
+﻿using BestApp.Abstraction.Main.UI.Navigation;
 using BestApp.ViewModels.Base;
 using DryIoc;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using INavigationParameters = BestApp.Abstraction.General.UI.Navigation.INavigationParameters;
+using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
 using NavigationParameters = BestApp.ViewModels.NavigationParameters;
 
 namespace IntegrationTest.Impl

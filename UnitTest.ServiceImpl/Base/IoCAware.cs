@@ -1,6 +1,6 @@
 ﻿using BestApp.Abstraction.Domain.Entities;
-using BestApp.Abstraction.General.Infasructures;
-using BestApp.Abstraction.General.Platform;
+using BestApp.Abstraction.Main.Infasructures;
+using BestApp.Abstraction.Main.Platform;
 using Common.Abstrtactions;
 using DryIoc;
 using Mapster;
@@ -8,9 +8,9 @@ using MapsterMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BestApp.Impl.Cross.Infasructures.Repositories;
 using UnitTest.Impl;
-using BestApp.Abstraction.General.Infasructures.REST;
-using BestApp.Abstraction.General.AppService.Dto;
-using BestApp.Abstraction.General.AppService;
+using BestApp.Abstraction.Main.Infasructures.REST;
+using BestApp.Abstraction.Main.AppService.Dto;
+using BestApp.Abstraction.Main.AppService;
 using Moq;
 using Logging.Aspects;
 

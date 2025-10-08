@@ -1,4 +1,4 @@
-﻿using BestApp.Abstraction.General.AppService.Dto;
+﻿using BestApp.Abstraction.Main.AppService.Dto;
 using BestApp.ViewModels.Base;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using BestApp.Abstraction.General.Platform;
+﻿using BestApp.Abstraction.Main.Platform;
 using System;
 using System.Collections.Generic;
 using System.Linq;

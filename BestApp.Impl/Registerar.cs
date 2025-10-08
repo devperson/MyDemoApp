@@ -1,5 +1,5 @@
 ﻿using BestApp.Abstraction.Domain.Entities;
-using BestApp.Abstraction.General.Infasructures;
+using BestApp.Abstraction.Main.Infasructures;
 using BestApp.Impl.Cross.Infasructures.Repositories.Tables;
 using BestApp.Impl.Cross.Infasructures.Repositories;
 using BestApp.Impl.Cross.AppService.Products;
@@ -10,8 +10,8 @@ using BestApp.Impl.Cross.Map;
 using Common.Abstrtactions;
 using BestApp.Impl.Cross.Common;
 using BestApp.Impl.Cross.Infasructures;
-using BestApp.Abstraction.General.AppService;
-using BestApp.Abstraction.General.Infasructures.REST;
+using BestApp.Abstraction.Main.AppService;
+using BestApp.Abstraction.Main.Infasructures.REST;
 using BestApp.Impl.Cross.Infasructures.REST;
 using BestApp.Impl.Cross.AppService;
 

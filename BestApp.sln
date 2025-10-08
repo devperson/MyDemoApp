@@ -5,7 +5,7 @@ VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestApp.X.Droid", "BestApp.Droid\BestApp.X.Droid.csproj", "{682CEABF-2FC3-4537-9000-3C038D9C7E15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestApp.Abstraction.General", "BestApp.Abstraction\BestApp.Abstraction.General.csproj", "{D3E7A546-1510-475B-A074-BD1BAF656C0B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestApp.Abstraction.Main", "BestApp.Abstraction\BestApp.Abstraction.Main.csproj", "{D3E7A546-1510-475B-A074-BD1BAF656C0B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestApp.Abstraction.Domain", "BestApp.Domain\BestApp.Abstraction.Domain.csproj", "{CA20A1D0-EB74-4865-91A5-B420815CF57E}"
 EndProject

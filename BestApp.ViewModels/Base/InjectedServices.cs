@@ -1,6 +1,6 @@
-﻿using BestApp.Abstraction.General.Platform;
-using BestApp.Abstraction.General.UI;
-using BestApp.Abstraction.General.UI.Navigation;
+﻿using BestApp.Abstraction.Main.Platform;
+using BestApp.Abstraction.Main.UI;
+using BestApp.Abstraction.Main.UI.Navigation;
 using Common.Abstrtactions;
 using DryIoc;
 

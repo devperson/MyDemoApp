@@ -1,5 +1,5 @@
 ﻿using BestApp.Abstraction.Domain.Entities;
-using BestApp.Abstraction.General.Infasructures.REST;
+using BestApp.Abstraction.Main.Infasructures.REST;
 using Common.Abstrtactions;
 using System;
 using System.Collections.Generic;

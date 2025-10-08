@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.Abstraction.General.AppService.Dto
+namespace BestApp.Abstraction.Main.AppService.Dto
 {
     public class Some<T>
     {

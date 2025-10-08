@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.Abstraction.General.Infasructures.Exceptions
+namespace BestApp.Abstraction.Main.Infasructures.Exceptions
 {
     public class RestApiException : Exception
     {

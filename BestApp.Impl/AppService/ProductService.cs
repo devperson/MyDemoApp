@@ -1,9 +1,9 @@
-﻿using BestApp.Abstraction.General.Infasructures;
+﻿using BestApp.Abstraction.Main.Infasructures;
 using BestApp.Abstraction.Domain.Entities;
-using BestApp.Abstraction.General.AppService.Dto;
+using BestApp.Abstraction.Main.AppService.Dto;
 using Common.Abstrtactions;
 using MapsterMapper;
-using BestApp.Abstraction.General.AppService;
+using BestApp.Abstraction.Main.AppService;
 using Logging.Aspects;
 
 namespace BestApp.Impl.Cross.AppService.Products

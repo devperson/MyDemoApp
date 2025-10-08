@@ -1,5 +1,5 @@
 ﻿using System;
-using BestApp.Abstraction.General.Platform;
+using BestApp.Abstraction.Main.Platform;
 using Microsoft.Maui.Storage;
 
 namespace BestApp.Impl.Droid.Platform

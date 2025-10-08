@@ -1,6 +1,6 @@
-﻿using BestApp.Abstraction.General.Infasructures.Exceptions;
-using BestApp.Abstraction.General.Infasructures.REST;
-using BestApp.Abstraction.General.Platform;
+﻿using BestApp.Abstraction.Main.Infasructures.Exceptions;
+using BestApp.Abstraction.Main.Infasructures.REST;
+using BestApp.Abstraction.Main.Platform;
 using Common.Abstrtactions;
 using Logging.Aspects;
 using Newtonsoft.Json;

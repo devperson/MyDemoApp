@@ -8,7 +8,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BestApp.Abstraction.General.Platform;
+using BestApp.Abstraction.Main.Platform;
 
 namespace BestApp.Impl.Cross.Common
 {

@@ -1,5 +1,5 @@
-﻿using BestApp.Abstraction.General.AppService;
-using BestApp.Abstraction.General.AppService.Dto;
+﻿using BestApp.Abstraction.Main.AppService;
+using BestApp.Abstraction.Main.AppService.Dto;
 using DryIoc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;

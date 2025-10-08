@@ -1,4 +1,4 @@
-﻿using BestApp.Abstraction.General.UI.Navigation;
+﻿using BestApp.Abstraction.Main.UI.Navigation;
 using BestApp.ViewModels.Base;
 using Common.Abstrtactions;
 using DryIoc;

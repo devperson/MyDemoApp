@@ -1,10 +1,10 @@
-﻿using BestApp.Abstraction.General.Infasructures.Exceptions;
-using BestApp.Abstraction.General.UI.Navigation;
+﻿using BestApp.Abstraction.Main.Infasructures.Exceptions;
+using BestApp.Abstraction.Main.UI.Navigation;
 using BestApp.ViewModels.Events;
 using BestApp.ViewModels.Helper.Commands;
 using Logging.Aspects;
 using System.Net;
-using INavigationParameters = BestApp.Abstraction.General.UI.Navigation.INavigationParameters;
+using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
 
 namespace BestApp.ViewModels.Base
 {

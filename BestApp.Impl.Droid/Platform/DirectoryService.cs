@@ -1,5 +1,5 @@
-﻿using BestApp.Abstraction.General.Infasructures;
-using BestApp.Abstraction.General.Platform;
+﻿using BestApp.Abstraction.Main.Infasructures;
+using BestApp.Abstraction.Main.Platform;
 using Microsoft.Maui.Storage;
 using System;
 

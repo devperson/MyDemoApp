@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.Abstraction.General.UI.Navigation
+namespace BestApp.Abstraction.Main.UI.Navigation
 {
     public interface INavigationParameters : IEnumerable<KeyValuePair<string, object>>
     {

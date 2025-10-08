@@ -9,7 +9,7 @@ using Logging.Aspects;
 using DryIoc;
 using KYChat.Controls.Navigation;
 using System.Globalization;
-using BestApp.Abstraction.General.UI.Navigation;
+using BestApp.Abstraction.Main.UI.Navigation;
 using BestApp.ViewModels.Base;
 using Prism.Ioc;
 

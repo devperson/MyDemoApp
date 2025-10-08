@@ -1,10 +1,10 @@
-﻿using BestApp.Abstraction.General.AppService;
-using BestApp.Abstraction.General.AppService.Dto;
-using BestApp.Abstraction.General.Infasructures;
-using BestApp.Abstraction.General.Infasructures.Events;
-using BestApp.Abstraction.General.Platform;
-using BestApp.Abstraction.General.UI;
-using BestApp.Abstraction.General.UI.Navigation;
+﻿using BestApp.Abstraction.Main.AppService;
+using BestApp.Abstraction.Main.AppService.Dto;
+using BestApp.Abstraction.Main.Infasructures;
+using BestApp.Abstraction.Main.Infasructures.Events;
+using BestApp.Abstraction.Main.Platform;
+using BestApp.Abstraction.Main.UI;
+using BestApp.Abstraction.Main.UI.Navigation;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Events;
 using BestApp.ViewModels.Movies;

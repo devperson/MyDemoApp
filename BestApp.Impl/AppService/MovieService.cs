@@ -1,8 +1,8 @@
 ﻿using BestApp.Abstraction.Domain.Entities;
-using BestApp.Abstraction.General.AppService;
-using BestApp.Abstraction.General.AppService.Dto;
-using BestApp.Abstraction.General.Infasructures;
-using BestApp.Abstraction.General.Infasructures.REST;
+using BestApp.Abstraction.Main.AppService;
+using BestApp.Abstraction.Main.AppService.Dto;
+using BestApp.Abstraction.Main.Infasructures;
+using BestApp.Abstraction.Main.Infasructures.REST;
 using Common.Abstrtactions;
 using Logging.Aspects;
 using MapsterMapper;

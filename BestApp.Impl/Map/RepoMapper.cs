@@ -1,5 +1,5 @@
 ﻿using BestApp.Abstraction.Domain.Entities;
-using BestApp.Abstraction.General.AppService.Dto;
+using BestApp.Abstraction.Main.AppService.Dto;
 using BestApp.Impl.Cross.Infasructures.Repositories.Tables;
 using Mapster;
 using System;

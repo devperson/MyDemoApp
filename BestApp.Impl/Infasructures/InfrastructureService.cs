@@ -1,6 +1,6 @@
 ﻿using BestApp.Abstraction.Common;
-using BestApp.Abstraction.General.Infasructures;
-using BestApp.Abstraction.General.Infasructures.REST;
+using BestApp.Abstraction.Main.Infasructures;
+using BestApp.Abstraction.Main.Infasructures.REST;
 using Logging.Aspects;
 using System;
 using System.Collections.Generic;

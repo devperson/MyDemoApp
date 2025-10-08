@@ -1,5 +1,5 @@
-﻿using BestApp.Abstraction.General.AppService;
-using BestApp.Abstraction.General.UI;
+﻿using BestApp.Abstraction.Main.AppService;
+using BestApp.Abstraction.Main.UI;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Helper;
 using BestApp.ViewModels.Helper.Commands;

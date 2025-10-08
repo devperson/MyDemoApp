@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.General.csproj" />
+	  <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.Main.csproj" />
 	  <ProjectReference Include="..\BestApp.ViewModels\BestApp.ViewModels.csproj" />
 	</ItemGroup>
 </Project>
