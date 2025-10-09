@@ -14,6 +14,8 @@ using BestApp.Abstraction.Main.AppService;
 using BestApp.Abstraction.Main.Infasructures.REST;
 using BestApp.Impl.Cross.Infasructures.REST;
 using BestApp.Impl.Cross.AppService;
+using IEventAggregator = BestApp.Abstraction.Common.Events.IEventAggregator;
+using BestApp.Abstraction.Common.Events;
 
 
 namespace BestApp.Impl.Cross
@@ -40,7 +42,7 @@ namespace BestApp.Impl.Cross
         {
             container.Register<IFileLoger, NLogFileLoger>(Reuse.Singleton);
             container.Register<ILoggingService, AppLoggingService>(Reuse.Singleton);
-            container.Register<IEventAggregator, EventAggregator>(Reuse.Singleton);
+            container.Register<IEventAggregator, SimpleEventAggregator>(Reuse.Singleton);
         }
 
         public static void RegisterAppService(IContainer container, TypeAdapterConfig mapperConfig)
