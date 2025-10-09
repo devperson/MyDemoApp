@@ -24,9 +24,5 @@ namespace BestApp.ViewModels.Base
         {
             Initialized?.Invoke(this, EventArgs.Empty);
         }
-
-
-
-
     }
 }
