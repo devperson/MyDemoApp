@@ -14,6 +14,8 @@ using Prism.Ioc;
 using BestApp.X.Droid.UI.Services.Navigation;
 using BestApp.Abstraction.Main.UI;
 using BestApp.X.Droid.UI.Services;
+using Mapster;
+using MapsterMapper;
 
 namespace BestApp.X.Droid
 {    
@@ -25,6 +27,11 @@ namespace BestApp.X.Droid
         {
             var container = DryIocContainerExtension.CreateInstance();
             ContainerLocator.SetContainerExtension(container);
+            //register mapper
+            var mapperConfig = new TypeAdapterConfig();
+            container.RegisterInstance(mapperConfig);
+            // Register Mapster's service
+            container.RegisterSingleton<IMapper, Mapper>();
 
             //register navigation service            
             container.RegisterInstance(pageNavigationService);
@@ -33,8 +40,8 @@ namespace BestApp.X.Droid
 
             //register app, infrastructure services            
             var dryIocContainer = (DryIocContainerExtension)container;
-            Impl.Cross.Registerar.RegisterTypes(dryIocContainer.Instance);
-            Impl.Droid.Registerar.RegisterTypes(dryIocContainer.Instance);
+            Impl.Cross.Registerar.RegisterTypes(dryIocContainer.Instance, mapperConfig);
+            Impl.Droid.Registerar.RegisterTypes(dryIocContainer.Instance, mapperConfig);
             LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
 
             container.RegisterSingleton<IAlertDialogService, DroidAlertDialogService>();

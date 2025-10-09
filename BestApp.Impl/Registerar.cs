@@ -22,14 +22,8 @@ namespace BestApp.Impl.Cross
 {
     public static class Registerar
     {
-        public static void RegisterTypes(IContainer container)
+        public static void RegisterTypes(IContainer container, TypeAdapterConfig mapperConfig)
         {
-            //register mapper
-            var mapperConfig = new TypeAdapterConfig();
-            container.RegisterInstance(mapperConfig);
-            // Register Mapster's service
-            container.Register<IMapper, Mapper>(Reuse.Singleton);
-
             //Register Common
             RegisterCommon(container);
             //register infrastructures           
