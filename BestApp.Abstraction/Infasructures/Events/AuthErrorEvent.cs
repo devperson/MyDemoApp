@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BestApp.Abstraction.Common.Events;
 
 namespace BestApp.Abstraction.Main.Infasructures.Events
 {
-    public class AuthErrorEvent : PubSubEvent
+    public class AuthErrorEvent : Event
     {
-
+        
     }
 }

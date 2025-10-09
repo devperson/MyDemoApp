@@ -1,4 +1,5 @@
-﻿using BestApp.Abstraction.Main.Platform;
+﻿using BestApp.Abstraction.Common.Events;
+using BestApp.Abstraction.Main.Platform;
 using BestApp.Abstraction.Main.UI;
 using BestApp.Abstraction.Main.UI.Navigation;
 using Common.Abstrtactions;

@@ -22,6 +22,7 @@ public class LoginPageViewModel : PageViewModel
 
     private async Task OnSubmitCommand(object arg)
     {
+        //nameof(OnSubmitCommand);
         await Services.NavigationService.Navigate($"/{nameof(MoviesPageViewModel)}");
     }
 }
