@@ -16,7 +16,7 @@ namespace BestApp.X.Droid.Pages.Movies;
 public class AddEditMoviePage : LifecyclePage
 {
     private ViewGroup btnPhoto;
-    private Button btnSave;
+    private Button btnSave, btnDelete;
     private ImageView imgView;
     private TextView txtName, txtDescription;
 
@@ -37,6 +37,7 @@ public class AddEditMoviePage : LifecyclePage
         var fragmentView = inflater.Inflate(Resource.Layout.page_movie_add_edit, container, false);
         btnPhoto = fragmentView.FindViewById<ViewGroup>(Resource.Id.btnPhoto);
         btnSave = fragmentView.FindViewById<Button>(Resource.Id.btnSave);
+        btnDelete = fragmentView.FindViewById<Button>(Resource.Id.btnDelete);
 
         imgView = fragmentView.FindViewById<ImageView>(Resource.Id.imgView);
         txtName = fragmentView.FindViewById<TextView>(Resource.Id.txtName);
@@ -46,14 +47,29 @@ public class AddEditMoviePage : LifecyclePage
         this.txtDescription.Text = this.ViewModel.Model.Description;
 
         this.OnPhotoChanged();
-
+        
         this.txtName.TextChanged += TxtName_TextChanged;
         this.txtDescription.TextChanged += TxtDesc_TextChanged;
+        this.btnDelete.Click += BtnDelete_Click;
         this.btnPhoto.Click += BtnPhoto_Click;
         this.btnSave.Click += BtnSave_Click;
 
-
         return fragmentView;
+    }
+
+    public override async void OnViewCreated(View view, Bundle savedInstanceState)
+    {
+        base.OnViewCreated(view, savedInstanceState);
+
+        //btnDelete is disabled in XML and we only enable it after a bit delay
+        //this is so to avoid user accidental click while navigating, because delete is located in same place where we have edit button in prev page
+        await Task.Delay(600);
+        btnDelete.Enabled = true;
+    }
+
+    private void BtnDelete_Click(object sender, EventArgs e)
+    {
+        this.ViewModel.DeleteCommand.Execute();
     }
 
     private void TxtName_TextChanged(object sender, Android.Text.TextChangedEventArgs e)

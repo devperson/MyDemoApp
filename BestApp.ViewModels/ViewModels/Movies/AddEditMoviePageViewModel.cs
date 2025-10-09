@@ -23,6 +23,7 @@ namespace BestApp.ViewModels.Movies
         {
             SaveCommand = new AsyncCommand(OnSaveCommand);
             ChangePhotoCommand = new AsyncCommand(OnChangePhotoCommand);
+            DeleteCommand = new AsyncCommand(OnDeleteCommand);
             this.movieService = movieService;
             this.popupAlert = popupAlert;
         }
@@ -30,6 +31,7 @@ namespace BestApp.ViewModels.Movies
         public bool IsEdit { get; set; }        
         public AsyncCommand SaveCommand { get; set; }
         public AsyncCommand ChangePhotoCommand { get; set; }
+        public AsyncCommand DeleteCommand { get; set; }
         public MovieItemViewModel Model { get; set; }        
 
         public override void Initialize(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
@@ -48,6 +50,11 @@ namespace BestApp.ViewModels.Movies
         }
 
         private async Task OnChangePhotoCommand(object arg)
+        {
+            
+        }
+
+        private async Task OnDeleteCommand(object arg)
         {
             
         }
