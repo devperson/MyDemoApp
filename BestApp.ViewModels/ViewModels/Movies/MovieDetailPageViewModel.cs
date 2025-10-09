@@ -29,8 +29,14 @@ public class MovieDetailPageViewModel : PageViewModel
         if (parameters.ContainsKey(MoviesPageViewModel.SELECTED_ITEM))
         {
             this.Model = parameters.GetValue<MovieItemViewModel>(MoviesPageViewModel.SELECTED_ITEM);
-        }
-        else if(parameters.ContainsKey(AddEditMoviePageViewModel.UPDATE_ITEM))
+        }        
+    }
+
+    public override void OnNavigatedTo(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
+    {
+        base.OnNavigatedTo(parameters);
+
+        if (parameters.ContainsKey(AddEditMoviePageViewModel.UPDATE_ITEM))
         {
             this.Model = parameters.GetValue<MovieItemViewModel>(AddEditMoviePageViewModel.UPDATE_ITEM);
             Services.EventAggregator.GetEvent<MovieCellItemUpdatedEvent>().Publish(this.Model);

@@ -61,7 +61,7 @@ public class MoviesPage : LifecyclePage
 
         if(propertyName == nameof(this.ViewModel.MovieItems))
         {
-            adapter.NotifyDataSetChanged();
+            adapter.OnCollectionSet();
         }
         else if(propertyName == nameof(this.ViewModel.IsRefreshing))
         {

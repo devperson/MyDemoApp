@@ -20,6 +20,22 @@ public class MoviesItems_Adapter : RecyclerView.Adapter
         this.page = page;
     }
 
+    public void OnCollectionSet()
+    {
+        if (this.page.ViewModel.MovieItems != null)
+        {
+            if (collection != null)
+            {
+                collection.CollectionChanged -= Collection_CollectionChanged;
+            }
+
+            collection = this.page.ViewModel.MovieItems;
+            collection.CollectionChanged += Collection_CollectionChanged;
+        }
+       
+        this.NotifyDataSetChanged();
+    }
+
     public override int ItemCount => (collection?.Count).GetValueOrDefault();
 
     public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -33,24 +49,12 @@ public class MoviesItems_Adapter : RecyclerView.Adapter
 
     public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
     {
-        var model = this.page.ViewModel.MovieItems[position];
+        var model = this.collection[position];
         var viewHolder = holder as MovieItem_ViewHolder;
         viewHolder.SetData(model);
     }
 
-    public void OnCollectionSet()
-    {
-        if (this.page.ViewModel.MovieItems != null)
-        {
-            if (collection != null)
-            {
-                collection.CollectionChanged -= Collection_CollectionChanged;
-            }
-
-            collection = this.page.ViewModel.MovieItems;
-            collection.CollectionChanged += Collection_CollectionChanged;
-        }
-    }
+   
 
     private void Collection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
     {

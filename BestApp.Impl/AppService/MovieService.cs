@@ -6,6 +6,7 @@ using BestApp.Abstraction.Main.Infasructures.REST;
 using Common.Abstrtactions;
 using Logging.Aspects;
 using MapsterMapper;
+using System.Xml.Linq;
 using static SQLite.SQLite3;
 
 namespace BestApp.Impl.Cross.AppService
@@ -35,7 +36,7 @@ namespace BestApp.Impl.Cross.AppService
             {
                 try
                 {
-                    var movie = Movie.Create(name, overview, posterUrl);
+                    var movie = Movie.Create(0, name, overview, posterUrl);
                     await this.movieRepository.Value.Add(movie);
 
                     var dtoMovie = mapper.Value.Map<MovieDto>(movie);
@@ -49,13 +50,13 @@ namespace BestApp.Impl.Cross.AppService
             });
         }
 
-        public Task<Some<MovieDto>> Update(string name, string overview, string posterUrl)
+        public Task<Some<MovieDto>> Update(int id, string name, string overview, string posterUrl)
         {
             return Task.Run(async () =>
             {
                 try
                 {
-                    var movie = Movie.Create(name, overview, posterUrl);
+                    var movie = Movie.Create(id, name, overview, posterUrl);
                     await this.movieRepository.Value.Update(movie);
 
                     var dtoMovie = mapper.Value.Map<MovieDto>(movie);

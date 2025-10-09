@@ -84,6 +84,11 @@
             android:layout_height="match_parent"
             android:scaleType="fitXY" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80FFFFFF" />
+
         <ImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -127,7 +132,7 @@
         app:layout_constraintTop_toBottomOf="@id/lbl1" />
 
     <EditText
-        android:id="@+id/txtDesc"
+        android:id="@+id/txtDescription"
         style="@style/editTextStyle"
         android:layout_width="0dp"
         android:layout_height="45dp"

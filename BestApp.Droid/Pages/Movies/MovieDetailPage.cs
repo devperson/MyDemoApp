@@ -31,7 +31,7 @@ public class MovieDetailPage : LifecyclePage
 
     public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        var fragmentView = inflater.Inflate(Resource.Layout.page_movie_add_edit, container, false);
+        var fragmentView = inflater.Inflate(Resource.Layout.page_movie_detail, container, false);
         btnEdit = fragmentView.FindViewById<Button>(Resource.Id.btnEdit);        
         imgView = fragmentView.FindViewById<ImageView>(Resource.Id.imgView);
         txtName = fragmentView.FindViewById<TextView>(Resource.Id.txtName);
@@ -60,11 +60,11 @@ public class MovieDetailPage : LifecyclePage
     }
 
     private void OnModelUpdated()
-    {
+    {        
         this.txtName.Text = this.ViewModel.Model.Name;
         this.txtDescription.Text = this.ViewModel.Model.Description;
 
-        if (string.IsNullOrEmpty(this.ViewModel.Model.PosterUrl))
+        if (!string.IsNullOrEmpty(this.ViewModel.Model.PosterUrl))
         {
             Glide.With(this.Context)
                       .Load(this.ViewModel.Model.PosterUrl)

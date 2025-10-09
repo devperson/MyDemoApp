@@ -18,7 +18,7 @@ public class AddEditMoviePage : LifecyclePage
     private ViewGroup btnPhoto;
     private Button btnSave;
     private ImageView imgView;
-    private TextView txtName, txtDesc;
+    private TextView txtName, txtDescription;
 
     public new AddEditMoviePageViewModel ViewModel
     {
@@ -40,15 +40,15 @@ public class AddEditMoviePage : LifecyclePage
 
         imgView = fragmentView.FindViewById<ImageView>(Resource.Id.imgView);
         txtName = fragmentView.FindViewById<TextView>(Resource.Id.txtName);
-        txtDesc = fragmentView.FindViewById<TextView>(Resource.Id.txtDesc);
+        txtDescription = fragmentView.FindViewById<TextView>(Resource.Id.txtDescription);
 
         this.txtName.Text = this.ViewModel.Model.Name;
-        this.txtDesc.Text = this.ViewModel.Model.Description;
+        this.txtDescription.Text = this.ViewModel.Model.Description;
 
         this.OnPhotoChanged();
 
         this.txtName.TextChanged += TxtName_TextChanged;
-        this.txtDesc.TextChanged += TxtDesc_TextChanged;
+        this.txtDescription.TextChanged += TxtDesc_TextChanged;
         this.btnPhoto.Click += BtnPhoto_Click;
         this.btnSave.Click += BtnSave_Click;
 
@@ -63,7 +63,7 @@ public class AddEditMoviePage : LifecyclePage
 
     private void TxtDesc_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
     {
-        this.ViewModel.Model.Description = txtDesc.Text;
+        this.ViewModel.Model.Description = txtDescription.Text;
     }
 
     private void BtnPhoto_Click(object sender, EventArgs e)
@@ -78,7 +78,7 @@ public class AddEditMoviePage : LifecyclePage
 
     private void OnPhotoChanged()
     {
-        if (string.IsNullOrEmpty(this.ViewModel.Model.PosterUrl))
+        if (!string.IsNullOrEmpty(this.ViewModel.Model.PosterUrl))
         {
             Glide.With(this.Context)
                       .Load(this.ViewModel.Model.PosterUrl)
