@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 namespace BestApp.Abstraction.Main.AppService
 {
     public interface IMovieService 
-    {        
+    {
         Task<Some<MovieDto>> Add(string name, string overview, string posterUrl);
+        Task<Some<MovieDto>> Update(int id, string name, string overview, string posterUrl);
         Task<Some<List<MovieDto>>> GetList(int count = -1, int skip = 0, bool remoteList = false);
     }
 }

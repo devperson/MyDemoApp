@@ -49,6 +49,26 @@ namespace BestApp.Impl.Cross.AppService
             });
         }
 
+        public Task<Some<MovieDto>> Update(string name, string overview, string posterUrl)
+        {
+            return Task.Run(async () =>
+            {
+                try
+                {
+                    var movie = Movie.Create(name, overview, posterUrl);
+                    await this.movieRepository.Value.Update(movie);
+
+                    var dtoMovie = mapper.Value.Map<MovieDto>(movie);
+                    return new Some<MovieDto>(dtoMovie);
+                }
+                catch (Exception ex)
+                {
+                    loggingService.Value.TrackError(ex);
+                    return new Some<MovieDto>(ex);
+                }
+            });
+        }
+
         public Task<Some<List<MovieDto>>> GetList(int count = -1, int skip = 0, bool remoteList = false)
         {
             return Task.Run(async () =>

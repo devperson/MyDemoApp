@@ -32,14 +32,13 @@ public class MovieItem_ViewHolder : RecyclerView.ViewHolder
     public void SetData(MovieItemViewModel model)
     {
         this.txtName.Text = model.Name;
-        this.txtDescription.Text = model.Overview;
+        this.txtDescription.Text = model.Description;
 
         if (!string.IsNullOrEmpty(model.PosterUrl))
         {            
             Glide.With(this.itemView.Context)
                    .Load(model.PosterUrl)
-                   .Override(200, 300)
-                   .CircleCrop()
+                   .Override(200, 300)                  
                    .SetDiskCacheStrategy(DiskCacheStrategy.All)
                    .Into(imgView);
         }
