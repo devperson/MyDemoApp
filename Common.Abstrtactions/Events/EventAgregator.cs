@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BestApp.Abstraction.Common.Events
 {
-    public class SimpleEventAggregator : IEventAggregator
+    public class SimpleMessageCenter : IMessagesCenter
     {
         private readonly ConcurrentDictionary<Type, object> _events = new();
 
@@ -27,7 +27,7 @@ namespace BestApp.Abstraction.Common.Events
         }
     }
 
-    public class Event<T> : IEvent<T>
+    public class SubMessage<T> : IMessage<T>
     {
         private readonly List<Action<T>> _handlers = new();
         private readonly object _lock = new();
@@ -68,9 +68,9 @@ namespace BestApp.Abstraction.Common.Events
         }
     }
 
-    public class Event : IEvent
+    public class SubMessage : IMessage
     {
-        private readonly Event<Unit> _inner = new();
+        private readonly SubMessage<Unit> _inner = new();
 
         public void Subscribe(Action handler) => _inner.Subscribe(_ => handler());
         public void Unsubscribe(Action handler) => _inner.Unsubscribe(_ => handler());

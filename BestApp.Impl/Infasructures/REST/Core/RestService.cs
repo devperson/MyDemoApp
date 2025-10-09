@@ -13,7 +13,7 @@ namespace BestApp.Impl.Cross.Infasructures.REST
         public RestService(Lazy<ILoggingService> loggingService, 
                            Lazy<IAuthTokenService> authTokenService, 
                            Lazy<IRestClient> restClient, 
-                           Lazy<IEventAggregator> eventAggregator,
+                           Lazy<IMessagesCenter> eventAggregator,
                            RequestQueueList requestQueues)
         {
             this.loggingService = loggingService;            
@@ -27,7 +27,7 @@ namespace BestApp.Impl.Cross.Infasructures.REST
         private readonly Lazy<ILoggingService> loggingService;        
         private readonly Lazy<IAuthTokenService> authTokenService;
         private readonly Lazy<IRestClient> restClient;
-        private readonly Lazy<IEventAggregator> eventAggregator;
+        private readonly Lazy<IMessagesCenter> eventAggregator;
         private string Tag = "RestClientService: ";       
 
        

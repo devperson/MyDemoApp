@@ -56,7 +56,7 @@ namespace UnitTest.InfrasImpl.Base
             container.Register<ILoggingService, MockAppLogging>(Reuse.Singleton);
             container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
             container.Register<IPreferencesService, PreferenceService>(Reuse.Singleton);
-            container.Register<IEventAggregator, EventAggregator>(Reuse.Singleton);
+            container.Register<IMessagesCenter, SimpleMessageCenter>(Reuse.Singleton);
             LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
 
             BestApp.Impl.Cross.Registerar.RegisterInfrastructureService(container, mapperConfig);

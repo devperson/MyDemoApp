@@ -17,7 +17,7 @@ namespace BestApp.ViewModels.Base
         public IContainer Container { get; }
         public IPageNavigationService NavigationService { get; }
 
-        public IEventAggregator EventAggregator => Container.Resolve<IEventAggregator>();
+        public IMessagesCenter EventAggregator => Container.Resolve<IMessagesCenter>();
         public ILoggingService LoggingService => Container.Resolve<ILoggingService>();
         public IPopupAlert PopupAlertService=> Container.Resolve<IPopupAlert>();
         public IPlatformErrorService PlatformError => Container.Resolve<IPlatformErrorService>();        

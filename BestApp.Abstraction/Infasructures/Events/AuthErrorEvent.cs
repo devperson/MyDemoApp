@@ -2,7 +2,7 @@
 
 namespace BestApp.Abstraction.Main.Infasructures.Events
 {
-    public class AuthErrorEvent : Event
+    public class AuthErrorEvent : SubMessage
     {
         
     }

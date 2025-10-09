@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BestApp.ViewModels.Events
 {
-    public class AppPausedEvent : Event
+    public class AppPausedEvent : SubMessage
     {
     }
 }
