@@ -1,4 +1,5 @@
-﻿using BestApp.Abstraction.Domain.Entities;
+﻿using BestApp.Abstraction.Common.Events;
+using BestApp.Abstraction.Domain.Entities;
 using BestApp.Abstraction.Main.Infasructures.Exceptions;
 using BestApp.Abstraction.Main.Infasructures.REST;
 using Common.Abstrtactions;
