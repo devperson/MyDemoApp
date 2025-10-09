@@ -54,7 +54,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
         }
 
        
-        public async Task Add(TEntity entity)
+        public async Task<int> AddAsync(TEntity entity)
         {
             await semaphor.WaitAsync();
             try
@@ -62,9 +62,10 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
                 EnsureInitalized();
                 var record = mapper.Value.Map<Tb>(entity);
                 //var dbTable = database.Table<Table>();
-                await database.InsertAsync(record);
-
+                var res = await database.InsertAsync(record);
                 entity.Id = record.Id;
+
+                return res;
             }
             finally
             {
@@ -72,15 +73,16 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             }
         }
 
-        public async Task Remove(TEntity entity)
+        public async Task<int> RemoveAsync(TEntity entity)
         {
             await semaphor.WaitAsync();
             try
             {  
                 EnsureInitalized();
 
-                var record = mapper.Value.Map<Tb>(entity);
-                await database.DeleteAsync(record);
+                var record = mapper.Value.Map<Tb>(entity);                
+                var res = await database.DeleteAsync(record);
+                return res;
             }
             finally
             {
@@ -88,7 +90,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             }
         }
 
-        public async Task Update(TEntity entity)
+        public async Task<int> UpdateAsync(TEntity entity)
         {
             await semaphor.WaitAsync();
 
@@ -97,7 +99,8 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
                 EnsureInitalized();
 
                 var record = mapper.Value.Map<Tb>(entity);
-                await database.UpdateAsync(record);
+                var res = await database.UpdateAsync(record);
+                return res;
             }
             finally
             {
@@ -118,7 +121,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             }
         }
 
-        public async Task Clear(string reason)
+        public async Task<int> ClearAsync(string reason)
         {
             await semaphor.WaitAsync();
             try
@@ -129,11 +132,13 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
                 var tableName = typeof(Tb).Name; 
                 var ids = await database.QueryScalarsAsync<int>($"SELECT Id FROM {tableName}");
                 //delete all records
-                await database.DeleteAllAsync<Tb>();
+                var res = await database.DeleteAllAsync<Tb>();
                 //track event
                 var customValues = string.Join(",", ids);
                 var deleteEvent = EventsTb.Create(tableName, "DELETE", reason, customValues);
                 await database.InsertAsync(deleteEvent);
+
+                return res;
             }
             finally
             {
@@ -141,20 +146,22 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             }
         }
 
-        public async Task AddAll(List<TEntity> entities)
+        public async Task<int> AddAllAsync(List<TEntity> entities)
         {
             await semaphor.WaitAsync();
             try
             {
                 EnsureInitalized();
                 var records = entities.Select(s=> mapper.Value.Map<Tb>(s)).ToList();
-                await database.InsertAllAsync(records);
+                var res = await database.InsertAllAsync(records);
 
                 //set id
                 for (int i = 0; i < records.Count; i++)
                 {
                     entities[i].Id = records[i].Id;
                 }
+
+                return res;
             }
             finally
             {

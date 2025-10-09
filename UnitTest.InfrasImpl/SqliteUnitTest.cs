@@ -26,7 +26,7 @@ namespace UnitTest.InfrasImpl
                 Created = DateTime.Now,
                 Quantity = 1,
             };
-            await productPepo.Add(product);
+            await productPepo.AddAsync(product);
 
             Assert.IsTrue(product.Id > 0);
         }
@@ -41,7 +41,7 @@ namespace UnitTest.InfrasImpl
                 Overview = "good movie",
                 PosterUrl = "no url"
             };
-            await movieRepo.Add(movie);
+            await movieRepo.AddAsync(movie);
 
             Assert.IsTrue(movie.Id > 0);
         }

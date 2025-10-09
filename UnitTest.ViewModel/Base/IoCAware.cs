@@ -73,20 +73,20 @@ namespace UnitTest.ViewModel.Base
             container.RegisterInstance(mockEventAggregator.Object);
 
             //register app services
-            var mockMovieService = new Mock<IMovieService> { DefaultValue = DefaultValue.Mock };
+            var mockMovieService = new Mock<IMoviesService> { DefaultValue = DefaultValue.Mock };
             //get local data
-            mockMovieService.Setup(x => x.GetList(-1, 0, false)).ReturnsAsync(new Some<List<MovieDto>>(
+            mockMovieService.Setup(x => x.GetListAsync(-1, 0, false)).ReturnsAsync(new Some<List<MovieDto>>(
             new List<MovieDto>
             {
                 new MovieDto { Id = 1, Name = "Test movie1", Overview = "overview test1" }
             }));
             //get remote data
-            mockMovieService.Setup(x => x.GetList(-1, 0, true)).ReturnsAsync(new Some<List<MovieDto>>(
+            mockMovieService.Setup(x => x.GetListAsync(-1, 0, true)).ReturnsAsync(new Some<List<MovieDto>>(
             new List<MovieDto>
             {
                 new MovieDto { Id = 1, Name = "Test movie1", Overview = "overview test1" }
             }));
-            mockMovieService.Setup(x => x.Add("Test movie1", "test overview1", string.Empty)).ReturnsAsync(new Some<MovieDto>(new MovieDto()
+            mockMovieService.Setup(x => x.AddAsync("Test movie1", "test overview1", string.Empty)).ReturnsAsync(new Some<MovieDto>(new MovieDto()
             { 
                 Id = 1, 
                 Name = "Test movie1", 

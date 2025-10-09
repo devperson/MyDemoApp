@@ -5,6 +5,7 @@ using Android.Views;
 using AndroidX.AppCompat.App;
 using BestApp.ViewModels.Base;
 using BestApp.X.Droid.Pages.Base;
+using BestApp.X.Droid.UI.Services.Navigation;
 using Common.Abstrtactions;
 using Microsoft.Maui.ApplicationModel;
 using System.Globalization;
@@ -57,6 +58,36 @@ namespace BestApp.X.Droid
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
+        public override void OnBackPressed()
+        {
+            //This method is called when Device's system back button is pressed (which is in bottom bar in Android)
+            //We need to check if it is not a root page because we don't want to pop last page
+            if (pageNavigationService.CanNavigateBack)
+            {
+                var currentPage = pageNavigationService.GetCurrentPage();
+                if (currentPage != null)
+                {
+                    //We need to do Pop navigation only when Push navigation animation is completed.
+                    //This prevents bugs such as https://github.com/imtllc/utilla-app-QA/issues/2531#event-17787173104              
+                    //It happens when user navigate to some page and tap on back system button quickly while push animation still in progress
+                    //The fix is to ignore back button while page push animation in progress                   
+                    if (currentPage.IsPageEnterAnimationCompleted)
+                    {
+                        //push animation is not in progress so we can do Pop navigation
+                        var currentPageVm = currentPage.ViewModel;
+                        if (currentPageVm != null)
+                        {
+                            currentPageVm.DoDeviceBackCommand();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var currentVm = this.GetCurrentViewModel();
+                loggingService?.LogWarning($"MainActivity.OnBackPressed() is canceled because CanNavigateBack is false for current page. Seems current page is root page thus can not navigate back, page: {currentVm}");
+            }
+        }
 
         private static void SetCulture()
         {

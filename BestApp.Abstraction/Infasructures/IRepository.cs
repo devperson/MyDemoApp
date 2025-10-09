@@ -14,11 +14,11 @@ namespace BestApp.Abstraction.Main.Infasructures
         Task<List<TEntity>> GetList(int count = -1, int skip = 0);
         //TEntity FindOne(ISpecification<TEntity> spec);
         //IEnumerable<TEntity> Find(ISpecification<TEntity> spec);
-        Task Add(TEntity entity);
-        Task Update(TEntity entity);
-        Task AddAll(List<TEntity> entities);
-        Task Remove(TEntity entity);
-        Task Clear(string reason);
+        Task<int> AddAsync(TEntity entity);
+        Task<int> UpdateAsync(TEntity entity);
+        Task<int> AddAllAsync(List<TEntity> entities);
+        Task<int> RemoveAsync(TEntity entity);
+        Task<int> ClearAsync(string reason);
     }
 
     public interface ILocalDbInitilizer

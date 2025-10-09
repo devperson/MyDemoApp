@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KYChat.Controls.Navigation;
+namespace BestApp.X.Droid.UI.Services.Navigation;
 
 public class UrlNavigationHelper
 {

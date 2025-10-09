@@ -71,7 +71,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             return Task.CompletedTask;
         }
 
-        public Task Clear(string reason)
+        public Task ClearAsync(string reason)
         {
             records.Clear();
 

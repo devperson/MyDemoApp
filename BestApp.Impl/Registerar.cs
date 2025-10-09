@@ -49,7 +49,7 @@ namespace BestApp.Impl.Cross
         {
             AppMapper.RegisterMapping(mapperConfig);
             container.Register<IProductService, ProductService>(Reuse.Singleton);
-            container.Register<IMovieService, MovieService>(Reuse.Singleton);
+            container.Register<IMoviesService, MoviesService>(Reuse.Singleton);
         }
 
         public static void RegisterInfrastructureService(IContainer container, TypeAdapterConfig mapperConfig)

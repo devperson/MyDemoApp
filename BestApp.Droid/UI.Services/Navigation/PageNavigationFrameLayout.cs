@@ -5,13 +5,12 @@ using BestApp.Abstraction.Main.UI.Navigation;
 using BestApp.X.Droid.Pages.Base;
 using BestApp.X.Droid.Utils;
 using Common.Abstrtactions;
-using KYChat.Controls.Navigation;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using FragmentManager = AndroidX.Fragment.App.FragmentManager;
 using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
 using NavigationParameters = BestApp.ViewModels.NavigationParameters;
 
-namespace BestApp.X.Droid
+namespace BestApp.X.Droid.UI.Services.Navigation
 {
     //[LogMethods]
     public class PageNavigationFrameLayout : FrameLayout , IPageNavigationService
@@ -67,7 +66,7 @@ namespace BestApp.X.Droid
 
         public void SetActivity(MainActivity activity)
         {
-            this.mainActivity = activity;
+            mainActivity = activity;
         }
 
         
@@ -85,27 +84,27 @@ namespace BestApp.X.Droid
 
                 if (navInfo.isPush)
                 {
-                    await this.OnPushAsync(url, parameters, animated);
+                    await OnPushAsync(url, parameters, animated);
                 }
                 else if (navInfo.isPop)
                 {
-                    await this.OnPopAsync(parameters);
+                    await OnPopAsync(parameters);
                 }
                 else if (navInfo.isMultiPop)
                 {
-                    await this.OnMultiPopAsync(url, parameters, animated);
+                    await OnMultiPopAsync(url, parameters, animated);
                 }
                 else if (navInfo.isMultiPopAndPush)
                 {
-                    await this.OnMultiPopAndPush(url, parameters, animated);
+                    await OnMultiPopAndPush(url, parameters, animated);
                 }
                 else if (navInfo.isPushAsRoot)
                 {
-                    await this.OnPushRootAsync(url, parameters, animated);
+                    await OnPushRootAsync(url, parameters, animated);
                 }
                 else if (navInfo.isMultiPushAsRoot)
                 {
-                    await this.OnMultiPushRootAsync(url, parameters, animated);
+                    await OnMultiPushRootAsync(url, parameters, animated);
                 }
                 else
                 {
@@ -126,11 +125,11 @@ namespace BestApp.X.Droid
             Logger.Log($"{nameof(PageNavigationFrameLayout)}: current stack: {currentUri}");
         }
 
-        public async Task NavigateToRoot()
+        public async Task NavigateToRoot(INavigationParameters parameters)
         {
             try
             {
-                await this.OnPopToRootAsync();
+                await OnPopToRootAsync(parameters);
             }
             catch (Exception ex)
             {
@@ -423,7 +422,7 @@ namespace BestApp.X.Droid
             }
         }
 
-        private async Task OnPopToRootAsync()
+        private async Task OnPopToRootAsync(INavigationParameters parameters)
         {
             if (navStack.Count <= 1)
             {
@@ -431,7 +430,7 @@ namespace BestApp.X.Droid
             }
             else if (navStack.Count == 2)
             {
-                await this.OnPopAsync(new NavigationParameters());
+                await OnPopAsync(parameters);
             }
             else
             {
@@ -439,10 +438,7 @@ namespace BestApp.X.Droid
                 //show root page
                 var showTransaction = FragmentManager.BeginTransaction();
                 showTransaction.Show(rootPage);
-                showTransaction.CommitAllowingStateLoss();
-
-                //call viewmodel lifecycle methods
-                rootPage.ViewModel.OnNavigatedTo(new NavigationParameters());
+                showTransaction.CommitAllowingStateLoss();                
 
                 var pagesToRemove = new List<LifecyclePage>();                
                 var popAnimTransaction = FragmentManager.BeginTransaction();
@@ -463,7 +459,7 @@ namespace BestApp.X.Droid
                 popAnimTransaction.CommitAllowingStateLoss();
 
                 currentPage = rootPage;
-                currentPage.ViewModel.OnNavigatedTo(new NavigationParameters());
+                currentPage.ViewModel.OnNavigatedTo(parameters);
 
                 //hide keyboard if open 
                 Context.HideKeyboard(this);
@@ -514,16 +510,16 @@ namespace BestApp.X.Droid
 
             _disposed = true;
 
-            if (!this.FragmentManager.IsDestroyed)
+            if (!FragmentManager.IsDestroyed)
             {
-                var trans = this.FragmentManager.BeginTransaction();
+                var trans = FragmentManager.BeginTransaction();
 
                 foreach (var fragment in navStack)
                 {
                     trans.Remove(fragment as Fragment);
                 }
                 trans.CommitAllowingStateLoss();
-                this.FragmentManager.ExecutePendingTransactions();
+                FragmentManager.ExecutePendingTransactions();
             }
 
             base.Dispose(disposing);

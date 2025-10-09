@@ -14,12 +14,12 @@ namespace BestApp.ViewModels.Movies
     [LogMethods]
     public class MoviesPageViewModel : PageViewModel
     {        
-        private readonly Lazy<IMovieService> movieService;
+        private readonly Lazy<IMoviesService> movieService;
         private readonly Lazy<IInfrastructureServices> infrastructureServices;
         private AuthErrorEvent authErrorEvent;
         public const string SELECTED_ITEM = "selectedItem";
 
-        public MoviesPageViewModel(InjectedServices services, Lazy<IMovieService> movieService, Lazy<IInfrastructureServices> infrastructureServices) : base(services)
+        public MoviesPageViewModel(InjectedServices services, Lazy<IMoviesService> movieService, Lazy<IInfrastructureServices> infrastructureServices) : base(services)
         {
             
             this.movieService = movieService;
@@ -48,7 +48,7 @@ namespace BestApp.ViewModels.Movies
             {
                 await LoadData();
             });
-        }
+        }        
 
         public override void PausedToBackground()
         {
@@ -85,6 +85,12 @@ namespace BestApp.ViewModels.Movies
                     var newProduct = parameters.GetValue<MovieItemViewModel>(AddEditMoviePageViewModel.NEW_ITEM);
                     MovieItems.Add(newProduct);
                 }
+                else if (parameters.ContainsKey(AddEditMoviePageViewModel.REMOVE_ITEM))
+                {
+                    var removeItem = parameters.GetValue<MovieItemViewModel>(AddEditMoviePageViewModel.REMOVE_ITEM);
+                    MovieItems.Remove(removeItem);
+                }
+
             }
             catch (Exception ex)
             {
@@ -155,7 +161,7 @@ namespace BestApp.ViewModels.Movies
 
                 var currentPageViewModel = GetCurrentPageViewModel();
                 if (!(currentPageViewModel is MoviesPageViewModel))
-                    await currentPageViewModel.NavigateToRoot();
+                    await currentPageViewModel.NavigateToRoot(new NavigationParameters());
 
                 ////force to log out
                 //this.LoadingText = "Logging out...";
@@ -199,7 +205,7 @@ namespace BestApp.ViewModels.Movies
 
         public async Task LoadData(bool remoteList = false)
         {
-            var result = await movieService.Value.GetList(remoteList: remoteList);
+            var result = await movieService.Value.GetListAsync(remoteList: remoteList);
             if (result.Success)
             {
                 var list = result.Value.Select(x => new MovieItemViewModel(x));

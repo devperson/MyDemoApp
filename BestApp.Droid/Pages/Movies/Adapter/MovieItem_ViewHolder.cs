@@ -32,7 +32,7 @@ public class MovieItem_ViewHolder : RecyclerView.ViewHolder
     public void SetData(MovieItemViewModel model)
     {
         this.txtName.Text = model.Name;
-        this.txtDescription.Text = model.Description;
+        this.txtDescription.Text = model.Overview;
 
         if (!string.IsNullOrEmpty(model.PosterUrl))
         {            
@@ -56,6 +56,6 @@ public class MovieItem_ViewHolder : RecyclerView.ViewHolder
         var clickItem = itemView.Tag.ToModel() as MovieItemViewModel;
         var pageVm = MainActivity.Instance.GetCurrentViewModel() as MoviesPageViewModel;
 
-        pageVm.ItemTappedCommand.Execute(clickItem);
+        pageVm?.ItemTappedCommand.Execute(clickItem);
     }
 }

@@ -16,8 +16,8 @@ namespace UnitTest.ServiceImpl
         [TestMethod]
         public async Task T1_1AddMovieTest()
         {
-            var movieService = Container.Resolve<IMovieService>();
-            var result = await movieService.Add("first movie test", "test overview", string.Empty);
+            var movieService = Container.Resolve<IMoviesService>();
+            var result = await movieService.AddAsync("first movie test", "test overview", string.Empty);
 
             Assert.IsTrue(result.Success);
             Assert.IsTrue(result.Value.Id > 0);
@@ -26,8 +26,8 @@ namespace UnitTest.ServiceImpl
         [TestMethod]
         public async Task T1_3GetMovieListTest()
         {
-            var movieService = Container.Resolve<IMovieService>();
-            var result = await movieService.GetList();
+            var movieService = Container.Resolve<IMoviesService>();
+            var result = await movieService.GetListAsync();
 
             Assert.IsTrue(result.Success);
             Assert.IsTrue(result.Value.Count > 0);

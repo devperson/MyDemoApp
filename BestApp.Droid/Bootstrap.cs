@@ -7,11 +7,13 @@ using BestApp.X.Droid.Utils;
 using Common.Abstrtactions;
 using Logging.Aspects;
 using DryIoc;
-using KYChat.Controls.Navigation;
 using System.Globalization;
 using BestApp.Abstraction.Main.UI.Navigation;
 using BestApp.ViewModels.Base;
 using Prism.Ioc;
+using BestApp.X.Droid.UI.Services.Navigation;
+using BestApp.Abstraction.Main.UI;
+using BestApp.X.Droid.UI.Services;
 
 namespace BestApp.X.Droid
 {    
@@ -33,7 +35,9 @@ namespace BestApp.X.Droid
             var dryIocContainer = (DryIocContainerExtension)container;
             Impl.Cross.Registerar.RegisterTypes(dryIocContainer.Instance);
             Impl.Droid.Registerar.RegisterTypes(dryIocContainer.Instance);
-            LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();            
+            LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
+
+            container.RegisterSingleton<IAlertDialogService, DroidAlertDialogService>();
 
             //register ViewModel for navigation
             container.RegisterPageForNavigation<LoginPage, LoginPageViewModel>();

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BestApp.ViewModels.Movies.ItemViewModel
 {
     public class MovieItemViewModel : Bindable
-    {
+    {        
         public MovieItemViewModel()
         {
             
@@ -19,13 +19,13 @@ namespace BestApp.ViewModels.Movies.ItemViewModel
         {
             Id = movieDto.Id;
             Name = movieDto.Name;
-            Description = movieDto.Overview;
+            Overview = movieDto.Overview;
             PosterUrl = movieDto.PosterUrl;
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string Overview { get; set; }
         public string PosterUrl { get; set; }
 
     }

@@ -1,10 +1,13 @@
-﻿using BestApp.Abstraction.Main.AppService;
+﻿using BestApp.Abstraction.Domain.Entities;
+using BestApp.Abstraction.Main.AppService;
 using BestApp.Abstraction.Main.AppService.Dto;
 using BestApp.Abstraction.Main.UI;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Helper;
 using BestApp.ViewModels.Helper.Commands;
 using BestApp.ViewModels.Movies.ItemViewModel;
+using Example;
+using ImTools;
 using Logging.Aspects;
 
 namespace BestApp.ViewModels.Movies
@@ -12,19 +15,23 @@ namespace BestApp.ViewModels.Movies
     [LogMethods]
     public class AddEditMoviePageViewModel : PageViewModel
     {
-        private readonly Lazy<IMovieService> movieService;
+        private readonly Lazy<IMoviesService> movieService;
+        private readonly Lazy<IAlertDialogService> alertDialogService;
         private readonly Lazy<IPopupAlert> popupAlert;
         public const string NEW_ITEM = "newItem";
         public const string UPDATE_ITEM = "updateItem";
+        public const string REMOVE_ITEM = "removeItem";
 
         public AddEditMoviePageViewModel(InjectedServices services, 
-                                      Lazy<IMovieService> movieService, 
+                                      Lazy<IMoviesService> movieService, 
+                                      Lazy<IAlertDialogService> alertDialogService,
                                       Lazy<IPopupAlert> popupAlert) : base(services)
         {
             SaveCommand = new AsyncCommand(OnSaveCommand);
             ChangePhotoCommand = new AsyncCommand(OnChangePhotoCommand);
             DeleteCommand = new AsyncCommand(OnDeleteCommand);
             this.movieService = movieService;
+            this.alertDialogService = alertDialogService;
             this.popupAlert = popupAlert;
         }
 
@@ -56,7 +63,40 @@ namespace BestApp.ViewModels.Movies
 
         private async Task OnDeleteCommand(object arg)
         {
-            
+            try
+            {
+                var res = await alertDialogService.Value.ConfirmAlert("Confirm", "Are you sure you want to delete this item?", "Yes", "No");
+
+                if (res == true)
+                {
+                    //TODO use mapper
+                    var dtoModel = new MovieDto
+                    {
+                        Id = this.Model.Id,
+                        Name = this.Model.Name,
+                        Overview = this.Model.Overview,
+                        PosterUrl = this.Model.PosterUrl,
+                    };
+                    var result = await movieService.Value.RemoveAsync(dtoModel);
+
+                    if (result.Success)
+                    {                                                
+                        await NavigateToRoot(new NavigationParameters()
+                        {
+                            { REMOVE_ITEM, this.Model }
+                        });
+                    }
+                    else
+                    {
+                        await popupAlert.Value.ShowError(CommonStrings.GeneralError);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await popupAlert.Value.ShowError(CommonStrings.GeneralError);
+                Services.LoggingService.TrackError(ex);
+            }
         }
 
         private async Task OnSaveCommand(object arg)
@@ -67,20 +107,27 @@ namespace BestApp.ViewModels.Movies
                 {
                     await popupAlert.Value.ShowError("The Name field is required");
                 }
-                else if (string.IsNullOrEmpty(this.Model.Description))
+                else if (string.IsNullOrEmpty(this.Model.Overview))
                 {
-                    await popupAlert.Value.ShowError("The Description field is required");
+                    await popupAlert.Value.ShowError("The Overview field is required");
                 }
-
 
                 Some<MovieDto> result = null;
                 if (this.IsEdit)
-                {                    
-                    result = await movieService.Value.Update(Model.Id, this.Model.Name, this.Model.Description, this.Model.PosterUrl);
+                {
+                    //TODO use mapper
+                    var dtoModel = new MovieDto
+                    {
+                        Id = this.Model.Id,
+                        Name = this.Model.Name,
+                        Overview = this.Model.Overview,
+                        PosterUrl = this.Model.PosterUrl,
+                    };
+                    result = await movieService.Value.UpdateAsync(dtoModel);
                 }
                 else
                 {
-                    result = await movieService.Value.Add(this.Model.Name, this.Model.Description, this.Model.PosterUrl);
+                    result = await movieService.Value.AddAsync(this.Model.Name, this.Model.Overview, this.Model.PosterUrl);
                 }
 
 

@@ -2,7 +2,7 @@
 using BestApp.X.Droid.Pages.Base;
 using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
 
-namespace KYChat.Controls.Navigation;
+namespace BestApp.X.Droid.UI.Services.Navigation;
 
 public static class NavRegisterar
 {

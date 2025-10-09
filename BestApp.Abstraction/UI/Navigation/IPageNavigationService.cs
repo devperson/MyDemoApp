@@ -9,7 +9,7 @@ namespace BestApp.Abstraction.Main.UI.Navigation
     public interface IPageNavigationService
     {
         Task Navigate(string name, INavigationParameters parameters = null, bool useModalNavigation = false, bool animated = true, bool wrapIntoNav = false);
-        Task NavigateToRoot();
+        Task NavigateToRoot(INavigationParameters parameters);
         Task CloseModal(INavigationParameters parameters = null);
         bool HasPageInNavigation(string page);
         object GetCurrentPageModel();

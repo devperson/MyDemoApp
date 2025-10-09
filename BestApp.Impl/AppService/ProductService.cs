@@ -49,7 +49,7 @@ namespace BestApp.Impl.Cross.AppService.Products
                 try
                 {
                     var product = Product.Create(name, quantity, cost);
-                    await this.productRepository.Value.Add(product);
+                    await this.productRepository.Value.AddAsync(product);
 
                     var dtoProduct = mapper.Value.Map<ProductDto>(product);                    
                     return new Some<ProductDto>(dtoProduct);

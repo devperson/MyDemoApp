@@ -44,7 +44,7 @@ public class AddEditMoviePage : LifecyclePage
         txtDescription = fragmentView.FindViewById<TextView>(Resource.Id.txtDescription);
 
         this.txtName.Text = this.ViewModel.Model.Name;
-        this.txtDescription.Text = this.ViewModel.Model.Description;
+        this.txtDescription.Text = this.ViewModel.Model.Overview;
 
         this.OnPhotoChanged();
         
@@ -79,7 +79,7 @@ public class AddEditMoviePage : LifecyclePage
 
     private void TxtDesc_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
     {
-        this.ViewModel.Model.Description = txtDescription.Text;
+        this.ViewModel.Model.Overview = txtDescription.Text;
     }
 
     private void BtnPhoto_Click(object sender, EventArgs e)

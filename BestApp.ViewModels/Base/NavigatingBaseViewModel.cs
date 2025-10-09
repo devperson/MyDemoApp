@@ -80,9 +80,9 @@ namespace BestApp.ViewModels.Base
         }
 
         //[LogMethods]
-        public async Task NavigateToRoot()
+        public async Task NavigateToRoot(INavigationParameters parameters)
         {
-            await Services.NavigationService.NavigateToRoot();
+            await Services.NavigationService.NavigateToRoot(parameters);
         }
 
         public NavigatingBaseViewModel GetCurrentPageViewModel()

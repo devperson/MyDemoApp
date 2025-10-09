@@ -62,7 +62,7 @@ public class MovieDetailPage : LifecyclePage
     private void OnModelUpdated()
     {        
         this.txtName.Text = this.ViewModel.Model.Name;
-        this.txtDescription.Text = this.ViewModel.Model.Description;
+        this.txtDescription.Text = this.ViewModel.Model.Overview;
 
         if (!string.IsNullOrEmpty(this.ViewModel.Model.PosterUrl))
         {

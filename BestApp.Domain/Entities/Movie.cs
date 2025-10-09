@@ -13,14 +13,13 @@ namespace BestApp.Abstraction.Domain.Entities
         public string Overview { get; set; }
         public string PosterUrl { get; set; }
 
-        public static Movie Create(int id, string name, string overview, string posterUrl)
+        public static Movie Create(string name, string overview, string posterUrl)
         {
             if(name == null) throw new ArgumentNullException("name");
             if (overview == null) throw new ArgumentNullException("overview");
 
             return new Movie()
-            {
-                Id = id,
+            {                
                 Name = name,
                 Overview = overview,
                 PosterUrl = posterUrl
