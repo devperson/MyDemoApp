@@ -15,6 +15,7 @@ namespace BestApp.Abstraction.Main.Infasructures
         //TEntity FindOne(ISpecification<TEntity> spec);
         //IEnumerable<TEntity> Find(ISpecification<TEntity> spec);
         Task Add(TEntity entity);
+        Task Update(TEntity entity);
         Task AddAll(List<TEntity> entities);
         Task Remove(TEntity entity);
         Task Clear(string reason);

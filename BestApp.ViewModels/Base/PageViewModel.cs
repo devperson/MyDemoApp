@@ -135,7 +135,7 @@ namespace BestApp.ViewModels.Base
             }
         }
 
-        public async Task ShowLoadingAndHandleError(Func<Task> asyncAction, Action<bool> OnComplete = null, bool skipCheckInternet = false)
+        public async Task ShowLoadingAndHandleError(Func<Task> asyncAction, Action<bool> OnComplete = null, bool skipCheckInternet = false, bool setIsBusy = true)
         {           
             bool success = false;
             try
@@ -148,7 +148,7 @@ namespace BestApp.ViewModels.Base
                 //    return;
                 //}
 
-                BusyLoading = true;
+                BusyLoading = setIsBusy;
                 success = await ExecuteAndHandleError(asyncAction);
             }
             finally

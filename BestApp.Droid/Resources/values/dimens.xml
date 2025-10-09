@@ -1,7 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="pageTopPadding">15dp</dimen>
+	<dimen name="pageHeaderTopPadding">0dp</dimen>
     <dimen name="pageHeaderHeight">65dp</dimen>
     <dimen name="pageHPadding">20dp</dimen>
     <dimen name="pageVPadding">10dp</dimen>

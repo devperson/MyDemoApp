@@ -88,14 +88,16 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             }
         }
 
-        public async Task UpdateItem<T>(T item)
-        {   
+        public async Task Update(TEntity entity)
+        {
+            await semaphor.WaitAsync();
+
             try
-            {
-                await semaphor.WaitAsync();
+            {                
                 EnsureInitalized();
 
-                await database.UpdateAsync(item);
+                var record = mapper.Value.Map<Tb>(entity);
+                await database.UpdateAsync(record);
             }
             finally
             {

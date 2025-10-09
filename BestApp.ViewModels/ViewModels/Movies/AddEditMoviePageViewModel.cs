@@ -1,4 +1,5 @@
 ﻿using BestApp.Abstraction.Main.AppService;
+using BestApp.Abstraction.Main.AppService.Dto;
 using BestApp.Abstraction.Main.UI;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Helper;
@@ -14,54 +15,88 @@ namespace BestApp.ViewModels.Movies
         private readonly Lazy<IMovieService> movieService;
         private readonly Lazy<IPopupAlert> popupAlert;
         public const string NEW_ITEM = "newItem";
+        public const string UPDATE_ITEM = "updateItem";
 
         public AddEditMoviePageViewModel(InjectedServices services, 
                                       Lazy<IMovieService> movieService, 
                                       Lazy<IPopupAlert> popupAlert) : base(services)
         {
-            CreateCommand = new AsyncCommand(OnCreateCommand);
+            SaveCommand = new AsyncCommand(OnSaveCommand);
+            ChangePhotoCommand = new AsyncCommand(OnChangePhotoCommand);
+            DeleteCommand = new AsyncCommand(OnDeleteCommand);
             this.movieService = movieService;
             this.popupAlert = popupAlert;
         }
 
-        
+        public bool IsEdit { get; set; }        
+        public AsyncCommand SaveCommand { get; set; }
+        public AsyncCommand ChangePhotoCommand { get; set; }
+        public AsyncCommand DeleteCommand { get; set; }
+        public MovieItemViewModel Model { get; set; }        
 
-        public string Name { get; set; }
-        public string Overview { get; set; }
-        public string PosterImage { get; set; }
+        public override void Initialize(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
 
-        public AsyncCommand CreateCommand { get; set; }
+            if(parameters.ContainsKey(MoviesPageViewModel.SELECTED_ITEM))
+            {
+                this.IsEdit = true;
+                this.Model = parameters.GetValue<MovieItemViewModel>(MoviesPageViewModel.SELECTED_ITEM);
+            }
+            else
+            {
+                this.Model = new MovieItemViewModel();
+            }
+        }
 
-        private async Task OnCreateCommand(object arg)
+        private async Task OnChangePhotoCommand(object arg)
+        {
+            
+        }
+
+        private async Task OnDeleteCommand(object arg)
+        {
+            
+        }
+
+        private async Task OnSaveCommand(object arg)
         {
             try
-            {                
-
-                var result = await movieService.Value.Add(Name, Overview, PosterImage);
-                if(result.Success)
+            {
+                if (string.IsNullOrEmpty(this.Model.Name))
                 {
-                    var movie = result.Value;
-                    var productItem = new MovieItemViewModel(movie);
+                    await popupAlert.Value.ShowError("The Name field is required");
+                }
+                else if (string.IsNullOrEmpty(this.Model.Description))
+                {
+                    await popupAlert.Value.ShowError("The Description field is required");
+                }
 
+
+                Some<MovieDto> result = null;
+                if (this.IsEdit)
+                {                    
+                    result = await movieService.Value.Update(Model.Id, this.Model.Name, this.Model.Description, this.Model.PosterUrl);
+                }
+                else
+                {
+                    result = await movieService.Value.Add(this.Model.Name, this.Model.Description, this.Model.PosterUrl);
+                }
+
+
+                if (result.Success)
+                {                    
+                    var item = new MovieItemViewModel(result.Value);
+                    var key = this.IsEdit ? UPDATE_ITEM : NEW_ITEM;
                     await NavigateBack(new NavigationParameters()
                     {
-                        {NEW_ITEM, productItem}
+                        {key, item}
                     });
                 }
                 else
                 {
-                    if (result.Exception is ArgumentException)
-                    {
-                        if (result.Exception.Message.Contains("name"))
-                            await popupAlert.Value.ShowError("The Name field is required");
-                        else if (result.Exception.Message.Contains("overview"))
-                            await popupAlert.Value.ShowError("The Overview field is required");
-                    }
-                    else
-                    {
-                        await popupAlert.Value.ShowError(CommonStrings.GeneralError);
-                    }
-                }                
+                    await popupAlert.Value.ShowError(CommonStrings.GeneralError);
+                }                   
             }                        
             catch (Exception ex)
             {

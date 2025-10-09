@@ -4,6 +4,7 @@ using AndroidX.SwipeRefreshLayout.Widget;
 using BestApp.ViewModels.Movies;
 using BestApp.X.Droid.Pages.Base;
 using BestApp.X.Droid.Pages.Movies.Adapter;
+using BestApp.X.Droid.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ public class MoviesPage : LifecyclePage
     private Button btnPlus;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
     private MoviesItems_Adapter adapter;
 
     public new MoviesPageViewModel ViewModel
@@ -37,11 +39,16 @@ public class MoviesPage : LifecyclePage
         btnPlus = fragmentView.FindViewById<Button>(Resource.Id.btnPlus);
         swipeRefreshLayout = fragmentView.FindViewById<SwipeRefreshLayout>(Resource.Id.swipeRefreshLayout);
         recyclerView = fragmentView.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+        progressBar = fragmentView.FindViewById<ProgressBar>(Resource.Id.progressBar);
 
         adapter = new MoviesItems_Adapter(this);
         recyclerView.SetLayoutManager(new LinearLayoutManager(this.Context));
         recyclerView.SetAdapter(adapter);
 
+        // Add default divider
+        var divider = new DividerItemDecoration(this.Context, LinearLayoutManager.Vertical);
+        recyclerView.AddItemDecoration(divider);
+        
         btnPlus.Click += BtnPlus_Click;
         swipeRefreshLayout.Refresh += SwipeRefreshLayout_Refresh;
 
@@ -54,11 +61,15 @@ public class MoviesPage : LifecyclePage
 
         if(propertyName == nameof(this.ViewModel.MovieItems))
         {
-            adapter.NotifyDataSetChanged();
+            adapter.OnCollectionSet();
         }
         else if(propertyName == nameof(this.ViewModel.IsRefreshing))
         {
             this.swipeRefreshLayout.Refreshing = this.ViewModel.IsRefreshing;
+        }
+        else if (propertyName == nameof(this.ViewModel.BusyLoading))
+        {
+            this.progressBar.Visibility = this.ViewModel.BusyLoading.ToVisibility();
         }
     }
 

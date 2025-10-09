@@ -7,6 +7,7 @@ using BestApp.ViewModels.Movies.ItemViewModel;
 using Logging.Aspects;
 using System.Collections.ObjectModel;
 using BestApp.ViewModels.Extensions;
+using BestApp.ViewModels.Events;
 
 namespace BestApp.ViewModels.Movies
 {
@@ -16,6 +17,7 @@ namespace BestApp.ViewModels.Movies
         private readonly Lazy<IMovieService> movieService;
         private readonly Lazy<IInfrastructureServices> infrastructureServices;
         private AuthErrorEvent authErrorEvent;
+        public const string SELECTED_ITEM = "selectedItem";
 
         public MoviesPageViewModel(InjectedServices services, Lazy<IMovieService> movieService, Lazy<IInfrastructureServices> infrastructureServices) : base(services)
         {
@@ -33,15 +35,15 @@ namespace BestApp.ViewModels.Movies
         public AsyncCommand AddCommand { get; set; }
         public AsyncCommand ItemTappedCommand { get; set; }
 
-        
-
         public async override void Initialize(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
         {
             base.Initialize(parameters);
+
+            this.Services.EventAggregator.GetEvent<MovieCellItemUpdatedEvent>().Subscribe(OnMovieCellItemUpdatedEvent);
                         
             //init infrastructure services (ie local storage, rest api)
             await infrastructureServices.Value.Start();
-
+            
             await ShowLoadingAndHandleError(async () =>
             {
                 await LoadData();
@@ -60,17 +62,17 @@ namespace BestApp.ViewModels.Movies
 
         public override void Destroy()
         {
+            base.Destroy();
+
             infrastructureServices.Value.Stop();
+
+            this.Services.EventAggregator.GetEvent<MovieCellItemUpdatedEvent>().Unsubscribe(OnMovieCellItemUpdatedEvent);
         }
 
         public override async void OnFirstTimeAppears()
         {
             base.OnFirstTimeAppears();
-
-            
         }
-
-       
 
         public override void OnNavigatedTo(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
         {
@@ -90,13 +92,23 @@ namespace BestApp.ViewModels.Movies
             }
         }
 
+        private void OnMovieCellItemUpdatedEvent(MovieItemViewModel model)
+        {
+            var oldItem = this.MovieItems.FirstOrDefault(m => m.Id == model.Id);
+            var index = this.MovieItems.IndexOf(oldItem);
+
+            //this will raise Replace event for ObservableCollection and views will listen for it.
+            this.MovieItems[index] = model;
+        }
+
         protected override async Task OnRefreshCommand(object arg)
         {
             IsRefreshing = true;
+
             await ShowLoadingAndHandleError(async () =>
             {
                 await LoadData(remoteList: true);
-            });
+            }, setIsBusy: false);
 
             IsRefreshing = false;
         }
@@ -113,18 +125,17 @@ namespace BestApp.ViewModels.Movies
             }
         }
 
-        private Task OnItemTappedCommand(object arg)
+        private async Task OnItemTappedCommand(object arg)
         {
             try
             {
-                
+                var item = arg as MovieItemViewModel;
+                await this.Navigate(nameof(MovieDetailPageViewModel), new NavigationParameters { { SELECTED_ITEM, item } });
             }
             catch(Exception ex)
             {
                 HandleUIError(ex);
             }
-
-            return Task.CompletedTask;
         }
 
         private readonly SemaphoreSlim semaphoreAuthError = new(1, 1);
