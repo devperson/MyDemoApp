@@ -148,7 +148,7 @@
         android:id="@+id/btnSave"
         style="@style/PrimaryButtonStyle"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_marginStart="@dimen/pageHPadding"
         android:layout_marginEnd="@dimen/pageHPadding"
         android:layout_marginBottom="@dimen/pageVPadding"
