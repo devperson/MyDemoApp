@@ -16,23 +16,27 @@ namespace BestApp.ViewModels.Movies
     public class AddEditMoviePageViewModel : PageViewModel
     {
         private readonly Lazy<IMoviesService> movieService;
+        private readonly Lazy<IMediaPickerService> mediaPickerService;
         private readonly Lazy<IAlertDialogService> alertDialogService;
-        private readonly Lazy<IPopupAlert> popupAlert;
+        private readonly Lazy<IPopupAlert> popupAlert;        
         public const string NEW_ITEM = "newItem";
         public const string UPDATE_ITEM = "updateItem";
         public const string REMOVE_ITEM = "removeItem";
 
         public AddEditMoviePageViewModel(InjectedServices services, 
-                                      Lazy<IMoviesService> movieService, 
+                                      Lazy<IMoviesService> movieService,
+                                      Lazy<IMediaPickerService> mediaPickerService,
                                       Lazy<IAlertDialogService> alertDialogService,
                                       Lazy<IPopupAlert> popupAlert) : base(services)
-        {
+        {            
+            this.movieService = movieService;
+            this.mediaPickerService = mediaPickerService;            
+            this.alertDialogService = alertDialogService;
+            this.popupAlert = popupAlert;
+
             SaveCommand = new AsyncCommand(OnSaveCommand);
             ChangePhotoCommand = new AsyncCommand(OnChangePhotoCommand);
             DeleteCommand = new AsyncCommand(OnDeleteCommand);
-            this.movieService = movieService;
-            this.alertDialogService = alertDialogService;
-            this.popupAlert = popupAlert;
         }
 
         public bool IsEdit { get; set; }        
@@ -58,7 +62,31 @@ namespace BestApp.ViewModels.Movies
 
         private async Task OnChangePhotoCommand(object arg)
         {
-            
+            try
+            {
+                var deleteText = !string.IsNullOrEmpty(this.Model.PosterUrl) ? "Delete" : null;
+                var buttons = new[] { "Pick Photo", "Take Photo" };
+                var actionResult = await alertDialogService.Value.DisplayActionSheet("Set photo from", "Cancel", deleteText, buttons);
+
+                if (actionResult == buttons[0])
+                {
+                    var photo = await mediaPickerService.Value.GetPhotoAsync(new PhotoOptions() { ShrinkPhoto = false });
+                    this.Model.PosterUrl = photo.FilePath;
+                }
+                else if (actionResult == buttons[1])
+                {
+                    var photo = await mediaPickerService.Value.TakePhotoAsync(new PhotoOptions() { ShrinkPhoto = false, WithFilePath = true });
+                    this.Model.PosterUrl = photo.FilePath;
+                }
+                else if (actionResult == deleteText)
+                {
+                    this.Model.PosterUrl = null;
+                }                
+            }           
+            catch (Exception ex)
+            {                
+                await alertDialogService.Value.DisplayAlert("Error", ex.ToString());
+            }
         }
 
         private async Task OnDeleteCommand(object arg)

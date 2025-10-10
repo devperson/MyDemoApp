@@ -1,6 +1,6 @@
 ﻿using BestApp.Abstraction.Domain.Entities;
 using BestApp.Abstraction.Main.Infasructures;
-using BestApp.Abstraction.Main.Platform;
+using BestApp.Abstraction.Main.PlatformServices;
 using Common.Abstrtactions;
 using DryIoc;
 using Mapster;

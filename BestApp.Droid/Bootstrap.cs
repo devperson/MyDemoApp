@@ -1,19 +1,17 @@
 ﻿using BestApp.Abstraction.Common;
+using BestApp.Abstraction.Main.UI;
+using BestApp.Abstraction.Main.UI.Navigation;
+using BestApp.Impl.Droid.UI;
+using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Login;
 using BestApp.ViewModels.Movies;
+using BestApp.X.Droid.Navigation;
 using BestApp.X.Droid.Pages.Login;
 using BestApp.X.Droid.Pages.Movies;
 using BestApp.X.Droid.Utils;
 using Common.Abstrtactions;
-using Logging.Aspects;
 using DryIoc;
-using System.Globalization;
-using BestApp.Abstraction.Main.UI.Navigation;
-using BestApp.ViewModels.Base;
-using Prism.Ioc;
-using BestApp.X.Droid.UI.Services.Navigation;
-using BestApp.Abstraction.Main.UI;
-using BestApp.X.Droid.UI.Services;
+using Logging.Aspects;
 using Mapster;
 using MapsterMapper;
 

@@ -210,7 +210,11 @@ namespace BestApp.ViewModels.Movies
             {
                 var list = result.Value.Select(x => new MovieItemViewModel(x));
                 MovieItems = new ObservableCollection<MovieItemViewModel>(list);
-            }            
+            }      
+            else
+            {
+                
+            }
         }
 
 
