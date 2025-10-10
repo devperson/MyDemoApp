@@ -15,7 +15,7 @@ namespace BestApp.X.Droid.Pages.Movies;
 
 public class MoviesPage : LifecyclePage
 {
-    private Button btnPlus;
+    private Button btnPlus, btnMenu;
     private SwipeRefreshLayout swipeRefreshLayout;
     internal RecyclerView recyclerView;
     private ProgressBar progressBar;
@@ -36,6 +36,7 @@ public class MoviesPage : LifecyclePage
     public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         var fragmentView = inflater.Inflate(Resource.Layout.page_movies, container, false);
+        btnMenu = fragmentView.FindViewById<Button>(Resource.Id.btnMenu);
         btnPlus = fragmentView.FindViewById<Button>(Resource.Id.btnPlus);
         swipeRefreshLayout = fragmentView.FindViewById<SwipeRefreshLayout>(Resource.Id.swipeRefreshLayout);
         recyclerView = fragmentView.FindViewById<RecyclerView>(Resource.Id.recyclerView);
@@ -48,7 +49,8 @@ public class MoviesPage : LifecyclePage
         // Add default divider
         var divider = new DividerItemDecoration(this.Context, LinearLayoutManager.Vertical);
         recyclerView.AddItemDecoration(divider);
-        
+
+        btnMenu.Click += BtnMenu_Click;
         btnPlus.Click += BtnPlus_Click;
         swipeRefreshLayout.Refresh += SwipeRefreshLayout_Refresh;
 
@@ -71,6 +73,11 @@ public class MoviesPage : LifecyclePage
         {
             this.progressBar.Visibility = this.ViewModel.BusyLoading.ToVisibility();
         }
+    }
+
+    private void BtnMenu_Click(object sender, EventArgs e)
+    {
+        MainActivity.Instance.ShowSideSheet();
     }
 
     private void SwipeRefreshLayout_Refresh(object sender, EventArgs e)

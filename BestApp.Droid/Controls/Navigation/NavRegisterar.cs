@@ -2,7 +2,7 @@
 using BestApp.X.Droid.Pages.Base;
 using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
 
-namespace BestApp.X.Droid.Navigation;
+namespace BestApp.X.Droid.Controls.Navigation;
 
 public static class NavRegisterar
 {

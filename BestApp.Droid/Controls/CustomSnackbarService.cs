@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.X.Droid.UI;
+namespace BestApp.X.Droid.Controls;
 public class CustomSnackbarService : ISnackbarService
 {
     private View snackbarView;    

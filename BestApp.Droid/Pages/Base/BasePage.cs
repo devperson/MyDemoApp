@@ -28,7 +28,9 @@ namespace BestApp.X.Droid.Pages.Base
         }
 
 
-        //when user click on page we should hide keyboard
+        /// <summary>
+        /// when user click on page we should hide keyboard
+        /// </summary>        
         public virtual void DispatchTouchEvent(MotionEvent e)
         {
             if (e.Action == MotionEventActions.Down)
@@ -44,10 +46,7 @@ namespace BestApp.X.Droid.Pages.Base
 
             if (!(currentView is EditText))
                 return;
-
-            //if (currentView is ChatEditText)//don't handle chat textbox it is already handled in MainActivity
-            //    return;
-
+          
             var newCurrentView = MainActivity.Instance.CurrentFocus;
 
             if (currentView != newCurrentView)

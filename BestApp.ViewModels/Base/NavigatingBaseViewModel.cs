@@ -7,7 +7,7 @@ namespace BestApp.ViewModels.Base
 {
     public class NavigatingBaseViewModel : BaseViewModel, INavigationAware
     {
-        protected readonly InjectedServices Services;
+        public readonly InjectedServices Services;
 
         //private ClickUtil bkClUtl = new ClickUtil();  
         public NavigatingBaseViewModel(InjectedServices services)

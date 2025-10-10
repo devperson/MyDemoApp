@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BestApp.X.Droid.Utils;
 
 namespace BestApp.X.Droid.Pages.Movies;
 
@@ -39,12 +40,15 @@ public class AddEditMoviePage : LifecyclePage
         btnSave = fragmentView.FindViewById<Button>(Resource.Id.btnSave);
         btnDelete = fragmentView.FindViewById<Button>(Resource.Id.btnDelete);
 
+        var txtTitle = fragmentView.FindViewById<TextView>(Resource.Id.txtTitle);
         imgView = fragmentView.FindViewById<ImageView>(Resource.Id.imgView);
         txtName = fragmentView.FindViewById<TextView>(Resource.Id.txtName);
         txtDescription = fragmentView.FindViewById<TextView>(Resource.Id.txtDescription);
 
+        txtTitle.Text = this.ViewModel.Title;
         this.txtName.Text = this.ViewModel.Model.Name;
         this.txtDescription.Text = this.ViewModel.Model.Overview;
+        this.btnDelete.Visibility = this.ViewModel.IsEdit.ToVisibility();
 
         this.OnPhotoChanged();
         

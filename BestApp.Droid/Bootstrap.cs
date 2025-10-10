@@ -1,14 +1,15 @@
 ﻿using BestApp.Abstraction.Common;
+using BestApp.Abstraction.Main.PlatformServices;
 using BestApp.Abstraction.Main.UI;
 using BestApp.Abstraction.Main.UI.Navigation;
 using BestApp.Impl.Droid.UI;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Login;
 using BestApp.ViewModels.Movies;
-using BestApp.X.Droid.Navigation;
 using BestApp.X.Droid.Pages.Login;
 using BestApp.X.Droid.Pages.Movies;
-using BestApp.X.Droid.UI;
+using BestApp.X.Droid.Controls;
+using BestApp.X.Droid.Controls.Navigation;
 using BestApp.X.Droid.Utils;
 using Common.Abstrtactions;
 using DryIoc;
@@ -56,7 +57,17 @@ namespace BestApp.X.Droid
 
         public async Task NavigateToPageAsync(IPageNavigationService pageNavigationService)
         {
-            await pageNavigationService.Navigate($"/{nameof(LoginPageViewModel)}", animated: false);
+            var preference = ContainerLocator.Container.Resolve<IPreferencesService>();
+            var isloggedIn = preference.Get(LoginPageViewModel.IsLoggedIn, false);
+
+            if (isloggedIn)
+            {
+                await pageNavigationService.Navigate($"/{nameof(MoviesPageViewModel)}", animated: false);
+            }
+            else
+            {
+                await pageNavigationService.Navigate($"/{nameof(LoginPageViewModel)}", animated: false);
+            }
 
             //await pageNavigationService.Navigate($"/{nameof(MoviesPageViewModel)}", animated: false);
 

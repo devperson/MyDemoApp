@@ -33,8 +33,8 @@ namespace BestApp.ViewModels.Base
         public bool BusyLoading { get; set; }        
         public bool IsPageVisable { get; set; }
         public bool IsRefreshing { get; set; }
-        public AsyncCommand RefreshCommand { get; set; }        
-
+        public AsyncCommand RefreshCommand { get; set; }
+        public string Title { get; set; }
 
         [ExcludeFromLog]//manually log
         public override void Initialize(INavigationParameters parameters)
