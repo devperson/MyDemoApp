@@ -17,7 +17,7 @@ namespace BestApp.Impl.Droid
             container.Register<IPreferencesService, PreferencesService>(Reuse.Singleton);
             container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
             container.Register<IPopupAlert, MockPopup>(Reuse.Singleton);
-            container.Register<IPlatformErrorService, PlatformErrorService>(Reuse.Singleton);
+            container.Register<IPlatformErrorService, PlatformErrorService>(Reuse.Singleton);            
             container.Register<IAlertDialogService, DroidAlertDialogService>(Reuse.Singleton);
             container.Register<IDevice, DeviceInfoService>(Reuse.Singleton);
             container.Register<IDeviceThreadService, DeviceThreadService>(Reuse.Singleton);
@@ -25,6 +25,7 @@ namespace BestApp.Impl.Droid
             container.Register<IVideoService, VideoService>(Reuse.Singleton);
             container.Register<IZipService, ZipService>(Reuse.Singleton);
             container.Register<IShareFileService, ShareFileService>(Reuse.Singleton);
+            container.Register<IMediaPickerService, MediaPickerService>(Reuse.Singleton);
         }
     }
 }

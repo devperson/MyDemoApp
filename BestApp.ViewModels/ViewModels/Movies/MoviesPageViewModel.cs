@@ -75,11 +75,6 @@ namespace BestApp.ViewModels.Movies
             this.Services.EventAggregator.GetEvent<MovieCellItemUpdatedEvent>().Unsubscribe(OnMovieCellItemUpdatedEvent);
         }
 
-        public override async void OnFirstTimeAppears()
-        {
-            base.OnFirstTimeAppears();
-        }
-
         public override void OnNavigatedTo(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -89,7 +84,7 @@ namespace BestApp.ViewModels.Movies
                 if (parameters.ContainsKey(AddEditMoviePageViewModel.NEW_ITEM))
                 {
                     var newProduct = parameters.GetValue<MovieItemViewModel>(AddEditMoviePageViewModel.NEW_ITEM);
-                    MovieItems.Add(newProduct);
+                    MovieItems.Insert(0, newProduct);
                 }
                 else if (parameters.ContainsKey(AddEditMoviePageViewModel.REMOVE_ITEM))
                 {

@@ -17,7 +17,7 @@ public class MoviesPage : LifecyclePage
 {
     private Button btnPlus;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView recyclerView;
+    internal RecyclerView recyclerView;
     private ProgressBar progressBar;
     private MoviesItems_Adapter adapter;
 

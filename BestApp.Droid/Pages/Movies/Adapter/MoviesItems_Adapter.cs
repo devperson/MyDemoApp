@@ -63,6 +63,7 @@ public class MoviesItems_Adapter : RecyclerView.Adapter
             if (e.NewStartingIndex == 0 && e.NewItems.Count == 1)//if inserted to 0 then it is new msg entered
             {
                 this.NotifyItemInserted(0);
+                this.page.recyclerView.ScrollToPosition(0);
             }
             else
             {

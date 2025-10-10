@@ -23,7 +23,7 @@ public class CustomSnackbarService : ISnackbarService
         // Make sure it's measured
         snackbarView.Post(() =>
         {
-            snackbarView.TranslationY = -snackbarView.Height; // hide it initially
+            snackbarView.TranslationY = GetTranslateY(snackbarView); // hide it initially
         });
 
         snackbarView.Post(() =>
@@ -48,7 +48,7 @@ public class CustomSnackbarService : ISnackbarService
     {
         snackbarView.Post(() =>
         {
-            float hideY = -snackbarView.Height;
+            var hideY = GetTranslateY(snackbarView);
             snackbarView.Animate()
                 .TranslationY(hideY)
                 .SetDuration(300)
@@ -56,5 +56,21 @@ public class CustomSnackbarService : ISnackbarService
 
             isVisible = false;
         });
+    }
+
+    private float GetTranslateY(View view)
+    {
+        float hideY = -(view.Height + GetTopMargin(snackbarView));
+
+        return hideY;
+    }
+
+    private float GetTopMargin(View view)
+    {
+        if (view.LayoutParameters is ViewGroup.MarginLayoutParams marginParams)
+        {
+            return marginParams.TopMargin;
+        }
+        return 0;
     }
 }
