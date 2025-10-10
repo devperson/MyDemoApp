@@ -1,10 +1,6 @@
-﻿using BestApp.Abstraction.Main.Platform;
+﻿using BestApp.Abstraction.Main.PlatformServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BestApp.Impl.iOS.Platform
 {

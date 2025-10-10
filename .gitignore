@@ -63,3 +63,13 @@
 /BestApp.Impl.iOS/bin
 /BestApp.Impl.iOS/obj
 
+/BestApp.MVVM/obj
+/BestApp.MVVM/bin
+/Base.Infrastructures.Abstractions/obj
+/Base.Infrastructures.Abstractions/bin
+/Base.Aspect/obj
+/Base.Aspect/bin
+/Base.Impl/obj
+/Base.Impl/bin
+/Base.Infrastructures.Abstractions/obj
+/Base.Infrastructures.Abstractions/bin

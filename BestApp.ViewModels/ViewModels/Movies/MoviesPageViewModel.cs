@@ -2,13 +2,14 @@
 using BestApp.Abstraction.Main.Infasructures;
 using BestApp.Abstraction.Main.Infasructures.Events;
 using BestApp.ViewModels.Base;
-using BestApp.ViewModels.Helper.Commands;
 using BestApp.ViewModels.Movies.ItemViewModel;
 using Logging.Aspects;
 using System.Collections.ObjectModel;
 using BestApp.ViewModels.Extensions;
 using BestApp.ViewModels.Events;
 using BestApp.Abstraction.Main.UI;
+using BestApp.MVVM.Helper;
+using BestApp.MVVM.Navigation;
 
 namespace BestApp.ViewModels.Movies
 {
@@ -41,7 +42,7 @@ namespace BestApp.ViewModels.Movies
         public AsyncCommand AddCommand { get; set; }
         public AsyncCommand ItemTappedCommand { get; set; }
 
-        public async override void Initialize(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
+        public async override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
 
@@ -75,12 +76,8 @@ namespace BestApp.ViewModels.Movies
             this.Services.EventAggregator.GetEvent<MovieCellItemUpdatedEvent>().Unsubscribe(OnMovieCellItemUpdatedEvent);
         }
 
-        public override async void OnFirstTimeAppears()
-        {
-            base.OnFirstTimeAppears();
-        }
-
-        public override void OnNavigatedTo(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
+        
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 

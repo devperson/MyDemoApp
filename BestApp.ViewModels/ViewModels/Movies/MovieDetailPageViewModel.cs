@@ -1,13 +1,9 @@
-﻿using BestApp.ViewModels.Base;
+﻿using BestApp.MVVM.Helper;
+using BestApp.MVVM.Navigation;
+using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Events;
-using BestApp.ViewModels.Helper.Commands;
 using BestApp.ViewModels.Movies.ItemViewModel;
 using Logging.Aspects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BestApp.ViewModels.Movies;
 
@@ -22,7 +18,7 @@ public class MovieDetailPageViewModel : PageViewModel
     public MovieItemViewModel Model { get; set; }
     public AsyncCommand EditCommand { get; set; }
 
-    public override void Initialize(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
+    public override void Initialize(INavigationParameters parameters)
     {
         base.Initialize(parameters);
 
@@ -32,7 +28,7 @@ public class MovieDetailPageViewModel : PageViewModel
         }        
     }
 
-    public override void OnNavigatedTo(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
+    public override void OnNavigatedTo(INavigationParameters parameters)
     {
         base.OnNavigatedTo(parameters);
 

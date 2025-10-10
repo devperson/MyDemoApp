@@ -2,6 +2,7 @@
 using BestApp.ViewModels.Base;
 using BestApp.X.Droid.Utils;
 using Common.Abstrtactions;
+using DryIoc;
 
 namespace BestApp.X.Droid.Pages.Base
 {
@@ -24,7 +25,7 @@ namespace BestApp.X.Droid.Pages.Base
             base.OnCreate(savedInstanceState);
 
             if (loggingService == null)
-                loggingService = ContainerLocator.Container.Resolve<ILoggingService>();
+                loggingService = MainActivity.Instance.Container.Resolve<ILoggingService>();
         }
 
 

@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Base.Abstractions
+{
+    public interface IMessagesCenter
+    {
+        TEvent GetEvent<TEvent>() where TEvent : class, new();
+    }
+
+    public interface IMessageEvent
+    {
+        void Subscribe(Action handler);
+        void Unsubscribe(Action handler);
+        void Publish();
+    }
+
+    public interface IMessageEvent<T>
+    {
+        void Subscribe(Action<T> handler);
+        void Unsubscribe(Action<T> handler);
+        void Publish(T args);
+    }
+
+}

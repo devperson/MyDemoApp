@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UI\Navigation\**" />
+    <EmbeddedResource Remove="UI\Navigation\**" />
+    <None Remove="UI\Navigation\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BestApp.Domain\BestApp.Abstraction.Domain.csproj" />
   </ItemGroup>
 	

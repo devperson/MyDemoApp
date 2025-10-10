@@ -1,19 +1,19 @@
 ﻿using BestApp.Abstraction.Main.Infasructures.Exceptions;
-using BestApp.Abstraction.Main.UI.Navigation;
+using BestApp.MVVM.Helper;
+using BestApp.MVVM.ViewModels;
 using BestApp.ViewModels.Events;
-using BestApp.ViewModels.Helper.Commands;
 using Logging.Aspects;
 using System.Net;
-using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
 
 namespace BestApp.ViewModels.Base
 {
     [LogMethods]
-    public class PageViewModel : NavigatingBaseViewModel, IPageLifecycleAware
+    public class PageViewModel : AppPageViewModel
     {        
         private bool isFirstTimeAppears = true;
         private AppResumedEvent appResumedEvent;
         private AppPausedEvent appPausedEvent;
+        protected InjectedServices Services => injectedServices as InjectedServices;
 
         public PageViewModel(InjectedServices services) : base(services)
         {
@@ -30,85 +30,10 @@ namespace BestApp.ViewModels.Base
 
         /// General Busy indicator that will be displayed as popup
         /// </summary>
-        public bool BusyLoading { get; set; }        
-        public bool IsPageVisable { get; set; }
+        public bool BusyLoading { get; set; }                
         public bool IsRefreshing { get; set; }
-        public AsyncCommand RefreshCommand { get; set; }        
-
-
-        [ExcludeFromLog]//manually log
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-
-            Services.LoggingService.Log($"{this.GetType().Name}.Initialize() (from base)");
-        }
-
-        [ExcludeFromLog]//manually log
-        public virtual void OnAppearing()
-        {
-            IsPageVisable = true;
-            RaisePropertyChanged(nameof(CanGoBack));
-            Services.LoggingService.Log($"{this.GetType().Name}.OnAppearing() (from base)");
-
-            if (isFirstTimeAppears)
-            {
-                isFirstTimeAppears = false;
-                OnFirstTimeAppears();
-            }            
-        }
-
-        [ExcludeFromLog]//manually log
-        public virtual void OnFirstTimeAppears()
-        {
-            Services.LoggingService.Log($"{this.GetType().Name}.OnFirstTimeAppears() (from base)");
-        }
-
-
-        [ExcludeFromLog]//manually log
-        public virtual void OnAppeared()
-        {
-            Services.LoggingService.Log($"{this.GetType().Name}.OnAppeared() (from base)");
-        }
-
-        [ExcludeFromLog]//manually log
-        public virtual void OnDisappearing()
-        {
-            IsPageVisable = false;
-            Services.LoggingService.Log($"{this.GetType().Name}.OnDisappearing() (from base)");
-        }
-
-        [ExcludeFromLog]//manually log
-        public virtual void ResumedFromBackground()
-        {
-            Services.LoggingService.Log($"{this.GetType().Name}.ResumedFromBackground() (from base)");
-        }
-
-        [ExcludeFromLog]//manually log
-        public virtual void PausedToBackground()
-        {
-            Services.LoggingService.Log($"{this.GetType().Name}.PausedToBackground() (from base)");
-        }
-
-        [ExcludeFromLog]//manually log
-        public override void Destroy()
-        {
-            base.Destroy();
-
-            Services.LoggingService.Log($"{this.GetType().Name}.Destroy() (from base)");
-
-            appResumedEvent.Unsubscribe(ResumedFromBackground);
-            appPausedEvent.Unsubscribe(PausedToBackground);
-        }
-
-
-        //[ExcludeFromLog]//manually log
-        //protected virtual void OnIsActiveChanged()
-        //{            
-
-        //    Services.LoggingService.Log($"{this.GetType().Name}.OnIsActiveChanged() (from base), IsActive:{IsActive}");
-        //}
-
+        public AsyncCommand RefreshCommand { get; set; }   
+        
 
         protected virtual Task OnRefreshCommand(object arg)
         {

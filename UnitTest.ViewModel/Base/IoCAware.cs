@@ -1,10 +1,11 @@
-﻿using BestApp.Abstraction.Main.AppService;
+﻿using BestApp.Abstraction.Common.Events;
+using BestApp.Abstraction.Main.AppService;
 using BestApp.Abstraction.Main.AppService.Dto;
 using BestApp.Abstraction.Main.Infasructures;
 using BestApp.Abstraction.Main.Infasructures.Events;
 using BestApp.Abstraction.Main.PlatformServices;
 using BestApp.Abstraction.Main.UI;
-using BestApp.Abstraction.Main.UI.Navigation;
+using BestApp.MVVM.Navigation;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Events;
 using BestApp.ViewModels.Movies;
@@ -59,12 +60,12 @@ namespace UnitTest.ViewModel.Base
             //Register Common
             container.Register<ILoggingService, MockAppLogging>(Reuse.Singleton);
             container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
-            container.Register<IEventAggregator, EventAggregator>(Reuse.Singleton);
+            //container.Register<IMessagesCenter, SimpleMessageCenter>(Reuse.Singleton);
             LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
 
             //infrastructures
             var mockInfraService = new Mock<IInfrastructureServices> { DefaultValue = DefaultValue.Mock };
-            var mockEventAggregator = new Mock<IEventAggregator> { DefaultValue = DefaultValue.Mock };
+            var mockEventAggregator = new Mock<IMessagesCenter> { DefaultValue = DefaultValue.Mock };
             //mock events
             mockEventAggregator.Setup(ea => ea.GetEvent<AuthErrorEvent>()).Returns(new AuthErrorEvent());
             mockEventAggregator.Setup(ea => ea.GetEvent<AppResumedEvent>()).Returns(new AppResumedEvent());
@@ -97,11 +98,17 @@ namespace UnitTest.ViewModel.Base
 
 
             //Platform services
-            var mockNavigationService = new Mock<IPageNavigationService> { DefaultValue = DefaultValue.Mock };           
-            var mockPlatformService = new Mock<IPlatformErrorService> { DefaultValue = DefaultValue.Mock };                             
-            container.RegisterInstance(mockNavigationService.Object);            
-            container.RegisterInstance(mockPlatformService.Object);            
             container.Register<IPopupAlert, MockPopup>(Reuse.Singleton);
+            var mockNavigationService = new Mock<IPageNavigationService> { DefaultValue = DefaultValue.Mock };
+            var mockPlatformError = new Mock<IPlatformErrorService> { DefaultValue = DefaultValue.Mock };
+            var mockSnackBar = new Mock<ISnackbarService> { DefaultValue = DefaultValue.Mock };
+            var mockMeidaPicker = new Mock<IMediaPickerService> { DefaultValue = DefaultValue.Mock };
+            var mockAlertDialog = new Mock<IAlertDialogService> { DefaultValue = DefaultValue.Mock };
+            container.RegisterInstance(mockNavigationService.Object);
+            container.RegisterInstance(mockPlatformError.Object);
+            container.RegisterInstance(mockSnackBar.Object);
+            container.RegisterInstance(mockMeidaPicker.Object);
+            container.RegisterInstance(mockAlertDialog.Object);
 
             //viewmodels
             container.Register<InjectedServices>();

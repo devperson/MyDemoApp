@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.ViewModels.Base
+namespace BestApp.MVVM.ViewModels
 {
     public abstract class Bindable : INotifyPropertyChanged
     {

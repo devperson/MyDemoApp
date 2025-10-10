@@ -23,8 +23,7 @@
 		<PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
 		<PackageReference Include="DryIoc.dll" Version="4.5.0.0" />
 		<PackageReference Include="Moq" Version="4.20.70.0" />
-		<PackageReference Include="Mapster" Version="7.4.0" />
-		<PackageReference Include="Prism.Core" Version="9.0.537" />
+		<PackageReference Include="Mapster" Version="7.4.0" />		
 		<PackageReference Include="MethodDecorator.Fody" Version="1.1.1" />
 		<PackageReference Include="Fody" Version="6.5.1" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
@@ -32,6 +31,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\BestApp.Impl\BestApp.Impl.Cross.csproj" />
+	  <ProjectReference Include="..\BestApp.MVVM\BestApp.MVVM.csproj" />
 	  <ProjectReference Include="..\BestApp.ViewModels\BestApp.ViewModels.csproj" />
 	</ItemGroup>
 </Project>

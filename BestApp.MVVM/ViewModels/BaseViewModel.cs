@@ -1,10 +1,10 @@
-﻿using BestApp.Abstraction.Main.UI.Navigation;
-using IDestructible = BestApp.Abstraction.Main.UI.Navigation.IDestructible;
-using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
+﻿using BestApp.MVVM.Navigation;
+using IDestructible = BestApp.MVVM.Navigation.IDestructible;
+using INavigationParameters = BestApp.MVVM.Navigation.INavigationParameters;
 
-namespace BestApp.ViewModels.Base
+namespace BestApp.MVVM.ViewModels
 {
-    public class BaseViewModel : Bindable, IDestructible, IInitialize
+    public abstract class BaseViewModel : Bindable, IDestructible, IInitialize
     {
         public event EventHandler Destroyed;
         public event EventHandler Initialized;

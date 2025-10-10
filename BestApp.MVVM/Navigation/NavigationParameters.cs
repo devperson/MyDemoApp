@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BestApp.ViewModels
+namespace BestApp.MVVM.Navigation
 {
-    public class NavigationParameters : IEnumerable<KeyValuePair<string, object>>, Abstraction.Main.UI.Navigation.INavigationParameters
+    public class NavigationParameters : IEnumerable<KeyValuePair<string, object>>, INavigationParameters
     {
         private readonly List<KeyValuePair<string, object>> _entries = new List<KeyValuePair<string, object>>();
 

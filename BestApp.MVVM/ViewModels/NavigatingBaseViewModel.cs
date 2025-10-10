@@ -1,19 +1,19 @@
-﻿using BestApp.Abstraction.Main.UI.Navigation;
-using BestApp.ViewModels.Helper.Commands;
+﻿using BestApp.MVVM.Helper;
+using BestApp.MVVM.Navigation;
 using System.Text;
-using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
+using INavigationParameters = BestApp.MVVM.Navigation.INavigationParameters;
 
-namespace BestApp.ViewModels.Base
+namespace BestApp.MVVM.ViewModels
 {
-    public class NavigatingBaseViewModel : BaseViewModel, INavigationAware
+    public abstract class NavigatingBaseViewModel : BaseViewModel, INavigationAware
     {
-        protected readonly InjectedServices Services;
+        protected readonly PageInjectedServices injectedServices;
 
         //private ClickUtil bkClUtl = new ClickUtil();  
-        public NavigatingBaseViewModel(InjectedServices services)
+        public NavigatingBaseViewModel(PageInjectedServices services)
         {
             this.BackCommand = new AsyncCommand(OnBackCommand);
-            Services = services;
+            injectedServices = services;
         }
 
         public virtual void OnNavigatedFrom(INavigationParameters parameters)
@@ -28,7 +28,7 @@ namespace BestApp.ViewModels.Base
         /// <summary>
         /// Indicates whether page will have Navigation bar with Back button
         /// </summary>
-        public bool CanGoBack => Services != null ? Services.NavigationService.CanNavigateBack : false;
+        public bool CanGoBack => injectedServices != null ? injectedServices.NavigationService.CanNavigateBack : false;
 
         /// <summary>
         /// Android: Disables the device hardware back button
@@ -43,14 +43,14 @@ namespace BestApp.ViewModels.Base
         //[LogMethods]
         public async Task Navigate(string name, INavigationParameters parameters = null, bool useModalNavigation = false, bool animated = true, bool wrapIntoNav = false)
         {
-            if (Services.NavigationService != null)
+            if (injectedServices.NavigationService != null)
             {
                 //notify that we are going to navigate
                 //Service.EventAggregator.GetEvent<OnStartNaavigatingEvent>().Publish(name);
 
                 //await OnStartNavigatingTo(name, parameters);
                 //do navigate
-                await Services.NavigationService.Navigate(name, parameters, useModalNavigation, animated, wrapIntoNav);
+                await injectedServices.NavigationService.Navigate(name, parameters, useModalNavigation, animated, wrapIntoNav);
             }
         }
 
@@ -76,18 +76,18 @@ namespace BestApp.ViewModels.Base
         public async Task NavigateAndMakeRoot(string name, INavigationParameters parameters = null, bool useModalNavigation = false, bool animated = true)
         {
             var newRoot = $"/NavigationPage/{name}";
-            await Services.NavigationService.Navigate(newRoot, parameters, useModalNavigation, animated);
+            await injectedServices.NavigationService.Navigate(newRoot, parameters, useModalNavigation, animated);
         }
 
         //[LogMethods]
         public async Task NavigateToRoot(INavigationParameters parameters)
         {
-            await Services.NavigationService.NavigateToRoot(parameters);
+            await injectedServices.NavigationService.NavigateToRoot(parameters);
         }
 
         public NavigatingBaseViewModel GetCurrentPageViewModel()
         {
-            return Services.NavigationService.GetCurrentPageModel() as NavigatingBaseViewModel;
+            return injectedServices.NavigationService.GetCurrentPageModel() as NavigatingBaseViewModel;
         }
 
         //[LogMethods]
@@ -107,7 +107,7 @@ namespace BestApp.ViewModels.Base
 
         public async Task BackToRootAndNavigate(string name, INavigationParameters parameters = null)
         {
-            var navStack = Services.NavigationService.GetNavStackModels().Select(s => s.ToString().Split('.').Last()).ToList();
+            var navStack = injectedServices.NavigationService.GetNavStackModels().Select(s => s.ToString().Split('.').Last()).ToList();
             string currentNavStack = string.Empty;
             //generate debug string
             if (navStack.Count > 1)
@@ -128,7 +128,7 @@ namespace BestApp.ViewModels.Base
             }
 
             var resultUri = $"{popPageUri}{name}";
-            Services.LoggingService.Log($"BackToRootAndNavigate(): Current navigation stack: /{currentNavStack}, pop count: {popCount}, resultUri: {resultUri}");
+            injectedServices.LoggingService.Log($"BackToRootAndNavigate(): Current navigation stack: /{currentNavStack}, pop count: {popCount}, resultUri: {resultUri}");
             await Navigate($"{popPageUri}{name}", parameters);
         }
 
@@ -140,14 +140,14 @@ namespace BestApp.ViewModels.Base
         public async Task BackToOrNavigate<T>(string pageId, INavigationParameters parameters = null)
         {
             var pageVmName = typeof(T).Name;
-            var navStack = Services.NavigationService.GetNavStackModels();
+            var navStack = injectedServices.NavigationService.GetNavStackModels();
             var currentNavStack = string.Join("/", navStack);
             var searchedItem = navStack.FirstOrDefault(s => s is T); //&& s is INavPageId navPage && navPage.PageId == pageId);
             if (searchedItem != null)
             {
                 var pageIndex = navStack.IndexOf(searchedItem);
 
-                Services.LoggingService.Log($"GoToOrNavigate(): Current page index in the navigation stack: {pageIndex}, T:{typeof(T)}, Navigation Stack: {currentNavStack}");
+                injectedServices.LoggingService.Log($"GoToOrNavigate(): Current page index in the navigation stack: {pageIndex}, T:{typeof(T)}, Navigation Stack: {currentNavStack}");
                 StringBuilder popPageUri = new StringBuilder();
                 for (int i = navStack.Count; i < pageIndex; i++)
                 {
@@ -155,12 +155,12 @@ namespace BestApp.ViewModels.Base
                 }
 
                 var resultUri = $"{popPageUri}{pageVmName}";
-                Services.LoggingService.Log($"GoToOrNavigate(): Result uri: {resultUri}");
+                injectedServices.LoggingService.Log($"GoToOrNavigate(): Result uri: {resultUri}");
                 await Navigate(resultUri, parameters);
             }
             else
             {
-                Services.LoggingService.Log($"GoToOrNavigate(): Can not find searched page, pageId: {pageId}, T:{typeof(T)}");
+                injectedServices.LoggingService.Log($"GoToOrNavigate(): Can not find searched page, pageId: {pageId}, T:{typeof(T)}");
 
                 await Navigate(pageVmName, parameters);
             }
@@ -168,11 +168,11 @@ namespace BestApp.ViewModels.Base
 
         public void DoDeviceBackCommand()
         {
-            Services.LoggingService.Log($"{this.GetType().Name}.DoDeviceBackCommand() (from base)");
+            injectedServices.LoggingService.Log($"{this.GetType().Name}.DoDeviceBackCommand() (from base)");
 
             if (DisableDeviceBackButton)
             {
-                Services.LoggingService.Log($"Cancel {this.GetType().Name}.DoDeviceBackCommand(): Ignore back command because this page is set to cancel any device back button.");
+                injectedServices.LoggingService.Log($"Cancel {this.GetType().Name}.DoDeviceBackCommand(): Ignore back command because this page is set to cancel any device back button.");
             }
             else
             {
@@ -202,7 +202,7 @@ namespace BestApp.ViewModels.Base
 
         protected virtual async Task OnBackCommand()
         {
-            Services.LoggingService.Log($"{this.GetType().Name}.OnBackCommand() (from base)");
+            injectedServices.LoggingService.Log($"{this.GetType().Name}.OnBackCommand() (from base)");
             await this.NavigateBack();
         }
     }

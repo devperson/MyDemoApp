@@ -33,8 +33,8 @@ namespace IntegrationTest
             await mainVm.AddCommand.ExecuteAsync();
             //navigated to create page
             var createMovieVm = GetNextPage<AddEditMoviePageViewModel>();
-            createMovieVm.Name = "integration test movie 1";
-            createMovieVm.Description = "just testing integration test";
+            createMovieVm.Model.Name = "integration test movie 1";
+            createMovieVm.Model.Overview = "just testing integration test";
             //create movie
             await createMovieVm.SaveCommand.ExecuteAsync();
             EnsureNoError();

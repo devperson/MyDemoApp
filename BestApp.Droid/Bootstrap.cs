@@ -1,7 +1,6 @@
 ﻿using BestApp.Abstraction.Common;
 using BestApp.Abstraction.Main.UI;
-using BestApp.Abstraction.Main.UI.Navigation;
-using BestApp.Impl.Droid.UI;
+using BestApp.MVVM.Navigation;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Login;
 using BestApp.ViewModels.Movies;
@@ -21,30 +20,29 @@ namespace BestApp.X.Droid
     public class Bootstrap
     {
        // private ILoggingService loggingService;
-
+       public IContainer container { get; set; }    
         public void RegisterTypes(IPageNavigationService pageNavigationService)
         {
-            var container = DryIocContainerExtension.CreateInstance();
-            ContainerLocator.SetContainerExtension(container);
+            container = new Container(
+                  Rules.Default.With(FactoryMethod.ConstructorWithResolvableArgumentsIncludingNonPublic).WithDefaultIfAlreadyRegistered(IfAlreadyRegistered.Replace));
             //register mapper
             var mapperConfig = new TypeAdapterConfig();
             container.RegisterInstance(mapperConfig);
             // Register Mapster's service
-            container.RegisterSingleton<IMapper, Mapper>();
+            container.Register<IMapper, Mapper>(Reuse.Singleton);
 
             //register navigation service            
             container.RegisterInstance(pageNavigationService);
-            container.Register<InjectedServices>();            
-            container.RegisterSingleton<IConstants, ConstantImpl>();
+            container.Register<InjectedServices>(Reuse.Singleton);            
+            container.Register<IConstants, ConstantImpl>(Reuse.Singleton);
 
-            //register app, infrastructure services            
-            var dryIocContainer = (DryIocContainerExtension)container;
-            Impl.Cross.Registerar.RegisterTypes(dryIocContainer.Instance, mapperConfig);
-            Impl.Droid.Registerar.RegisterTypes(dryIocContainer.Instance, mapperConfig);
-            LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
+            //register app, infrastructure services                        
+            Impl.Cross.Registerar.RegisterTypes(container, mapperConfig);
+            Impl.Droid.Registerar.RegisterTypes(container, mapperConfig);
+            var logger = container.Resolve<ILoggingService>();
+            LogMethodsAttribute.LoggingService = logger;            
 
-          
-            container.RegisterSingleton<ISnackbarService, CustomSnackbarService>();
+            container.Register<ISnackbarService, CustomSnackbarService>(Reuse.Singleton);
 
             //register ViewModel for navigation
             container.RegisterPageForNavigation<LoginPage, LoginPageViewModel>();

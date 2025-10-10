@@ -1,13 +1,11 @@
-﻿using BestApp.Abstraction.Domain.Entities;
-using BestApp.Abstraction.Main.AppService;
+﻿using BestApp.Abstraction.Main.AppService;
 using BestApp.Abstraction.Main.AppService.Dto;
 using BestApp.Abstraction.Main.UI;
+using BestApp.MVVM.Helper;
+using BestApp.MVVM.Navigation;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Helper;
-using BestApp.ViewModels.Helper.Commands;
 using BestApp.ViewModels.Movies.ItemViewModel;
-using Example;
-using ImTools;
 using Logging.Aspects;
 
 namespace BestApp.ViewModels.Movies
@@ -45,7 +43,7 @@ namespace BestApp.ViewModels.Movies
         public AsyncCommand DeleteCommand { get; set; }
         public MovieItemViewModel Model { get; set; }        
 
-        public override void Initialize(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
+        public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
 
@@ -134,10 +132,12 @@ namespace BestApp.ViewModels.Movies
                 if (string.IsNullOrEmpty(this.Model.Name))
                 {
                     await popupAlert.Value.ShowError("The Name field is required");
+                    return;
                 }
                 else if (string.IsNullOrEmpty(this.Model.Overview))
                 {
                     await popupAlert.Value.ShowError("The Overview field is required");
+                    return;
                 }
 
                 Some<MovieDto> result = null;

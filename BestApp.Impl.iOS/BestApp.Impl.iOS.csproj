@@ -22,7 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Include="..\BestApp.Impl.Droid\Platform\DirectoryService.cs" Link="Platform\DirectoryService.cs" />
+	  <Compile Include="..\BestApp.Impl.Droid\PlatformServices\DirectoryService.cs" Link="Platform\DirectoryService.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

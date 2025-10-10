@@ -32,7 +32,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             return Task.FromResult(rows);
         }
 
-        public virtual Task Add(TEntity entity)
+        public virtual Task<int> AddAsync(TEntity entity)
         {
             var lastRecord = records.LastOrDefault();
             if (lastRecord != null)
@@ -42,7 +42,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
 
             records.Add(entity);
 
-            return Task.CompletedTask;
+            return Task.FromResult(1);
         }
 
         public virtual Task Remove(TEntity entity)
@@ -52,14 +52,16 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             return Task.CompletedTask;
         }
 
-        public virtual async Task Update(TEntity entity)
+        public virtual async Task<int> UpdateAsync(TEntity entity)
         {
             var old = await FindById(entity.Id);
             records.Remove(old);
             records.Add(entity);
+
+            return 1;
         }
 
-        public Task AddAll(List<TEntity> entities)
+        public Task<int> AddAllAsync(List<TEntity> entities)
         {
             for (int i = 0; i < entities.Count; i++)
             {
@@ -68,15 +70,24 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             records.Clear();
             records.AddRange(entities);
 
-            return Task.CompletedTask;
+            return Task.FromResult(1);
         }
 
-        public Task ClearAsync(string reason)
+        public Task<int> RemoveAsync(TEntity entity)
+        {
+            records.Remove(entity);
+
+            return Task.FromResult(1);
+        }
+
+        public Task<int> ClearAsync(string reason)
         {
             records.Clear();
 
-            return Task.CompletedTask;
+            return Task.FromResult(1);
         }
+
+
 
         //public TEntity FindOne(ISpecification<TEntity> spec)
         //{

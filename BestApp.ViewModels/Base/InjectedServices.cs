@@ -1,24 +1,17 @@
-﻿using BestApp.Abstraction.Common.Events;
-using BestApp.Abstraction.Main.PlatformServices;
+﻿using BestApp.Abstraction.Main.PlatformServices;
 using BestApp.Abstraction.Main.UI;
-using BestApp.Abstraction.Main.UI.Navigation;
-using Common.Abstrtactions;
+using BestApp.MVVM.Navigation;
+using BestApp.MVVM.ViewModels;
 using DryIoc;
 
 namespace BestApp.ViewModels.Base
 {
-    public class InjectedServices
+    public class InjectedServices : PageInjectedServices
     {        
-        public InjectedServices(IPageNavigationService navigationService, IContainer container)
+        public InjectedServices(IPageNavigationService navigationService, IContainer container) : base(navigationService, container)
         {
-            NavigationService = navigationService;
-            Container = container;
-        }
-        public IContainer Container { get; }
-        public IPageNavigationService NavigationService { get; }
-
-        public IMessagesCenter EventAggregator => Container.Resolve<IMessagesCenter>();
-        public ILoggingService LoggingService => Container.Resolve<ILoggingService>();
+            
+        }        
         public IPopupAlert PopupAlertService=> Container.Resolve<IPopupAlert>();
         public IPlatformErrorService PlatformError => Container.Resolve<IPlatformErrorService>();
         public IDeviceThreadService DeviceThreadService => Container.Resolve<IDeviceThreadService>();
