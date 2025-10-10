@@ -10,7 +10,7 @@ using FragmentManager = AndroidX.Fragment.App.FragmentManager;
 using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
 using NavigationParameters = BestApp.ViewModels.NavigationParameters;
 
-namespace BestApp.X.Droid.UI.Services.Navigation
+namespace BestApp.X.Droid.Navigation
 {
     //[LogMethods]
     public class PageNavigationFrameLayout : FrameLayout , IPageNavigationService

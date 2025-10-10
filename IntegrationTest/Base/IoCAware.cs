@@ -1,4 +1,4 @@
-﻿using BestApp.Abstraction.Main.Platform;
+﻿using BestApp.Abstraction.Main.PlatformServices;
 using Common.Abstrtactions;
 using DryIoc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -1,8 +1,8 @@
 ﻿using System;
-using BestApp.Abstraction.Main.Platform;
+using BestApp.Abstraction.Main.PlatformServices;
 using Microsoft.Maui.Storage;
 
-namespace BestApp.Impl.Droid.Platform
+namespace BestApp.Impl.Droid.PlatformServices
 {
     public class PreferencesService : IPreferencesService
     {

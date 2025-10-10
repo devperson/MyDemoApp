@@ -1,14 +1,15 @@
 ﻿using Android.Content;
 using BestApp.Abstraction.Main.UI;
+using Microsoft.Maui.ApplicationModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.X.Droid.UI.Services;
+namespace BestApp.Impl.Droid.UI;
 
-internal class DroidAlertDialogService : IAlertDialogService
+public class DroidAlertDialogService : IAlertDialogService
 {
     public Task<bool> ConfirmAlert(string title, string message, params string[] buttons)
     {
@@ -48,7 +49,7 @@ internal class DroidAlertDialogService : IAlertDialogService
     {
         await Task.Delay(10);
 
-        var alert = new AlertDialog.Builder(MainActivity.Instance).Create();
+        var alert = new AlertDialog.Builder(Platform.CurrentActivity).Create();
         alert.SetTitle(arguments.Title);
         alert.SetMessage(arguments.Message);
         if (arguments.Accept != null)
@@ -64,7 +65,7 @@ internal class DroidAlertDialogService : IAlertDialogService
     {
         await Task.Delay(10);
 
-        var builder = new AlertDialog.Builder(MainActivity.Instance);
+        var builder = new AlertDialog.Builder(Platform.CurrentActivity);
         builder.SetTitle(arguments.Title);
         string[] items = arguments.Buttons.ToArray();
         builder.SetItems(items, (o, args) => arguments.Result.TrySetResult(items[args.Which]));

@@ -1,11 +1,9 @@
-
-
 using Android.Runtime;
 using Android.Views;
 using AndroidX.AppCompat.App;
 using BestApp.ViewModels.Base;
+using BestApp.X.Droid.Navigation;
 using BestApp.X.Droid.Pages.Base;
-using BestApp.X.Droid.UI.Services.Navigation;
 using Common.Abstrtactions;
 using Microsoft.Maui.ApplicationModel;
 using System.Globalization;

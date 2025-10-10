@@ -1,9 +1,9 @@
 ﻿using BestApp.Abstraction.Main.Infasructures;
-using BestApp.Abstraction.Main.Platform;
+using BestApp.Abstraction.Main.PlatformServices;
 using Microsoft.Maui.Storage;
 using System;
 
-namespace BestApp.Impl.Platform
+namespace BestApp.Impl.PlatformServices
 {
     internal class DirectoryService : IDirectoryService
     {                

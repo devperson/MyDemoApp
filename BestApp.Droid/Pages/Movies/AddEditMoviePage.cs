@@ -82,9 +82,10 @@ public class AddEditMoviePage : LifecyclePage
         this.ViewModel.Model.Overview = txtDescription.Text;
     }
 
-    private void BtnPhoto_Click(object sender, EventArgs e)
+    private async void BtnPhoto_Click(object sender, EventArgs e)
     {
-        this.ViewModel.ChangePhotoCommand.Execute();
+        await this.ViewModel.ChangePhotoCommand.ExecuteAsync();
+        this.OnPhotoChanged();
     }
 
     private void BtnSave_Click(object sender, EventArgs e)
@@ -101,6 +102,10 @@ public class AddEditMoviePage : LifecyclePage
                       .Override(200, 300)
                       .SetDiskCacheStrategy(DiskCacheStrategy.All)
                       .Into(imgView);
+        }
+        else
+        {
+            imgView.SetImageDrawable(null);
         }
     }
 }

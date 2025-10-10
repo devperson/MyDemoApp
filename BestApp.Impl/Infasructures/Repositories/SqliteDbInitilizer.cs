@@ -1,5 +1,5 @@
 ﻿using BestApp.Abstraction.Main.Infasructures;
-using BestApp.Abstraction.Main.Platform;
+using BestApp.Abstraction.Main.PlatformServices;
 using BestApp.Impl.Cross.Infasructures.Repositories.Tables;
 using Common.Abstrtactions;
 using Logging.Aspects;

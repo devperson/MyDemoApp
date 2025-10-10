@@ -8,6 +8,7 @@ using Logging.Aspects;
 using System.Collections.ObjectModel;
 using BestApp.ViewModels.Extensions;
 using BestApp.ViewModels.Events;
+using BestApp.Abstraction.Main.UI;
 
 namespace BestApp.ViewModels.Movies
 {
@@ -16,14 +17,19 @@ namespace BestApp.ViewModels.Movies
     {        
         private readonly Lazy<IMoviesService> movieService;
         private readonly Lazy<IInfrastructureServices> infrastructureServices;
+        private readonly Lazy<ISnackbarService> snackbarService;
         private AuthErrorEvent authErrorEvent;
         public const string SELECTED_ITEM = "selectedItem";
 
-        public MoviesPageViewModel(InjectedServices services, Lazy<IMoviesService> movieService, Lazy<IInfrastructureServices> infrastructureServices) : base(services)
+        public MoviesPageViewModel(InjectedServices services, 
+            Lazy<IMoviesService> movieService, 
+            Lazy<IInfrastructureServices> infrastructureServices,
+            Lazy<ISnackbarService> snackbarService) : base(services)
         {
             
             this.movieService = movieService;
             this.infrastructureServices = infrastructureServices;
+            this.snackbarService = snackbarService;
             AddCommand = new AsyncCommand(OnAddCommand);
             ItemTappedCommand = new AsyncCommand(OnItemTappedCommand);
 
@@ -210,7 +216,11 @@ namespace BestApp.ViewModels.Movies
             {
                 var list = result.Value.Select(x => new MovieItemViewModel(x));
                 MovieItems = new ObservableCollection<MovieItemViewModel>(list);
-            }            
+            }      
+            else
+            {
+                snackbarService.Value.Show(result.Exception.ToString());
+            }
         }
 
 

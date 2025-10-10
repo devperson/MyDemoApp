@@ -2,7 +2,7 @@
 using BestApp.Abstraction.Main.AppService.Dto;
 using BestApp.Abstraction.Main.Infasructures;
 using BestApp.Abstraction.Main.Infasructures.Events;
-using BestApp.Abstraction.Main.Platform;
+using BestApp.Abstraction.Main.PlatformServices;
 using BestApp.Abstraction.Main.UI;
 using BestApp.Abstraction.Main.UI.Navigation;
 using BestApp.ViewModels.Base;
