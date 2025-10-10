@@ -18,7 +18,7 @@ namespace BestApp.Impl.Droid
             container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
             container.Register<IPopupAlert, MockPopup>(Reuse.Singleton);
             container.Register<IPlatformErrorService, PlatformErrorService>(Reuse.Singleton);
-
+            container.Register<IAlertDialogService, DroidAlertDialogService>(Reuse.Singleton);
             container.Register<IDevice, DeviceInfoService>(Reuse.Singleton);
             container.Register<IDeviceThreadService, DeviceThreadService>(Reuse.Singleton);
             container.Register<IResizeImageService, ResizeImageService>(Reuse.Singleton);

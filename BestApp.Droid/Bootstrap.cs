@@ -8,6 +8,7 @@ using BestApp.ViewModels.Movies;
 using BestApp.X.Droid.Navigation;
 using BestApp.X.Droid.Pages.Login;
 using BestApp.X.Droid.Pages.Movies;
+using BestApp.X.Droid.UI;
 using BestApp.X.Droid.Utils;
 using Common.Abstrtactions;
 using DryIoc;
@@ -42,7 +43,8 @@ namespace BestApp.X.Droid
             Impl.Droid.Registerar.RegisterTypes(dryIocContainer.Instance, mapperConfig);
             LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
 
-            container.RegisterSingleton<IAlertDialogService, DroidAlertDialogService>();
+          
+            container.RegisterSingleton<ISnackbarService, CustomSnackbarService>();
 
             //register ViewModel for navigation
             container.RegisterPageForNavigation<LoginPage, LoginPageViewModel>();
