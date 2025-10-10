@@ -27,7 +27,7 @@ namespace BestApp.Abstraction.Common.Events
         }
     }
 
-    public class SubMessage<T> : IMessage<T>
+    public class SubMessage<T> : IMessageEvent<T>
     {
         private readonly List<Action<T>> _handlers = new();
         private readonly object _lock = new();
@@ -68,7 +68,7 @@ namespace BestApp.Abstraction.Common.Events
         }
     }
 
-    public class SubMessage : IMessage
+    public class SubMessage : IMessageEvent
     {
         private readonly SubMessage<Unit> _inner = new();
 
