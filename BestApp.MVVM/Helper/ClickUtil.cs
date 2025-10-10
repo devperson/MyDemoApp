@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.MVVM.Helper
+namespace Base.MVVM.Helper
 {
     public class ClickUtil
     {

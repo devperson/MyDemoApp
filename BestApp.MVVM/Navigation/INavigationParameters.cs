@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.MVVM.Navigation
+namespace Base.MVVM.Navigation
 {
     public interface INavigationParameters : IEnumerable<KeyValuePair<string, object>>
     {

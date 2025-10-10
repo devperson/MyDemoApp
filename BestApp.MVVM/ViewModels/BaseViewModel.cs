@@ -1,8 +1,8 @@
-﻿using BestApp.MVVM.Navigation;
-using IDestructible = BestApp.MVVM.Navigation.IDestructible;
-using INavigationParameters = BestApp.MVVM.Navigation.INavigationParameters;
+﻿using Base.MVVM.Navigation;
+using IDestructible = Base.MVVM.Navigation.IDestructible;
+using INavigationParameters = Base.MVVM.Navigation.INavigationParameters;
 
-namespace BestApp.MVVM.ViewModels
+namespace Base.MVVM.ViewModels
 {
     public abstract class BaseViewModel : Bindable, IDestructible, IInitialize
     {

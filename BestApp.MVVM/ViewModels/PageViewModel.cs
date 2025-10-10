@@ -1,11 +1,9 @@
-﻿using BestApp.MVVM.Helper;
-using BestApp.MVVM.Navigation;
-using BestApp.ViewModels.Events;
+﻿using Base.MVVM.Events;
+using Base.MVVM.Navigation;
 using Logging.Aspects;
-using System.Net;
-using INavigationParameters = BestApp.MVVM.Navigation.INavigationParameters;
+using INavigationParameters = Base.MVVM.Navigation.INavigationParameters;
 
-namespace BestApp.MVVM.ViewModels
+namespace Base.MVVM.ViewModels
 {
     [LogMethods]
     public abstract class AppPageViewModel : NavigatingBaseViewModel, IPageLifecycleAware

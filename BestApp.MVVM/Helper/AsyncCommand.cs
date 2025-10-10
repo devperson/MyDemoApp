@@ -1,9 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows.Input;
 
-namespace BestApp.MVVM.Helper
+namespace Base.MVVM.Helper
 {
     // <summary>
     /// Simplifies using an "async" method as the implementor of a Command.

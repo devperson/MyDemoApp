@@ -31,7 +31,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\BestApp.Impl\BestApp.Impl.Cross.csproj" />
-	  <ProjectReference Include="..\BestApp.MVVM\BestApp.MVVM.csproj" />
+	  <ProjectReference Include="..\BestApp.MVVM\Base.MVVM.csproj" />
 	  <ProjectReference Include="..\BestApp.ViewModels\BestApp.ViewModels.csproj" />
 	</ItemGroup>
 </Project>

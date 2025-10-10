@@ -1,9 +1,9 @@
 ﻿using BestApp.Abstraction.Common.Events;
-using BestApp.MVVM.Navigation;
+using Base.MVVM.Navigation;
 using Common.Abstrtactions;
 using DryIoc;
 
-namespace BestApp.MVVM.ViewModels
+namespace Base.MVVM.ViewModels
 {
     public class PageInjectedServices
     {        

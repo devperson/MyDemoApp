@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.MVVM.Navigation
+namespace Base.MVVM.Navigation
 {
     /// <summary>
     /// Interface for objects that require cleanup of resources prior to Disposal

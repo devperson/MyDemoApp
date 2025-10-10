@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.ComponentModel;
 
-namespace BestApp.MVVM.Navigation
+namespace Base.MVVM.Navigation
 {
     public class NavigationParameters : IEnumerable<KeyValuePair<string, object>>, INavigationParameters
     {

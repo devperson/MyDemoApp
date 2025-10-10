@@ -1,9 +1,9 @@
-﻿using BestApp.MVVM.Helper;
-using BestApp.MVVM.Navigation;
+﻿using Base.MVVM.Helper;
+using Base.MVVM.Navigation;
 using System.Text;
-using INavigationParameters = BestApp.MVVM.Navigation.INavigationParameters;
+using INavigationParameters = Base.MVVM.Navigation.INavigationParameters;
 
-namespace BestApp.MVVM.ViewModels
+namespace Base.MVVM.ViewModels
 {
     public abstract class NavigatingBaseViewModel : BaseViewModel, INavigationAware
     {
