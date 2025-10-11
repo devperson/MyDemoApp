@@ -1,17 +1,11 @@
 ﻿using Android.Views;
+using Base.Impl.Droid.UI.Pages;
 using BestApp.ViewModels.Movies;
-using BestApp.X.Droid.Pages.Base;
-using Bumptech.Glide.Load.Engine;
 using Bumptech.Glide;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Android.Graphics.ColorSpace;
+using Bumptech.Glide.Load.Engine;
 
 namespace BestApp.X.Droid.Pages.Movies;
-public class MovieDetailPage : LifecyclePage
+public class MovieDetailPage : DroidLifecyclePage
 {
     private Button btnEdit;
     private ImageView imgView;

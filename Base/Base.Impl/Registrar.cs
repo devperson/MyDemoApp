@@ -15,7 +15,7 @@ using BestApp.Impl.Cross.Infasructures;
 
 namespace Base.Impl
 {
-    public static class Registerar
+    public static class Registrar
     {
         public static void RegisterTypes(IContainer container)
         {

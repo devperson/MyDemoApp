@@ -1,5 +1,6 @@
 ﻿using Base.Abstractions;
 using Base.Abstractions.Diagnostic;
+using Base.Abstractions.Platform;
 using Base.Abstractions.UI;
 using Base.Aspect;
 using Base.MVVM.Navigation;
@@ -8,12 +9,9 @@ using BestApp.ViewModels.Login;
 using BestApp.ViewModels.Movies;
 using BestApp.X.Droid.Pages.Login;
 using BestApp.X.Droid.Pages.Movies;
-using BestApp.X.Droid.Controls;
-using BestApp.X.Droid.Controls.Navigation;
 using DryIoc;
 using Mapster;
 using MapsterMapper;
-using Base.Abstractions.Platform;
 
 namespace BestApp.X.Droid
 {    
@@ -38,15 +36,13 @@ namespace BestApp.X.Droid
 
             //register app, infrastructure services
             // //register infrastructures            
-            Base.Impl.Registerar.RegisterTypes(container);
-            Base.Impl.Droid.Registerar.RegisterTypes(container);
-            BestApp.Impl.Cross.Registerar.RegisterTypes(container, mapperConfig);
-            BestApp.Impl.Droid.Registerar.RegisterTypes(container);
+            Base.Impl.Registrar.RegisterTypes(container);
+            Base.Impl.Droid.Registrar.RegisterTypes(container);
+            BestApp.Impl.Cross.Registrar.RegisterTypes(container, mapperConfig);
+            BestApp.Impl.Droid.Registrar.RegisterTypes(container);
 
             var logger = container.Resolve<ILoggingService>();
             LogMethodsAttribute.LoggingService = logger;            
-
-            container.Register<ISnackbarService, CustomSnackbarService>(Reuse.Singleton);
 
             //register ViewModel for navigation
             container.RegisterPageForNavigation<LoginPage, LoginPageViewModel>();

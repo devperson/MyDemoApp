@@ -1,14 +1,16 @@
 ﻿using Android.Views;
 using Base.Abstractions.Diagnostic;
-using BestApp.ViewModels.Base;
-using BestApp.X.Droid.Utils;
+using Base.Impl.Droid.UI.Utils;
+using Base.MVVM.Navigation;
+using Base.MVVM.ViewModels;
 using DryIoc;
+using Microsoft.Maui.ApplicationModel;
 
-namespace BestApp.X.Droid.Pages.Base
+namespace Base.Impl.Droid.UI.Pages
 {
-    public class BasePage : AndroidX.Fragment.App.Fragment, IDispatchEventListener
+    public class DroidBasePage : AndroidX.Fragment.App.Fragment, IPage, IDispatchEventListener
     {
-        public PageViewModel ViewModel { get; set; }
+        public AppPageViewModel ViewModel { get; set; }
         protected ILoggingService loggingService { get; set; }
         private Point downPosition;
         private DateTime downTime;
@@ -25,12 +27,14 @@ namespace BestApp.X.Droid.Pages.Base
             base.OnCreate(savedInstanceState);
 
             if (loggingService == null)
-                loggingService = MainActivity.Instance.Container.Resolve<ILoggingService>();
+            {                
+                loggingService = Registrar.appContainer.Resolve<ILoggingService>();
+            }
         }
 
 
         /// <summary>
-        /// when user click on page we should hide keyboard
+        /// When user click on page we should hide keyboard
         /// </summary>        
         public virtual void DispatchTouchEvent(MotionEvent e)
         {
@@ -43,17 +47,17 @@ namespace BestApp.X.Droid.Pages.Base
             if (e.Action != MotionEventActions.Up)
                 return;
 
-            var currentView = MainActivity.Instance.CurrentFocus;
+            var currentView = Platform.CurrentActivity.CurrentFocus;
 
             if (!(currentView is EditText))
                 return;
           
-            var newCurrentView = MainActivity.Instance.CurrentFocus;
+            var newCurrentView = Platform.CurrentActivity.CurrentFocus;
 
             if (currentView != newCurrentView)
                 return;
 
-            double distance = downPosition.Distance(new Point(e.RawX, e.RawY));
+            var distance = downPosition.Distance(new Point(e.RawX, e.RawY));
 
             if (distance > Context.ToPixels(20) || DateTime.UtcNow - downTime > TimeSpan.FromMilliseconds(200))
                 return;
@@ -70,13 +74,7 @@ namespace BestApp.X.Droid.Pages.Base
                 return;
 
             Context.HideKeyboard(currentView);
-            MainActivity.Instance.Window.DecorView.ClearFocus();
+            Platform.CurrentActivity.Window.DecorView.ClearFocus();
         }
     }
-
-    public interface IDispatchEventListener
-    {
-        void DispatchTouchEvent(MotionEvent e);
-    }
-
 }

@@ -9,7 +9,7 @@ using DeviceInfo = Microsoft.Maui.Devices.DeviceInfo;
 
 namespace Base.Impl.Droid.UI;
 
-public class MediaPickerService : IMediaPickerService
+public class DroidMediaPickerService : IMediaPickerService
 {
     public string TAG = "MediaPickerService";
     public const int MaxImageSize = 500;
@@ -18,7 +18,7 @@ public class MediaPickerService : IMediaPickerService
     private readonly Lazy<IVideoService> videoService;
     private readonly Lazy<ILoggingService> loggingService;
     private string storageError = "The Storage permission was not granted. It is required to grant the Storage permission to choose media files.";
-    public MediaPickerService(Lazy<IResizeImageService> resizeImageService, Lazy<IDevice> device, Lazy<IVideoService> videoService, Lazy<ILoggingService> loggingService)
+    public DroidMediaPickerService(Lazy<IResizeImageService> resizeImageService, Lazy<IDevice> device, Lazy<IVideoService> videoService, Lazy<ILoggingService> loggingService)
     {
         this.resizeImageService = resizeImageService;
         this.device = device;

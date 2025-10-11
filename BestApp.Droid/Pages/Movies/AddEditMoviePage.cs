@@ -1,20 +1,13 @@
 ﻿using Android.Views;
-using Android.Widget;
-using BestApp.ViewModels.Login;
+using Base.Impl.Droid.UI.Pages;
+using Base.Impl.Droid.UI.Utils;
 using BestApp.ViewModels.Movies;
-using BestApp.X.Droid.Pages.Base;
-using Bumptech.Glide.Load.Engine;
 using Bumptech.Glide;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BestApp.X.Droid.Utils;
+using Bumptech.Glide.Load.Engine;
 
 namespace BestApp.X.Droid.Pages.Movies;
 
-public class AddEditMoviePage : LifecyclePage
+public class AddEditMoviePage : DroidLifecyclePage
 {
     private ViewGroup btnPhoto;
     private Button btnSave, btnDelete;

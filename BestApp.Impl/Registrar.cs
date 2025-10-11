@@ -18,7 +18,7 @@ using BestApp.Impl.Cross.Infasructures;
 
 namespace BestApp.Impl.Cross
 {
-    public static class Registerar
+    public static class Registrar
     {
         public static void RegisterTypes(IContainer container, TypeAdapterConfig mapperConfig)
         {   
@@ -32,7 +32,7 @@ namespace BestApp.Impl.Cross
         public static void RegisterInfrastructureService(IContainer container, TypeAdapterConfig mapperConfig)
         {
             //register infrastructures            
-            Base.Impl.Registerar.RegisterInfrastructureService(container);
+            Base.Impl.Registrar.RegisterInfrastructureService(container);
             //Sqlite            
             RepoMapper.RegisterMapping(mapperConfig);
             container.Register<ILocalDbInitilizer, SqliteDbInitilizer>(Reuse.Singleton);

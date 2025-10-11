@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.X.Droid.Utils
+namespace Base.Impl.Droid.UI.Utils
 {
-    public struct Size
+    internal struct Size
     {
         double _width;
         double _height;

@@ -1,25 +1,25 @@
 using Android.Runtime;
 using Android.Views;
 using AndroidX.AppCompat.App;
+using Base.Abstractions.Diagnostic;
+using Base.Impl.Droid.UI.Navigation;
+using Base.Impl.Droid.UI.Pages;
+using Base.MVVM.Navigation;
+using Base.MVVM.ViewModels;
 using BestApp.ViewModels.Base;
-using BestApp.X.Droid.Pages.Base;
-using BestApp.X.Droid.Controls.Navigation;
+using BestApp.X.Droid.Controls;
 using DryIoc;
 using Microsoft.Maui.ApplicationModel;
 using System.Globalization;
-using BestApp.X.Droid.Controls;
-using Base.Abstractions.Diagnostic;
 
 namespace BestApp.X.Droid
 {
     [Activity(Label = "@string/app_name", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        public static MainActivity Instance { get; private set; }
-
-        private ViewGroup? layoutRoot;
+        public static MainActivity Instance { get; private set; }        
         private MainSideSheetDialog sideSheetDialog;
-        public PageNavigationFrameLayout pageNavigationService;
+        public IPageNavigationService pageNavigationService;
         private ILoggingService loggingService;
         public IContainer Container { get; set; }
         protected async override void OnCreate(Bundle? savedInstanceState)
@@ -32,17 +32,13 @@ namespace BestApp.X.Droid
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
-            layoutRoot = this.FindViewById<ViewGroup>(Resource.Id.layoutRoot);
-
             //setup navigation
-            pageNavigationService = this.FindViewById<PageNavigationFrameLayout>(Resource.Id.navContainer);
-            pageNavigationService.SetActivity(this);
+            pageNavigationService = this.FindViewById<DroidPageNavigationFrameLayout>(Resource.Id.navContainer);            
             
             //register services
             var bootstrap = new Bootstrap();
             bootstrap.RegisterTypes(pageNavigationService);
-            Container = bootstrap.container;
-            pageNavigationService.SetContainer(Container);
+            Container = bootstrap.container;            
 
             this.loggingService = Container.Resolve<ILoggingService>();
 
@@ -57,7 +53,7 @@ namespace BestApp.X.Droid
         {
             try
             {
-                var dispatchEventListener = pageNavigationService.currentPage as IDispatchEventListener;
+                var dispatchEventListener = pageNavigationService.GetCurrentPage() as DroidLifecyclePage;
                 if (dispatchEventListener != null)
                 {
                     dispatchEventListener.DispatchTouchEvent(ev);
@@ -85,7 +81,7 @@ namespace BestApp.X.Droid
             //We need to check if it is not a root page because we don't want to pop last page
             if (pageNavigationService.CanNavigateBack)
             {
-                var currentPage = pageNavigationService.GetCurrentPage();
+                var currentPage = pageNavigationService.GetCurrentPage() as DroidLifecyclePage;
                 if (currentPage != null)
                 {
                     //We need to do Pop navigation only when Push navigation animation is completed.
@@ -117,21 +113,21 @@ namespace BestApp.X.Droid
             CultureInfo.DefaultThreadCurrentUICulture = englishUSCulture;
         }
 
-        public PageViewModel GetCurrentViewModel()
+        public AppPageViewModel GetCurrentViewModel()
         {
-            var vm = this.pageNavigationService.GetCurrentPageModel() as PageViewModel;
+            var vm = this.pageNavigationService.GetCurrentPageModel();
             return vm;
         }
 
-        public PageViewModel GetRootPageViewModel()
+        public AppPageViewModel GetRootPageViewModel()
         {
-            var vm = this.pageNavigationService.GetRootPageModel() as PageViewModel;
+            var vm = this.pageNavigationService.GetRootPageModel();
             return vm;
         }
 
-        public LifecyclePage GetCurrentPage()
+        public DroidLifecyclePage GetCurrentPage()
         {
-            return this.pageNavigationService.GetCurrentPage();
+            return this.pageNavigationService.GetCurrentPage() as DroidLifecyclePage;
         }
 
         public void ShowSideSheet()

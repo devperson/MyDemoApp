@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.X.Droid.Utils
+namespace Base.Impl.Droid.UI.Utils
 {
-    public struct Rect
+    internal struct Rect
     {
         public Rect(double x, double y, double width, double height) : this()
         {

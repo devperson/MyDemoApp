@@ -1,45 +1,60 @@
 ﻿using Android.Content;
 using Android.Runtime;
 using Android.Util;
+using AndroidX.Fragment.App;
 using Base.Abstractions.Diagnostic;
+using Base.Impl.Droid.UI.Pages;
+using Base.Impl.Droid.UI.Utils;
 using Base.MVVM.Navigation;
-using BestApp.X.Droid.Pages.Base;
-using BestApp.X.Droid.Utils;
+using Base.MVVM.ViewModels;
 using DryIoc;
+using Microsoft.Maui.ApplicationModel;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using FragmentManager = AndroidX.Fragment.App.FragmentManager;
 
-namespace BestApp.X.Droid.Controls.Navigation
+namespace Base.Impl.Droid.UI.Navigation
 {
     //[LogMethods]
-    public class PageNavigationFrameLayout : FrameLayout , IPageNavigationService
+    public class DroidPageNavigationFrameLayout : FrameLayout , IPageNavigationService
     {
-        public PageNavigationFrameLayout(Context context) : base(context)
+        public DroidPageNavigationFrameLayout(Context context) : base(context)
         {
         }
 
-        public PageNavigationFrameLayout(Context context, IAttributeSet attrs) : base(context, attrs)
+        public DroidPageNavigationFrameLayout(Context context, IAttributeSet attrs) : base(context, attrs)
         {
         }
 
-        public PageNavigationFrameLayout(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
+        public DroidPageNavigationFrameLayout(Context context, IAttributeSet attrs, int defStyleAttr) : base(context, attrs, defStyleAttr)
         {
         }
 
-        public PageNavigationFrameLayout(Context context, IAttributeSet attrs, int defStyleAttr, int defStyleRes) : base(context, attrs, defStyleAttr, defStyleRes)
+        public DroidPageNavigationFrameLayout(Context context, IAttributeSet attrs, int defStyleAttr, int defStyleRes) : base(context, attrs, defStyleAttr, defStyleRes)
         {
         }
 
-        protected PageNavigationFrameLayout(nint javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
+        protected DroidPageNavigationFrameLayout(nint javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
         }
         
         private bool _disposed;
-        private int animationDuration = 250;
-        private MainActivity mainActivity;
-        private FragmentManager FragmentManager => mainActivity.SupportFragmentManager;
-        internal readonly List<LifecyclePage> navStack = new List<LifecyclePage>();
-        internal LifecyclePage currentPage;       
+        private int animationDuration = 250;        
+        private FragmentManager FragmentManager
+        {
+            get
+            {
+                var activity = Platform.CurrentActivity as FragmentActivity;
+
+                if (activity != null)
+                {
+                    return activity.SupportFragmentManager;
+                }
+
+                throw new Exception("Your MainActivity should be FragmentActivity in order to use this PageNavigationFrameLayout service. For example make MainActivity to derive from AppCompatActivity");
+            }
+        }
+        internal readonly List<DroidLifecyclePage> navStack = new List<DroidLifecyclePage>();
+        internal DroidLifecyclePage currentPage;       
 
         public bool CanNavigateBack
         {
@@ -57,23 +72,12 @@ namespace BestApp.X.Droid.Controls.Navigation
             {
                 if (_logger == null)
                 {
-                    _logger = container.Resolve<ILoggingService>();
+                    _logger = Registrar.appContainer.Resolve<ILoggingService>();
                 }
 
                 return _logger;
             }
-        }
-
-        public void SetActivity(MainActivity activity)
-        {
-            mainActivity = activity;
-        }
-        private IContainer container;
-        public void SetContainer(IContainer ct)
-        {
-            container = ct;
-        }
-        
+        }              
 
         public async Task Navigate(string url, INavigationParameters parameters = null, bool useModalNavigation = false, bool animated = true, bool wrapIntoNav = false)
         {
@@ -126,7 +130,7 @@ namespace BestApp.X.Droid.Controls.Navigation
         {
             var currentStack = GetNavStackModels();
             var currentUri = string.Join('/', currentStack);
-            Logger.Log($"{nameof(PageNavigationFrameLayout)}: current stack: {currentUri}");
+            Logger.Log($"{nameof(DroidPageNavigationFrameLayout)}: current stack: {currentUri}");
         }
 
         public async Task NavigateToRoot(INavigationParameters parameters)
@@ -145,7 +149,7 @@ namespace BestApp.X.Droid.Controls.Navigation
         {
             //create new page
             var oldPage = currentPage;
-            var newPage = currentPage = NavRegisterar.CreatePage(vmName, parameters);
+            var newPage = currentPage = NavRegistrar.CreatePage(vmName, parameters) as DroidLifecyclePage;
 
             //save new page in local stack list
             newPage.pushNavAnimated = animated;
@@ -229,7 +233,7 @@ namespace BestApp.X.Droid.Controls.Navigation
 
         private async Task OnMultiPopAsync(string url, INavigationParameters parameters, bool animated)
         {            
-            var pagesToRemove = new List<LifecyclePage>();
+            var pagesToRemove = new List<DroidLifecyclePage>();
             var splitedCount = url.Split('/').Length - 1;            
             for (int i = 0; i < splitedCount; i++)
             {
@@ -237,7 +241,7 @@ namespace BestApp.X.Droid.Controls.Navigation
                 if(pagesToRemove == null)
                 {
                     //this can happen if user somehow removed this page for example: tapped device back while app removes this page, or double tap
-                    Logger.LogWarning($"{nameof(PageNavigationFrameLayout)}: Canceling OnMultiPopAsync() because pageToRemove is null");
+                    Logger.LogWarning($"{nameof(DroidPageNavigationFrameLayout)}: Canceling OnMultiPopAsync() because pageToRemove is null");
                     return;
                 }
                 navStack.Remove(pageToRemove);
@@ -292,7 +296,7 @@ namespace BestApp.X.Droid.Controls.Navigation
 
             var vmName = url.Replace("../", string.Empty);
 
-            currentPage = NavRegisterar.CreatePage(vmName, parameters);
+            currentPage = NavRegistrar.CreatePage(vmName, parameters) as DroidLifecyclePage;
             navStack.Add(currentPage);
             pushTransaction.Add(Id, currentPage);
 
@@ -326,7 +330,7 @@ namespace BestApp.X.Droid.Controls.Navigation
         {           
             //create page and save it to local stack list
             var vmName = url.Replace("/", string.Empty).Replace("NavigationPage", "");
-            currentPage = NavRegisterar.CreatePage(vmName, parameters);
+            currentPage = NavRegistrar.CreatePage(vmName, parameters) as DroidLifecyclePage;
             navStack.Add(currentPage);
 
             //remove other pages except currentPage, it will become root page
@@ -383,7 +387,7 @@ namespace BestApp.X.Droid.Controls.Navigation
 
             foreach (var vmName in vmPages)
             {
-                var page = NavRegisterar.CreatePage(vmName, parameters);
+                var page = NavRegistrar.CreatePage(vmName, parameters) as DroidLifecyclePage;
                 //add page to ui stack
                 page.pushNavAnimated = animated;
                 navStack.Add(page);
@@ -444,7 +448,7 @@ namespace BestApp.X.Droid.Controls.Navigation
                 showTransaction.Show(rootPage);
                 showTransaction.CommitAllowingStateLoss();                
 
-                var pagesToRemove = new List<LifecyclePage>();                
+                var pagesToRemove = new List<DroidLifecyclePage>();                
                 var popAnimTransaction = FragmentManager.BeginTransaction();
                 while (navStack.Count > 1)
                 {
@@ -478,33 +482,23 @@ namespace BestApp.X.Droid.Controls.Navigation
                 removeTransaction.CommitAllowingStateLoss();
             }
         }
-
-        public Task CloseModal(INavigationParameters parameters = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object GetCurrentPageModel()
+      
+        public AppPageViewModel GetCurrentPageModel()
         {
             var page = navStack.LastOrDefault();
             return page?.ViewModel;
         }
 
-        public object GetRootPageModel()
+        public AppPageViewModel GetRootPageModel()
         {
             var page = navStack.FirstOrDefault();
             return page?.ViewModel;
         }
 
-        public LifecyclePage GetCurrentPage()
+        public IPage GetCurrentPage()
         {
             var page = navStack.LastOrDefault();
             return page;
-        }
-
-        public bool HasPageInNavigation(string page)
-        {
-            throw new NotImplementedException();
         }
 
         protected override void Dispose(bool disposing)
@@ -529,18 +523,10 @@ namespace BestApp.X.Droid.Controls.Navigation
             base.Dispose(disposing);
         }
 
-        public List<object> GetNavStackModels()
+        public List<AppPageViewModel> GetNavStackModels()
         {
-            var viewModels = navStack.Select(x => x.ViewModel as object).ToList();
+            var viewModels = navStack.Select(x => x.ViewModel).ToList();
             return viewModels;
         }
-
-        //protected override void OnLayout(bool changed, int left, int top, int right, int bottom)
-        //{
-        //    base.OnLayout(changed, left, top, right, bottom);
-
-        //    var height = this.Height;
-        //    Console.WriteLine($"Height of nav page = {height}");
-        //}
     }
 }

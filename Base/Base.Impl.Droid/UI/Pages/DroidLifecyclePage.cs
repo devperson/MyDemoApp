@@ -1,12 +1,16 @@
 ﻿using Android.OS;
-using Android.Views.Animations;
 using Android.Views;
+using Android.Views.Animations;
 using AndroidX.Core.View;
-using BestApp.X.Droid.Utils;
+using Base.Impl.Droid.UI.Utils;
+using Base.MVVM.Navigation;
+using DryIoc;
+using Microsoft.Maui.ApplicationModel;
+using static Android.App.Assist.AssistStructure;
 
-namespace BestApp.X.Droid.Pages.Base
+namespace Base.Impl.Droid.UI.Pages
 {
-    public class LifecyclePage : BasePage, IOnApplyWindowInsetsListener
+    public class DroidLifecyclePage : DroidBasePage, IOnApplyWindowInsetsListener
     {
         protected TextView txtTitle;
         protected Button btnBack;
@@ -14,7 +18,7 @@ namespace BestApp.X.Droid.Pages.Base
         //private SeverityType severity;
         private FrameLayout loadingView;
         private TextView txtLoadingMsg;
-        private PageEnterAnimationListner pageAnimationListener;
+        private DroidPageEnterAnimationListner pageAnimationListener;
         //private ILogging pageLogger;//conditional logger: that will log if user enables it
         private ViewGroup rootLayout;
 
@@ -39,7 +43,9 @@ namespace BestApp.X.Droid.Pages.Base
             base.OnViewCreated(view, savedInstanceState);
 
             //this.txtTitle = view.FindViewById<TextView>(Resource.Id.txtTitle);
-            this.btnBack = view.FindViewById<Button>(Resource.Id.btnBack);
+            
+            int id = Resources.GetIdentifier("btnBack", "id", Context.PackageName);
+            this.btnBack = view.FindViewById<Button>(id);
             if (this.btnBack != null)
             {
                 this.btnBack.Visibility = ViewModel.CanGoBack.ToVisibility();
@@ -164,8 +170,8 @@ namespace BestApp.X.Droid.Pages.Base
 
             if (enter && IsPageEnterAnimationCompleted == false && nextAnim > 0)
             {
-                pageAnimationListener = new PageEnterAnimationListner(this);
-                var animation = AnimationUtils.LoadAnimation(MainActivity.Instance, nextAnim);
+                pageAnimationListener = new DroidPageEnterAnimationListner(this);
+                var animation = AnimationUtils.LoadAnimation(Platform.CurrentActivity, nextAnim);
                 animation.SetAnimationListener(pageAnimationListener);
 
                 return animation;
@@ -370,7 +376,8 @@ namespace BestApp.X.Droid.Pages.Base
 
         private bool IsCurrentPage()
         {
-            var currentVisiblePage = MainActivity.Instance.pageNavigationService.GetCurrentPage();
+            var pageNavigationService = Registrar.appContainer.Resolve<IPageNavigationService>();
+            var currentVisiblePage = pageNavigationService.GetCurrentPage();
 
             if (this != currentVisiblePage)
             {

@@ -1,17 +1,10 @@
 ﻿using Android.Views;
 using AndroidX.RecyclerView.Widget;
-using Bumptech.Glide.Load.Engine;
-using Bumptech.Glide;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Android.Graphics.ColorSpace;
-using BestApp.X.Droid.Utils;
-using BestApp.ViewModels.Helper;
-using BestApp.ViewModels.Movies.ItemViewModel;
+using Base.Impl.Droid.UI.Utils;
 using BestApp.ViewModels.Movies;
+using BestApp.ViewModels.Movies.ItemViewModel;
+using Bumptech.Glide;
+using Bumptech.Glide.Load.Engine;
 
 namespace BestApp.X.Droid.Pages.Movies.Adapter;
 

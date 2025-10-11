@@ -1,19 +1,14 @@
 ﻿using Android.Views;
 using AndroidX.RecyclerView.Widget;
 using AndroidX.SwipeRefreshLayout.Widget;
+using Base.Impl.Droid.UI.Pages;
+using Base.Impl.Droid.UI.Utils;
 using BestApp.ViewModels.Movies;
-using BestApp.X.Droid.Pages.Base;
 using BestApp.X.Droid.Pages.Movies.Adapter;
-using BestApp.X.Droid.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BestApp.X.Droid.Pages.Movies;
 
-public class MoviesPage : LifecyclePage
+public class MoviesPage : DroidLifecyclePage
 {
     private Button btnPlus, btnMenu;
     private SwipeRefreshLayout swipeRefreshLayout;

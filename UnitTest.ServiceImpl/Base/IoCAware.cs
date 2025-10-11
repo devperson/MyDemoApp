@@ -70,7 +70,7 @@ namespace UnitTest.ServiceImpl.Base
 
 
             //register appService
-            BestApp.Impl.Cross.Registerar.RegisterAppService(container, config);            
+            BestApp.Impl.Cross.Registrar.RegisterAppService(container, config);            
         }
     }
 }

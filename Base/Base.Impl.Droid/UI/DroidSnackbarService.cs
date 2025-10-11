@@ -2,17 +2,32 @@
 using Base.Abstractions.UI;
 using Microsoft.Maui.ApplicationModel;
 
-namespace BestApp.X.Droid.Controls;
-public class CustomSnackbarService : ISnackbarService
+namespace Base.Impl.Droid.UI;
+
+public class DroidSnackbarService : ISnackbarService
 {
+    private ViewGroup rootView;
     private View snackbarView;    
     private bool isVisible = false;
 
     public void Show(string message, int duration = 3000)
     {
-        snackbarView = Platform.CurrentActivity.FindViewById(Resource.Id.custom_snackbar);
+        var activity = Platform.CurrentActivity;
+        var inflater = LayoutInflater.From(activity);
+
+        rootView = activity.Window.DecorView.FindViewById<ViewGroup>(Android.Resource.Id.Content);
+        snackbarView = inflater.Inflate(Resource.Layout.custom_snackbar, rootView, false);
+
+        if (rootView is not FrameLayout)
+        {
+            throw new Exception("To ensure the Snackbar works correctly, it’s recommended to use a FrameLayout as the Activity’s root view.");
+        }
+        
         var textView = snackbarView.FindViewById<TextView>(Resource.Id.snackbar_text);
         textView.Text = message;
+
+        rootView.AddView(snackbarView);
+
         // Make sure it's measured
         snackbarView.Post(() =>
         {
@@ -45,6 +60,10 @@ public class CustomSnackbarService : ISnackbarService
             snackbarView.Animate()
                 .TranslationY(hideY)
                 .SetDuration(300)
+                .WithEndAction(new Java.Lang.Runnable(() =>
+                {
+                    rootView.RemoveView(snackbarView);
+                }))
                 .Start();
 
             isVisible = false;

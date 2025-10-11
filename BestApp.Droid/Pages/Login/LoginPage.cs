@@ -1,19 +1,10 @@
 ﻿using Android.Views;
-using AndroidX.RecyclerView.Widget;
-using AndroidX.SwipeRefreshLayout.Widget;
+using Base.Impl.Droid.UI.Pages;
 using BestApp.ViewModels.Login;
-using BestApp.ViewModels.Movies;
-using BestApp.X.Droid.Pages.Base;
-using BestApp.X.Droid.Pages.Movies.Adapter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BestApp.X.Droid.Pages.Login;
 
-public class LoginPage : LifecyclePage
+public class LoginPage : DroidLifecyclePage
 {
     private Button btnSubmit;
     private EditText txtLogin, txtPassword;

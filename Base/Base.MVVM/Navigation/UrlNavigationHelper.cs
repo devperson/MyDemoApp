@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.X.Droid.Controls.Navigation;
+namespace Base.MVVM.Navigation;
 
 public class UrlNavigationHelper
 {

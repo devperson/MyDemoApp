@@ -7,7 +7,7 @@ using Base.Impl.PlatformServices;
 
 namespace Base.Impl.iOS
 {
-    public static class Registerar
+    public static class Registrar
     {
         public static void RegisterTypes(IContainer container)
         {            

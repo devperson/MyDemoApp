@@ -57,8 +57,8 @@ namespace IntegrationTest.Base
             container.Register<ILoggingService, MockAppLogging>();
 
             //register appService, infrastructure
-            BestApp.Impl.Cross.Registerar.RegisterAppService(container, mapperConfig);
-            BestApp.Impl.Cross.Registerar.RegisterInfrastructureService(container, mapperConfig);
+            BestApp.Impl.Cross.Registrar.RegisterAppService(container, mapperConfig);
+            BestApp.Impl.Cross.Registrar.RegisterInfrastructureService(container, mapperConfig);
             Container.Register<IConstants, ConstImpl>(Reuse.Singleton);            
             container.Register<IMessagesCenter, SimpleMessageCenter>(Reuse.Singleton);
 

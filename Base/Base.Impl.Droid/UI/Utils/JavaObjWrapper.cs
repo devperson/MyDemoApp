@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.X.Droid.Utils;
+namespace Base.Impl.Droid.UI.Utils;
 
 public class JavaObjWrapper : Java.Lang.Object
 {

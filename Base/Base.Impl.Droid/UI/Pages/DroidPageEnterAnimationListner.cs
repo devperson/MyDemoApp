@@ -1,25 +1,26 @@
 ﻿using Android.Views.Animations;
 using AndroidX.Annotations;
+using Microsoft.Maui.ApplicationModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.X.Droid.Pages.Base
+namespace Base.Impl.Droid.UI.Pages
 {
-    internal class PageEnterAnimationListner : Java.Lang.Object, Animation.IAnimationListener //Animator.IAnimatorListener
+    internal class DroidPageEnterAnimationListner : Java.Lang.Object, Animation.IAnimationListener
     {
-        private readonly LifecyclePage page;
+        private readonly DroidLifecyclePage page;
 
-        public PageEnterAnimationListner(LifecyclePage page)
+        public DroidPageEnterAnimationListner(DroidLifecyclePage page)
         {
             this.page = page;
         }
 
         public void OnAnimationEnd(Animation animation)
         {
-            MainActivity.Instance.RunOnUiThread(() =>
+            Platform.CurrentActivity.RunOnUiThread(() =>
             {
                 page.OnPageEnterAnimationCompleted();
             });

@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.X.Droid.Utils
+namespace Base.Impl.Droid.UI.Utils
 {
     public static class ContextExtensions
     {
@@ -28,10 +28,10 @@ namespace BestApp.X.Droid.Utils
         }
 
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size FromPixels(this Context context, double width, double height)
-        {
-            return new Size((int)context.FromPixels(width), (int)context.FromPixels(height));
-        }
+        //public static Size FromPixels(this Context context, double width, double height)
+        //{
+        //    return new Size((int)context.FromPixels(width), (int)context.FromPixels(height));
+        //}
 
         public static void HideKeyboard(this Context self, Android.Views.View view)
         {

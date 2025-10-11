@@ -59,7 +59,7 @@ namespace UnitTest.InfrasImpl.Base
             container.Register<IMessagesCenter, SimpleMessageCenter>(Reuse.Singleton);
             LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
 
-            BestApp.Impl.Cross.Registerar.RegisterInfrastructureService(container, mapperConfig);
+            BestApp.Impl.Cross.Registrar.RegisterInfrastructureService(container, mapperConfig);
             
         }
     }

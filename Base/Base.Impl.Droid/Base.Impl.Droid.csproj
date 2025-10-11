@@ -17,9 +17,11 @@
 	<PackageReference Include="Mapster" Version="7.4.0" />
 	<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	<PackageReference Include="TranscoderXamarin" Version="0.9.0" />
+	<PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Base.Aspect\Base.Aspect.csproj" />
     <ProjectReference Include="..\Base.Infrastructures.Abstractions\Base.Abstractions.csproj" />
+    <ProjectReference Include="..\Base.MVVM\Base.MVVM.csproj" />
   </ItemGroup>
 </Project>
