@@ -64,3 +64,5 @@
 /BestApp.Impl.iOS/obj
 *.user
 
+/BestApp.X.iOS/obj
+/BestApp.X.iOS/bin
