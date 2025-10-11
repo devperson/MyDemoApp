@@ -2,12 +2,13 @@ using Android.Runtime;
 using Android.Views;
 using AndroidX.AppCompat.App;
 using BestApp.ViewModels.Base;
-using BestApp.X.Droid.Navigation;
 using BestApp.X.Droid.Pages.Base;
-using Common.Abstrtactions;
+using BestApp.X.Droid.Controls.Navigation;
 using DryIoc;
 using Microsoft.Maui.ApplicationModel;
 using System.Globalization;
+using BestApp.X.Droid.Controls;
+using Base.Abstractions.Diagnostic;
 
 namespace BestApp.X.Droid
 {
@@ -17,6 +18,7 @@ namespace BestApp.X.Droid
         public static MainActivity Instance { get; private set; }
 
         private ViewGroup? layoutRoot;
+        private MainSideSheetDialog sideSheetDialog;
         public PageNavigationFrameLayout pageNavigationService;
         private ILoggingService loggingService;
         public IContainer Container { get; set; }
@@ -50,6 +52,25 @@ namespace BestApp.X.Droid
             await bootstrap.NavigateToPageAsync(pageNavigationService);
         }
 
+        // when user click on page we should hide keyboard
+        public override bool DispatchTouchEvent(MotionEvent ev)
+        {
+            try
+            {
+                var dispatchEventListener = pageNavigationService.currentPage as IDispatchEventListener;
+                if (dispatchEventListener != null)
+                {
+                    dispatchEventListener.DispatchTouchEvent(ev);
+                }              
+
+                return base.DispatchTouchEvent(ev); 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex}");
+                return true;
+            }
+        }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] global::Android.Content.PM.Permission[] grantResults)
         {
@@ -111,6 +132,18 @@ namespace BestApp.X.Droid
         public LifecyclePage GetCurrentPage()
         {
             return this.pageNavigationService.GetCurrentPage();
+        }
+
+        public void ShowSideSheet()
+        {
+            if (this.sideSheetDialog == null)
+            {
+                this.sideSheetDialog = new MainSideSheetDialog(this);
+                this.sideSheetDialog.SetContentView(Resource.Layout.page_main_sidesheet_view);
+                this.sideSheetDialog.SetSheetEdge((int)GravityFlags.Start);
+            }
+
+            sideSheetDialog.Show();
         }
     }
 }

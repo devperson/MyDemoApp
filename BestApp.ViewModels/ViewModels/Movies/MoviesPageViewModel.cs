@@ -10,6 +10,8 @@ using Base.Abstractions.REST;
 using Base.Aspect;
 using Base.MVVM.Helper;
 using Base.MVVM.Navigation;
+using System.Runtime.Serialization;
+using BestApp.ViewModels.Login;
 
 namespace BestApp.ViewModels.Movies
 {
@@ -17,6 +19,7 @@ namespace BestApp.ViewModels.Movies
     public class MoviesPageViewModel : PageViewModel
     {        
         private readonly Lazy<IMoviesService> movieService;
+        private readonly Lazy<IAlertDialogService> alertDialogService;
         private readonly Lazy<IInfrastructureServices> infrastructureServices;
         private readonly Lazy<ISnackbarService> snackbarService;
         private AuthErrorEvent authErrorEvent;
@@ -24,21 +27,25 @@ namespace BestApp.ViewModels.Movies
 
         public MoviesPageViewModel(InjectedServices services, 
             Lazy<IMoviesService> movieService, 
+            Lazy<IAlertDialogService> alertDialogService,
             Lazy<IInfrastructureServices> infrastructureServices,
             Lazy<ISnackbarService> snackbarService) : base(services)
         {
             
             this.movieService = movieService;
+            this.alertDialogService = alertDialogService;
             this.infrastructureServices = infrastructureServices;
             this.snackbarService = snackbarService;
             AddCommand = new AsyncCommand(OnAddCommand);
             ItemTappedCommand = new AsyncCommand(OnItemTappedCommand);
+            MenuTappedCommand = new AsyncCommand(OnMenuTappedCommand);
 
             authErrorEvent = services.EventAggregator.GetEvent<AuthErrorEvent>();
             authErrorEvent.Subscribe(HandleAuthErrorEvent);
         }
 
         public ObservableCollection<MovieItemViewModel> MovieItems { get; set; }
+        public AsyncCommand MenuTappedCommand { get; }
         public AsyncCommand AddCommand { get; set; }
         public AsyncCommand ItemTappedCommand { get; set; }
 
@@ -86,7 +93,7 @@ namespace BestApp.ViewModels.Movies
                 if (parameters.ContainsKey(AddEditMoviePageViewModel.NEW_ITEM))
                 {
                     var newProduct = parameters.GetValue<MovieItemViewModel>(AddEditMoviePageViewModel.NEW_ITEM);
-                    MovieItems.Add(newProduct);
+                    MovieItems.Insert(0, newProduct);
                 }
                 else if (parameters.ContainsKey(AddEditMoviePageViewModel.REMOVE_ITEM))
                 {
@@ -98,6 +105,19 @@ namespace BestApp.ViewModels.Movies
             catch (Exception ex)
             {
                 Services.LoggingService.TrackError(ex);
+            }
+        }
+
+        private async Task OnMenuTappedCommand(object obj)
+        {
+            var item = obj as MenuItem;           
+            if (item.Type == MenuType.Logout)
+            {
+                var res = await alertDialogService.Value.ConfirmAlert("Confirm Action", "Are you sure want to log out?", "Yes", "No");
+                if (res)
+                {                    
+                    await Navigate($"../{nameof(LoginPageViewModel)}", new NavigationParameters { { LoginPageViewModel.LogoutRequest, true} });
+                }
             }
         }
 
@@ -221,5 +241,18 @@ namespace BestApp.ViewModels.Movies
         }
 
 
+    }
+
+    public class MenuItem
+    {
+        public string Title { get; set; }
+        public string Icon { get; set; }
+        public MenuType Type { get; set; }
+    }
+
+    public enum MenuType
+    {              
+        Logout = 7,        
+        Settings = 8
     }
 }

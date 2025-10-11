@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTest.ViewModel.Base;
 using DryIoc;
-using Common.Abstrtactions;
 using BestApp.ViewModels.Movies;
+using Base.Abstractions.Diagnostic;
 
 namespace UnitTest.ViewModel
 {

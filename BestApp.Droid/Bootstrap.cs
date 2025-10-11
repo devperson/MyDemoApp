@@ -6,13 +6,14 @@ using Base.MVVM.Navigation;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Login;
 using BestApp.ViewModels.Movies;
-using BestApp.X.Droid.Navigation;
 using BestApp.X.Droid.Pages.Login;
 using BestApp.X.Droid.Pages.Movies;
-using BestApp.X.Droid.UI;
+using BestApp.X.Droid.Controls;
+using BestApp.X.Droid.Controls.Navigation;
 using DryIoc;
 using Mapster;
 using MapsterMapper;
+using Base.Abstractions.Platform;
 
 namespace BestApp.X.Droid
 {    
@@ -57,17 +58,27 @@ namespace BestApp.X.Droid
 
         public async Task NavigateToPageAsync(IPageNavigationService pageNavigationService)
         {
-            await pageNavigationService.Navigate($"/{nameof(LoginPageViewModel)}", animated: false);
+            var preference = container.Resolve<IPreferencesService>();
+            var isloggedIn = preference.Get(LoginPageViewModel.IsLoggedIn, false);
+
+            if (isloggedIn)
+            {
+                await pageNavigationService.Navigate($"/{nameof(MoviesPageViewModel)}", animated: false);
+            }
+            else
+            {
+                await pageNavigationService.Navigate($"/{nameof(LoginPageViewModel)}", animated: false);
+            }
 
             //await pageNavigationService.Navigate($"/{nameof(MoviesPageViewModel)}", animated: false);
 
-            //this.loggingService = ContainerLocator.Container.Resolve<ILoggingService>();
+            //this.loggingService = ContainerLocator.Resolve<ILoggingService>();
             //this.SubscribeToUnhandledErrors();
 
-            //var appService = ContainerLocator.Container.Resolve<AppService>();
+            //var appService = ContainerLocator.Resolve<AppService>();
             //appService.ResolveAppServer("Test");
 
-            //var userService = ContainerLocator.Container.Resolve<AccountService>();
+            //var userService = ContainerLocator.Resolve<AccountService>();
             //userService.Init();
             //LogDeviceAppDetails(userService);
 
@@ -97,7 +108,7 @@ namespace BestApp.X.Droid
         //            $"********************************************************* \n");
         //    }
 
-        //    var deviceService = ContainerLocator.Container.Resolve<IDevice>();
+        //    var deviceService = ContainerLocator.Resolve<IDevice>();
         //    this.loggingService.Header($"\n********************************************************* \n" +
         //        $"      DEVICE NAME: {deviceService.DeviceInfo.Name} \n" +
         //        $"      PLATFORM: {deviceService.DeviceInfo.Platform} \n" +
@@ -110,7 +121,7 @@ namespace BestApp.X.Droid
         //        $"********************************************************* \n");
 
         //    //log local db folder info
-        //    var directoryService = ContainerLocator.Container.Resolve<IDirectoryService>();
+        //    var directoryService = ContainerLocator.Resolve<IDirectoryService>();
         //    var dbFolderInfo = directoryService.GetLogInfoForDbDirectory();
         //    this.loggingService.Header($"\n********************************************************* \n" +
         //                              $"{dbFolderInfo} \n"+

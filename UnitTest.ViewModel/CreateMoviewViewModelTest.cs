@@ -1,8 +1,7 @@
-﻿using Base.Abstractions.UI;
-using BestApp.Abstraction.Main.UI;
-using BestApp.MVVM.Navigation;
+﻿using Base.Abstractions.Diagnostic;
+using Base.Abstractions.UI;
+using Base.MVVM.Navigation;
 using BestApp.ViewModels.Movies;
-using Common.Abstrtactions;
 using DryIoc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTest.ViewModel.Base;

@@ -62,6 +62,7 @@
 /IntegrationTest/bin
 /BestApp.Impl.iOS/bin
 /BestApp.Impl.iOS/obj
+*.user
 
 /BestApp.MVVM/obj
 /BestApp.MVVM/bin

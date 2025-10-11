@@ -13,7 +13,7 @@ namespace BestApp.ViewModels.Base
         private bool isFirstTimeAppears = true;
         private AppResumedEvent appResumedEvent;
         private AppPausedEvent appPausedEvent;
-        protected InjectedServices Services => injectedServices as InjectedServices;
+        public InjectedServices Services => injectedServices as InjectedServices;
 
         public PageViewModel(InjectedServices services) : base(services)
         {
@@ -32,8 +32,8 @@ namespace BestApp.ViewModels.Base
         /// </summary>
         public bool BusyLoading { get; set; }                
         public bool IsRefreshing { get; set; }
-        public AsyncCommand RefreshCommand { get; set; }   
-        
+        public AsyncCommand RefreshCommand { get; set; }
+        public string Title { get; set; }
 
         protected virtual Task OnRefreshCommand(object arg)
         {

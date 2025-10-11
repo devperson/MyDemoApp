@@ -1,15 +1,15 @@
 ﻿using Android.Content;
 using Android.Runtime;
 using Android.Util;
-using BestApp.MVVM.Navigation;
+using Base.Abstractions.Diagnostic;
+using Base.MVVM.Navigation;
 using BestApp.X.Droid.Pages.Base;
 using BestApp.X.Droid.Utils;
-using Common.Abstrtactions;
 using DryIoc;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using FragmentManager = AndroidX.Fragment.App.FragmentManager;
 
-namespace BestApp.X.Droid.Navigation
+namespace BestApp.X.Droid.Controls.Navigation
 {
     //[LogMethods]
     public class PageNavigationFrameLayout : FrameLayout , IPageNavigationService

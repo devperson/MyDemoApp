@@ -28,6 +28,10 @@
   <ItemGroup>
     <ProjectReference Include="..\BestApp.Domain\BestApp.Abstraction.Domain.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Platform\" />
+  </ItemGroup>
 	
 
 </Project>

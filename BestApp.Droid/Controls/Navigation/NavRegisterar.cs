@@ -1,9 +1,9 @@
-﻿using BestApp.MVVM.Navigation;
+﻿using Base.MVVM.Navigation;
 using BestApp.ViewModels.Base;
 using BestApp.X.Droid.Pages.Base;
 using DryIoc;
 
-namespace BestApp.X.Droid.Navigation;
+namespace BestApp.X.Droid.Controls.Navigation;
 
 public static class NavRegisterar
 {

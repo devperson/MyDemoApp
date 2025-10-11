@@ -37,7 +37,7 @@ namespace BestApp.ViewModels.Movies
             ChangePhotoCommand = new AsyncCommand(OnChangePhotoCommand);
             DeleteCommand = new AsyncCommand(OnDeleteCommand);
         }
-
+        
         public bool IsEdit { get; set; }        
         public AsyncCommand SaveCommand { get; set; }
         public AsyncCommand ChangePhotoCommand { get; set; }
@@ -52,10 +52,12 @@ namespace BestApp.ViewModels.Movies
             {
                 this.IsEdit = true;
                 this.Model = parameters.GetValue<MovieItemViewModel>(MoviesPageViewModel.SELECTED_ITEM);
+                this.Title = "Edit";
             }
             else
             {
                 this.Model = new MovieItemViewModel();
+                this.Title = "Add new";
             }
         }
 

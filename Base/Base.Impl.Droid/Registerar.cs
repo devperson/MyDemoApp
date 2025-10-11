@@ -24,6 +24,7 @@ namespace Base.Impl.Droid
             container.Register<IVideoService, VideoService>(Reuse.Singleton);
             container.Register<IZipService, ZipService>(Reuse.Singleton);
             container.Register<IShareFileService, ShareFileService>(Reuse.Singleton);
+            container.Register<IMediaPickerService, MediaPickerService>(Reuse.Singleton);
         }
     }
 }
