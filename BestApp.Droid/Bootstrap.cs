@@ -1,8 +1,8 @@
-﻿using BestApp.Abstraction.Common;
-using BestApp.Abstraction.Main.PlatformServices;
-using BestApp.Abstraction.Main.UI;
-using BestApp.Abstraction.Main.UI.Navigation;
-using BestApp.Impl.Droid.UI;
+﻿using Base.Abstractions;
+using Base.Abstractions.Diagnostic;
+using Base.Abstractions.UI;
+using Base.Aspect;
+using Base.MVVM.Navigation;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Login;
 using BestApp.ViewModels.Movies;
@@ -10,42 +10,43 @@ using BestApp.X.Droid.Pages.Login;
 using BestApp.X.Droid.Pages.Movies;
 using BestApp.X.Droid.Controls;
 using BestApp.X.Droid.Controls.Navigation;
-using BestApp.X.Droid.Utils;
-using Common.Abstrtactions;
 using DryIoc;
-using Logging.Aspects;
 using Mapster;
 using MapsterMapper;
+using Base.Abstractions.Platform;
 
 namespace BestApp.X.Droid
 {    
     public class Bootstrap
     {
        // private ILoggingService loggingService;
-
+       public IContainer container { get; set; }    
         public void RegisterTypes(IPageNavigationService pageNavigationService)
         {
-            var container = DryIocContainerExtension.CreateInstance();
-            ContainerLocator.SetContainerExtension(container);
+            container = new Container(
+                  Rules.Default.With(FactoryMethod.ConstructorWithResolvableArgumentsIncludingNonPublic).WithDefaultIfAlreadyRegistered(IfAlreadyRegistered.Replace));
             //register mapper
             var mapperConfig = new TypeAdapterConfig();
             container.RegisterInstance(mapperConfig);
             // Register Mapster's service
-            container.RegisterSingleton<IMapper, Mapper>();
+            container.Register<IMapper, Mapper>(Reuse.Singleton);
 
             //register navigation service            
             container.RegisterInstance(pageNavigationService);
-            container.Register<InjectedServices>();            
-            container.RegisterSingleton<IConstants, ConstantImpl>();
+            container.Register<InjectedServices>(Reuse.Singleton);            
+            container.Register<IConstants, ConstantImpl>(Reuse.Singleton);
 
-            //register app, infrastructure services            
-            var dryIocContainer = (DryIocContainerExtension)container;
-            Impl.Cross.Registerar.RegisterTypes(dryIocContainer.Instance, mapperConfig);
-            Impl.Droid.Registerar.RegisterTypes(dryIocContainer.Instance, mapperConfig);
-            LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
+            //register app, infrastructure services
+            // //register infrastructures            
+            Base.Impl.Registerar.RegisterTypes(container);
+            Base.Impl.Droid.Registerar.RegisterTypes(container);
+            BestApp.Impl.Cross.Registerar.RegisterTypes(container, mapperConfig);
+            BestApp.Impl.Droid.Registerar.RegisterTypes(container);
 
-          
-            container.RegisterSingleton<ISnackbarService, CustomSnackbarService>();
+            var logger = container.Resolve<ILoggingService>();
+            LogMethodsAttribute.LoggingService = logger;            
+
+            container.Register<ISnackbarService, CustomSnackbarService>(Reuse.Singleton);
 
             //register ViewModel for navigation
             container.RegisterPageForNavigation<LoginPage, LoginPageViewModel>();
@@ -57,7 +58,7 @@ namespace BestApp.X.Droid
 
         public async Task NavigateToPageAsync(IPageNavigationService pageNavigationService)
         {
-            var preference = ContainerLocator.Container.Resolve<IPreferencesService>();
+            var preference = container.Resolve<IPreferencesService>();
             var isloggedIn = preference.Get(LoginPageViewModel.IsLoggedIn, false);
 
             if (isloggedIn)
@@ -71,13 +72,13 @@ namespace BestApp.X.Droid
 
             //await pageNavigationService.Navigate($"/{nameof(MoviesPageViewModel)}", animated: false);
 
-            //this.loggingService = ContainerLocator.Container.Resolve<ILoggingService>();
+            //this.loggingService = ContainerLocator.Resolve<ILoggingService>();
             //this.SubscribeToUnhandledErrors();
 
-            //var appService = ContainerLocator.Container.Resolve<AppService>();
+            //var appService = ContainerLocator.Resolve<AppService>();
             //appService.ResolveAppServer("Test");
 
-            //var userService = ContainerLocator.Container.Resolve<AccountService>();
+            //var userService = ContainerLocator.Resolve<AccountService>();
             //userService.Init();
             //LogDeviceAppDetails(userService);
 
@@ -107,7 +108,7 @@ namespace BestApp.X.Droid
         //            $"********************************************************* \n");
         //    }
 
-        //    var deviceService = ContainerLocator.Container.Resolve<IDevice>();
+        //    var deviceService = ContainerLocator.Resolve<IDevice>();
         //    this.loggingService.Header($"\n********************************************************* \n" +
         //        $"      DEVICE NAME: {deviceService.DeviceInfo.Name} \n" +
         //        $"      PLATFORM: {deviceService.DeviceInfo.Platform} \n" +
@@ -120,7 +121,7 @@ namespace BestApp.X.Droid
         //        $"********************************************************* \n");
 
         //    //log local db folder info
-        //    var directoryService = ContainerLocator.Container.Resolve<IDirectoryService>();
+        //    var directoryService = ContainerLocator.Resolve<IDirectoryService>();
         //    var dbFolderInfo = directoryService.GetLogInfoForDbDirectory();
         //    this.loggingService.Header($"\n********************************************************* \n" +
         //                              $"{dbFolderInfo} \n"+

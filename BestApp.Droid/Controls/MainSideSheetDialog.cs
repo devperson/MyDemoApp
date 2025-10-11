@@ -1,15 +1,10 @@
 ﻿using Android.Content;
 using Android.Views;
-using BestApp.ViewModels.Helper;
+using Base.Abstractions.Diagnostic;
 using BestApp.ViewModels.Movies;
-using Common.Abstrtactions;
 using Google.Android.Material.SideSheet;
 using Microsoft.Maui.ApplicationModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BestApp.X.Droid.Controls;
 public class MainSideSheetDialog : SideSheetDialog
@@ -49,7 +44,7 @@ public class MainSideSheetDialog : SideSheetDialog
         }
         catch (Exception ex)
         {
-            var logger = Prism.Ioc.ContainerLocator.Current.Resolve<ILoggingService>();
+            var logger = ContainerLocator.Resolve<ILoggingService>();
             logger.TrackError(ex);
         }
     }

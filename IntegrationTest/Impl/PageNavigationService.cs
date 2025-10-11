@@ -1,13 +1,7 @@
-﻿using BestApp.Abstraction.Main.UI.Navigation;
+﻿using BestApp.MVVM.Navigation;
 using BestApp.ViewModels.Base;
 using DryIoc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
-using NavigationParameters = BestApp.ViewModels.NavigationParameters;
+
 
 namespace IntegrationTest.Impl
 {
@@ -129,7 +123,7 @@ namespace IntegrationTest.Impl
             return Task.CompletedTask;
         }
 
-        public Task NavigateToRoot()
+        public Task NavigateToRoot(INavigationParameters parameters)
         {
             if (ViewModelStackList.Count <= 1)
             {

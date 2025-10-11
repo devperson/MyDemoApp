@@ -6,9 +6,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helper\Commands\**" />
     <Compile Remove="ItemViewModel\**" />
+    <EmbeddedResource Remove="Helper\Commands\**" />
     <EmbeddedResource Remove="ItemViewModel\**" />
+    <None Remove="Helper\Commands\**" />
     <None Remove="ItemViewModel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Base\BaseViewModel.cs" />
+    <Compile Remove="Base\Bindable.cs" />
+    <Compile Remove="Base\NavigatingBaseViewModel.cs" />
+    <Compile Remove="Base\NavigationParameters.cs" />
+    <Compile Remove="Events\AppPausedEvent.cs" />
+    <Compile Remove="Events\AppResumedEvent.cs" />
+    <Compile Remove="Helper\ClickUtil.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,8 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Base\Base.Aspect\Base.Aspect.csproj" />
+    <ProjectReference Include="..\Base\Base.Infrastructures.Abstractions\Base.Abstractions.csproj" />
+    <ProjectReference Include="..\Base\Base.MVVM\Base.MVVM.csproj" />
     <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.Main.csproj" />
-    <ProjectReference Include="..\Common.Abstrtactions\BestApp.Abstraction.Common.csproj" />
   </ItemGroup>
 
 </Project>

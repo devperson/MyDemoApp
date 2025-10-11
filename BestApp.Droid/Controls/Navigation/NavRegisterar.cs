@@ -1,6 +1,7 @@
-﻿using BestApp.ViewModels.Base;
+﻿using Base.MVVM.Navigation;
+using BestApp.ViewModels.Base;
 using BestApp.X.Droid.Pages.Base;
-using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
+using DryIoc;
 
 namespace BestApp.X.Droid.Controls.Navigation;
 
@@ -8,16 +9,16 @@ public static class NavRegisterar
 {
     private static List<NavPageInfo> navPages = new List<NavPageInfo>();
 
-    public static void RegisterPageForNavigation<TPage, TViewModel>(this IContainerRegistry cr)
+    public static void RegisterPageForNavigation<TPage, TViewModel>(this IContainer cr)
             where TPage : LifecyclePage
             where TViewModel : PageViewModel
     {
         var type = typeof(TViewModel);
         var name = type.Name;
 
-        var containerRegistry = ContainerLocator.Current;
-        containerRegistry.Register<TViewModel>();
-        RegisterPageForNavigation(name, () => (TPage)Activator.CreateInstance(typeof(TPage)), () => containerRegistry.Resolve<TViewModel>());
+        //var containerRegistry = ContainerLocator.Current;
+        cr.Register<TViewModel>(Reuse.Transient);
+        RegisterPageForNavigation(name, () => (TPage)Activator.CreateInstance(typeof(TPage)), () => cr.Resolve<TViewModel>());
     }
 
     private static void RegisterPageForNavigation(string vmName, Func<LifecyclePage> createPageFactory, Func<PageViewModel> createVmFactory)

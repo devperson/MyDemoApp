@@ -4,11 +4,11 @@ using AndroidX.AppCompat.App;
 using BestApp.ViewModels.Base;
 using BestApp.X.Droid.Pages.Base;
 using BestApp.X.Droid.Controls.Navigation;
-using Common.Abstrtactions;
+using DryIoc;
 using Microsoft.Maui.ApplicationModel;
 using System.Globalization;
 using BestApp.X.Droid.Controls;
-using Google.Android.Material.SideSheet;
+using Base.Abstractions.Diagnostic;
 
 namespace BestApp.X.Droid
 {
@@ -21,7 +21,7 @@ namespace BestApp.X.Droid
         private MainSideSheetDialog sideSheetDialog;
         public PageNavigationFrameLayout pageNavigationService;
         private ILoggingService loggingService;
-
+        public IContainer Container { get; set; }
         protected async override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -37,13 +37,14 @@ namespace BestApp.X.Droid
             //setup navigation
             pageNavigationService = this.FindViewById<PageNavigationFrameLayout>(Resource.Id.navContainer);
             pageNavigationService.SetActivity(this);
-
+            
             //register services
             var bootstrap = new Bootstrap();
             bootstrap.RegisterTypes(pageNavigationService);
+            Container = bootstrap.container;
+            pageNavigationService.SetContainer(Container);
 
-
-            this.loggingService = ContainerLocator.Container.Resolve<ILoggingService>();
+            this.loggingService = Container.Resolve<ILoggingService>();
 
             this.loggingService.Log("####################################################- APPLICATION STARTED -####################################################");
             this.loggingService.Log($"MainActivity.OnCreate()");

@@ -1,4 +1,4 @@
-﻿using Common.Abstrtactions;
+﻿using Base.Abstractions.Diagnostic;
 using System.Diagnostics;
 
 namespace UnitTest.Impl

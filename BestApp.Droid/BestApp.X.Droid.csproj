@@ -18,8 +18,10 @@
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DryIoc.dll" Version="4.5.0" />
-    <PackageReference Include="Prism.Core" Version="9.0.537" />
+    <Compile Remove="Utils\DryIocContainerExtension.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DryIoc.dll" Version="4.5.0" />    
 	<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.82" />
 	<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 	<PackageReference Include="Xamarin.Android.Glide" Version="5.0.3" />
@@ -31,6 +33,7 @@
 	<PackageReference Include="Xamarin.Google.Android.Material" Version="1.11.0.2" />	  
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Base\Base.Impl.Droid\Base.Impl.Droid.csproj" />
     <ProjectReference Include="..\BestApp.Impl.Droid\BestApp.Impl.Droid.csproj" />
     <ProjectReference Include="..\BestApp.Impl\BestApp.Impl.Cross.csproj" />
     <ProjectReference Include="..\BestApp.ViewModels\BestApp.ViewModels.csproj" />

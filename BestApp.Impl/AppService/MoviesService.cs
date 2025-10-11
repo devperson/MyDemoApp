@@ -1,14 +1,12 @@
-﻿using BestApp.Abstraction.Domain.Entities;
+﻿using Base.Abstractions.AppService;
+using Base.Abstractions.Diagnostic;
+using Base.Aspect;
+using Base.Infrastructures.Abstractions.Repository;
+using BestApp.Abstraction.Domain.Entities;
 using BestApp.Abstraction.Main.AppService;
 using BestApp.Abstraction.Main.AppService.Dto;
-using BestApp.Abstraction.Main.Infasructures;
 using BestApp.Abstraction.Main.Infasructures.REST;
-using Common.Abstrtactions;
-using Logging.Aspects;
 using MapsterMapper;
-using System;
-using System.Xml.Linq;
-using static SQLite.SQLite3;
 
 namespace BestApp.Impl.Cross.AppService
 {

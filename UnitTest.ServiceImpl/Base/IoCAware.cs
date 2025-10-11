@@ -9,10 +9,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BestApp.Impl.Cross.Infasructures.Repositories;
 using UnitTest.Impl;
 using BestApp.Abstraction.Main.Infasructures.REST;
-using BestApp.Abstraction.Main.AppService.Dto;
-using BestApp.Abstraction.Main.AppService;
 using Moq;
 using Logging.Aspects;
+using BestApp.Abstraction.Common.Events;
 
 namespace UnitTest.ServiceImpl.Base
 {
@@ -52,7 +51,7 @@ namespace UnitTest.ServiceImpl.Base
             //Register Common
             container.Register<ILoggingService, MockAppLogging>(Reuse.Singleton);
             container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
-            container.Register<IEventAggregator, EventAggregator>(Reuse.Singleton);
+            container.Register<IMessagesCenter, SimpleMessageCenter>(Reuse.Singleton);
             LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
 
             //register infrastructures            

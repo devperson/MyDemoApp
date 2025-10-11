@@ -1,14 +1,13 @@
 ﻿using Android.Content;
 using Android.Runtime;
 using Android.Util;
-using BestApp.Abstraction.Main.UI.Navigation;
+using Base.Abstractions.Diagnostic;
+using Base.MVVM.Navigation;
 using BestApp.X.Droid.Pages.Base;
 using BestApp.X.Droid.Utils;
-using Common.Abstrtactions;
+using DryIoc;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using FragmentManager = AndroidX.Fragment.App.FragmentManager;
-using INavigationParameters = BestApp.Abstraction.Main.UI.Navigation.INavigationParameters;
-using NavigationParameters = BestApp.ViewModels.NavigationParameters;
 
 namespace BestApp.X.Droid.Controls.Navigation
 {
@@ -50,6 +49,7 @@ namespace BestApp.X.Droid.Controls.Navigation
             }
         }
 
+
         private ILoggingService _logger;
         public ILoggingService Logger
         {
@@ -57,7 +57,7 @@ namespace BestApp.X.Droid.Controls.Navigation
             {
                 if (_logger == null)
                 {
-                    _logger = ContainerLocator.Container.Resolve<ILoggingService>();
+                    _logger = container.Resolve<ILoggingService>();
                 }
 
                 return _logger;
@@ -68,7 +68,11 @@ namespace BestApp.X.Droid.Controls.Navigation
         {
             mainActivity = activity;
         }
-
+        private IContainer container;
+        public void SetContainer(IContainer ct)
+        {
+            container = ct;
+        }
         
 
         public async Task Navigate(string url, INavigationParameters parameters = null, bool useModalNavigation = false, bool animated = true, bool wrapIntoNav = false)

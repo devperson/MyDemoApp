@@ -1,13 +1,6 @@
-﻿using Android.OS;
-using Android.Views;
-using BestApp.Abstraction.Main.UI;
-using BestApp.X.Droid.Utils;
+﻿using Android.Views;
+using Base.Abstractions.UI;
 using Microsoft.Maui.ApplicationModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BestApp.X.Droid.Controls;
 public class CustomSnackbarService : ISnackbarService

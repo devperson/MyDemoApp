@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0-android</TargetFramework>
     <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>    
@@ -6,20 +6,10 @@
     <!--
       Enable trim analyzers for Android class libraries.
       To learn more, see: https://learn.microsoft.com/dotnet/core/deploying/trimming/prepare-libraries-for-trimming
-    -->
-    <IsTrimmable>true</IsTrimmable>
+    -->    
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.Main.csproj" />
-    <ProjectReference Include="..\Common.Abstrtactions\BestApp.Abstraction.Common.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="DryIoc.dll" Version="4.5.0" />    
-	<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.82" />
-	<PackageReference Include="MethodDecorator.Fody" Version="1.1.1" />
-	<PackageReference Include="Fody" Version="6.5.1" />
-	<PackageReference Include="Mapster" Version="7.4.0" />
-	<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-	<PackageReference Include="TranscoderXamarin" Version="0.9.0" />
-  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DryIoc.dll" Version="4.5.0" />
+	</ItemGroup>
 </Project>

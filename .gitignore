@@ -66,3 +66,25 @@
 
 /BestApp.X.iOS/obj
 /BestApp.X.iOS/bin
+/BestApp.MVVM/obj
+/BestApp.MVVM/bin
+/Base.Infrastructures.Abstractions/obj
+/Base.Infrastructures.Abstractions/bin
+/Base.Aspect/obj
+/Base.Aspect/bin
+/Base.Impl/obj
+/Base.Impl/bin
+/Base.Infrastructures.Abstractions/obj
+/Base.Infrastructures.Abstractions/bin
+/Base/Base.Aspect/obj
+/Base/Base.Aspect/bin
+/Base/Base.Impl/obj
+/Base/Base.Impl/bin
+/Base/Base.Infrastructures.Abstractions/obj
+/Base/Base.Infrastructures.Abstractions/bin
+/Base/Base.MVVM/obj
+/Base/Base.MVVM/bin
+/Base/Base.Impl.Droid/obj
+/Base/Base.Impl.Droid/bin
+/Base/Base.Impl.iOS/obj
+/Base/Base.Impl.iOS/bin

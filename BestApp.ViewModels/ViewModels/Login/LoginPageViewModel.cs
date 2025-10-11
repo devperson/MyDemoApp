@@ -1,13 +1,8 @@
-﻿using BestApp.Abstraction.Main.PlatformServices;
-using BestApp.Abstraction.Main.UI.Navigation;
+﻿using Base.Abstractions.Platform;
+using Base.MVVM.Helper;
+using Base.MVVM.Navigation;
 using BestApp.ViewModels.Base;
-using BestApp.ViewModels.Helper.Commands;
 using BestApp.ViewModels.Movies;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BestApp.ViewModels.Login;
 

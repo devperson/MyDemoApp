@@ -6,7 +6,6 @@ using Moq;
 using BestApp.Abstraction.Main.UI;
 using UnitTest.ViewModel.Impl;
 using IntegrationTest.Impl;
-using BestApp.ViewModels;
 using UnitTest.InfrasImpl.Impl;
 using BestApp.ViewModels.Base;
 using BestApp.Abstraction.Common;
@@ -15,8 +14,11 @@ using Mapster;
 using MapsterMapper;
 using UnitTest.Impl;
 using BestApp.ViewModels.Movies;
-using BestApp.Abstraction.Main.UI.Navigation;
 using BestApp.Abstraction.Common.Events;
+using BestApp.MVVM.Navigation;
+using Base.Abstractions.Platform;
+using Base.Abstractions;
+using Base.Abstractions.UI;
 
 namespace IntegrationTest.Base
 {
@@ -58,7 +60,7 @@ namespace IntegrationTest.Base
             BestApp.Impl.Cross.Registerar.RegisterAppService(container, mapperConfig);
             BestApp.Impl.Cross.Registerar.RegisterInfrastructureService(container, mapperConfig);
             Container.Register<IConstants, ConstImpl>(Reuse.Singleton);            
-            container.Register<IEventAggregator, EventAggregator>(Reuse.Singleton);
+            container.Register<IMessagesCenter, SimpleMessageCenter>(Reuse.Singleton);
 
             //Register platforms            
             container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
@@ -66,8 +68,15 @@ namespace IntegrationTest.Base
             container.Register<IPageNavigationService, PageNavigationService>(Reuse.Singleton);
             container.Register<IPreferencesService, PreferenceService>(Reuse.Singleton);
             //mocked platforms            
-            var mockPlatformError = new Mock<IPlatformErrorService> { DefaultValue = DefaultValue.Mock };            
+            var mockPlatformError = new Mock<IPlatformErrorService> { DefaultValue = DefaultValue.Mock };
+            var mockSnackBar = new Mock<ISnackbarService> { DefaultValue = DefaultValue.Mock };
+            var mockMeidaPicker = new Mock<IMediaPickerService> { DefaultValue = DefaultValue.Mock };
+            var mockAlertDialog = new Mock<IAlertDialogService> { DefaultValue = DefaultValue.Mock };
+            
             container.RegisterInstance(mockPlatformError.Object);
+            container.RegisterInstance(mockSnackBar.Object);
+            container.RegisterInstance(mockMeidaPicker.Object);
+            container.RegisterInstance(mockAlertDialog.Object);
 
             //viewmodels
             container.Register<InjectedServices>();

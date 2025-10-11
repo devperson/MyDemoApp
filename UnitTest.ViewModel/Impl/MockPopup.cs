@@ -1,10 +1,5 @@
-﻿using BestApp.Abstraction.Main.UI;
-using Logging.Aspects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Base.Abstractions.UI;
+using Base.Aspect;
 
 namespace UnitTest.ViewModel.Impl
 {

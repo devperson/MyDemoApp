@@ -11,14 +11,14 @@ namespace BestApp.Abstraction.Common.Events
         TEvent GetEvent<TEvent>() where TEvent : class, new();
     }
 
-    public interface IMessage
+    public interface IMessageEvent
     {
         void Subscribe(Action handler);
         void Unsubscribe(Action handler);
         void Publish();
     }
 
-    public interface IMessage<T>
+    public interface IMessageEvent<T>
     {
         void Subscribe(Action<T> handler);
         void Unsubscribe(Action<T> handler);

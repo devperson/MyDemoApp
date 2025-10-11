@@ -1,14 +1,15 @@
 ﻿using BestApp.Abstraction.Main.AppService;
 using BestApp.Abstraction.Main.Infasructures;
-using BestApp.Abstraction.Main.Infasructures.Events;
 using BestApp.ViewModels.Base;
-using BestApp.ViewModels.Helper.Commands;
 using BestApp.ViewModels.Movies.ItemViewModel;
-using Logging.Aspects;
 using System.Collections.ObjectModel;
 using BestApp.ViewModels.Extensions;
 using BestApp.ViewModels.Events;
-using BestApp.Abstraction.Main.UI;
+using Base.Abstractions.UI;
+using Base.Abstractions.REST;
+using Base.Aspect;
+using Base.MVVM.Helper;
+using Base.MVVM.Navigation;
 using System.Runtime.Serialization;
 using BestApp.ViewModels.Login;
 
@@ -48,7 +49,7 @@ namespace BestApp.ViewModels.Movies
         public AsyncCommand AddCommand { get; set; }
         public AsyncCommand ItemTappedCommand { get; set; }
 
-        public async override void Initialize(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
+        public async override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
 
@@ -63,12 +64,12 @@ namespace BestApp.ViewModels.Movies
             });
         }        
 
-        public override void PausedToBackground()
+        public override void PausedToBackground(object arg)
         {
             infrastructureServices.Value.Pause();
         }
 
-        public override void ResumedFromBackground()
+        public override void ResumedFromBackground(object arg)
         {
             infrastructureServices.Value.Resume();
         }
@@ -82,7 +83,8 @@ namespace BestApp.ViewModels.Movies
             this.Services.EventAggregator.GetEvent<MovieCellItemUpdatedEvent>().Unsubscribe(OnMovieCellItemUpdatedEvent);
         }
 
-        public override void OnNavigatedTo(Abstraction.Main.UI.Navigation.INavigationParameters parameters)
+        
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
@@ -167,7 +169,7 @@ namespace BestApp.ViewModels.Movies
 
         private readonly SemaphoreSlim semaphoreAuthError = new(1, 1);
         private bool loggingOut = false;
-        private async void HandleAuthErrorEvent()
+        private async void HandleAuthErrorEvent(object arg)
         {
             try
             {

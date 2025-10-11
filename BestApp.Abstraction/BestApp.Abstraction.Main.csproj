@@ -6,7 +6,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Infasructures\REST\Core\**" />
+    <Compile Remove="PlatformServices\**" />
+    <Compile Remove="UI\**" />
+    <EmbeddedResource Remove="Infasructures\REST\Core\**" />
+    <EmbeddedResource Remove="PlatformServices\**" />
+    <EmbeddedResource Remove="UI\**" />
+    <None Remove="Infasructures\REST\Core\**" />
+    <None Remove="PlatformServices\**" />
+    <None Remove="UI\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Infasructures\IDatabaseInfo.cs" />
+    <Compile Remove="Infasructures\IErrorTrackingService.cs" />
+    <Compile Remove="Infasructures\IInfrastructureServices.cs" />
+    <Compile Remove="Infasructures\IRepository.cs" />
+    <Compile Remove="Infasructures\REST\IAuthTokenService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BestApp.Domain\BestApp.Abstraction.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Platform\" />
   </ItemGroup>
 	
 
