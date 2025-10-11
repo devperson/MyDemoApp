@@ -6,6 +6,7 @@ using BestApp.Abstraction.Domain.Entities;
 using BestApp.Abstraction.Main.AppService;
 using BestApp.Abstraction.Main.AppService.Dto;
 using BestApp.Abstraction.Main.Infasructures.REST;
+using BestApp.Impl.Cross.Infasructures.Repositories.Tables;
 using MapsterMapper;
 
 namespace BestApp.Impl.Cross.AppService
@@ -72,6 +73,24 @@ namespace BestApp.Impl.Cross.AppService
             });
         }
 
+        public Task<Some<MovieDto>> GetById(int id)
+        {
+            return Task.Run(async () =>
+            {
+                try
+                {
+                    var movie = await movieRepository.Value.FindById(id);
+                    var dtoMovie = mapper.Value.Map<MovieDto>(movie);
+                    return new Some<MovieDto>(dtoMovie);
+                }
+                catch(Exception ex)
+                {
+                    loggingService.Value.TrackError(ex);
+                    return new Some<MovieDto>(ex);
+                }
+            });
+        }
+
         public Task<Some<MovieDto>> AddAsync(string name, string overview, string posterUrl)
         {
             return Task.Run(async () =>
@@ -131,5 +150,7 @@ namespace BestApp.Impl.Cross.AppService
                 }
             });
         }
+
+       
     }
 }

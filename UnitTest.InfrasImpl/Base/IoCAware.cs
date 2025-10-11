@@ -1,10 +1,9 @@
-﻿using BestApp.Abstraction.Common;
-using BestApp.Abstraction.Common.Events;
+﻿using Base.Abstractions;
+using Base.Abstractions.Diagnostic;
+using Base.Abstractions.Platform;
+using Base.Aspect;
 using BestApp.Abstraction.Main.Infasructures;
-using BestApp.Abstraction.Main.PlatformServices;
-using Common.Abstrtactions;
 using DryIoc;
-using Logging.Aspects;
 using Mapster;
 using MapsterMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -1,4 +1,4 @@
-﻿using BestApp.MVVM.Navigation;
+﻿using Base.MVVM.Navigation;
 using BestApp.ViewModels.Base;
 using DryIoc;
 

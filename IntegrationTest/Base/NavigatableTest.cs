@@ -1,6 +1,6 @@
-﻿using BestApp.MVVM.Navigation;
+﻿using Base.Abstractions.Diagnostic;
+using Base.MVVM.Navigation;
 using BestApp.ViewModels.Base;
-using Common.Abstrtactions;
 using DryIoc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

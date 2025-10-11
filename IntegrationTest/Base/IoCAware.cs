@@ -1,24 +1,20 @@
-﻿using BestApp.Abstraction.Main.PlatformServices;
-using Common.Abstrtactions;
-using DryIoc;
+﻿using DryIoc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using BestApp.Abstraction.Main.UI;
 using UnitTest.ViewModel.Impl;
 using IntegrationTest.Impl;
 using UnitTest.InfrasImpl.Impl;
 using BestApp.ViewModels.Base;
-using BestApp.Abstraction.Common;
-using Logging.Aspects;
 using Mapster;
 using MapsterMapper;
 using UnitTest.Impl;
 using BestApp.ViewModels.Movies;
-using BestApp.Abstraction.Common.Events;
-using BestApp.MVVM.Navigation;
 using Base.Abstractions.Platform;
 using Base.Abstractions;
 using Base.Abstractions.UI;
+using Base.Abstractions.Diagnostic;
+using Base.MVVM.Navigation;
+using Base.Aspect;
 
 namespace IntegrationTest.Base
 {
