@@ -33,6 +33,7 @@
 	<PackageReference Include="Xamarin.Google.Android.Material" Version="1.11.0.2" />	  
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Base\Base.Impl.Droid\Base.Impl.Droid.csproj" />
     <ProjectReference Include="..\BestApp.Impl.Droid\BestApp.Impl.Droid.csproj" />
     <ProjectReference Include="..\BestApp.Impl\BestApp.Impl.Cross.csproj" />
     <ProjectReference Include="..\BestApp.ViewModels\BestApp.ViewModels.csproj" />

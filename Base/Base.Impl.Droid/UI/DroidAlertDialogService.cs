@@ -2,7 +2,7 @@
 using Base.Abstractions.UI;
 using Microsoft.Maui.ApplicationModel;
 
-namespace BestApp.Impl.Droid.UI;
+namespace Base.Impl.Droid.UI;
 
 public class DroidAlertDialogService : IAlertDialogService
 {

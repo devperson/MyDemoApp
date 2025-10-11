@@ -1,7 +1,7 @@
 ﻿using Base.Abstractions.UI;
 using Base.Aspect;
 
-namespace BestApp.Impl.Droid.UI
+namespace Base.Impl.Droid.UI
 {
     [LogMethods]
     internal class MockPopup : IPopupAlert

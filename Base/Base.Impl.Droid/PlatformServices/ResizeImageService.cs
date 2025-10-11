@@ -4,7 +4,7 @@ using Base.Abstractions.Platform;
 using Microsoft.Maui.Storage;
 using Orientation = Android.Media.Orientation;
 
-namespace BestApp.Impl.Droid.PlatformServices;
+namespace Base.Impl.Droid.PlatformServices;
 public class ResizeImageService : IResizeImageService
 {
     /// <summary>

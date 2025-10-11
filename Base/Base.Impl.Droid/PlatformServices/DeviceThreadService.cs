@@ -1,7 +1,7 @@
 ﻿using Base.Abstractions.Platform;
 using Microsoft.Maui.ApplicationModel;
 
-namespace BestApp.Impl.Droid.PlatformServices;
+namespace Base.Impl.Droid.PlatformServices;
 
 public class DeviceThreadService : IDeviceThreadService
 {

@@ -81,3 +81,7 @@
 /Base/Base.Infrastructures.Abstractions/bin
 /Base/Base.MVVM/obj
 /Base/Base.MVVM/bin
+/Base/Base.Impl.Droid/obj
+/Base/Base.Impl.Droid/bin
+/Base/Base.Impl.iOS/obj
+/Base/Base.Impl.iOS/bin

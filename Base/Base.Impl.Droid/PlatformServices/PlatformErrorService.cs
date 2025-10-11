@@ -1,6 +1,6 @@
 ﻿using Base.Abstractions.Platform;
 
-namespace BestApp.Impl.Droid.PlatformServices
+namespace Base.Impl.Droid.PlatformServices
 {
     public class PlatformErrorService : IPlatformErrorService
     {

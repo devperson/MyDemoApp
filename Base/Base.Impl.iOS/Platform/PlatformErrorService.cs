@@ -1,9 +1,9 @@
 ﻿using Base.Abstractions.Platform;
-using BestApp.Abstraction.Main.PlatformServices;
+using Base.Abstractions.PlatformServices;
 using System;
 using System.Net.Http;
 
-namespace BestApp.Impl.iOS.Platform
+namespace Base.Impl.iOS.Platform
 {
     internal class PlatformErrorService : IPlatformErrorService
     {

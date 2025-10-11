@@ -7,7 +7,7 @@ using Microsoft.Maui.Media;
 using Microsoft.Maui.Storage;
 using DeviceInfo = Microsoft.Maui.Devices.DeviceInfo;
 
-namespace BestApp.Impl.Droid.UI;
+namespace Base.Impl.Droid.UI;
 
 public class MediaPickerService : IMediaPickerService
 {

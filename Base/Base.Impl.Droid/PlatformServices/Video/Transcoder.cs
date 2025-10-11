@@ -6,7 +6,7 @@ using Com.Otaliastudios.Transcoder.Strategy.Size;
 using Java.Lang;
 using Java.Util.Concurrent;
 
-namespace BestApp.Impl.Droid.PlatformServices.Video;
+namespace Base.Impl.Droid.PlatformServices.Video;
 
 [LogMethods]
 public class VideoTranscoder : Java.Lang.Object, ITranscoderListener

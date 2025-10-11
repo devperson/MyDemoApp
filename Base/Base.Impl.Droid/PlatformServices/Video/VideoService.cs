@@ -4,7 +4,7 @@ using Base.Abstractions.Diagnostic;
 using Base.Abstractions.Platform;
 using Microsoft.Maui.ApplicationModel;
 
-namespace BestApp.Impl.Droid.PlatformServices.Video;
+namespace Base.Impl.Droid.PlatformServices.Video;
 
 public class VideoService : IVideoService
 {

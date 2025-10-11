@@ -21,25 +21,18 @@ namespace BestApp.Impl.Cross
     public static class Registerar
     {
         public static void RegisterTypes(IContainer container, TypeAdapterConfig mapperConfig)
-        {
-
-            //Register Common            
-            RegisterCommon(container);
+        {   
             //register infrastructures           
             RegisterInfrastructureService(container, mapperConfig);
             //register appService
             RegisterAppService(container, mapperConfig);
         }
 
-        public static void RegisterCommon(IContainer container)
-        {
-            Base.Impl.Registerar.RegisterCommon(container);
-        }
-
+        
         public static void RegisterInfrastructureService(IContainer container, TypeAdapterConfig mapperConfig)
         {
             //register infrastructures            
-            Base.Impl.Registerar.RegisterTypes(container);
+            Base.Impl.Registerar.RegisterInfrastructureService(container);
             //Sqlite            
             RepoMapper.RegisterMapping(mapperConfig);
             container.Register<ILocalDbInitilizer, SqliteDbInitilizer>(Reuse.Singleton);

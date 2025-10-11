@@ -1,7 +1,7 @@
 ﻿using Base.Abstractions.Platform;
 using System.IO.Compression;
 
-namespace BestApp.Impl.Droid.PlatformServices;
+namespace Base.Impl.Droid.PlatformServices;
 
 public class ZipService : IZipService
 {

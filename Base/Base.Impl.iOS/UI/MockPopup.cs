@@ -1,10 +1,9 @@
 ﻿using Base.Abstractions.UI;
-using BestApp.Abstraction.Main.UI;
-using Logging.Aspects;
+using Base.Aspect;
 using System;
 using System.Threading.Tasks;
 
-namespace BestApp.Impl.iOS.UI
+namespace Base.Impl.iOS.UI
 {
     [LogMethods]
     internal class MockPopup : IPopupAlert

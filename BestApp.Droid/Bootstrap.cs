@@ -1,8 +1,8 @@
 ﻿using Base.Abstractions;
+using Base.Abstractions.Diagnostic;
 using Base.Abstractions.UI;
-using BestApp.Abstraction.Common;
-using BestApp.Abstraction.Main.UI;
-using BestApp.MVVM.Navigation;
+using Base.Aspect;
+using Base.MVVM.Navigation;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Login;
 using BestApp.ViewModels.Movies;
@@ -10,10 +10,7 @@ using BestApp.X.Droid.Navigation;
 using BestApp.X.Droid.Pages.Login;
 using BestApp.X.Droid.Pages.Movies;
 using BestApp.X.Droid.UI;
-using BestApp.X.Droid.Utils;
-using Common.Abstrtactions;
 using DryIoc;
-using Logging.Aspects;
 using Mapster;
 using MapsterMapper;
 
@@ -38,9 +35,13 @@ namespace BestApp.X.Droid
             container.Register<InjectedServices>(Reuse.Singleton);            
             container.Register<IConstants, ConstantImpl>(Reuse.Singleton);
 
-            //register app, infrastructure services                        
-            Impl.Cross.Registerar.RegisterTypes(container, mapperConfig);
-            Impl.Droid.Registerar.RegisterTypes(container, mapperConfig);
+            //register app, infrastructure services
+            // //register infrastructures            
+            Base.Impl.Registerar.RegisterTypes(container);
+            Base.Impl.Droid.Registerar.RegisterTypes(container);
+            BestApp.Impl.Cross.Registerar.RegisterTypes(container, mapperConfig);
+            BestApp.Impl.Droid.Registerar.RegisterTypes(container);
+
             var logger = container.Resolve<ILoggingService>();
             LogMethodsAttribute.LoggingService = logger;            
 

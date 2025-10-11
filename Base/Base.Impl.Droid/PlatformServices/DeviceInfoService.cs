@@ -12,7 +12,7 @@ using DeviceInfo = Base.Abstractions.Platform.DeviceInfo;
 using EssentialDeviceInfo = Microsoft.Maui.Devices.DeviceInfo;
 
 
-namespace BestApp.Impl.Droid.PlatformServices;
+namespace Base.Impl.Droid.PlatformServices;
 public class DeviceInfoService : IDevice
 {
     private string deviceId = null;    
