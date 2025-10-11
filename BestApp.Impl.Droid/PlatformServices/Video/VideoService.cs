@@ -1,14 +1,8 @@
 ﻿using Android.Content;
 using Android.Media;
+using Base.Abstractions.Diagnostic;
 using Base.Abstractions.Platform;
-using BestApp.Abstraction.Main.PlatformServices;
-using Common.Abstrtactions;
 using Microsoft.Maui.ApplicationModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BestApp.Impl.Droid.PlatformServices.Video;
 

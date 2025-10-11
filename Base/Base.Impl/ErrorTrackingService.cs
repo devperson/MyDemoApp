@@ -4,7 +4,7 @@ using DryIoc;
 
 namespace Base.Impl
 {
-    public class ErrorTrackingService : IErrorTrackingService
+    public class SentryErrorTrackingService : IErrorTrackingService
     {
         public event EventHandler<Exception> OnServiceError;
         private int logFileIndex = 0;
@@ -12,7 +12,7 @@ namespace Base.Impl
         private readonly Lazy<IContainer> container;
         private readonly Lazy<IDirectoryService> directoryService;
 
-        public ErrorTrackingService(Lazy<IContainer> container, Lazy<IDirectoryService> directoryService)
+        public SentryErrorTrackingService(Lazy<IContainer> container, Lazy<IDirectoryService> directoryService)
         {
             this.container = container;
             this.directoryService = directoryService;
@@ -49,11 +49,7 @@ namespace Base.Impl
         {
             SentrySdk.Init(options =>
             {
-                options.Dsn = "https://e2232a39fbb65cd0fd4beba2b0954c87@o4507288977080320.ingest.de.sentry.io/4510120095842384";
-                options.Debug = false;
-                options.TracesSampleRate = 0.1;
-                options.AutoSessionTracking = true;
-                options.Environment = "internal";
+                OnInit(options);
 
                 //options.Debug = true; // Enable Sentry internal logging
                 //options.DiagnosticLevel = SentryLevel.Debug;
@@ -92,21 +88,29 @@ namespace Base.Impl
                     {
                         //WARNING this service intended to be used in ILoggingService thus do not add ILoggingService in constructor to not have references to each other
                         var logger = container.Value.Resolve<ILoggingService>();
-                        logger.LogUnhandledError(ev.Exception);//log error into app logs     
-                        Task.Delay(300).Wait();//give time for logger
-
-                        var newLogPath = CreatePathForAttachment();
-                        var logBytes = logger.GetLastSessionLogBytes();
-                        if (logBytes != null)
+                        if (logger != null)
                         {
-                            File.WriteAllBytes(newLogPath, logBytes);
-                            hint.AddAttachment(newLogPath, AttachmentType.Default, "application/x-zip-compressed");
+                            logger.LogUnhandledError(ev.Exception);//log error into app logs     
+                            Task.Delay(300).Wait();//give time for logger
+
+                            var newLogPath = CreatePathForAttachment();
+                            var logBytes = logger.GetLastSessionLogBytes();
+                            if (logBytes != null)
+                            {
+                                File.WriteAllBytes(newLogPath, logBytes);
+                                hint.AddAttachment(newLogPath, AttachmentType.Default, "application/x-zip-compressed");
+                            }
                         }
                     }
 
                     return ev;
                 });
             });
+        }
+
+        protected virtual void OnInit(SentryOptions options)
+        {
+            
         }
 
         private string CreatePathForAttachment()

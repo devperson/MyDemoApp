@@ -1,12 +1,6 @@
 ﻿using Android.Content;
 using Base.Abstractions.UI;
-using BestApp.Abstraction.Main.UI;
 using Microsoft.Maui.ApplicationModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BestApp.Impl.Droid.UI;
 

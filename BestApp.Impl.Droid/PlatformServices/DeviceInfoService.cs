@@ -1,7 +1,7 @@
-﻿using Base.Abstractions.Platform;
+﻿using Base.Abstractions;
+using Base.Abstractions.Diagnostic;
+using Base.Abstractions.Platform;
 using BestApp.Abstraction.Main.Infasructures.Events;
-using BestApp.Abstraction.Main.PlatformServices;
-using Common.Abstrtactions;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.ApplicationModel.Communication;
 using Microsoft.Maui.Devices;
@@ -24,7 +24,7 @@ public class DeviceInfoService : IDevice
 
     public event EventHandler NetworkChanged;
 
-    public DeviceInfoService(Lazy<BestApp.Abstraction.Common.Events.IMessagesCenter> eventAggregator,                             
+    public DeviceInfoService(Lazy<IMessagesCenter> eventAggregator,                             
                              Lazy<IBadge> badge,
                              Lazy<IKeybordService> keyboardService,
                              Lazy<IPreferencesService> preferencesService,

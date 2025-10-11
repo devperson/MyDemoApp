@@ -1,11 +1,5 @@
 ﻿using Base.Abstractions.UI;
-using BestApp.Abstraction.Main.UI;
-using Logging.Aspects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Base.Aspect;
 
 namespace BestApp.Impl.Droid.UI
 {

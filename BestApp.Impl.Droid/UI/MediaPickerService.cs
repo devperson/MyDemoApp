@@ -1,17 +1,10 @@
-﻿using Base.Abstractions.Platform;
+﻿using Base.Abstractions.Diagnostic;
+using Base.Abstractions.Platform;
 using Base.Abstractions.UI;
-using BestApp.Abstraction.Main.PlatformServices;
-using BestApp.Abstraction.Main.UI;
-using Common.Abstrtactions;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Devices;
 using Microsoft.Maui.Media;
 using Microsoft.Maui.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DeviceInfo = Microsoft.Maui.Devices.DeviceInfo;
 
 namespace BestApp.Impl.Droid.UI;

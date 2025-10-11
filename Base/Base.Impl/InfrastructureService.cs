@@ -38,7 +38,7 @@ namespace BestApp.Impl.Cross.Infasructures
     /// </list>
     /// </summary>
     [LogMethods]
-    internal class InfrastructureService : IInfrastructureServices
+    public class InfrastructureService : IInfrastructureServices
     {
         private readonly Lazy<ILocalDbInitilizer> localDbInitilizer;
         private readonly Lazy<IRestQueueService> restQueueService;
@@ -54,7 +54,7 @@ namespace BestApp.Impl.Cross.Infasructures
         /// <summary>
         /// Initializes infrastructure components when the application starts.
         /// </summary>
-        public async Task Start()
+        public virtual async Task Start()
         {
             await localDbInitilizer.Value.Init();
         }
@@ -62,7 +62,7 @@ namespace BestApp.Impl.Cross.Infasructures
         /// <summary>
         /// Pauses background infrastructure (e.g., queued REST requests) when the app goes to background.
         /// </summary>
-        public Task Pause()
+        public virtual Task Pause()
         {
             restQueueService.Value.Pause();
             return Task.CompletedTask;
@@ -71,7 +71,7 @@ namespace BestApp.Impl.Cross.Infasructures
         /// <summary>
         /// Resumes paused background infrastructure when the app returns to the foreground.
         /// </summary>
-        public Task Resume()
+        public virtual Task Resume()
         {
             restQueueService.Value.Resume();
             return Task.CompletedTask;
@@ -80,7 +80,7 @@ namespace BestApp.Impl.Cross.Infasructures
         /// <summary>
         /// Gracefully stops and releases resources when the app shuts down or the user logs out.
         /// </summary>
-        public async Task Stop()
+        public virtual async Task Stop()
         {
             await localDbInitilizer.Value.Release();
             restQueueService.Value.Release();

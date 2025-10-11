@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace BestApp.Impl.Cross.Infasructures.REST
 {
-    internal class RestService
+    public class RestService
     {
         public RestService(Lazy<ILoggingService> loggingService, 
                            Lazy<IAuthTokenService> authTokenService, 

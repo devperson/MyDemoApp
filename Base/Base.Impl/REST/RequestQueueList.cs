@@ -4,7 +4,7 @@ using System.Timers;
 
 namespace BestApp.Impl.Cross.Infasructures.REST
 {
-    internal class RequestQueueList : List<RequestQueueItem>, IRestQueueService
+    public class RequestQueueList : List<RequestQueueItem>, IRestQueueService
     {
         public RequestQueueList(Lazy<ILoggingService> loggingService)
         {
@@ -213,7 +213,7 @@ namespace BestApp.Impl.Cross.Infasructures.REST
         //}
     }
 
-    internal class RequestQueueItem
+    public class RequestQueueItem
     {      
         public DateTime StartedAt { get; set; }
         public RequestQueueList ParentList { get; set; }

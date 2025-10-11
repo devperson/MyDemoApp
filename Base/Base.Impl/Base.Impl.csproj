@@ -4,6 +4,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Base.Aspect\Base.Aspect.csproj" />
+    <ProjectReference Include="..\Base.Infrastructures.Abstractions\Base.Abstractions.csproj" />
+  </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="MethodDecorator.Fody" Version="1.1.1" />

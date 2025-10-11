@@ -12,8 +12,7 @@ namespace BestApp.Impl.Cross.Map
     internal static class AppMapper
     {
         internal static void RegisterMapping(TypeAdapterConfig config)
-        {
-            config.NewConfig<Product, ProductDto>().TwoWays();
+        {            
             config.NewConfig<Movie, MovieDto>().TwoWays();
             //config.NewConfig<Product, ProductDto>()
             //      .Map(dest => dest.Id, src => src.Id)

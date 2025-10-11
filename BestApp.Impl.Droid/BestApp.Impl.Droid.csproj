@@ -10,6 +10,8 @@
     <IsTrimmable>true</IsTrimmable>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Base\Base.Aspect\Base.Aspect.csproj" />
+    <ProjectReference Include="..\Base\Base.Infrastructures.Abstractions\Base.Abstractions.csproj" />
     <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.Main.csproj" />
   </ItemGroup>
   <ItemGroup>

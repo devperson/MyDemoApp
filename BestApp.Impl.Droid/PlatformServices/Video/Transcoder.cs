@@ -1,10 +1,10 @@
-﻿using Com.Otaliastudios.Transcoder;
+﻿using Base.Abstractions.Diagnostic;
+using Base.Aspect;
+using Com.Otaliastudios.Transcoder;
 using Com.Otaliastudios.Transcoder.Strategy;
 using Com.Otaliastudios.Transcoder.Strategy.Size;
-using Common.Abstrtactions;
 using Java.Lang;
 using Java.Util.Concurrent;
-using Logging.Aspects;
 
 namespace BestApp.Impl.Droid.PlatformServices.Video;
 

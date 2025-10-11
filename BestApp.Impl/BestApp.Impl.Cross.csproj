@@ -36,9 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Base.Aspect\Base.Aspect.csproj" />
-    <ProjectReference Include="..\Base.Impl\Base.Impl.csproj" />
-    <ProjectReference Include="..\Base.Infrastructures.Abstractions\Base.Abstractions.csproj" />
+    <ProjectReference Include="..\Base\Base.Aspect\Base.Aspect.csproj" />
+    <ProjectReference Include="..\Base\Base.Impl\Base.Impl.csproj" />
+    <ProjectReference Include="..\Base\Base.Infrastructures.Abstractions\Base.Abstractions.csproj" />
     <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.Main.csproj" />
     <ProjectReference Include="..\BestApp.Domain\BestApp.Abstraction.Domain.csproj" />
   </ItemGroup>

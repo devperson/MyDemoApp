@@ -1,12 +1,9 @@
 ﻿using Base.Abstractions.Platform;
 using Base.Abstractions.UI;
-using BestApp.Abstraction.Main.PlatformServices;
-using BestApp.Abstraction.Main.UI;
 using BestApp.Impl.Droid.PlatformServices;
 using BestApp.Impl.Droid.PlatformServices.Video;
 using BestApp.Impl.Droid.UI;
 using BestApp.Impl.PlatformServices;
-using Common.Abstrtactions;
 using DryIoc;
 using Mapster;
 

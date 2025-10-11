@@ -9,7 +9,7 @@ using System.Data;
 namespace BestApp.Impl.Cross.Infasructures.Repositories
 {
     [LogMethods]
-    internal class SqliteRepository<TEntity, Tb> : IRepository<TEntity>
+    public class SqliteRepository<TEntity, Tb> : IRepository<TEntity>
         where TEntity : Entity
         where Tb : ITable, new()
     {

@@ -34,8 +34,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
                     var path = databaseInfo.Value.GetDbPath();
                     database = new SQLiteAsyncConnection(path);
 
-                    //await database.CreateTableAsync<EventsTb>();
-                    await database.CreateTableAsync<ProductTb>();
+                    //await database.CreateTableAsync<EventsTb>();                    
                     await database.CreateTableAsync<MovieTb>();
 
                     loggingService.Value.Log($"SqliteDbInitilizer is inited! path: {path}");
