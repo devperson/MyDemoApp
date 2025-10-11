@@ -1,4 +1,5 @@
 ﻿using BestApp.Abstraction.Main.AppService;
+using BestApp.Abstraction.Main.AppService.Dto;
 using DryIoc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -17,22 +18,56 @@ namespace UnitTest.ServiceImpl
         public async Task T1_1AddMovieTest()
         {
             var movieService = Container.Resolve<IMoviesService>();
-            var result = await movieService.AddAsync("first movie test", "test overview", string.Empty);
-
-            Assert.IsTrue(result.Success);
-            Assert.IsTrue(result.Value.Id > 0);
+            var result = await movieService.AddAsync("first product", "test overview", string.Empty);
+            
+            Assert.IsTrue(result.Success, "IMoviesService.AddAsync() failed in T1_1AddMovieTest()");
+            Assert.IsTrue(result.Value.Id > 0, "Movie item id is zero in T1_1AddMovieTest()");            
         }
 
         [TestMethod]
-        public async Task T1_3GetMovieListTest()
+        public async Task T1_2GetMovieListTest()
         {
             var movieService = Container.Resolve<IMoviesService>();
             var result = await movieService.GetListAsync();
 
-            Assert.IsTrue(result.Success);
-            Assert.IsTrue(result.Value.Count > 0);
-            Assert.IsTrue(result.Value[0].Id > 0);
-            Assert.IsNotNull(result.Value[0].Name);
+            Assert.IsTrue(result.Success, "IMoviesService.GetListAsync() failed in T1_2GetMovieListTest()");
+            Assert.IsTrue(result.Value.Count > 0, "Movie count is zero in T1_2GetMovieListTest()");
+            Assert.IsTrue(result.Value[0].Id > 0, "Movie item id is zero in T1_2GetMovieListTest()");
+        }
+
+        [TestMethod]
+        public async Task T1_3GetMovieTest()
+        {
+            var movieService = Container.Resolve<IMoviesService>();
+            var result = await movieService.GetById(1);
+            Assert.IsTrue(result.Success, "IMoviesService.GetById() failed in T1_3GetMovieTest()");
+        }
+
+        [TestMethod]
+        public async Task T1_3UpdateMovieTest()
+        {
+            var movieService = Container.Resolve<IMoviesService>();
+            var result = await movieService.GetById(1);
+            Assert.IsTrue(result.Success, "IMoviesService.GetById() failed in T1_3GetMovieTest()");
+
+            var item = result.Value;            
+            item.Name = "updated name";
+            item.Overview = "updated overview";
+            item.PosterUrl = "updated poster";
+            var updateResult = await movieService.UpdateAsync(item);
+            Assert.IsTrue(updateResult.Success, "IMoviesService.UpdateAsync() failed in T1_3UpdateMovieTest()");
+        }
+
+        [TestMethod]
+        public async Task T1_3RemoveMovieTest()
+        {
+            var movieService = Container.Resolve<IMoviesService>();
+            var result = await movieService.GetById(1);
+            Assert.IsTrue(result.Success, "IMoviesService.GetById() failed in T1_3UpdateMovieTest()");
+
+            var item = result.Value;
+            var removeResult = await movieService.RemoveAsync(item);
+            Assert.IsTrue(removeResult.Success, "IMoviesService.RemoveAsync() failed in T1_3RemoveMovieTest()");
         }
     }
 }

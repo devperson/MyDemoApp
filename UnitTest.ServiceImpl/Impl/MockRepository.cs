@@ -1,7 +1,6 @@
-﻿using BestApp.Abstraction.Domain.Entities;
-using BestApp.Abstraction.Main.Infasructures;
-using BestApp.Impl.Cross.Infasructures.Repositories.Tables;
-using Logging.Aspects;
+﻿using Base.Abstractions.Domain;
+using Base.Aspect;
+using Base.Infrastructures.Abstractions.Repository;
 using MapsterMapper;
 
 namespace BestApp.Impl.Cross.Infasructures.Repositories
@@ -46,7 +45,8 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
         }
 
         public virtual Task Remove(TEntity entity)
-        {            
+        {
+            var item = records.FirstOrDefault(s => s.Id == entity.Id);
             records.Remove(entity);
 
             return Task.CompletedTask;

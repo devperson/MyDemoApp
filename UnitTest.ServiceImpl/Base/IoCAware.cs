@@ -1,7 +1,4 @@
 ﻿using BestApp.Abstraction.Domain.Entities;
-using BestApp.Abstraction.Main.Infasructures;
-using BestApp.Abstraction.Main.PlatformServices;
-using Common.Abstrtactions;
 using DryIoc;
 using Mapster;
 using MapsterMapper;
@@ -10,8 +7,11 @@ using BestApp.Impl.Cross.Infasructures.Repositories;
 using UnitTest.Impl;
 using BestApp.Abstraction.Main.Infasructures.REST;
 using Moq;
-using Logging.Aspects;
-using BestApp.Abstraction.Common.Events;
+using Base.Abstractions.Diagnostic;
+using Base.Abstractions.Platform;
+using Base.Abstractions;
+using Base.Aspect;
+using Base.Infrastructures.Abstractions.Repository;
 
 namespace UnitTest.ServiceImpl.Base
 {
@@ -54,8 +54,7 @@ namespace UnitTest.ServiceImpl.Base
             container.Register<IMessagesCenter, SimpleMessageCenter>(Reuse.Singleton);
             LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
 
-            //register infrastructures            
-            container.Register<IRepository<Product>, MockRepository<Product>>();
+            //register infrastructures                        
             container.Register<IRepository<Movie>, MockRepository<Movie>>();
             var mockMovieRestService = new Mock<IMovieRestService> { DefaultValue = DefaultValue.Mock };
             mockMovieRestService.Setup(x => x.GetMovieRestlist()).ReturnsAsync([

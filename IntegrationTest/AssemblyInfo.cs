@@ -1,3 +1,3 @@
-﻿using Logging.Aspects;
+﻿using Base.Aspect;
 
 [module: LogMethods]

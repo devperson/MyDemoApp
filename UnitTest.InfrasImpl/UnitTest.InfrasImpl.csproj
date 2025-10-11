@@ -26,8 +26,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Base\Base.Infrastructures.Abstractions\Base.Abstractions.csproj" />
 	  <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.Main.csproj" />
 	  <ProjectReference Include="..\BestApp.Impl\BestApp.Impl.Cross.csproj" />
-	  <ProjectReference Include="..\Common.Abstrtactions\BestApp.Abstraction.Common.csproj" />
 	</ItemGroup>
 </Project>
