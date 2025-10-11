@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Base.Abstractions.UI;
 using BestApp.Abstraction.Main.UI;
 using Microsoft.Maui.ApplicationModel;
 using System;

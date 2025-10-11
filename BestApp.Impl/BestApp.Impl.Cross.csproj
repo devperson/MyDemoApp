@@ -6,6 +6,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Common\**" />
+    <Compile Remove="Infasructures\REST\Core\**" />
+    <EmbeddedResource Remove="Common\**" />
+    <EmbeddedResource Remove="Infasructures\REST\Core\**" />
+    <None Remove="Common\**" />
+    <None Remove="Infasructures\REST\Core\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Infasructures\ErrorTrackingService.cs" />
+    <Compile Remove="Infasructures\InfrastructureService.cs" />
+    <Compile Remove="Infasructures\Repositories\DatabaseInfo.cs" />
+    <Compile Remove="Infasructures\Repositories\SqliteRepository.cs" />
+    <Compile Remove="Infasructures\Repositories\Tables\EventsTb.cs" />
+    <Compile Remove="Infasructures\Repositories\Tables\ITable.cs" />
+    <Compile Remove="Infasructures\REST\AuthTokenService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DryIoc.dll" Version="4.5.0" />
     <PackageReference Include="Mapster" Version="7.4.0" />
     <PackageReference Include="MethodDecorator.Fody" Version="1.1.1" />
@@ -17,9 +36,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Base.Aspect\Base.Aspect.csproj" />
+    <ProjectReference Include="..\Base.Impl\Base.Impl.csproj" />
+    <ProjectReference Include="..\Base.Infrastructures.Abstractions\Base.Abstractions.csproj" />
     <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.Main.csproj" />
     <ProjectReference Include="..\BestApp.Domain\BestApp.Abstraction.Domain.csproj" />
-    <ProjectReference Include="..\Common.Abstrtactions\BestApp.Abstraction.Common.csproj" />
   </ItemGroup>
 
 </Project>

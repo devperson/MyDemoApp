@@ -1,4 +1,5 @@
-﻿using BestApp.Abstraction.Main.Infasructures.Events;
+﻿using Base.Abstractions.Platform;
+using BestApp.Abstraction.Main.Infasructures.Events;
 using BestApp.Abstraction.Main.PlatformServices;
 using Common.Abstrtactions;
 using Microsoft.Maui.ApplicationModel;
@@ -7,7 +8,7 @@ using Microsoft.Maui.Devices;
 using Microsoft.Maui.Networking;
 using Newtonsoft.Json;
 using System.Reflection;
-using DeviceInfo = BestApp.Abstraction.Main.PlatformServices.DeviceInfo;
+using DeviceInfo = Base.Abstractions.Platform.DeviceInfo;
 using EssentialDeviceInfo = Microsoft.Maui.Devices.DeviceInfo;
 
 

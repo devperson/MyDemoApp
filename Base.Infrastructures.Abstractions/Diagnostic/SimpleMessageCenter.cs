@@ -1,7 +1,7 @@
 ﻿using Base.Abstractions;
 using System.Collections.Concurrent;
 
-namespace Base.Impl.Messaging
+namespace Base.Abstractions.Diagnostic
 {
     public class SimpleMessageCenter : IMessagesCenter
     {
@@ -35,7 +35,7 @@ namespace Base.Impl.Messaging
                 if (!_handlers.Contains(handler))
                     _handlers.Add(handler);
             }
-        }
+        }       
 
         public void Unsubscribe(Action<T> handler)
         {

@@ -1,4 +1,6 @@
-﻿namespace BestApp.Abstraction.Domain.Entities
+﻿using Base.Abstractions.Domain;
+
+namespace BestApp.Abstraction.Domain.Entities
 {
     public class Product : Entity
     {

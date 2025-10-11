@@ -34,6 +34,5 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.Main.csproj" />
-	  <ProjectReference Include="..\Common.Abstrtactions\BestApp.Abstraction.Common.csproj" />
 	</ItemGroup>
 </Project>

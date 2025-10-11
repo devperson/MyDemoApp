@@ -11,7 +11,7 @@ namespace Base.MVVM.Navigation
         void OnAppearing();
         void OnDisappearing();
 
-        void ResumedFromBackground();
-        void PausedToBackground();
+        void ResumedFromBackground(object arg);
+        void PausedToBackground(object arg);
     }
 }

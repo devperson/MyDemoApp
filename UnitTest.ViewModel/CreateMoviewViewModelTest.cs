@@ -1,4 +1,5 @@
-﻿using BestApp.Abstraction.Main.UI;
+﻿using Base.Abstractions.UI;
+using BestApp.Abstraction.Main.UI;
 using BestApp.MVVM.Navigation;
 using BestApp.ViewModels.Movies;
 using Common.Abstrtactions;

@@ -1,5 +1,5 @@
-﻿using BestApp.Abstraction.Main.AppService.Dto;
-using BestApp.MVVM.ViewModels;
+﻿using Base.MVVM.ViewModels;
+using BestApp.Abstraction.Main.AppService.Dto;
 
 namespace BestApp.ViewModels.Movies.ItemViewModel
 {

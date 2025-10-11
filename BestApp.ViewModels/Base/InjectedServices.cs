@@ -1,7 +1,7 @@
-﻿using BestApp.Abstraction.Main.PlatformServices;
-using BestApp.Abstraction.Main.UI;
-using BestApp.MVVM.Navigation;
-using BestApp.MVVM.ViewModels;
+﻿using Base.Abstractions.Platform;
+using Base.Abstractions.UI;
+using Base.MVVM.Navigation;
+using Base.MVVM.ViewModels;
 using DryIoc;
 
 namespace BestApp.ViewModels.Base

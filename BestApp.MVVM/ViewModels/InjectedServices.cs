@@ -1,7 +1,7 @@
-﻿using BestApp.Abstraction.Common.Events;
-using Base.MVVM.Navigation;
-using Common.Abstrtactions;
+﻿using Base.MVVM.Navigation;
 using DryIoc;
+using Base.Abstractions;
+using Base.Abstractions.Diagnostic;
 
 namespace Base.MVVM.ViewModels
 {

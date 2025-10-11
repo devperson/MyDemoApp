@@ -6,9 +6,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="UI\Navigation\**" />
-    <EmbeddedResource Remove="UI\Navigation\**" />
-    <None Remove="UI\Navigation\**" />
+    <Compile Remove="Infasructures\REST\Core\**" />
+    <Compile Remove="PlatformServices\**" />
+    <Compile Remove="UI\**" />
+    <EmbeddedResource Remove="Infasructures\REST\Core\**" />
+    <EmbeddedResource Remove="PlatformServices\**" />
+    <EmbeddedResource Remove="UI\**" />
+    <None Remove="Infasructures\REST\Core\**" />
+    <None Remove="PlatformServices\**" />
+    <None Remove="UI\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Infasructures\IDatabaseInfo.cs" />
+    <Compile Remove="Infasructures\IErrorTrackingService.cs" />
+    <Compile Remove="Infasructures\IInfrastructureServices.cs" />
+    <Compile Remove="Infasructures\IRepository.cs" />
+    <Compile Remove="Infasructures\REST\IAuthTokenService.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,5 @@
-﻿using BestApp.Abstraction.Main.AppService.Dto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Base.Abstractions.AppService;
+using BestApp.Abstraction.Main.AppService.Dto;
 
 namespace BestApp.Abstraction.Main.AppService
 {

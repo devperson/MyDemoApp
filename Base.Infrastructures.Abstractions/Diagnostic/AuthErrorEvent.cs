@@ -1,4 +1,4 @@
-﻿using Base.Impl.Messaging;
+﻿using Base.Abstractions.Diagnostic;
 
 namespace Base.Impl.REST
 {

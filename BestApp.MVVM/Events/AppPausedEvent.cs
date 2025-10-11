@@ -1,8 +1,8 @@
-﻿using BestApp.Abstraction.Common.Events;
+﻿using Base.Abstractions.Diagnostic;
 
 namespace Base.MVVM.Events
 {
-    public class AppPausedEvent : SubMessage
+    public class AppPausedEvent : SubMessage<object>
     {
     }
 }

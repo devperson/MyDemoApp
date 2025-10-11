@@ -1,4 +1,7 @@
-﻿using BestApp.Abstraction.Common.Events;
+﻿using Base.Abstractions;
+using Base.Abstractions.Platform;
+using Base.Abstractions.UI;
+using BestApp.Abstraction.Common.Events;
 using BestApp.Abstraction.Main.AppService;
 using BestApp.Abstraction.Main.AppService.Dto;
 using BestApp.Abstraction.Main.Infasructures;

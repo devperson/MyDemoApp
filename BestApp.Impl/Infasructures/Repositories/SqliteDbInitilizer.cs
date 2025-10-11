@@ -1,15 +1,8 @@
-﻿using BestApp.Abstraction.Main.Infasructures;
-using BestApp.Abstraction.Main.PlatformServices;
+﻿using Base.Abstractions.Diagnostic;
+using Base.Aspect;
+using Base.Infrastructures.Abstractions.Repository;
 using BestApp.Impl.Cross.Infasructures.Repositories.Tables;
-using Common.Abstrtactions;
-using Logging.Aspects;
 using SQLite;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BestApp.Impl.Cross.Infasructures.Repositories
 {
@@ -41,7 +34,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
                     var path = databaseInfo.Value.GetDbPath();
                     database = new SQLiteAsyncConnection(path);
 
-                    await database.CreateTableAsync<EventsTb>();
+                    //await database.CreateTableAsync<EventsTb>();
                     await database.CreateTableAsync<ProductTb>();
                     await database.CreateTableAsync<MovieTb>();
 

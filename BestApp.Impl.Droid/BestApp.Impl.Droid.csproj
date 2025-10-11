@@ -11,7 +11,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\BestApp.Abstraction\BestApp.Abstraction.Main.csproj" />
-    <ProjectReference Include="..\Common.Abstrtactions\BestApp.Abstraction.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DryIoc.dll" Version="4.5.0" />    

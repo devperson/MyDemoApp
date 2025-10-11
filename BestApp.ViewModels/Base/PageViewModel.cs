@@ -1,8 +1,8 @@
-﻿using BestApp.Abstraction.Main.Infasructures.Exceptions;
-using BestApp.MVVM.Helper;
-using BestApp.MVVM.ViewModels;
-using BestApp.ViewModels.Events;
-using Logging.Aspects;
+﻿using Base.Abstractions.REST.Exceptions;
+using Base.Aspect;
+using Base.MVVM.Events;
+using Base.MVVM.Helper;
+using Base.MVVM.ViewModels;
 using System.Net;
 
 namespace BestApp.ViewModels.Base

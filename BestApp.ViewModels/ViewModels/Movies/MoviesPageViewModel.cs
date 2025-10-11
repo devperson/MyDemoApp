@@ -1,15 +1,15 @@
 ﻿using BestApp.Abstraction.Main.AppService;
 using BestApp.Abstraction.Main.Infasructures;
-using BestApp.Abstraction.Main.Infasructures.Events;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Movies.ItemViewModel;
-using Logging.Aspects;
 using System.Collections.ObjectModel;
 using BestApp.ViewModels.Extensions;
 using BestApp.ViewModels.Events;
-using BestApp.Abstraction.Main.UI;
-using BestApp.MVVM.Helper;
-using BestApp.MVVM.Navigation;
+using Base.Abstractions.UI;
+using Base.Abstractions.REST;
+using Base.Aspect;
+using Base.MVVM.Helper;
+using Base.MVVM.Navigation;
 
 namespace BestApp.ViewModels.Movies
 {
@@ -57,12 +57,12 @@ namespace BestApp.ViewModels.Movies
             });
         }        
 
-        public override void PausedToBackground()
+        public override void PausedToBackground(object arg)
         {
             infrastructureServices.Value.Pause();
         }
 
-        public override void ResumedFromBackground()
+        public override void ResumedFromBackground(object arg)
         {
             infrastructureServices.Value.Resume();
         }
@@ -149,7 +149,7 @@ namespace BestApp.ViewModels.Movies
 
         private readonly SemaphoreSlim semaphoreAuthError = new(1, 1);
         private bool loggingOut = false;
-        private async void HandleAuthErrorEvent()
+        private async void HandleAuthErrorEvent(object arg)
         {
             try
             {

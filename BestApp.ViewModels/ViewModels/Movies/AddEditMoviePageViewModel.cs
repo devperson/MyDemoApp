@@ -1,12 +1,13 @@
-﻿using BestApp.Abstraction.Main.AppService;
+﻿using Base.Abstractions.AppService;
+using Base.Abstractions.UI;
+using Base.Aspect;
+using Base.MVVM.Helper;
+using Base.MVVM.Navigation;
+using BestApp.Abstraction.Main.AppService;
 using BestApp.Abstraction.Main.AppService.Dto;
-using BestApp.Abstraction.Main.UI;
-using BestApp.MVVM.Helper;
-using BestApp.MVVM.Navigation;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Helper;
 using BestApp.ViewModels.Movies.ItemViewModel;
-using Logging.Aspects;
 
 namespace BestApp.ViewModels.Movies
 {

@@ -1,6 +1,6 @@
-﻿using Base.MVVM.Events;
+﻿using Base.Aspect;
+using Base.MVVM.Events;
 using Base.MVVM.Navigation;
-using Logging.Aspects;
 using INavigationParameters = Base.MVVM.Navigation.INavigationParameters;
 
 namespace Base.MVVM.ViewModels
@@ -72,13 +72,13 @@ namespace Base.MVVM.ViewModels
         }
 
         [ExcludeFromLog]//manually log
-        public virtual void ResumedFromBackground()
+        public virtual void ResumedFromBackground(object arg)
         {
             injectedServices.LoggingService.Log($"{this.GetType().Name}.ResumedFromBackground() (from base)");
         }
 
         [ExcludeFromLog]//manually log
-        public virtual void PausedToBackground()
+        public virtual void PausedToBackground(object arg)
         {
             injectedServices.LoggingService.Log($"{this.GetType().Name}.PausedToBackground() (from base)");
         }

@@ -16,6 +16,9 @@ using UnitTest.Impl;
 using BestApp.ViewModels.Movies;
 using BestApp.Abstraction.Common.Events;
 using BestApp.MVVM.Navigation;
+using Base.Abstractions.Platform;
+using Base.Abstractions;
+using Base.Abstractions.UI;
 
 namespace IntegrationTest.Base
 {

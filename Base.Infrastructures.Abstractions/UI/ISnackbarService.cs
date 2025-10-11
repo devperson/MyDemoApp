@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestApp.Abstraction.Domain.Entities
+namespace Base.Abstractions.UI;
+public interface ISnackbarService
 {
-    public interface Entity
-    {
-        int Id { get; set; }
-    }
+    void Show(string message, int duration = 2000);
 }

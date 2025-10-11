@@ -1,9 +1,9 @@
-﻿using BestApp.MVVM.Helper;
-using BestApp.MVVM.Navigation;
+﻿using Base.Aspect;
+using Base.MVVM.Helper;
+using Base.MVVM.Navigation;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Events;
 using BestApp.ViewModels.Movies.ItemViewModel;
-using Logging.Aspects;
 
 namespace BestApp.ViewModels.Movies;
 

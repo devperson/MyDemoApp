@@ -1,9 +1,5 @@
-﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Base.Abstractions.Repository;
+using SQLite;
 
 namespace BestApp.Impl.Cross.Infasructures.Repositories.Tables
 {

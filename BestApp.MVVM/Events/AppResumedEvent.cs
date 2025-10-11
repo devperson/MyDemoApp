@@ -1,8 +1,8 @@
-﻿using BestApp.Abstraction.Common.Events;
+﻿using Base.Abstractions.Diagnostic;
 
 namespace Base.MVVM.Events
 {
-    public class AppResumedEvent : SubMessage
+    public class AppResumedEvent : SubMessage<object>
     {
     }
 }
