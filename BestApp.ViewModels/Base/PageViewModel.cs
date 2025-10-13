@@ -8,14 +8,14 @@ using System.Net;
 namespace BestApp.ViewModels.Base
 {
     [LogMethods]
-    public class PageViewModel : AppPageViewModel
+    public class AppPageViewModel : PageViewModel
     {        
         private bool isFirstTimeAppears = true;
         private AppResumedEvent appResumedEvent;
         private AppPausedEvent appPausedEvent;
-        public InjectedServices Services => injectedServices as InjectedServices;
+        public PageInjectedServices Services => injectedServices as PageInjectedServices;
 
-        public PageViewModel(InjectedServices services) : base(services)
+        public AppPageViewModel(PageInjectedServices services) : base(services)
         {
             RefreshCommand = new AsyncCommand(OnRefreshCommand);
 

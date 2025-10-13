@@ -31,7 +31,7 @@ namespace BestApp.X.Droid
 
             //register navigation service            
             container.RegisterInstance(pageNavigationService);
-            container.Register<InjectedServices>(Reuse.Singleton);            
+            container.Register<PageInjectedServices>();
             container.Register<IConstants, ConstantImpl>(Reuse.Singleton);
 
             //register app, infrastructure services

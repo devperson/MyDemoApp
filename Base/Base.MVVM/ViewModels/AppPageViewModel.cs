@@ -6,13 +6,13 @@ using INavigationParameters = Base.MVVM.Navigation.INavigationParameters;
 namespace Base.MVVM.ViewModels
 {
     [LogMethods]
-    public abstract class AppPageViewModel : NavigatingBaseViewModel, IPageLifecycleAware
+    public abstract class PageViewModel : NavigatingBaseViewModel, IPageLifecycleAware
     {        
         private bool isFirstTimeAppears = true;
         private AppResumedEvent appResumedEvent;
         private AppPausedEvent appPausedEvent;
 
-        public AppPageViewModel(PageInjectedServices services) : base(services)
+        public PageViewModel(InjectedServices services) : base(services)
         {
             //RefreshCommand = new AsyncCommand(OnRefreshCommand);
 

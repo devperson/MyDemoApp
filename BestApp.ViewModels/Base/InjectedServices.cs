@@ -6,9 +6,9 @@ using DryIoc;
 
 namespace BestApp.ViewModels.Base
 {
-    public class InjectedServices : PageInjectedServices
+    public class PageInjectedServices : InjectedServices
     {        
-        public InjectedServices(IPageNavigationService navigationService, IContainer container) : base(navigationService, container)
+        public PageInjectedServices(IPageNavigationService navigationService, IContainer container) : base(navigationService, container)
         {
             
         }        

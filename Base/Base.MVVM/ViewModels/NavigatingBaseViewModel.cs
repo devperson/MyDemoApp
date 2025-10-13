@@ -7,10 +7,10 @@ namespace Base.MVVM.ViewModels
 {
     public abstract class NavigatingBaseViewModel : BaseViewModel, INavigationAware
     {
-        protected readonly PageInjectedServices injectedServices;
+        protected readonly InjectedServices injectedServices;
 
         //private ClickUtil bkClUtl = new ClickUtil();  
-        public NavigatingBaseViewModel(PageInjectedServices services)
+        public NavigatingBaseViewModel(InjectedServices services)
         {
             this.BackCommand = new AsyncCommand(OnBackCommand);
             injectedServices = services;

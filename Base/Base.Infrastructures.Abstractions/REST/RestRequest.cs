@@ -8,7 +8,6 @@ namespace Base.Infrastructures.Abstractions.REST
 {
     public class RestRequest
     {
-        
         public string ApiEndpoint { get; set; }
         public Priority Priority { get; set; } = Priority.NORMAL;        
         public TimeoutType TimeoutType { get; set; } = TimeoutType.Small;

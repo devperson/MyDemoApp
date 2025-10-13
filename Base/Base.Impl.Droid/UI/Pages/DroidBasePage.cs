@@ -10,7 +10,7 @@ namespace Base.Impl.Droid.UI.Pages
 {
     public class DroidBasePage : AndroidX.Fragment.App.Fragment, IPage, IDispatchEventListener
     {
-        public AppPageViewModel ViewModel { get; set; }
+        public PageViewModel ViewModel { get; set; }
         protected ILoggingService loggingService { get; set; }
         private Point downPosition;
         private DateTime downTime;

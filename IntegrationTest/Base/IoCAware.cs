@@ -16,6 +16,7 @@ using Base.Abstractions.Diagnostic;
 using Base.MVVM.Navigation;
 using Base.Aspect;
 using Base.Abstractions.Messaging;
+using Base.MVVM.ViewModels;
 
 namespace IntegrationTest.Base
 {
@@ -76,7 +77,7 @@ namespace IntegrationTest.Base
             container.RegisterInstance(mockAlertDialog.Object);
 
             //viewmodels
-            container.Register<InjectedServices>();
+            container.Register<PageInjectedServices>();
             container.RegisterViewModel<MoviesPageViewModel>();
             container.RegisterViewModel<AddEditMoviePageViewModel>();
 

@@ -6,11 +6,11 @@ using BestApp.ViewModels.Movies;
 
 namespace BestApp.ViewModels.Login;
 
-public class LoginPageViewModel : PageViewModel
+public class LoginPageViewModel : AppPageViewModel
 {
     private readonly Lazy<IPreferencesService> preferencesService;
 
-    public LoginPageViewModel(InjectedServices services, Lazy<IPreferencesService> preferencesService) : base(services)
+    public LoginPageViewModel(PageInjectedServices services, Lazy<IPreferencesService> preferencesService) : base(services)
     {
         this.SubmitCommand = new AsyncCommand(OnSubmitCommand);
         this.preferencesService = preferencesService;

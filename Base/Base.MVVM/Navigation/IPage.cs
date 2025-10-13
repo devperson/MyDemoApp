@@ -9,6 +9,6 @@ namespace Base.MVVM.Navigation
 {
     public interface IPage
     {
-        AppPageViewModel ViewModel { get; set; }
+        PageViewModel ViewModel { get; set; }
     }
 }

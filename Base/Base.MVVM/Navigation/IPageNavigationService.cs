@@ -12,9 +12,9 @@ namespace Base.MVVM.Navigation
         Task Navigate(string name, INavigationParameters parameters = null, bool useModalNavigation = false, bool animated = true, bool wrapIntoNav = false);
         Task NavigateToRoot(INavigationParameters parameters);        
         IPage GetCurrentPage();        
-        AppPageViewModel GetCurrentPageModel();
-        AppPageViewModel GetRootPageModel();
-        List<AppPageViewModel> GetNavStackModels();
+        PageViewModel GetCurrentPageModel();
+        PageViewModel GetRootPageModel();
+        List<PageViewModel> GetNavStackModels();
         bool CanNavigateBack { get; }
     }
 }

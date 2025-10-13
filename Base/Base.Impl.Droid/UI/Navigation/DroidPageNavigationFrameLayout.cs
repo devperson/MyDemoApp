@@ -483,13 +483,13 @@ namespace Base.Impl.Droid.UI.Navigation
             }
         }
       
-        public AppPageViewModel GetCurrentPageModel()
+        public PageViewModel GetCurrentPageModel()
         {
             var page = navStack.LastOrDefault();
             return page?.ViewModel;
         }
 
-        public AppPageViewModel GetRootPageModel()
+        public PageViewModel GetRootPageModel()
         {
             var page = navStack.FirstOrDefault();
             return page?.ViewModel;
@@ -523,7 +523,7 @@ namespace Base.Impl.Droid.UI.Navigation
             base.Dispose(disposing);
         }
 
-        public List<AppPageViewModel> GetNavStackModels()
+        public List<PageViewModel> GetNavStackModels()
         {
             var viewModels = navStack.Select(x => x.ViewModel).ToList();
             return viewModels;

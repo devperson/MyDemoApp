@@ -16,7 +16,7 @@ using BestApp.ViewModels.Login;
 namespace BestApp.ViewModels.Movies
 {
     [LogMethods]
-    public class MoviesPageViewModel : PageViewModel
+    public class MoviesPageViewModel : AppPageViewModel
     {        
         private readonly Lazy<IMoviesService> movieService;
         private readonly Lazy<IAlertDialogService> alertDialogService;
@@ -25,7 +25,7 @@ namespace BestApp.ViewModels.Movies
         private AuthErrorEvent authErrorEvent;
         public const string SELECTED_ITEM = "selectedItem";
 
-        public MoviesPageViewModel(InjectedServices services, 
+        public MoviesPageViewModel(PageInjectedServices services, 
             Lazy<IMoviesService> movieService, 
             Lazy<IAlertDialogService> alertDialogService,
             Lazy<IInfrastructureServices> infrastructureServices,

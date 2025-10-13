@@ -14,13 +14,13 @@ namespace Base.MVVM.Navigation
 
         public static void RegisterPageForNavigation<TPage, TViewModel>(this IContainer cr)
             where TPage : IPage
-            where TViewModel : AppPageViewModel
+            where TViewModel : PageViewModel
         {            
             cr.Register<TViewModel>(Reuse.Transient);
             RegisterPageForNavigation(typeof(TViewModel).Name, () => (TPage)Activator.CreateInstance(typeof(TPage)), () => cr.Resolve<TViewModel>());
         }
 
-        private static void RegisterPageForNavigation(string vmName, Func<IPage> createPageFactory, Func<AppPageViewModel> createVmFactory)
+        private static void RegisterPageForNavigation(string vmName, Func<IPage> createPageFactory, Func<PageViewModel> createVmFactory)
         {
             RegisterPageForNavigation(new NavPageInfo
             {
@@ -57,6 +57,6 @@ namespace Base.MVVM.Navigation
     {
         public string VmName { get; set; }
         public Func<IPage> CreatePageFactory { get; set; }
-        public Func<AppPageViewModel> CreateVmFactory { get; set; }
+        public Func<PageViewModel> CreateVmFactory { get; set; }
     }
 }

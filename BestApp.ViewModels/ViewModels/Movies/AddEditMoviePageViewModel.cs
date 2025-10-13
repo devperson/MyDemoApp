@@ -12,7 +12,7 @@ using BestApp.ViewModels.Movies.ItemViewModel;
 namespace BestApp.ViewModels.Movies
 {
     [LogMethods]
-    public class AddEditMoviePageViewModel : PageViewModel
+    public class AddEditMoviePageViewModel : AppPageViewModel
     {
         private readonly Lazy<IMoviesService> movieService;
         private readonly Lazy<IMediaPickerService> mediaPickerService;
@@ -22,7 +22,7 @@ namespace BestApp.ViewModels.Movies
         public const string UPDATE_ITEM = "updateItem";
         public const string REMOVE_ITEM = "removeItem";
 
-        public AddEditMoviePageViewModel(InjectedServices services, 
+        public AddEditMoviePageViewModel(PageInjectedServices services, 
                                       Lazy<IMoviesService> movieService,
                                       Lazy<IMediaPickerService> mediaPickerService,
                                       Lazy<IAlertDialogService> alertDialogService,

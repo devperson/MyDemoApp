@@ -8,9 +8,9 @@ using BestApp.ViewModels.Movies.ItemViewModel;
 namespace BestApp.ViewModels.Movies;
 
 [LogMethods]
-public class MovieDetailPageViewModel : PageViewModel
+public class MovieDetailPageViewModel : AppPageViewModel
 {
-    public MovieDetailPageViewModel(InjectedServices services) : base(services)
+    public MovieDetailPageViewModel(PageInjectedServices services) : base(services)
     {
         this.EditCommand = new AsyncCommand(OnEditCommand);
     }

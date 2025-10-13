@@ -113,13 +113,13 @@ namespace BestApp.X.Droid
             CultureInfo.DefaultThreadCurrentUICulture = englishUSCulture;
         }
 
-        public AppPageViewModel GetCurrentViewModel()
+        public PageViewModel GetCurrentViewModel()
         {
             var vm = this.pageNavigationService.GetCurrentPageModel();
             return vm;
         }
 
-        public AppPageViewModel GetRootPageViewModel()
+        public PageViewModel GetRootPageViewModel()
         {
             var vm = this.pageNavigationService.GetRootPageModel();
             return vm;

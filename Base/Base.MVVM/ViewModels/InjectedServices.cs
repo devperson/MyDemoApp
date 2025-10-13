@@ -5,9 +5,9 @@ using Base.Abstractions.Messaging;
 
 namespace Base.MVVM.ViewModels
 {
-    public class PageInjectedServices
+    public class InjectedServices
     {        
-        public PageInjectedServices(IPageNavigationService navigationService, IContainer container)
+        public InjectedServices(IPageNavigationService navigationService, IContainer container)
         {
             NavigationService = navigationService;
             Container = container;
