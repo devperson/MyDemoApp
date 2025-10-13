@@ -1,5 +1,5 @@
-﻿using Base.Abstractions;
-using Base.Abstractions.Diagnostic;
+﻿using Base.Abstractions.Diagnostic;
+using Base.Abstractions.Messaging;
 using Base.Abstractions.REST;
 using Base.Abstractions.REST.Exceptions;
 using Base.Aspect;

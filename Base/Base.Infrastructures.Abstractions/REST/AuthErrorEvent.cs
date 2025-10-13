@@ -1,6 +1,8 @@
-﻿namespace Base.Abstractions.REST
+﻿using Base.Abstractions.Messaging;
+
+namespace Base.Abstractions.REST
 {
-    public class AuthErrorEvent : Diagnostic.SubMessage<object>
+    public class AuthErrorEvent : SubMessage<object>
     {
         
     }

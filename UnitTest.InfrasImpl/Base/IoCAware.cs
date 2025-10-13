@@ -1,5 +1,6 @@
 ﻿using Base.Abstractions;
 using Base.Abstractions.Diagnostic;
+using Base.Abstractions.Messaging;
 using Base.Abstractions.Platform;
 using Base.Aspect;
 using BestApp.Abstraction.Main.Infasructures;

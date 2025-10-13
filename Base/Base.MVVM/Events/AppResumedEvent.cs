@@ -1,4 +1,4 @@
-﻿using Base.Abstractions.Diagnostic;
+﻿using Base.Abstractions.Messaging;
 
 namespace Base.MVVM.Events
 {

@@ -1,7 +1,6 @@
-﻿using Base.Abstractions;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 
-namespace Base.Abstractions.Diagnostic
+namespace Base.Abstractions.Messaging
 {
     public class SimpleMessageCenter : IMessagesCenter
     {

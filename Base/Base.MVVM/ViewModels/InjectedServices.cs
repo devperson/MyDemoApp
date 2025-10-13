@@ -1,7 +1,7 @@
 ﻿using Base.MVVM.Navigation;
 using DryIoc;
-using Base.Abstractions;
 using Base.Abstractions.Diagnostic;
+using Base.Abstractions.Messaging;
 
 namespace Base.MVVM.ViewModels
 {

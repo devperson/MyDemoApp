@@ -15,6 +15,7 @@ using Base.Abstractions.UI;
 using Base.Abstractions.Diagnostic;
 using Base.MVVM.Navigation;
 using Base.Aspect;
+using Base.Abstractions.Messaging;
 
 namespace IntegrationTest.Base
 {

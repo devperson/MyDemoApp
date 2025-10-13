@@ -1,4 +1,4 @@
-﻿using Base.Abstractions.Diagnostic;
+﻿using Base.Abstractions.Messaging;
 using BestApp.ViewModels.Movies.ItemViewModel;
 
 namespace BestApp.ViewModels.Events;

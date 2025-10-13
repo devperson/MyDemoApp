@@ -9,9 +9,9 @@ using BestApp.Abstraction.Main.Infasructures.REST;
 using Moq;
 using Base.Abstractions.Diagnostic;
 using Base.Abstractions.Platform;
-using Base.Abstractions;
 using Base.Aspect;
 using Base.Infrastructures.Abstractions.Repository;
+using Base.Abstractions.Messaging;
 
 namespace UnitTest.ServiceImpl.Base
 {
