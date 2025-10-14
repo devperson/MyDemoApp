@@ -20,7 +20,7 @@ public class LoginPage : iOSLifecyclePage
 
         var loginNode = new LoginPageNode(this);
         this.SetPageNode(loginNode);
-    }
+    } 
 }
 
 public class LoginPageNode : BasePageNode

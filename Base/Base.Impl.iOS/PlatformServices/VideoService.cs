@@ -65,11 +65,7 @@ public class VideoService : IVideoService
         var export = new AVAssetExportSession(AVAsset.FromUrl(myFileUrl), AVAssetExportSession.PresetMediumQuality);
 
         export.OutputUrl = NSUrl.FromFilename(outputPath);
-#if NET8_0
         export.OutputFileType = AVFileTypes.Mpeg4.GetConstant();
-#else
-            export.OutputFileType = AVFileType.Mpeg4;
-#endif
         export.ShouldOptimizeForNetworkUse = true;
         string result = string.Empty;
         //register cancelation

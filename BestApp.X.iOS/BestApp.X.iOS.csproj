@@ -4,21 +4,20 @@
     <OutputType>Exe</OutputType>    
     <ImplicitUsings>true</ImplicitUsings>
     <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
 
-    <!--
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">		
+		<DefineConstants>$(DefineConstants);SimulCompatibility;</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<MtouchDebug>False</MtouchDebug>
+
+		<!--
       Enable full trimming in Release mode.
       To learn more, see: https://learn.microsoft.com/dotnet/core/deploying/trimming/trimming-options#trimming-granularity
     -->
-    <TrimMode Condition="'$(Configuration)' == 'Release'">full</TrimMode>
-  </PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<MtouchLink>None</MtouchLink>
-		<MtouchDebug>True</MtouchDebug>
-		<NoSymbolStrip>true</NoSymbolStrip>
-		<MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
-		<DefineConstants>$(DefineConstants);SimulCompatibility;</DefineConstants>
-
+		<TrimMode Condition="'$(Configuration)' == 'Release'">full</TrimMode>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -26,7 +25,7 @@
 	  <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\Expression.cs" />
 	  <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\FastExpressionCompiler.cs" />
 	  <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\ImTools.cs" />
-	</ItemGroup>
+	</ItemGroup>	
 	
   <ItemGroup>
     <PackageReference Include="Drastic.SDWebImage" Version="1.0.7" />
