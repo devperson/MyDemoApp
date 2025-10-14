@@ -11,6 +11,7 @@ using BestApp.ViewModels.Extensions;
 using BestApp.ViewModels.Login;
 using BestApp.ViewModels.Movies.ItemViewModel;
 using System.Collections.ObjectModel;
+using Example;
 
 namespace BestApp.ViewModels.Movies
 {
@@ -38,9 +39,6 @@ namespace BestApp.ViewModels.Movies
             AddCommand = new AsyncCommand(OnAddCommand);
             ItemTappedCommand = new AsyncCommand(OnItemTappedCommand);
             MenuTappedCommand = new AsyncCommand(OnMenuTappedCommand);
-
-            authErrorEvent = services.EventAggregator.GetEvent<AuthErrorEvent>();
-            authErrorEvent.Subscribe(HandleAuthErrorEvent);
         }
 
         public ObservableCollection<MovieItemViewModel> MovieItems { get; set; }
@@ -53,7 +51,9 @@ namespace BestApp.ViewModels.Movies
             base.Initialize(parameters);
 
             this.Services.EventAggregator.GetEvent<MovieCellItemUpdatedEvent>().Subscribe(OnMovieCellItemUpdatedEvent);
-                        
+            authErrorEvent = Services.EventAggregator.GetEvent<AuthErrorEvent>();
+            authErrorEvent.Subscribe(HandleAuthErrorEvent);
+
             //init infrastructure services (ie local storage, rest api)
             await infrastructureServices.Value.Start();
             
@@ -235,7 +235,7 @@ namespace BestApp.ViewModels.Movies
             }      
             else
             {
-                snackbarService.Value.ShowError(result.Exception.ToString());
+                Services.LoggingService.TrackError(result.Exception);
             }
         }
 

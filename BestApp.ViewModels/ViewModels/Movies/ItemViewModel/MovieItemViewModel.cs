@@ -22,6 +22,5 @@ namespace BestApp.ViewModels.Movies.ItemViewModel
         public string Name { get; set; }
         public string Overview { get; set; }
         public string PosterUrl { get; set; }
-
     }
 }
