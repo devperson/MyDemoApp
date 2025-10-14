@@ -12,6 +12,7 @@ using Base.MVVM.Helper;
 using Base.MVVM.Navigation;
 using System.Runtime.Serialization;
 using BestApp.ViewModels.Login;
+using Base.Abstractions.UI.Snackbar;
 
 namespace BestApp.ViewModels.Movies
 {

@@ -1,5 +1,7 @@
 ﻿using Android.Views;
 using Base.Abstractions.UI;
+using Base.Impl.Droid.UI.Utils;
+using Base.Impl.UI;
 using Microsoft.Maui.ApplicationModel;
 
 namespace Base.Impl.Droid.UI;
@@ -12,44 +14,7 @@ public class DroidSnackbarService : ISnackbarService
 
     public void Show(string message, int duration = 3000)
     {
-        var activity = Platform.CurrentActivity;
-        var inflater = LayoutInflater.From(activity);
-
-        rootView = activity.Window.DecorView.FindViewById<ViewGroup>(Android.Resource.Id.Content);
-        snackbarView = inflater.Inflate(Resource.Layout.custom_snackbar, rootView, false);
-
-        if (rootView is not FrameLayout)
-        {
-            throw new Exception("To ensure the Snackbar works correctly, it’s recommended to use a FrameLayout as the Activity’s root view.");
-        }
-        
-        var textView = snackbarView.FindViewById<TextView>(Resource.Id.snackbar_text);
-        textView.Text = message;
-
-        rootView.AddView(snackbarView);
-
-        // Make sure it's measured
-        snackbarView.Post(() =>
-        {
-            snackbarView.TranslationY = GetTranslateY(snackbarView); // hide it initially
-        });
-
-        snackbarView.Post(() =>
-        {
-            snackbarView.Animate()
-                .TranslationY(0)
-                .SetDuration(300)
-                .Start();
-
-            isVisible = true;
-
-            // Auto hide after duration
-            snackbarView.PostDelayed(() =>
-            {
-                if (isVisible)
-                    Hide();
-            }, duration);
-        });
+      
     }
 
     public void Hide()
@@ -84,5 +49,59 @@ public class DroidSnackbarService : ISnackbarService
             return marginParams.TopMargin;
         }
         return 0;
+    }
+
+    public void ShowError(string message)
+    {
+        this.Show(message, SeverityType.Error);
+    }
+
+    public void ShowInfo(string message)
+    {
+        this.Show(message, SeverityType.Info);
+    }
+
+    public void Show(string message, SeverityType severityType, int duration = 3000)
+    {
+        var activity = Platform.CurrentActivity;
+        var inflater = LayoutInflater.From(activity);
+
+        rootView = activity.Window.DecorView.FindViewById<ViewGroup>(Android.Resource.Id.Content);
+        snackbarView = inflater.Inflate(Resource.Layout.custom_snackbar, rootView, false);
+        
+        if (rootView is not FrameLayout)
+        {
+            throw new Exception("To ensure the Snackbar works correctly, it’s recommended to use a FrameLayout as the Activity’s root view.");
+        }
+        snackbarView.SetBackgroundColor(severityType.GetBackgroundColor().ToAndroid());
+
+        var textView = snackbarView.FindViewById<TextView>(Resource.Id.snackbar_text);
+        textView.Text = message;
+        textView.SetTextColor(severityType.GetTextColor().ToAndroid());
+
+        rootView.AddView(snackbarView);
+
+        // Make sure it's measured
+        snackbarView.Post(() =>
+        {
+            snackbarView.TranslationY = GetTranslateY(snackbarView); // hide it initially
+        });
+
+        snackbarView.Post(() =>
+        {
+            snackbarView.Animate()
+                .TranslationY(0)
+                .SetDuration(300)
+                .Start();
+
+            isVisible = true;
+
+            // Auto hide after duration
+            snackbarView.PostDelayed(() =>
+            {
+                if (isVisible)
+                    Hide();
+            }, duration);
+        });
     }
 }
