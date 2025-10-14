@@ -1,10 +1,12 @@
-﻿using Drastic.Texture;
+﻿using Base.Impl.Texture.iOS.UI.Utils.XF.Extensions;
+using Base.Impl.UI;
+using Drastic.Texture;
 
 namespace Base.Impl.Texture.iOS.UI.Utils.Styles;
 
 public static class TextStyles
 {
-    public static NSAttributedString Get_pageTitle_Attr(string text, UIColor textColor, bool centerText = true)
+    public static NSAttributedString Get_pageTitle_Attr(string text, bool centerText = true)
     {
         var fullRange = new NSRange(0, text.Length);
         var paragraStyle = new NSMutableParagraphStyle()
@@ -14,7 +16,7 @@ public static class TextStyles
 
         var attrString = new NSMutableAttributedString(text);
         attrString.AddAttribute(UIStringAttributeKey.Font, UIFont.FromName("Sen-Bold", 24), fullRange);
-        attrString.AddAttribute(UIStringAttributeKey.ForegroundColor, textColor, fullRange); //UIColorConstants.LabelColor
+        attrString.AddAttribute(UIStringAttributeKey.ForegroundColor, ColorConstants.DefaultTextColor.ToUIColor(), fullRange); //UIColorConstants.LabelColor
 
         if (centerText)
         {
@@ -24,7 +26,7 @@ public static class TextStyles
         return attrString;
     }
 
-    public static NSAttributedString Get_pageSubTitle_Attr(string text, UIColor textColor, bool centerText = true)
+    public static NSAttributedString Get_pageSubTitle_Attr(string text, bool centerText = true)
     {
         var fullRange = new NSRange(0, text.Length);
         var paragraStyle = new NSMutableParagraphStyle()
@@ -35,7 +37,7 @@ public static class TextStyles
 
         var attrString = new NSMutableAttributedString(text);
         attrString.AddAttribute(UIStringAttributeKey.Font, UIFont.FromName("Sen", 19), fullRange);
-        attrString.AddAttribute(UIStringAttributeKey.ForegroundColor, textColor, fullRange);
+        attrString.AddAttribute(UIStringAttributeKey.ForegroundColor, ColorConstants.DefaultTextColor.ToUIColor(), fullRange);
 
         if (centerText)
         {
@@ -45,18 +47,18 @@ public static class TextStyles
         return attrString;
     }
 
-    public static UIStringAttributes Get_pageMediumTitle_Attr(UIColor textColor)
+    public static UIStringAttributes Get_pageMediumTitle_Attr()
     {
         var txtAttr = new UIStringAttributes();
         txtAttr.Font = UIFont.FromName("Sen", 18);
-        txtAttr.ForegroundColor = textColor;
+        txtAttr.ForegroundColor = ColorConstants.DefaultTextColor.ToUIColor();
 
         return txtAttr;
     }
 
-    public static ASTextNode Create_pageMediumTitleStyle(string text, UIColor textColor)
+    public static ASTextNode Create_pageMediumTitleStyle(string text)
     {        
-        var attrStr = Get_pageMediumTitle_Attr(textColor);
+        var attrStr = Get_pageMediumTitle_Attr();
         var txtNode = new ASTextNode();
         txtNode.AttributedText = new NSAttributedString(text, attrStr); 
         txtNode.MaximumNumberOfLines = 1;
@@ -66,17 +68,17 @@ public static class TextStyles
         return txtNode;
     }
 
-    public static UIStringAttributes Get_pageTitleLoading_Attr(UIColor textColor)
+    public static UIStringAttributes Get_pageTitleLoading_Attr()
     {
         var txtAttr = new UIStringAttributes();
         txtAttr.Font = UIFont.FromName("Sen", 16);
-        txtAttr.ForegroundColor = textColor;
+        txtAttr.ForegroundColor = ColorConstants.DefaultTextColor.ToUIColor();
         
         return txtAttr;
     }
-    public static ASTextNode Create_pageTitleLoadingStyle(UIColor textColor)
+    public static ASTextNode Create_pageTitleLoadingStyle()
     {
-        var txtAttr = Get_pageTitleLoading_Attr(textColor);       
+        var txtAttr = Get_pageTitleLoading_Attr();       
         var attrStr = new NSAttributedString("Updating...", txtAttr);
         var txtNode = new ASTextNode();
         txtNode.AttributedText = attrStr;        
@@ -85,7 +87,7 @@ public static class TextStyles
     }
 
 
-    public static NSAttributedString Create_homepageMediumTitleStyle(string text, UIColor textColor)
+    public static NSAttributedString Create_homepageMediumTitleStyle(string text)
     {
         var fullRange = new NSRange(0, text.Length);
         var paragraStyle = new NSMutableParagraphStyle()
@@ -96,7 +98,7 @@ public static class TextStyles
 
         var attrString = new NSMutableAttributedString(text);
         attrString.AddAttribute(UIStringAttributeKey.Font, UIFont.FromName("Sen", 18), fullRange);
-        attrString.AddAttribute(UIStringAttributeKey.ForegroundColor, textColor, fullRange);
+        attrString.AddAttribute(UIStringAttributeKey.ForegroundColor, ColorConstants.DefaultTextColor.ToUIColor(), fullRange);
         attrString.AddAttribute(UIStringAttributeKey.ParagraphStyle, paragraStyle, fullRange);
 
         return attrString;
@@ -122,20 +124,20 @@ public static class TextStyles
         return txtNode;
     }
 
-    public static UIStringAttributes Create_boldMediumStyle(UIColor textColor)
+    public static UIStringAttributes Create_boldMediumStyle()
     {
         var txtAttr = new UIStringAttributes();
         txtAttr.Font = UIFont.FromName("Sen-Bold", 16);
-        txtAttr.ForegroundColor = textColor;
+        txtAttr.ForegroundColor = ColorConstants.DefaultTextColor.ToUIColor();
 
         return txtAttr;
     }
 
-    public static UIStringAttributes Create_regularMediumStyle(UIColor textColor)
+    public static UIStringAttributes Create_regularMediumStyle()
     {
         var txtAttr = new UIStringAttributes();
         txtAttr.Font = UIFont.FromName("Sen", 16);
-        txtAttr.ForegroundColor = textColor;
+        txtAttr.ForegroundColor = ColorConstants.DefaultTextColor.ToUIColor();
 
         return txtAttr;
     }
@@ -166,24 +168,6 @@ public static class TextStyles
         var txtAttr = new UIStringAttributes();
         txtAttr.Font = UIFont.FromName("Font Awesome 5 Free Solid", size);
         txtAttr.ForegroundColor = color;
-
-        return txtAttr;
-    }
-
-    public static UIStringAttributes Create_chatNotAllowed_Attr(UIColor textColor)
-    {
-        var txtAttr = new UIStringAttributes();
-        txtAttr.Font = UIFont.FromName("Sen-Medium", 15);
-        txtAttr.ForegroundColor = textColor;
-
-        return txtAttr;
-    }
-
-    public static UIStringAttributes Create_chatReplyText_Attr(UIColor textColor)
-    {
-        var txtAttr = new UIStringAttributes();
-        txtAttr.Font = UIFont.FromName("Sen", 15);
-        txtAttr.ForegroundColor = textColor;
 
         return txtAttr;
     }

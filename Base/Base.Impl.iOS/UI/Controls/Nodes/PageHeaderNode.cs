@@ -7,7 +7,7 @@ namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
 {
     public class PageHeaderNode : ASDisplayNode
     {
-        private IconButtonNode leftBtnNode, rightBtnNode;
+        public IconButtonNode leftBtnNode, rightBtnNode;
         private ASDisplayNode leftEmptySpacer, rightEmptySpacer;
         private ASTextNode titleNode;
 
@@ -16,7 +16,8 @@ namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
             this.AutomaticallyManagesSubnodes = true;
 
             this.BackgroundColor = ColorConstants.HeaderBgColor.ToUIColor();
-            this.titleNode = TextStyles.Create_pageMediumTitleStyle(title, ColorConstants.DefaultTextColor.ToUIColor());
+            this.Style.Height = new ASDimension() { value = NumConstants.PageHeaderHeight, unit = ASDimensionUnit.Points };
+            this.titleNode = TextStyles.Create_pageMediumTitleStyle(title);
 
             if (leftIcon != null)
             {
