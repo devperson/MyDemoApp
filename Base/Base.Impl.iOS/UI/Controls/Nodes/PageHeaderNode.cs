@@ -16,7 +16,7 @@ namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
             this.AutomaticallyManagesSubnodes = true;
 
             this.BackgroundColor = ColorConstants.HeaderBgColor.ToUIColor();
-            this.Style.Height = new ASDimension() { value = NumConstants.PageHeaderHeight, unit = ASDimensionUnit.Points };
+            //this.Style.Height = new ASDimension() { value = NumConstants.PageHeaderHeight, unit = ASDimensionUnit.Points };
             this.titleNode = TextStyles.Create_pageMediumTitleStyle(title);
 
             if (leftIcon != null)

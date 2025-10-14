@@ -11,8 +11,8 @@ public class MoviesPage : iOSLifecyclePage
     {
         base.ViewDidLoad();
 
-        var loginNode = new MoviesPageNode(this);
-        SetPageNode(loginNode);
+        var page = new MoviesPageNode(this);
+        SetPageNode(page);
     }
 }
 
@@ -53,6 +53,10 @@ public class MoviesPageNode : BasePageNode
             Children = [ this.headerNode, this.tableNode ]
         };
 
-        return verticalStack;
+        var inset = new ASInsetLayoutSpec();
+        inset.Insets = this.View.SafeAreaInsets;
+        inset.Child = verticalStack;
+
+        return inset;
     }
 }
