@@ -1,25 +1,46 @@
 ﻿using Base.Impl.Texture.iOS.UI.Utils.Styles;
 using Base.Impl.Texture.iOS.UI.Utils.XF.Extensions;
+using Base.Impl.UI;
 using Drastic.Texture;
 
 namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
 {
     public class PageHeaderNode : ASDisplayNode
     {
-        private IconButtonNode btnBackNode;
-        private ASTextNode titleNode;
-        private ASDisplayNode emptyRightButton;
+        private IconButtonNode leftBtnNode, rightBtnNode;
+        private ASDisplayNode leftEmptySpacer, rightEmptySpacer;
+        private ASTextNode titleNode;        
 
-        public PageHeaderNode(string title)
+        public PageHeaderNode(string title, string leftIcon, string rightIcon)
         {
             this.AutomaticallyManagesSubnodes = true;
 
+            this.BackgroundColor = ColorConstants.HeaderBgColor.ToUIColor();
             this.titleNode = TextStyles.Create_pageMediumTitleStyle(title, ColorConstants.DefaultTextColor.ToUIColor());
-            this.btnBackNode = ButtonStyles.CreateIconButton("SvgImages/backarrowblack.svg", ColorConstants.DefaultTextColor.ToUIColor());
 
-            var btnSize = this.btnBackNode.svgNode.Style.PreferredSize.Width + this.btnBackNode.iconPadding;
-            this.emptyRightButton = new ASDisplayNode();
-            this.emptyRightButton.Style.PreferredSize = new CoreGraphics.CGSize(btnSize, btnSize);
+            if (leftIcon != null)
+            {
+                this.leftBtnNode = ButtonStyles.CreateIconButton(leftIcon, ColorConstants.DefaultTextColor.ToUIColor());
+
+                if (rightIcon == null)
+                {
+                    var btnSize = this.leftBtnNode.svgNode.Style.PreferredSize.Width + this.leftBtnNode.iconPadding;
+                    this.rightEmptySpacer = new ASDisplayNode();
+                    this.rightEmptySpacer.Style.PreferredSize = new CGSize(btnSize, btnSize);
+                }
+            }
+
+            if (rightIcon != null)
+            {
+                this.rightBtnNode = ButtonStyles.CreateIconButton(rightIcon, ColorConstants.DefaultTextColor.ToUIColor());
+
+                if (leftIcon == null)
+                {
+                    var btnSize = this.rightBtnNode.svgNode.Style.PreferredSize.Width + this.rightBtnNode.iconPadding;
+                    this.leftEmptySpacer = new ASDisplayNode();
+                    this.leftEmptySpacer.Style.PreferredSize = new CGSize(btnSize, btnSize);
+                }
+            }          
         }
 
         public override ASLayoutSpec LayoutSpecThatFits(ASSizeRange constrainedSize)
@@ -33,11 +54,27 @@ namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
             headerStack.Direction = ASStackLayoutDirection.Horizontal;
             headerStack.Spacing = 0;
             headerStack.AlignItems = ASStackLayoutAlignItems.Center;
-            headerStack.Children = [btnBackNode, centerTitle, emptyRightButton];
+
+            if (leftBtnNode != null && rightBtnNode != null)
+            {
+                headerStack.Children = [leftBtnNode, centerTitle, rightBtnNode];
+            }
+            else if(leftBtnNode != null && rightEmptySpacer != null)
+            {
+                headerStack.Children = [leftBtnNode, centerTitle, rightBtnNode];
+            }
+            else if (leftEmptySpacer != null && rightBtnNode != null)
+            {
+                headerStack.Children = [leftBtnNode, centerTitle, rightBtnNode];
+            }
+            else
+            {
+                headerStack.Children = [centerTitle];
+            }
 
             var headerInset = new ASInsetLayoutSpec();
             headerInset.Child = headerStack;
-            headerInset.Insets = new UIEdgeInsets(0, 15, 0, 15);
+            headerInset.Insets = new UIEdgeInsets(NumConstants.PageHeaderVPadding, NumConstants.PageHeaderHPadding, NumConstants.PageHeaderVPadding, NumConstants.PageHeaderHPadding);
 
             return headerInset;
         }

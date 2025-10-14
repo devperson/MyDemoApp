@@ -1,6 +1,7 @@
 ﻿using Base.Impl.Texture.iOS.Pages;
 using Base.Impl.Texture.iOS.UI.Utils.Styles;
 using Base.Impl.Texture.iOS.UI.Utils.XF.Extensions;
+using Base.Impl.UI;
 using Base.MVVM.ViewModels;
 using Drastic.Texture;
 using System.Collections;

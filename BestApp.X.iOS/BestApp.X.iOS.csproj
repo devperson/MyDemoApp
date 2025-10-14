@@ -25,6 +25,20 @@
 	  <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\Expression.cs" />
 	  <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\FastExpressionCompiler.cs" />
 	  <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\ImTools.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\SvgImages\backarrowblack.svg" />
+	  <None Remove="Resources\SvgImages\deleteblack.svg" />
+	  <None Remove="Resources\SvgImages\edit.svg" />
+	  <None Remove="Resources\SvgImages\logout.svg" />
+	  <None Remove="Resources\SvgImages\plus.svg" />
+	  <None Remove="Resources\SvgImages\threeline.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="..\BestApp.Droid\Bootstrap.cs" Link="Bootstrap.cs" />
+	  <Compile Include="..\BestApp.Droid\ConstantImpl.cs" Link="ConstantImpl.cs" />
 	</ItemGroup>	
 	
   <ItemGroup>

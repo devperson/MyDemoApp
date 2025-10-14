@@ -1,17 +1,12 @@
 ﻿using Base.Abstractions.AppService;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Base.Impl.Texture.iOS.UI.Utils.Styles;
+namespace Base.Impl.UI;
 public class ColorConstants
 {
     public static XfColor PrimaryColor { get; set; } = XfColor.FromHex("#1989FC");
     public static XfColor PrimaryColor2 { get; set; } = XfColor.FromHex("#E1F0FF");
     public static XfColor BgColor { get; set; }= XfColor.FromHex("#FFF9F9FA");
+    public static XfColor HeaderBgColor { get; set; } = XfColor.FromHex("#FFF9F9FA");
     public static XfColor DefaultTextColor = XfColor.FromHex("#353535");
 
 

@@ -1,12 +1,5 @@
 ﻿using Base.Abstractions.AppService;
 using Base.Abstractions.UI;
-using Base.Impl.Texture.iOS.UI.Utils.Styles;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Base.Impl.UI;
 public static class SnackbarColors

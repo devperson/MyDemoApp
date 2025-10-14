@@ -26,12 +26,12 @@ public static class ButtonStyles
         txtAttr.ForegroundColor = UIColor.White;
 
         var btn = new ButtonNode(normalColor, pressedColor);
-        btn.CornerRadius = NumberConstants.BtnHeight / 2;
+        btn.CornerRadius = NumConstants.BtnHeight / 2;
         btn.SetAttributedTitle(new NSAttributedString(text, txtAttr), UIControlState.Normal);
         btn.Style.PreferredLayoutSize = new ASLayoutSize
         {            
             width = new ASDimension { unit = ASDimensionUnit.Auto },
-            height = new ASDimension { unit = ASDimensionUnit.Points, value = NumberConstants.BtnHeight },
+            height = new ASDimension { unit = ASDimensionUnit.Points, value = NumConstants.BtnHeight },
         };
 
         return btn;

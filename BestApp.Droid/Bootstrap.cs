@@ -1,24 +1,34 @@
 ﻿using Base.Abstractions;
 using Base.Abstractions.Diagnostic;
 using Base.Abstractions.PlatformServices;
-using Base.Abstractions.UI;
 using Base.Aspect;
 using Base.MVVM.Navigation;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Login;
 using BestApp.ViewModels.Movies;
-using BestApp.X.Droid.Pages.Login;
-using BestApp.X.Droid.Pages.Movies;
 using DryIoc;
 using Mapster;
 using MapsterMapper;
+using Base.Impl.UI;
 
-namespace BestApp.X.Droid
+
+#if ANDROID
+using BestApp.X.Droid.Pages.Login;
+using BestApp.X.Droid.Pages.Movies;
+#else
+using BestApp.X.iOS.Pages.Login;
+using BestApp.X.iOS.Pages.Movies;
+using BestApp.X.iOS.Utils;
+using Base.Impl.Texture.iOS.UI.Utils.XF.Extensions;
+using Base.Impl.Texture.iOS.UI.Utils.Styles;
+#endif
+
+namespace BestApp.X
 {    
     public class Bootstrap
-    {
-       // private ILoggingService loggingService;
-       public IContainer container { get; set; }    
+    {       
+        public IContainer container { get; set; }
+
         public void RegisterTypes(IPageNavigationService pageNavigationService)
         {
             container = new Container(
@@ -37,18 +47,27 @@ namespace BestApp.X.Droid
             //register app, infrastructure services
             // //register infrastructures            
             Base.Impl.Registrar.RegisterTypes(container);
-            Base.Impl.Droid.Registrar.RegisterTypes(container);
             BestApp.Impl.Cross.Registrar.RegisterTypes(container, mapperConfig);
+
+#if ANDROID
+            Base.Impl.Droid.Registrar.RegisterTypes(container);            
             BestApp.Impl.Droid.Registrar.RegisterTypes(container);
+#else
+            this.SetColors();
+            this.SetNumValues();
+            Base.Impl.iOS.Registrar.RegisterTypes(container);
+            //BestApp.Impl.iOS.Registrar.RegisterTypes(container);
+#endif
 
             var logger = container.Resolve<ILoggingService>();
-            LogMethodsAttribute.LoggingService = logger;            
+            LogMethodsAttribute.LoggingService = logger;
+
 
             //register ViewModel for navigation
             container.RegisterPageForNavigation<LoginPage, LoginPageViewModel>();
             container.RegisterPageForNavigation<MoviesPage, MoviesPageViewModel>();
             container.RegisterPageForNavigation<MovieDetailPage, MovieDetailPageViewModel>();
-            container.RegisterPageForNavigation<AddEditMoviePage, AddEditMoviePageViewModel>();            
+            container.RegisterPageForNavigation<AddEditMoviePage, AddEditMoviePageViewModel>();
         }
 
 
@@ -87,6 +106,25 @@ namespace BestApp.X.Droid
             //    await pageNavigationService.Navigate($"/{nameof(LoginViewModel)}", animated: false);
             //}
         }
+
+#if IOS
+        private void SetColors()
+        {
+            ColorConstants.PrimaryColor = UIColorConstants.BlueColor.ToColor();
+            ColorConstants.PrimaryColor2 = UIColorConstants.BlueColor2.ToColor();
+            ColorConstants.BgColor = UIColorConstants.Gray100.ToColor();
+            ColorConstants.HeaderBgColor = UIColorConstants.Gray300.ToColor();
+            ColorConstants.DefaultTextColor = UIColorConstants.LabelColor.ToColor();
+        }
+
+        private void SetNumValues()
+        {
+            NumConstants.PageHMargin = NumberConstants.PageHMargin;            
+            NumConstants.PageHeaderHeight = NumberConstants.PageHeaderHeight;
+            NumConstants.PageHeaderHPadding = NumberConstants.PageHeaderHPadding;
+            NumConstants.BtnHeight = NumberConstants.BtnHeight;
+        }
+#endif
 
         //private void LogDeviceAppDetails(AccountService userService)
         //{

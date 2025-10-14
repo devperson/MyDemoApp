@@ -22,12 +22,21 @@
     <array>
         <string>armv7</string>
     </array>
-    <key>UISupportedInterfaceOrientations</key>
+
+	<key>UIAppFonts</key>
+	<array>
+		<string>Sen-Bold.ttf</string>
+		<string>Sen-Medium.ttf</string>
+		<string>Sen-Regular.ttf</string>
+		<string>Sen-SemiBold.ttf</string>		
+	</array>
+
+	<key>UISupportedInterfaceOrientations</key>
     <array>
         <string>UIInterfaceOrientationPortrait</string>
         <string>UIInterfaceOrientationLandscapeLeft</string>
         <string>UIInterfaceOrientationLandscapeRight</string>
-    </array>
+    </array>	
     <key>UISupportedInterfaceOrientations~ipad</key>
     <array>
         <string>UIInterfaceOrientationPortrait</string>

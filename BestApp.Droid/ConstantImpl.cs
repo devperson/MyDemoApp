@@ -1,6 +1,6 @@
 ﻿using Base.Abstractions;
 
-namespace BestApp.X.Droid
+namespace BestApp.X
 {
     internal class ConstantImpl : IConstants
     {
