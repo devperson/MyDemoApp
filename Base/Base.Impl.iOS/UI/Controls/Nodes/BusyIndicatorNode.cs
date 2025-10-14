@@ -12,9 +12,6 @@ public class BusyIndicatorNode : ASDisplayNode
     private RectangleNode rectangleNode;
     public bool IsShowing { get; set; }
 
-    public UIColor Color { get; set; } = XfColor.FromHex("").ToUIColor();
-    public UIColor BgColor { get; set; }
-
     public BusyIndicatorNode()
     {
         this.AutomaticallyManagesSubnodes = true;

@@ -1,5 +1,6 @@
 ﻿using Base.Abstractions.AppService;
 using Base.Impl.Texture.iOS.UI.Utils.XF.Extensions;
+using Base.Impl.UI;
 using Drastic.Texture;
 
 namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
@@ -8,7 +9,7 @@ namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
     {        
         private int minAllowedHeight = 45;
         public UIColor NormalBorderColor { get; set; } = UIColor.Clear;
-        public UIColor FocusedBorderColor { get; set; } = XfColor.FromHex("#1989FC").ToUIColor();
+        public UIColor FocusedBorderColor { get; set; } = ColorConstants.PrimaryColor.ToUIColor();
 
         public UITextField TextField { get; set; }
 

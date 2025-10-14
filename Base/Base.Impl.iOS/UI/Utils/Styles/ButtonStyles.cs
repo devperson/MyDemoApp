@@ -1,4 +1,6 @@
 ﻿using Base.Impl.Texture.iOS.UI.Controls.Nodes;
+using Base.Impl.Texture.iOS.UI.Utils.XF.Extensions;
+using Base.Impl.UI;
 using Drastic.Texture;
 
 namespace Base.Impl.Texture.iOS.UI.Utils.Styles;
@@ -19,13 +21,13 @@ public static class ButtonStyles
     //    return iconBtn;
     //}
 
-    public static ButtonNode CreatePrimaryButton(string text, UIColor normalColor, UIColor pressedColor) //UIColorConstants.BlueColor, UIColorConstants.DarkBlueColor
+    public static ButtonNode CreatePrimaryButton(string text) 
     {        
         var txtAttr = new UIStringAttributes();
         txtAttr.Font = UIFont.FromName("Sen-Bold", 18);
         txtAttr.ForegroundColor = UIColor.White;
 
-        var btn = new ButtonNode(normalColor, pressedColor);
+        var btn = new ButtonNode(ColorConstants.PrimaryColor.ToUIColor(), ColorConstants.PrimaryDark.ToUIColor());
         btn.CornerRadius = NumConstants.BtnHeight / 2;
         btn.SetAttributedTitle(new NSAttributedString(text, txtAttr), UIControlState.Normal);
         btn.Style.PreferredLayoutSize = new ASLayoutSize

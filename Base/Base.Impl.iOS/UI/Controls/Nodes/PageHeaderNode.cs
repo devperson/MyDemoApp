@@ -9,9 +9,9 @@ namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
     {
         private IconButtonNode leftBtnNode, rightBtnNode;
         private ASDisplayNode leftEmptySpacer, rightEmptySpacer;
-        private ASTextNode titleNode;        
+        private ASTextNode titleNode;
 
-        public PageHeaderNode(string title, string leftIcon, string rightIcon)
+        public PageHeaderNode(string title, string leftIcon = null, string rightIcon = null)
         {
             this.AutomaticallyManagesSubnodes = true;
 
@@ -40,7 +40,7 @@ namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
                     this.leftEmptySpacer = new ASDisplayNode();
                     this.leftEmptySpacer.Style.PreferredSize = new CGSize(btnSize, btnSize);
                 }
-            }          
+            }
         }
 
         public override ASLayoutSpec LayoutSpecThatFits(ASSizeRange constrainedSize)

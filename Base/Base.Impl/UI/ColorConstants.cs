@@ -5,6 +5,7 @@ public class ColorConstants
 {
     public static XfColor PrimaryColor { get; set; } = XfColor.FromHex("#1989FC");
     public static XfColor PrimaryColor2 { get; set; } = XfColor.FromHex("#E1F0FF");
+    public static XfColor PrimaryDark { get; set; } = XfColor.FromHex("#FF0960BB");
     public static XfColor BgColor { get; set; }= XfColor.FromHex("#FFF9F9FA");
     public static XfColor HeaderBgColor { get; set; } = XfColor.FromHex("#FFF9F9FA");
     public static XfColor DefaultTextColor = XfColor.FromHex("#353535");
