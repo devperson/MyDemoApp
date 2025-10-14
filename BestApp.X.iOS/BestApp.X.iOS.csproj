@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0-ios</TargetFramework>
-    <OutputType>Exe</OutputType>
-    <Nullable>enable</Nullable>
+    <OutputType>Exe</OutputType>    
     <ImplicitUsings>true</ImplicitUsings>
     <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
 
@@ -42,9 +41,6 @@
     <ProjectReference Include="..\BestApp.Impl.iOS\BestApp.Impl.iOS.csproj" />
     <ProjectReference Include="..\BestApp.Impl\BestApp.Impl.Cross.csproj" />
     <ProjectReference Include="..\BestApp.ViewModels\BestApp.ViewModels.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\" />
   </ItemGroup>
 
 

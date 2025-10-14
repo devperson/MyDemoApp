@@ -1,18 +1,16 @@
-﻿using BestApp.Abstraction.Main.AppService;
-using BestApp.Abstraction.Main.Infasructures;
-using BestApp.ViewModels.Base;
-using BestApp.ViewModels.Movies.ItemViewModel;
-using System.Collections.ObjectModel;
-using BestApp.ViewModels.Extensions;
-using BestApp.ViewModels.Events;
+﻿using Base.Abstractions.REST;
 using Base.Abstractions.UI;
-using Base.Abstractions.REST;
 using Base.Aspect;
 using Base.MVVM.Helper;
 using Base.MVVM.Navigation;
-using System.Runtime.Serialization;
+using BestApp.Abstraction.Main.AppService;
+using BestApp.Abstraction.Main.Infasructures;
+using BestApp.ViewModels.Base;
+using BestApp.ViewModels.Events;
+using BestApp.ViewModels.Extensions;
 using BestApp.ViewModels.Login;
-using Base.Abstractions.UI.Snackbar;
+using BestApp.ViewModels.Movies.ItemViewModel;
+using System.Collections.ObjectModel;
 
 namespace BestApp.ViewModels.Movies
 {
@@ -237,7 +235,7 @@ namespace BestApp.ViewModels.Movies
             }      
             else
             {
-                snackbarService.Value.Show(result.Exception.ToString());
+                snackbarService.Value.ShowError(result.Exception.ToString());
             }
         }
 

@@ -30,6 +30,7 @@
 	  <Compile Include="..\Base.Impl.Droid\PlatformServices\PreferencesService.cs" Link="PlatformServices\PreferencesService.cs" />
 	  <Compile Include="..\Base.Impl.Droid\PlatformServices\ShareFileService.cs" Link="PlatformServices\ShareFileService.cs" />
 	  <Compile Include="..\Base.Impl.Droid\PlatformServices\ZipService.cs" Link="PlatformServices\ZipService.cs" />
+	  <Compile Include="..\Base.Impl.Droid\UI\MediaPickerService.cs" Link="UI\MediaPickerService.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

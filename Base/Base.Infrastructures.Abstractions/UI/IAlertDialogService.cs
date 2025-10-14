@@ -8,8 +8,9 @@ namespace Base.Abstractions.UI;
 
 public interface IAlertDialogService
 {
+    Task DisplayAlert(string title, string message, string cancel = "Close");
     Task<bool> ConfirmAlert(string title, string message, params string[] buttons);
-    Task DisplayAlert(string title, string message);
+    
 
     Task<string> DisplayActionSheet(string title, string cancel, string destruction, params string[] buttons);
     Task<string> DisplayActionSheet(string title, params string[] buttons);    

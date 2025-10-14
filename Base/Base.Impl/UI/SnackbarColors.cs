@@ -1,5 +1,6 @@
 ﻿using Base.Abstractions.AppService;
 using Base.Abstractions.UI;
+using Base.Impl.Texture.iOS.UI.Utils.Styles;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,20 +14,20 @@ public static class SnackbarColors
     public static XfColor GetBackgroundColor(this SeverityType severty)
     {
         if (severty == SeverityType.Info)
-            return XfColor.FromHex("#E1F0FF");
+            return ColorConstants.InfoColor;
         else if (severty == SeverityType.Error || severty == SeverityType.Warning)
-            return XfColor.FromHex("#FFEAEB");
+            return ColorConstants.ErrorColor;
         else
-            return XfColor.FromHex("#FFCDFFCD");
+            return ColorConstants.SuccessColor;
     }
 
     public static XfColor GetTextColor(this SeverityType severty)
     {
         if (severty == SeverityType.Info)
-            return XfColor.FromHex("#FFF9F9FA");
+            return ColorConstants.InfoTextColor;
         else if (severty == SeverityType.Error || severty == SeverityType.Warning)
-            return XfColor.FromHex("#ff4444");
+            return ColorConstants.ErrorTextColor;
         else
-            return XfColor.FromHex("#FF114338");
+            return ColorConstants.SuccessTextColor;
     }
 }
