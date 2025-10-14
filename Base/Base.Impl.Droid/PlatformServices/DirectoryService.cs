@@ -1,4 +1,4 @@
-﻿using Base.Abstractions.Platform;
+﻿using Base.Abstractions.PlatformServices;
 using Microsoft.Maui.Storage;
 
 namespace Base.Impl.PlatformServices

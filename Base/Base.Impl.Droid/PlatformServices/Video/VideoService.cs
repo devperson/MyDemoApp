@@ -1,7 +1,7 @@
 ﻿using Android.Content;
 using Android.Media;
 using Base.Abstractions.Diagnostic;
-using Base.Abstractions.Platform;
+using Base.Abstractions.PlatformServices;
 using Microsoft.Maui.ApplicationModel;
 
 namespace Base.Impl.Droid.PlatformServices.Video;

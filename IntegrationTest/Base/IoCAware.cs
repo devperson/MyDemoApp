@@ -9,7 +9,7 @@ using Mapster;
 using MapsterMapper;
 using UnitTest.Impl;
 using BestApp.ViewModels.Movies;
-using Base.Abstractions.Platform;
+using Base.Abstractions.PlatformServices;
 using Base.Abstractions;
 using Base.Abstractions.UI;
 using Base.Abstractions.Diagnostic;

@@ -1,4 +1,4 @@
-﻿using Base.Abstractions.Platform;
+﻿using Base.Abstractions.PlatformServices;
 
 namespace UnitTest.ViewModel.Impl
 {

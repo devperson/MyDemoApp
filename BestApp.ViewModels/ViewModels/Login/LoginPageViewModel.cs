@@ -1,4 +1,4 @@
-﻿using Base.Abstractions.Platform;
+﻿using Base.Abstractions.PlatformServices;
 using Base.MVVM.Helper;
 using Base.MVVM.Navigation;
 using BestApp.ViewModels.Base;

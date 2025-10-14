@@ -1,5 +1,5 @@
 ﻿using Base.Abstractions.Diagnostic;
-using Base.Abstractions.Platform;
+using Base.Abstractions.PlatformServices;
 using System.Text;
 
 namespace Base.Impl.Common

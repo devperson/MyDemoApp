@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0-ios</TargetFramework>
     <OutputType>Exe</OutputType>
@@ -12,4 +12,51 @@
     -->
     <TrimMode Condition="'$(Configuration)' == 'Release'">full</TrimMode>
   </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<MtouchLink>None</MtouchLink>
+		<MtouchDebug>True</MtouchDebug>
+		<NoSymbolStrip>true</NoSymbolStrip>
+		<MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
+		<DefineConstants>$(DefineConstants);SimulCompatibility;</DefineConstants>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\Container.cs" />
+	  <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\Expression.cs" />
+	  <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\FastExpressionCompiler.cs" />
+	  <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\ImTools.cs" />
+	</ItemGroup>
+	
+  <ItemGroup>
+    <PackageReference Include="Drastic.SDWebImage" Version="1.0.7" />
+    <PackageReference Include="Drastic.Texture" Version="1.0.0" />
+    <PackageReference Include="DryIoc" Version="4.5.0" />
+    <PackageReference Include="MethodDecorator.Fody" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.82" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Base\Base.Impl.iOS\Base.Impl.iOS.csproj" />
+    <ProjectReference Include="..\BestApp.Impl.iOS\BestApp.Impl.iOS.csproj" />
+    <ProjectReference Include="..\BestApp.Impl\BestApp.Impl.Cross.csproj" />
+    <ProjectReference Include="..\BestApp.ViewModels\BestApp.ViewModels.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
+
+
+	<Choose>
+		<When Condition="$(DefineConstants.Contains(SimulCompatibility)) != true">
+			<ItemGroup>				
+				<PackageReference Include="Drastic.SDWebImage" Version="1.0.7" />				
+			</ItemGroup>
+
+			<ItemGroup>
+				<ProjectReference Include="..\..\SvgKit.NET.iOS\SvgKit.NET.iOS.csproj" />				
+			</ItemGroup>
+		</When>
+	</Choose>
 </Project>

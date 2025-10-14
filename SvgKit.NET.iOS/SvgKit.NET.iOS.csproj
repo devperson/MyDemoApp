@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-ios</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>true</ImplicitUsings>
+    <IsBindingProject>true</IsBindingProject>
+  </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
+  <ItemGroup>
+    <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
+    <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<NativeReference Include="CocoaLumberjack.framework">
+			<Kind>Framework</Kind>
+			<Frameworks></Frameworks>
+			<LinkerFlags></LinkerFlags>
+			<WeakFrameworks>
+			</WeakFrameworks>
+			<ForceLoad>False</ForceLoad>
+			<NeedsGccExceptionHandling>False</NeedsGccExceptionHandling>
+			<IsCxx>False</IsCxx>
+			<SmartLink>False</SmartLink>
+		</NativeReference>
+		<NativeReference Include="SVGKit.framework">
+			<Kind>Framework</Kind>
+			<Frameworks>QuartzCore CoreText CoreGraphics CoreImage UIKit</Frameworks>
+			<LinkerFlags>-lxml2 -ObjC</LinkerFlags>
+			<WeakFrameworks>
+			</WeakFrameworks>
+			<ForceLoad>False</ForceLoad>
+			<NeedsGccExceptionHandling>False</NeedsGccExceptionHandling>
+			<IsCxx>False</IsCxx>
+			<SmartLink>False</SmartLink>
+		</NativeReference>
+	</ItemGroup>
+
+</Project>

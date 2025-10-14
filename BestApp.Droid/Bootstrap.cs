@@ -1,6 +1,6 @@
 ﻿using Base.Abstractions;
 using Base.Abstractions.Diagnostic;
-using Base.Abstractions.Platform;
+using Base.Abstractions.PlatformServices;
 using Base.Abstractions.UI;
 using Base.Aspect;
 using Base.MVVM.Navigation;

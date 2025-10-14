@@ -1,4 +1,4 @@
-﻿using Base.Abstractions.Platform;
+﻿using Base.Abstractions.PlatformServices;
 using Base.Abstractions.UI;
 using Base.Impl.iOS.Platform;
 using Base.Impl.iOS.UI;

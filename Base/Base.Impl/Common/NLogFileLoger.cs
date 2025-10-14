@@ -3,7 +3,7 @@ using NLog.Targets;
 using NLog;
 using System.IO.Compression;
 using Base.Abstractions.Diagnostic;
-using Base.Abstractions.Platform;
+using Base.Abstractions.PlatformServices;
 
 namespace Base.Impl.Common
 {

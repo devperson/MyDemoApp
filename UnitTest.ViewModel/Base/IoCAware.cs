@@ -1,7 +1,7 @@
 ﻿using Base.Abstractions.AppService;
 using Base.Abstractions.Diagnostic;
 using Base.Abstractions.Messaging;
-using Base.Abstractions.Platform;
+using Base.Abstractions.PlatformServices;
 using Base.Abstractions.REST;
 using Base.Abstractions.UI;
 using Base.Aspect;

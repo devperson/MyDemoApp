@@ -1,6 +1,6 @@
 ﻿using Base.Abstractions.Diagnostic;
 using Base.Abstractions.Messaging;
-using Base.Abstractions.Platform;
+using Base.Abstractions.PlatformServices;
 using BestApp.Abstraction.Main.Infasructures.Events;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.ApplicationModel.Communication;
@@ -8,7 +8,7 @@ using Microsoft.Maui.Devices;
 using Microsoft.Maui.Networking;
 using Newtonsoft.Json;
 using System.Reflection;
-using DeviceInfo = Base.Abstractions.Platform.DeviceInfo;
+using DeviceInfo = Base.Abstractions.PlatformServices.DeviceInfo;
 using EssentialDeviceInfo = Microsoft.Maui.Devices.DeviceInfo;
 
 
