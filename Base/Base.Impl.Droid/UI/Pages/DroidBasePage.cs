@@ -15,13 +15,6 @@ namespace Base.Impl.Droid.UI.Pages
         private Point downPosition;
         private DateTime downTime;
 
-        /// <summary>
-        /// Indicates is wether page was navigated with animation. 
-        /// It is usefull when navigating back (pop) to check if we need to apply animation for navigation back, 
-        /// so it will be consistent with forward (push) navigation. 
-        /// </summary>
-        internal bool pushNavAnimated;
-
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

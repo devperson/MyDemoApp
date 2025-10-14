@@ -39,7 +39,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base.MVVM", "Base\Base.MVVM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base.Impl.Droid", "Base\Base.Impl.Droid\Base.Impl.Droid.csproj", "{40FF9CAE-E004-4255-3C5F-D5F093D6BAF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base.Impl.iOS", "Base\Base.Impl.iOS\Base.Impl.iOS.csproj", "{E681AB03-16BC-0392-7618-29B68764CED0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base.Impl.Texture.iOS", "Base\Base.Impl.iOS\Base.Impl.Texture.iOS.csproj", "{E681AB03-16BC-0392-7618-29B68764CED0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestApp.Impl.Droid", "BestApp.Impl.Droid\BestApp.Impl.Droid.csproj", "{F11AC89B-5178-46E5-A988-AE532498846C}"
 EndProject

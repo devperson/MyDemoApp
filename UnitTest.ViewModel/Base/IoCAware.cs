@@ -4,6 +4,7 @@ using Base.Abstractions.Messaging;
 using Base.Abstractions.PlatformServices;
 using Base.Abstractions.REST;
 using Base.Abstractions.UI;
+using Base.Abstractions.UI.Snackbar;
 using Base.Aspect;
 using Base.MVVM.Events;
 using Base.MVVM.Navigation;

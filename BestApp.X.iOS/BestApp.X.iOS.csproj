@@ -1,25 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0-ios</TargetFramework>
-    <OutputType>Exe</OutputType>
-    <Nullable>enable</Nullable>
+    <OutputType>Exe</OutputType>    
     <ImplicitUsings>true</ImplicitUsings>
     <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
 
-    <!--
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">		
+		<DefineConstants>$(DefineConstants);SimulCompatibility;</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<MtouchDebug>False</MtouchDebug>
+
+		<!--
       Enable full trimming in Release mode.
       To learn more, see: https://learn.microsoft.com/dotnet/core/deploying/trimming/trimming-options#trimming-granularity
     -->
-    <TrimMode Condition="'$(Configuration)' == 'Release'">full</TrimMode>
-  </PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<MtouchLink>None</MtouchLink>
-		<MtouchDebug>True</MtouchDebug>
-		<NoSymbolStrip>true</NoSymbolStrip>
-		<MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
-		<DefineConstants>$(DefineConstants);SimulCompatibility;</DefineConstants>
-
+		<TrimMode Condition="'$(Configuration)' == 'Release'">full</TrimMode>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -28,6 +26,20 @@
 	  <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\FastExpressionCompiler.cs" />
 	  <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\ImTools.cs" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\SvgImages\backarrowblack.svg" />
+	  <None Remove="Resources\SvgImages\deleteblack.svg" />
+	  <None Remove="Resources\SvgImages\edit.svg" />
+	  <None Remove="Resources\SvgImages\logout.svg" />
+	  <None Remove="Resources\SvgImages\plus.svg" />
+	  <None Remove="Resources\SvgImages\threeline.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="..\BestApp.Droid\Bootstrap.cs" Link="Bootstrap.cs" />
+	  <Compile Include="..\BestApp.Droid\ConstantImpl.cs" Link="ConstantImpl.cs" />
+	</ItemGroup>	
 	
   <ItemGroup>
     <PackageReference Include="Drastic.SDWebImage" Version="1.0.7" />
@@ -38,13 +50,10 @@
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Base\Base.Impl.iOS\Base.Impl.iOS.csproj" />
+    <ProjectReference Include="..\Base\Base.Impl.iOS\Base.Impl.Texture.iOS.csproj" />
     <ProjectReference Include="..\BestApp.Impl.iOS\BestApp.Impl.iOS.csproj" />
     <ProjectReference Include="..\BestApp.Impl\BestApp.Impl.Cross.csproj" />
     <ProjectReference Include="..\BestApp.ViewModels\BestApp.ViewModels.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\" />
   </ItemGroup>
 
 

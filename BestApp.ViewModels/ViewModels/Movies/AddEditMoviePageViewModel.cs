@@ -17,7 +17,7 @@ namespace BestApp.ViewModels.Movies
         private readonly Lazy<IMoviesService> movieService;
         private readonly Lazy<IMediaPickerService> mediaPickerService;
         private readonly Lazy<IAlertDialogService> alertDialogService;
-        private readonly Lazy<IPopupAlert> popupAlert;        
+        private readonly Lazy<ISnackbarService> snackbar;
         public const string NEW_ITEM = "newItem";
         public const string UPDATE_ITEM = "updateItem";
         public const string REMOVE_ITEM = "removeItem";
@@ -26,13 +26,12 @@ namespace BestApp.ViewModels.Movies
                                       Lazy<IMoviesService> movieService,
                                       Lazy<IMediaPickerService> mediaPickerService,
                                       Lazy<IAlertDialogService> alertDialogService,
-                                      Lazy<IPopupAlert> popupAlert) : base(services)
+                                      Lazy<ISnackbarService> snackbar) : base(services)
         {            
             this.movieService = movieService;
             this.mediaPickerService = mediaPickerService;            
             this.alertDialogService = alertDialogService;
-            this.popupAlert = popupAlert;
-
+            this.snackbar = snackbar;
             SaveCommand = new AsyncCommand(OnSaveCommand);
             ChangePhotoCommand = new AsyncCommand(OnChangePhotoCommand);
             DeleteCommand = new AsyncCommand(OnDeleteCommand);
@@ -117,7 +116,7 @@ namespace BestApp.ViewModels.Movies
                     }
                     else
                     {
-                        await popupAlert.Value.ShowError(CommonStrings.GeneralError);
+                        snackbar.Value.ShowError(CommonStrings.GeneralError);
                     }
                 }
             }
@@ -133,12 +132,12 @@ namespace BestApp.ViewModels.Movies
             {
                 if (string.IsNullOrEmpty(this.Model.Name))
                 {
-                    await popupAlert.Value.ShowError("The Name field is required");
+                    snackbar.Value.ShowError("The Name field is required");
                     return;
                 }
                 else if (string.IsNullOrEmpty(this.Model.Overview))
                 {
-                    await popupAlert.Value.ShowError("The Overview field is required");
+                    snackbar.Value.ShowError("The Overview field is required");
                     return;
                 }
 
@@ -172,7 +171,7 @@ namespace BestApp.ViewModels.Movies
                 }
                 else
                 {
-                    await popupAlert.Value.ShowError(CommonStrings.GeneralError);
+                    snackbar.Value.ShowError(CommonStrings.GeneralError);
                 }                   
             }                        
             catch (Exception ex)

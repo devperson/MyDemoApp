@@ -17,6 +17,7 @@ using Base.MVVM.Navigation;
 using Base.Aspect;
 using Base.Abstractions.Messaging;
 using Base.MVVM.ViewModels;
+using Base.Abstractions.UI.Snackbar;
 
 namespace IntegrationTest.Base
 {

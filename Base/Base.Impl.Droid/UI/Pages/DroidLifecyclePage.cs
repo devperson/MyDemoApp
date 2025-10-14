@@ -18,9 +18,15 @@ namespace Base.Impl.Droid.UI.Pages
         //private SeverityType severity;
         private FrameLayout loadingView;
         private TextView txtLoadingMsg;
-        private DroidPageEnterAnimationListner pageAnimationListener;
-        //private ILogging pageLogger;//conditional logger: that will log if user enables it
+        private DroidPageEnterAnimationListner pageAnimationListener;        
         private ViewGroup rootLayout;
+
+        /// <summary>
+        /// Indicates is wether page was navigated with animation. 
+        /// It is usefull when navigating back (pop) to check if we need to apply animation for navigation back, 
+        /// so it will be consistent with forward (push) navigation. 
+        /// </summary>
+        internal bool pushNavAnimated;
 
         public bool IsPageEnterAnimationCompleted { get; set; }
 

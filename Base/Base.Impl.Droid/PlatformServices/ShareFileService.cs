@@ -1,7 +1,8 @@
 ﻿using Base.Abstractions.PlatformServices;
 using Microsoft.Maui.ApplicationModel.DataTransfer;
+using System.Threading.Tasks;
 
-namespace Base.Impl.Droid.PlatformServices;
+namespace Base.Impl.PlatformServices;
 
 public class ShareFileService : IShareFileService
 {

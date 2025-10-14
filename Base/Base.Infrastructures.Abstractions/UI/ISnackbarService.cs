@@ -7,5 +7,16 @@ using System.Threading.Tasks;
 namespace Base.Abstractions.UI;
 public interface ISnackbarService
 {
-    void Show(string message, int duration = 2000);
+    void ShowError(string message);
+    void ShowInfo(string message);    
+    void Show(string message, SeverityType severityType, int duration = 3000);
 }
+
+public enum SeverityType
+{
+    Info,
+    Success,
+    Warning,
+    Error
+}
+

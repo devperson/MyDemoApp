@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">	
 	<PropertyGroup>
-		<TargetFramework>net8.0-ios</TargetFramework>
+		<TargetFramework>net9.0-ios</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<DefineConstants>$(DefineConstants);IOS_NET</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -22,18 +23,29 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Include="..\Base.Impl.Droid\PlatformServices\DeviceInfoService.cs" Link="PlatformServices\DeviceInfoService.cs" />
+	  <Compile Include="..\Base.Impl.Droid\PlatformServices\DeviceThreadService.cs" Link="PlatformServices\DeviceThreadService.cs" />
 	  <Compile Include="..\Base.Impl.Droid\PlatformServices\DirectoryService.cs" Link="PlatformServices\DirectoryService.cs" />
+	  <Compile Include="..\Base.Impl.Droid\PlatformServices\KeyboardResizeTypeService.cs" Link="PlatformServices\KeyboardResizeTypeService.cs" />
+	  <Compile Include="..\Base.Impl.Droid\PlatformServices\PreferencesService.cs" Link="PlatformServices\PreferencesService.cs" />
+	  <Compile Include="..\Base.Impl.Droid\PlatformServices\ShareFileService.cs" Link="PlatformServices\ShareFileService.cs" />
+	  <Compile Include="..\Base.Impl.Droid\PlatformServices\ZipService.cs" Link="PlatformServices\ZipService.cs" />
+	  <Compile Include="..\Base.Impl.Droid\UI\MediaPickerService.cs" Link="UI\MediaPickerService.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Drastic.Texture" Version="1.0.0" />
 		<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.82" />
 		<PackageReference Include="MethodDecorator.Fody" Version="1.1.1" />
 		<PackageReference Include="Fody" Version="6.5.1" />
 		<PackageReference Include="DryIoc.dll" Version="4.5.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Base.Aspect\Base.Aspect.csproj" />
 	  <ProjectReference Include="..\Base.Infrastructures.Abstractions\Base.Abstractions.csproj" />
+	  <ProjectReference Include="..\Base.MVVM\Base.MVVM.csproj" />
+	  <ProjectReference Include="..\Base.Impl\Base.Impl.csproj" />
 	</ItemGroup>
 </Project>

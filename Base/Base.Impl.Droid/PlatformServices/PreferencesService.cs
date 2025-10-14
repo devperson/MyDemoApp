@@ -1,7 +1,8 @@
 ﻿using Base.Abstractions.PlatformServices;
 using Microsoft.Maui.Storage;
+using System;
 
-namespace Base.Impl.Droid.PlatformServices
+namespace Base.Impl.PlatformServices
 {
     public class PreferencesService : IPreferencesService
     {

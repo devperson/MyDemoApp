@@ -17,11 +17,10 @@ namespace Base.Impl.Droid
         public static void RegisterTypes(IContainer container)
         {
             appContainer = container;
+
             container.Register<IPreferencesService, PreferencesService>(Reuse.Singleton);
-            container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
-            container.Register<IPopupAlert, MockPopup>(Reuse.Singleton);
-            container.Register<IPlatformErrorService, PlatformErrorService>(Reuse.Singleton);
-            container.Register<IAlertDialogService, DroidAlertDialogService>(Reuse.Singleton);
+            container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);            
+            container.Register<IPlatformErrorService, PlatformErrorService>(Reuse.Singleton);            
             container.Register<IDevice, DeviceInfoService>(Reuse.Singleton);
             container.Register<IDeviceThreadService, DeviceThreadService>(Reuse.Singleton);
             container.Register<IResizeImageService, ResizeImageService>(Reuse.Singleton);
@@ -30,7 +29,8 @@ namespace Base.Impl.Droid
             container.Register<IShareFileService, ShareFileService>(Reuse.Singleton);
 
             //UI
-            container.Register<IMediaPickerService, DroidMediaPickerService>(Reuse.Singleton);
+            container.Register<IAlertDialogService, DroidAlertDialogService>(Reuse.Singleton);
+            container.Register<IMediaPickerService, MediaPickerService>(Reuse.Singleton);
             container.Register<IPageNavigationService, DroidPageNavigationFrameLayout>(Reuse.Singleton);
             container.Register<ISnackbarService, DroidSnackbarService>(Reuse.Singleton);            
         }

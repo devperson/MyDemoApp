@@ -1,5 +1,6 @@
 ﻿using Android.Content;
 using Base.Abstractions.UI;
+using Base.Impl.UI;
 using Microsoft.Maui.ApplicationModel;
 
 namespace Base.Impl.Droid.UI;
@@ -17,9 +18,9 @@ public class DroidAlertDialogService : IAlertDialogService
         return arguments.Result.Task;
     }
 
-    public Task DisplayAlert(string title, string message)
+    public Task DisplayAlert(string title, string message, string cancel = "Close")
     {
-        var arguments = new AlertArguments(title, message, null, "Close");
+        var arguments = new AlertArguments(title, message, null, cancel);
         this.PostExecuteAlert(arguments);
 
         return arguments.Result.Task;
@@ -77,84 +78,5 @@ public class DroidAlertDialogService : IAlertDialogService
         dialog.SetCanceledOnTouchOutside(true);
         dialog.CancelEvent += (o, e) => arguments.SetResult(null);
         dialog.Show();
-    }
-
-    private class AlertArguments
-    {
-        public AlertArguments(string title, string message, string accept, string cancel)
-        {
-            Title = title;
-            Message = message;
-            Accept = accept;
-            Cancel = cancel;
-            Result = new TaskCompletionSource<bool>();
-        }
-
-        /// <summary>
-        ///     Gets the text for the accept button. Can be null.
-        /// </summary>
-        public string Accept { get; private set; }
-
-        /// <summary>
-        ///     Gets the text of the cancel button.
-        /// </summary>
-        public string Cancel { get; private set; }
-
-        /// <summary>
-        ///     Gets the message for the alert. Can be null.
-        /// </summary>
-        public string Message { get; private set; }
-
-        public TaskCompletionSource<bool> Result { get; }
-
-        /// <summary>
-        ///     Gets the title for the alert. Can be null.
-        /// </summary>
-        public string Title { get; private set; }
-
-        public void SetResult(bool result)
-        {
-            Result.TrySetResult(result);
-        }
-    }
-
-    private class ActionSheetArguments
-    {
-        public ActionSheetArguments(string title, string cancel, string destruction, IEnumerable<string> buttons)
-        {
-            Title = title;
-            Cancel = cancel;
-            Destruction = destruction;
-            Buttons = buttons?.Where(c => c != null);
-            Result = new TaskCompletionSource<string>();
-        }
-
-        /// <summary>
-        ///     Gets titles of any buttons on the action sheet that aren't <see cref="Cancel" /> or <see cref="Destruction" />. Can
-        ///     be <c>null</c>.
-        /// </summary>
-        public IEnumerable<string> Buttons { get; private set; }
-
-        /// <summary>
-        ///     Gets the text for a cancel button. Can be null.
-        /// </summary>
-        public string Cancel { get; private set; }
-
-        /// <summary>
-        ///     Gets the text for a destructive button. Can be null.
-        /// </summary>
-        public string Destruction { get; private set; }
-
-        public TaskCompletionSource<string> Result { get; }
-
-        /// <summary>
-        ///     Gets the title for the action sheet. Can be null.
-        /// </summary>
-        public string Title { get; private set; }
-
-        public void SetResult(string result)
-        {
-            Result.TrySetResult(result);
-        }
     }
 }
