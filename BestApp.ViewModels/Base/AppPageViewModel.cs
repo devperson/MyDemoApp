@@ -18,14 +18,6 @@ namespace BestApp.ViewModels.Base
         public AppPageViewModel(PageInjectedServices services) : base(services)
         {
             RefreshCommand = new AsyncCommand(OnRefreshCommand);
-
-            if (services != null)
-            {
-                appResumedEvent = Services.EventAggregator.GetEvent<AppResumedEvent>();
-                appPausedEvent = Services.EventAggregator.GetEvent<AppPausedEvent>();
-                appResumedEvent.Subscribe(ResumedFromBackground);
-                appPausedEvent.Subscribe(PausedToBackground);
-            }
         }
 
         /// General Busy indicator that will be displayed as popup
