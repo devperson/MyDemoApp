@@ -85,8 +85,8 @@ namespace BestApp.ViewModels.Movies
                 }                
             }           
             catch (Exception ex)
-            {                
-                await alertDialogService.Value.DisplayAlert("Error", ex.ToString());
+            {
+                HandleUIError(ex);
             }
         }
 
@@ -123,8 +123,7 @@ namespace BestApp.ViewModels.Movies
             }
             catch (Exception ex)
             {
-                await popupAlert.Value.ShowError(CommonStrings.GeneralError);
-                Services.LoggingService.TrackError(ex);
+                HandleUIError(ex);
             }
         }
 
@@ -178,8 +177,7 @@ namespace BestApp.ViewModels.Movies
             }                        
             catch (Exception ex)
             {
-                await popupAlert.Value.ShowError(CommonStrings.GeneralError);
-                Services.LoggingService.TrackError(ex);
+                HandleUIError(ex);
             }
         }
     }
