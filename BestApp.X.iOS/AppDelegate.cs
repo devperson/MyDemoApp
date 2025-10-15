@@ -41,7 +41,7 @@ namespace BestApp.X.iOS
             this.loggingService = Container.Resolve<ILoggingService>();
 
             this.loggingService.Log("####################################################- APPLICATION STARTED -####################################################");
-            this.loggingService.Log($"MainActivity.OnCreate()");
+            this.loggingService.Log($"AppDelegate.FinishedLaunching()");
 
             _ = bootstrap.NavigateToPageAsync(pageNavigationService);
 

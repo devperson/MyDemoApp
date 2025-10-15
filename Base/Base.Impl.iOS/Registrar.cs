@@ -31,9 +31,10 @@ namespace Base.Impl.iOS
 
             //UI            
             container.Register<IAlertDialogService, iOSAlertDialogService>(Reuse.Singleton);
-            container.Register<IMediaPickerService, MediaPickerService>(Reuse.Singleton);
-            container.Register<IPageNavigationService, iOSPageNavigationController>(Reuse.Singleton);
-            container.Register<ISnackbarService, iOSSnackbarService>(Reuse.Singleton);            
+            container.Register<IMediaPickerService, MediaPickerService>(Reuse.Singleton);            
+            container.Register<ISnackbarService, iOSSnackbarService>(Reuse.Singleton);
+
+            //container.Register<IPageNavigationService, iOSPageNavigationController>(Reuse.Singleton); //will be registered in AppDelegate.cs
         }
     }
 }

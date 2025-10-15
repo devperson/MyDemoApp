@@ -7,9 +7,9 @@ namespace Base.Impl.Texture.iOS.UI.Utils.Styles;
 
 public static class ButtonStyles
 {
-    public static IconButtonNode CreateIconButton(string icon, UIColor textColor)
+    public static IconButtonNode CreateIconButton(string icon)
     {
-        var iconBtn = new IconButtonNode(UIColor.White, textColor, icon); //UIColorConstants.BlueColor2
+        var iconBtn = new IconButtonNode(UIColor.White, ColorConstants.PrimaryColor2.ToUIColor(), icon);
         return iconBtn;
     }
 

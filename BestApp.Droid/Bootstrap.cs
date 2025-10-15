@@ -39,13 +39,7 @@ namespace BestApp.X
             // Register Mapster's service
             container.Register<IMapper, Mapper>(Reuse.Singleton);
 
-            //register navigation service            
-            container.RegisterInstance(pageNavigationService);
-            container.Register<PageInjectedServices>();
-            container.Register<IConstants, ConstantImpl>(Reuse.Singleton);
-
-            //register app, infrastructure services
-            // //register infrastructures            
+            
             Base.Impl.Registrar.RegisterTypes(container);
             BestApp.Impl.Cross.Registrar.RegisterTypes(container, mapperConfig);
 
@@ -58,6 +52,14 @@ namespace BestApp.X
             Base.Impl.iOS.Registrar.RegisterTypes(container);
             //BestApp.Impl.iOS.Registrar.RegisterTypes(container);
 #endif
+
+            container.RegisterInstance(pageNavigationService);
+            //register navigation service                        
+            container.Register<PageInjectedServices>();
+            container.Register<IConstants, ConstantImpl>(Reuse.Singleton);
+
+
+
 
             var logger = container.Resolve<ILoggingService>();
             LogMethodsAttribute.LoggingService = logger;
