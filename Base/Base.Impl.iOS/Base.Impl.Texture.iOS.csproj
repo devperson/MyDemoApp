@@ -48,4 +48,12 @@
 	  <ProjectReference Include="..\Base.MVVM\Base.MVVM.csproj" />
 	  <ProjectReference Include="..\Base.Impl\Base.Impl.csproj" />
 	</ItemGroup>
+
+	<Choose>
+		<When Condition="$(DefineConstants.Contains(SimulCompatibility)) != true">
+			<ItemGroup>
+				<PackageReference Include="Drastic.SDWebImage" Version="1.0.7" />
+			</ItemGroup>
+		</When>
+	</Choose>
 </Project>

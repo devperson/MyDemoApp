@@ -68,6 +68,7 @@ public class iOSPageNavigationController : UINavigationController, IPageNavigati
     {
         var currentToHide = currentPage;
         currentPage = NavRegistrar.CreatePage(vmName, parameters) as iOSLifecyclePage;
+        currentPage.pushNavAnimated = animated;
 
         currentToHide.ViewModel.OnNavigatedFrom(null);
         currentPage.ViewModel.OnNavigatedTo(parameters);
@@ -135,6 +136,7 @@ public class iOSPageNavigationController : UINavigationController, IPageNavigati
 
         var vmName = url.Replace("../", string.Empty);
         currentPage = NavRegistrar.CreatePage(vmName, parameters) as iOSLifecyclePage;
+        currentPage.pushNavAnimated = animated;
         currentPage.ViewModel.OnNavigatedTo(parameters);
 
         //now when we get page navigation completed we can do remove back pages
@@ -157,6 +159,7 @@ public class iOSPageNavigationController : UINavigationController, IPageNavigati
     {
         var vmName = url.Replace("/", string.Empty).Replace("NavigationPage", "");
         currentPage = NavRegistrar.CreatePage(vmName, parameters) as iOSLifecyclePage;
+        currentPage.pushNavAnimated = animated;
         currentPage.ViewModel.OnNavigatedTo(parameters);
 
         //now when we get page navigation completed we can do remove back pages
@@ -192,6 +195,7 @@ public class iOSPageNavigationController : UINavigationController, IPageNavigati
         this.SetViewControllers(newPages.ToArray(), animated);
 
         currentPage = newPages.Last();
+        currentPage.pushNavAnimated = animated;
         currentPage.ViewModel.OnNavigatedTo(parameters);
 
         //wait for when page gets appeared

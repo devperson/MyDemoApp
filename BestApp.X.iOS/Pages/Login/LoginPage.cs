@@ -3,6 +3,7 @@ using Base.Impl.Texture.iOS.UI.Controls.Nodes;
 using Base.Impl.Texture.iOS.UI.Utils.Styles;
 using BestApp.ViewModels.Login;
 using BestApp.ViewModels.Movies;
+using BestApp.X.iOS.Utils;
 using Drastic.Texture;
 using KYChat.iOS.Renderers;
 using Microsoft.Maui.Graphics;
@@ -59,12 +60,11 @@ public class LoginPage : iOSLifecyclePage
                 Spacing = 16,
                 JustifyContent = ASStackLayoutJustifyContent.Center,
                 AlignItems = ASStackLayoutAlignItems.Stretch,
-                Children = new ASDisplayNode[] { txtLogin, txtPassword, btnSubmit }
+                Children = [ txtLogin, txtPassword, btnSubmit ]
             };
 
             // Add left/right margin = 20, and center vertically        
-            var insetSpec = new ASInsetLayoutSpec();
-            insetSpec.Insets = new UIEdgeInsets(0, 20, 0, 20);
+            var insetSpec = this.GetPageInsets();
             insetSpec.Child = verticalStack;
 
             // Center everything on screen

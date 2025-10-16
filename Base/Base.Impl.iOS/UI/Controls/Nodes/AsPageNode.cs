@@ -28,7 +28,14 @@ public class AsPageNode<T> : ASDisplayNode, IAsPageNode where T : iOSLifecyclePa
     public virtual void Destroy()
     {
 
-    }    
+    }
+
+    public ASInsetLayoutSpec GetPageInsets()
+    {
+        var insetSpec = new ASInsetLayoutSpec();
+        insetSpec.Insets = new UIEdgeInsets(0, NumConstants.PageHMargin, 0, NumConstants.PageHMargin);
+        return insetSpec;
+    }
 }
 
 public interface IAsPageNode

@@ -18,7 +18,7 @@ public class iOSLifecyclePage : iOSPage
     /// It is usefull when navigating back (pop) to check if we need to apply animation for navigation back, 
     /// so it will be consistent with forward (push) navigation. 
     /// </summary>
-    internal bool pushNavAnimated;
+    internal bool pushNavAnimated = true;
 
     private BusyIndicatorNode busyIndicatorNode;
     internal SnackbarNode snackbarNode;

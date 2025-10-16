@@ -43,8 +43,7 @@
 	  <Compile Include="..\BestApp.Droid\ConstantImpl.cs" Link="ConstantImpl.cs" />
 	</ItemGroup>	
 	
-  <ItemGroup>
-    <PackageReference Include="Drastic.SDWebImage" Version="1.0.7" />
+  <ItemGroup>   
     <PackageReference Include="Drastic.Texture" Version="1.0.0" />
     <PackageReference Include="DryIoc" Version="4.5.0" />
     <PackageReference Include="MethodDecorator.Fody" Version="1.1.1" />
