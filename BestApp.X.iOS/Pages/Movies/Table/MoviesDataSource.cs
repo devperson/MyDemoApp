@@ -18,14 +18,14 @@ public class MoviesDataSource : ASTableDataSource
 
     public void OnCollectionSet()
     {
-        if (this.pageNode.ViewModel.MovieItems != null)
+        if (this.pageNode.Page.ViewModel.MovieItems != null)
         {
             if (collection != null)
             {
                 collection.CollectionChanged -= Collection_CollectionChanged;
             }
 
-            collection = this.pageNode.ViewModel.MovieItems;
+            collection = this.pageNode.Page.ViewModel.MovieItems;
             collection.CollectionChanged += Collection_CollectionChanged;
         }
 

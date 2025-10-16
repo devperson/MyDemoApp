@@ -1,13 +1,20 @@
 ﻿using Base.Impl.Texture.iOS.Pages;
 using Base.Impl.Texture.iOS.UI.Controls.Nodes;
 using Base.MVVM.ViewModels;
+using BestApp.ViewModels.Login;
 using BestApp.ViewModels.Movies;
 using Drastic.Texture;
 
 namespace BestApp.X.iOS.Pages.Movies;
 
 public class MoviesPage : iOSLifecyclePage
-{    
+{
+    public new MoviesPageViewModel ViewModel
+    {
+        get => base.ViewModel as MoviesPageViewModel;
+        set => base.ViewModel = value;
+    }
+
     public override void ViewDidLoad()
     {
         base.ViewDidLoad();
@@ -16,20 +23,12 @@ public class MoviesPage : iOSLifecyclePage
         SetPageNode(page);
     }
 
-    public class _Node : BasePageNode
+    public class _Node : AsPageNode<MoviesPage>
     {
         private PageHeaderNode headerNode;
         private readonly UIRefreshControl refreshControl;
         internal ASTableNode tableNode;
         private MoviesDataSource moviesDataSource;
-
-        public new MoviesPageViewModel ViewModel
-        {
-            get
-            {
-                return this.Page.ViewModel as MoviesPageViewModel;
-            }
-        }
 
         public _Node(MoviesPage page) : base(page)
         {
@@ -73,20 +72,20 @@ public class MoviesPage : iOSLifecyclePage
         {
             base.OnViewModelPropertyChanged(propertyName);
 
-            if (propertyName == nameof(this.ViewModel.MovieItems))
+            if (propertyName == nameof(this.Page.ViewModel.MovieItems))
             {
                 this.moviesDataSource.OnCollectionSet();
             }
-            else if (propertyName == nameof(this.ViewModel.IsRefreshing))
+            else if (propertyName == nameof(this.Page.ViewModel.IsRefreshing))
             {
-                if (this.ViewModel.IsRefreshing == false)
+                if (this.Page.ViewModel.IsRefreshing == false)
                     this.refreshControl.EndRefreshing();
             }
         }
 
         private void RightBtnNode_TouchUp(object sender, EventArgs e)
         {
-            (this.ViewModel as MoviesPageViewModel).AddCommand.Execute();
+            Page.ViewModel.AddCommand.Execute();
         }
 
         private void LeftBtnNode_TouchUp(object sender, EventArgs e)
@@ -96,7 +95,7 @@ public class MoviesPage : iOSLifecyclePage
 
         private void OnRefresh(object sender, EventArgs e)
         {
-            (this.ViewModel as MoviesPageViewModel).RefreshCommand.Execute();
+            Page.ViewModel.RefreshCommand.Execute();
         }
     }
 }

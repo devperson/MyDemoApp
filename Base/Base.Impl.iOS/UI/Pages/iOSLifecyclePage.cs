@@ -2,11 +2,12 @@
 using Base.Impl.Texture.iOS.UI.Controls.Nodes;
 using Base.MVVM.Navigation;
 using Base.MVVM.ViewModels;
+using Drastic.Texture;
 using System.ComponentModel;
 
 namespace Base.Impl.Texture.iOS.Pages;
 
-public class iOSLifecyclePage : iOSBasePage
+public class iOSLifecyclePage : iOSPage
 {
     private bool onApprearedSent = false;
     public event EventHandler Appeared;
@@ -22,7 +23,7 @@ public class iOSLifecyclePage : iOSBasePage
     private BusyIndicatorNode busyIndicatorNode;
     internal SnackbarNode snackbarNode;
 
-    protected override void SetPageNode(BasePageNode node)
+    protected override void SetPageNode(IAsPageNode node)
     {
         loggingService.Log($"{this.GetType().Name}.SetPageNode() (from base)");
 
@@ -41,9 +42,11 @@ public class iOSLifecyclePage : iOSBasePage
     {
         base.ViewSafeAreaInsetsDidChange();
 
-
         //safe area inset is initialized or changed so we need to force it to recalculate page layout 
-        this.PageNode?.SetNeedsLayout();
+        if (this.Node != null)
+        {
+            (this.Node as ASDisplayNode).SetNeedsLayout();
+        }
     }
 
     public override void ViewWillAppear(bool animated)
@@ -131,7 +134,12 @@ public class iOSLifecyclePage : iOSBasePage
 
     protected virtual void OnViewModelPropertyChanged(string propertyName)
     {
-        this.PageNode?.OnViewModelPropertyChanged(propertyName);
+        this.Node?.OnViewModelPropertyChanged(propertyName);
+    }
+
+    public void OnBackBtnPressed(object sender, EventArgs e)
+    {
+        this.ViewModel.BackCommand.Execute();
     }
 
     public void Destroy()
@@ -144,9 +152,9 @@ public class iOSLifecyclePage : iOSBasePage
             this.ViewModel.PropertyChanged -= ViewModel_PropertyChanged;
         }
 
-        if(this.PageNode != null)
+        if(this.Node != null)
         {
-            this.PageNode.Destroy();
+            this.Node.Destroy();
         }
     }
 }
