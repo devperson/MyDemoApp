@@ -26,7 +26,6 @@ public class MovieDetailPage : iOSLifecyclePage
     public class _Node : AsPageNode<MovieDetailPage>
     {
         private PageHeaderNode headerNode;
-
         private readonly UIImageViewNode imgView;
         private readonly ASTextNode lblName, txtName, lblDescription, txtDescription;        
 

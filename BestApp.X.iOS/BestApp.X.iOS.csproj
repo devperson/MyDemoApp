@@ -33,6 +33,7 @@
 	  <None Remove="Resources\SvgImages\backarrowblack.svg" />
 	  <None Remove="Resources\SvgImages\deleteblack.svg" />
 	  <None Remove="Resources\SvgImages\edit.svg" />
+	  <None Remove="Resources\SvgImages\icon_photo.svg" />
 	  <None Remove="Resources\SvgImages\logout.svg" />
 	  <None Remove="Resources\SvgImages\plus.svg" />
 	  <None Remove="Resources\SvgImages\threeline.svg" />

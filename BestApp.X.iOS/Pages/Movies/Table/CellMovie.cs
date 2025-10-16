@@ -30,7 +30,7 @@ public class CellMovie : ASCellNode
         // Automatically manage subnodes
         AutomaticallyManagesSubnodes = true;
 
-        backgroundNode = new BackgroundNode(UIColor.White, UIColorConstants.Gray100);
+        backgroundNode = new BackgroundNode(UIColor.White);
         backgroundNode.TouchUp += BackgroundNode_TouchUp;
 
         // Image Node

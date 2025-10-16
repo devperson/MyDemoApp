@@ -63,6 +63,11 @@ namespace KYChat.iOS.Renderers.ASChatListView.Utils.CustomNodes
             }
         }
 
+        public void Clear()
+        {
+            this.imgView.Image = null;
+        }
+
 
 #if SimulCompatibility
         private async Task SetImageFromUrlAsync(UIImageView imageView, string url)
