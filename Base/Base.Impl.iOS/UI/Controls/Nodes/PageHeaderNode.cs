@@ -15,13 +15,12 @@ namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
         {
             this.AutomaticallyManagesSubnodes = true;
 
-            this.BackgroundColor = ColorConstants.HeaderBgColor.ToUIColor();
-            //this.Style.Height = new ASDimension() { value = NumConstants.PageHeaderHeight, unit = ASDimensionUnit.Points };
+            this.BackgroundColor = ColorConstants.HeaderBgColor.ToUIColor();            
             this.titleNode = TextStyles.Create_pageMediumTitleStyle(title);
 
             if (leftIcon != null)
             {
-                this.leftBtnNode = ButtonStyles.CreateIconButton(leftIcon, ColorConstants.DefaultTextColor.ToUIColor());
+                this.leftBtnNode = ButtonStyles.CreateIconButton(leftIcon);
 
                 if (rightIcon == null)
                 {
@@ -33,7 +32,7 @@ namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
 
             if (rightIcon != null)
             {
-                this.rightBtnNode = ButtonStyles.CreateIconButton(rightIcon, ColorConstants.DefaultTextColor.ToUIColor());
+                this.rightBtnNode = ButtonStyles.CreateIconButton(rightIcon);
 
                 if (leftIcon == null)
                 {

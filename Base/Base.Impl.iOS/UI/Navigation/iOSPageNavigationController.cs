@@ -60,6 +60,8 @@ public class iOSPageNavigationController : UINavigationController, IPageNavigati
         {
             throw new NotImplementedException("Navigation case is not implemented.");
         }
+
+        var controllers = this.ViewControllers;
     }
    
     private async Task OnPushAsync(string vmName, INavigationParameters parameters, bool animated)

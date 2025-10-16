@@ -9,7 +9,7 @@ namespace KYChat.iOS.Renderers.ASChatListView.Utils.CustomNodes
     public class UIImageViewNode : ASDisplayNode
     {
         private UIImageView imgView;
-        public int CornerR { get; set; } = 12;
+        public int CornerR { get; set; }
         public string Url { get; set; }        
         public string PlaceHolderImg { get; set; }
         public string FilePath { get; set; }        
@@ -20,7 +20,7 @@ namespace KYChat.iOS.Renderers.ASChatListView.Utils.CustomNodes
             base.DidLoad();
 
             imgView = new UIImageView();
-            imgView.ContentMode = UIViewContentMode.ScaleAspectFill;
+            imgView.ContentMode = UIViewContentMode.ScaleAspectFit;
             imgView.Layer.CornerRadius = CornerR;
             imgView.Layer.MasksToBounds = true;
             imgView.Layer.ShouldRasterize = false;

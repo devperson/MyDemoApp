@@ -37,6 +37,15 @@ public class iOSLifecyclePage : iOSBasePage
         this.ViewModel.PropertyChanged += ViewModel_PropertyChanged;
     }
 
+    public override void ViewSafeAreaInsetsDidChange()
+    {
+        base.ViewSafeAreaInsetsDidChange();
+
+
+        //safe area inset is initialized or changed so we need to force it to recalculate page layout 
+        this.PageNode?.SetNeedsLayout();
+    }
+
     public override void ViewWillAppear(bool animated)
     {
         loggingService.Log($"{this.GetType().Name}.ViewWillAppear() (from base)");

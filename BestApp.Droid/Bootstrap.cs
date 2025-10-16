@@ -24,40 +24,56 @@ using Base.Impl.Texture.iOS.UI.Utils.Styles;
 #endif
 
 namespace BestApp.X
-{    
+{
     public class Bootstrap
-    {       
+    {
         public IContainer container { get; set; }
 
         public void RegisterTypes(IPageNavigationService pageNavigationService)
         {
-            container = new Container(
-                  Rules.Default.With(FactoryMethod.ConstructorWithResolvableArgumentsIncludingNonPublic).WithDefaultIfAlreadyRegistered(IfAlreadyRegistered.Replace));
+#if ANDROID
+            var rules = Rules.Default.With(FactoryMethod.ConstructorWithResolvableArgumentsIncludingNonPublic)
+                  .WithDefaultIfAlreadyRegistered(IfAlreadyRegistered.Replace);
+#else
+            /*
+              We get following exception in iOS System.PlatformNotSupportedException: Dynamic code generation is not supported on this platform.
+              So we need to use different rules for iOS, more specifically we use WithUseInterpretation() with iOS
+              WithUseInterpretation() → makes DryIoc interpret factory expressions instead of compiling them to IL code.
+              Without it, DryIoc uses Expression.Compile(), which internally calls DynamicMethod — not supported on iOS AOT.
+            */
+            var rules = Rules.Default.With(FactoryMethod.ConstructorWithResolvableArgumentsIncludingNonPublic)
+                  .WithDefaultIfAlreadyRegistered(IfAlreadyRegistered.Replace)
+                  .WithUseInterpretation();
+#endif
+
+            container = new Container(rules);
             //register mapper
             var mapperConfig = new TypeAdapterConfig();
             container.RegisterInstance(mapperConfig);
             // Register Mapster's service
             container.Register<IMapper, Mapper>(Reuse.Singleton);
 
-            //register navigation service            
-            container.RegisterInstance<IPageNavigationService>(pageNavigationService);
-            container.Register<PageInjectedServices>();
-            container.Register<IConstants, ConstantImpl>(Reuse.Singleton);
 
-            //register app, infrastructure services
-            // //register infrastructures            
             Base.Impl.Registrar.RegisterTypes(container);
             BestApp.Impl.Cross.Registrar.RegisterTypes(container, mapperConfig);
 
 #if ANDROID
-            Base.Impl.Droid.Registrar.RegisterTypes(container);            
-            BestApp.Impl.Droid.Registrar.RegisterTypes(container);
+Base.Impl.Droid.Registrar.RegisterTypes(container);            
+BestApp.Impl.Droid.Registrar.RegisterTypes(container);
 #else
             this.SetColors();
             this.SetNumValues();
             Base.Impl.iOS.Registrar.RegisterTypes(container);
             //BestApp.Impl.iOS.Registrar.RegisterTypes(container);
 #endif
+
+            container.RegisterInstance(pageNavigationService);
+            //register navigation service                        
+            container.Register<PageInjectedServices>();
+            container.Register<IConstants, ConstantImpl>(Reuse.Singleton);
+
+
+
 
             var logger = container.Resolve<ILoggingService>();
             LogMethodsAttribute.LoggingService = logger;
@@ -119,7 +135,7 @@ namespace BestApp.X
 
         private void SetNumValues()
         {
-            NumConstants.PageHMargin = NumberConstants.PageHMargin;            
+            NumConstants.PageHMargin = NumberConstants.PageHMargin;
             NumConstants.PageHeaderHeight = NumberConstants.PageHeaderHeight;
             NumConstants.PageHeaderHPadding = NumberConstants.PageHeaderHPadding;
             NumConstants.BtnHeight = NumberConstants.BtnHeight;

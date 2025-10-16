@@ -4,6 +4,8 @@
     <OutputType>Exe</OutputType>    
     <ImplicitUsings>true</ImplicitUsings>
     <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
+	  <UseInterpreter>true</UseInterpreter>
+	  <MtouchInterpreter>all</MtouchInterpreter>
   </PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">		
