@@ -4,26 +4,28 @@ using Base.Aspect;
 namespace UnitTest.ViewModel.Impl
 {
     [LogMethods]
-    internal class MockPopup : IPopupAlert
+    internal class MockPopup : ISnackbarService
     {
-        public event EventHandler<PopupAlertType> PopupShowed;
+        public event EventHandler<SeverityType> PopupShowed;
 
-        public Task ShowError(string message)
+        public void Show(string message, SeverityType severityType, int duration = 3000)
         {
-            PopupShowed?.Invoke(this, PopupAlertType.Error);
-            return Task.CompletedTask;
+            PopupShowed?.Invoke(this, SeverityType.Info);            
         }
 
-        public Task ShowInfo(string message)
+        public void ShowError(string message)
         {
-            PopupShowed?.Invoke(this, PopupAlertType.Info);
-            return Task.CompletedTask;
+            PopupShowed?.Invoke(this, SeverityType.Error);
         }
 
-        public Task ShowSuccess(string message)
+        public void ShowInfo(string message)
         {
-            PopupShowed?.Invoke(this, PopupAlertType.Success);
-            return Task.CompletedTask;
+            PopupShowed?.Invoke(this, SeverityType.Info);
         }
+
+        public void ShowSuccess(string message)
+        {
+            PopupShowed?.Invoke(this, SeverityType.Success);
+        }        
     }
 }

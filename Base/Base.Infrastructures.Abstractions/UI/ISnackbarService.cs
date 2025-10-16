@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Base.Abstractions.UI;
 public interface ISnackbarService
 {
+    event EventHandler<SeverityType> PopupShowed;
     void ShowError(string message);
     void ShowInfo(string message);    
     void Show(string message, SeverityType severityType, int duration = 3000);

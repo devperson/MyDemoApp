@@ -46,7 +46,7 @@
 	
   <ItemGroup>   
     <PackageReference Include="Drastic.Texture" Version="1.0.0" />
-    <PackageReference Include="DryIoc" Version="4.5.0" />
+    <PackageReference Include="DryIoc.dll" Version="4.5.0" />
     <PackageReference Include="MethodDecorator.Fody" Version="1.1.1" />
     <PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.82" />
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />

@@ -12,10 +12,9 @@ public class DroidSnackbarService : ISnackbarService
     private View snackbarView;    
     private bool isVisible = false;
 
-    public void Show(string message, int duration = 3000)
-    {
-      
-    }
+    public event EventHandler<SeverityType> PopupShowed;
+
+    
 
     public void Hide()
     {
