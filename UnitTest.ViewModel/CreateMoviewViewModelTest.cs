@@ -15,13 +15,13 @@ namespace UnitTest.ViewModel
         public async Task T2_1TestCreateProduct()
         {
             var loggingService = Container.Resolve<ILoggingService>();
-            var popupAlert = Container.Resolve<IPopupAlert>();
+            var popupAlert = Container.Resolve<ISnackbarService>();
             var createVm = Container.Resolve<AddEditMoviePageViewModel>();
             createVm.Initialize(new NavigationParameters());
             int errorCount = 0;
             popupAlert.PopupShowed += (s, popupType) =>
             {
-                if(popupType == PopupAlertType.Error)
+                if(popupType == SeverityType.Error)
                     errorCount++;
             };
             //check Name validation

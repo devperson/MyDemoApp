@@ -131,6 +131,8 @@ namespace BestApp.ViewModels.Movies
 
         protected override async Task OnRefreshCommand(object arg)
         {
+            throw new NotImplementedException();
+
             IsRefreshing = true;
 
             await ShowLoadingAndHandleError(async () =>

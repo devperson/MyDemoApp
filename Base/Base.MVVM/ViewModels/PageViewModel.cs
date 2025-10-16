@@ -27,6 +27,7 @@ namespace Base.MVVM.ViewModels
             }
         }
 
+        public string Title { get; set; }
         public string InstanceId { get; set; }
 
         public bool IsPageVisable { get; set; }

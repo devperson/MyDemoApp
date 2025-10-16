@@ -40,7 +40,7 @@ namespace BestApp.X
             container.Register<IMapper, Mapper>(Reuse.Singleton);
 
             //register navigation service            
-            container.RegisterInstance(pageNavigationService);
+            container.RegisterInstance<IPageNavigationService>(pageNavigationService);
             container.Register<PageInjectedServices>();
             container.Register<IConstants, ConstantImpl>(Reuse.Singleton);
 

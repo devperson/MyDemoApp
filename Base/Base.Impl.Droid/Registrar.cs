@@ -31,7 +31,7 @@ namespace Base.Impl.Droid
             //UI
             container.Register<IAlertDialogService, DroidAlertDialogService>(Reuse.Singleton);
             container.Register<IMediaPickerService, MediaPickerService>(Reuse.Singleton);
-            container.Register<IPageNavigationService, DroidPageNavigationFrameLayout>(Reuse.Singleton);
+            //container.Register<IPageNavigationService, DroidPageNavigationFrameLayout>(Reuse.Singleton);
             container.Register<ISnackbarService, DroidSnackbarService>(Reuse.Singleton);            
         }
     }

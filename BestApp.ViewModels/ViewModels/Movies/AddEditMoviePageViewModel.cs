@@ -16,22 +16,16 @@ namespace BestApp.ViewModels.Movies
     {
         private readonly Lazy<IMoviesService> movieService;
         private readonly Lazy<IMediaPickerService> mediaPickerService;
-        private readonly Lazy<IAlertDialogService> alertDialogService;
-        private readonly Lazy<ISnackbarService> snackbar;
         public const string NEW_ITEM = "newItem";
         public const string UPDATE_ITEM = "updateItem";
         public const string REMOVE_ITEM = "removeItem";
 
         public AddEditMoviePageViewModel(PageInjectedServices services, 
                                       Lazy<IMoviesService> movieService,
-                                      Lazy<IMediaPickerService> mediaPickerService,
-                                      Lazy<IAlertDialogService> alertDialogService,
-                                      Lazy<ISnackbarService> snackbar) : base(services)
+                                      Lazy<IMediaPickerService> mediaPickerService) : base(services)
         {            
             this.movieService = movieService;
-            this.mediaPickerService = mediaPickerService;            
-            this.alertDialogService = alertDialogService;
-            this.snackbar = snackbar;
+            this.mediaPickerService = mediaPickerService; 
             SaveCommand = new AsyncCommand(OnSaveCommand);
             ChangePhotoCommand = new AsyncCommand(OnChangePhotoCommand);
             DeleteCommand = new AsyncCommand(OnDeleteCommand);
@@ -66,7 +60,7 @@ namespace BestApp.ViewModels.Movies
             {
                 var deleteText = !string.IsNullOrEmpty(this.Model.PosterUrl) ? "Delete" : null;
                 var buttons = new[] { "Pick Photo", "Take Photo" };
-                var actionResult = await alertDialogService.Value.DisplayActionSheet("Set photo from", "Cancel", deleteText, buttons);
+                var actionResult = await Services.AlerDialogService.DisplayActionSheet("Set photo from", "Cancel", deleteText, buttons);
 
                 if (actionResult == buttons[0])
                 {
@@ -93,7 +87,7 @@ namespace BestApp.ViewModels.Movies
         {
             try
             {
-                var res = await alertDialogService.Value.ConfirmAlert("Confirm", "Are you sure you want to delete this item?", "Yes", "No");
+                var res = await Services.AlerDialogService.ConfirmAlert("Confirm", "Are you sure you want to delete this item?", "Yes", "No");
 
                 if (res == true)
                 {
@@ -116,7 +110,7 @@ namespace BestApp.ViewModels.Movies
                     }
                     else
                     {
-                        snackbar.Value.ShowError(CommonStrings.GeneralError);
+                        Services.SnackBarService.ShowError(CommonStrings.GeneralError);
                     }
                 }
             }
@@ -132,12 +126,12 @@ namespace BestApp.ViewModels.Movies
             {
                 if (string.IsNullOrEmpty(this.Model.Name))
                 {
-                    snackbar.Value.ShowError("The Name field is required");
+                    Services.SnackBarService.ShowError("The Name field is required");
                     return;
                 }
                 else if (string.IsNullOrEmpty(this.Model.Overview))
                 {
-                    snackbar.Value.ShowError("The Overview field is required");
+                    Services.SnackBarService.ShowError("The Overview field is required");
                     return;
                 }
 
@@ -171,7 +165,7 @@ namespace BestApp.ViewModels.Movies
                 }
                 else
                 {
-                    snackbar.Value.ShowError(CommonStrings.GeneralError);
+                    Services.SnackBarService.ShowError(CommonStrings.GeneralError);
                 }                   
             }                        
             catch (Exception ex)

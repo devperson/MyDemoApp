@@ -4,7 +4,6 @@ using Base.Abstractions.Messaging;
 using Base.Abstractions.PlatformServices;
 using Base.Abstractions.REST;
 using Base.Abstractions.UI;
-using Base.Abstractions.UI.Snackbar;
 using Base.Aspect;
 using Base.MVVM.Events;
 using Base.MVVM.Navigation;
@@ -61,7 +60,7 @@ namespace UnitTest.ViewModel.Base
 
             //Register Common
             container.Register<ILoggingService, MockAppLogging>(Reuse.Singleton);
-            container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
+            //container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
             //container.Register<IMessagesCenter, SimpleMessageCenter>(Reuse.Singleton);
             LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
 
@@ -100,20 +99,21 @@ namespace UnitTest.ViewModel.Base
 
 
             //Platform services
-            container.Register<IPopupAlert, MockPopup>(Reuse.Singleton);
+            container.Register<ISnackbarService, MockPopup>(Reuse.Singleton);
             var mockNavigationService = new Mock<IPageNavigationService> { DefaultValue = DefaultValue.Mock };
-            var mockPlatformError = new Mock<IPlatformErrorService> { DefaultValue = DefaultValue.Mock };
-            var mockSnackBar = new Mock<ISnackbarService> { DefaultValue = DefaultValue.Mock };
+            var mockPlatformError = new Mock<IPlatformErrorService> { DefaultValue = DefaultValue.Mock };            
             var mockMeidaPicker = new Mock<IMediaPickerService> { DefaultValue = DefaultValue.Mock };
             var mockAlertDialog = new Mock<IAlertDialogService> { DefaultValue = DefaultValue.Mock };
+            var mockDirectory = new Mock<IDirectoryService> { DefaultValue = DefaultValue.Mock };
+            
             container.RegisterInstance(mockNavigationService.Object);
-            container.RegisterInstance(mockPlatformError.Object);
-            container.RegisterInstance(mockSnackBar.Object);
+            container.RegisterInstance(mockPlatformError.Object);            
             container.RegisterInstance(mockMeidaPicker.Object);
             container.RegisterInstance(mockAlertDialog.Object);
+            container.RegisterInstance(mockDirectory.Object);
 
             //viewmodels
-            container.Register<InjectedServices>();
+            container.Register<PageInjectedServices>();
             container.Register<MoviesPageViewModel>();
             container.Register<AddEditMoviePageViewModel>();
         }

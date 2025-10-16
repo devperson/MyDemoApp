@@ -16,8 +16,6 @@ using Base.Abstractions.Diagnostic;
 using Base.MVVM.Navigation;
 using Base.Aspect;
 using Base.Abstractions.Messaging;
-using Base.MVVM.ViewModels;
-using Base.Abstractions.UI.Snackbar;
 
 namespace IntegrationTest.Base
 {
@@ -63,7 +61,7 @@ namespace IntegrationTest.Base
 
             //Register platforms            
             container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
-            container.Register<IPopupAlert, MockPopup>(Reuse.Singleton);
+            container.Register<ISnackbarService, MockPopup>(Reuse.Singleton);
             container.Register<IPageNavigationService, PageNavigationService>(Reuse.Singleton);
             container.Register<IPreferencesService, PreferenceService>(Reuse.Singleton);
             //mocked platforms            

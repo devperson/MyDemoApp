@@ -50,12 +50,13 @@ namespace UnitTest.ServiceImpl.Base
 
             //Register Common
             container.Register<ILoggingService, MockAppLogging>(Reuse.Singleton);
-            container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
+            //container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
             container.Register<IMessagesCenter, SimpleMessageCenter>(Reuse.Singleton);
             LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
 
             //register infrastructures                        
             container.Register<IRepository<Movie>, MockRepository<Movie>>();
+            var mockDirectory = new Mock<IDirectoryService> { DefaultValue = DefaultValue.Mock };
             var mockMovieRestService = new Mock<IMovieRestService> { DefaultValue = DefaultValue.Mock };
             mockMovieRestService.Setup(x => x.GetMovieRestlist()).ReturnsAsync([
                 new Movie 
@@ -65,7 +66,8 @@ namespace UnitTest.ServiceImpl.Base
                     Overview = "some good overview", 
                     PosterUrl = string.Empty,
                 }]);
-            container.RegisterInstance<IMovieRestService>(mockMovieRestService.Object);
+            container.RegisterInstance(mockDirectory.Object);
+            container.RegisterInstance(mockMovieRestService.Object);
 
 
             //register appService

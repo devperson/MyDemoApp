@@ -14,5 +14,6 @@ namespace BestApp.ViewModels.Base
         }                
         
         public IDeviceThreadService DeviceThreadService => Container.Resolve<IDeviceThreadService>();
+        public IAlertDialogService AlerDialogService => Container.Resolve<IAlertDialogService>();
     }
 }

@@ -5,6 +5,7 @@ using Base.Impl.Droid.UI.Pages;
 using Base.Impl.Droid.UI.Utils;
 using BestApp.ViewModels.Movies;
 using BestApp.X.Droid.Pages.Movies.Adapter;
+using System.Threading.Tasks;
 
 namespace BestApp.X.Droid.Pages.Movies;
 
