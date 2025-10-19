@@ -7,23 +7,23 @@ using DryIoc;
 
 namespace Base.Impl.Texture.iOS.Pages;
 
-public class iOSBasePage : UIViewController, IPage
-{
-    protected BasePageNode PageNode { get; set; }
+public class iOSPage : UIViewController, IPage 
+{    
     protected ILoggingService loggingService { get; set; }
+    public IAsPageNode Node { get; set; }
     public PageViewModel ViewModel { get; set; }
 
-    public iOSBasePage()
+    public iOSPage()
     {
         if (this.loggingService == null)
             this.loggingService = Base.Impl.iOS.Registrar.appContainer.Resolve<ILoggingService>();
     }
 
-    protected virtual void SetPageNode(BasePageNode node)
+    protected virtual void SetPageNode(IAsPageNode node)
     {
-        this.PageNode = node;
+        this.Node = node;
 
-        this.AddAndStretchNode(this.PageNode);
+        this.AddAndStretchNode(node as ASDisplayNode);
     }
 
     protected void AddAndStretchNode(ASDisplayNode node)

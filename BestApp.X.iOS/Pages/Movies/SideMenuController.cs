@@ -7,7 +7,7 @@ using Microsoft.Maui.ApplicationModel;
 
 namespace BestApp.X.iOS.Pages.Movies
 {
-    public class SideMenuController : iOSBasePage
+    public class SideMenuController : iOSPage
     {        
         public override void ViewDidLoad()
         {

@@ -20,7 +20,7 @@ namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
 
             if (leftIcon != null)
             {
-                this.leftBtnNode = ButtonStyles.CreateIconButton(leftIcon);
+                this.leftBtnNode = ButtonStyles.CreateIconButton(leftIcon);                
 
                 if (rightIcon == null)
                 {
@@ -32,8 +32,7 @@ namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
 
             if (rightIcon != null)
             {
-                this.rightBtnNode = ButtonStyles.CreateIconButton(rightIcon);
-
+                this.rightBtnNode = ButtonStyles.CreateIconButton(rightIcon);                
                 if (leftIcon == null)
                 {
                     var btnSize = this.rightBtnNode.svgNode.Style.PreferredSize.Width + this.rightBtnNode.iconPadding;

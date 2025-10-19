@@ -1,5 +1,7 @@
 ﻿using Base.Abstractions.PlatformServices;
+using Base.Impl.Texture.iOS.Pages;
 using Base.Impl.Texture.iOS.UI.Controls.Nodes;
+using Drastic.Texture;
 using DryIoc;
 
 namespace Base.Impl.Texture.iOS.UI.Utils
@@ -7,15 +9,15 @@ namespace Base.Impl.Texture.iOS.UI.Utils
     public class KeyboardViewResize
     {
         private nfloat bottomMargin;
-        private readonly BasePageNode pageNode;
+        private readonly iOSPage page;
         private NSObject keyboardShowObserver;
         private NSObject keyboardHideObserver;
         private IKeyboardResizeTypeService keyboardResizeType;
 
-        public KeyboardViewResize(BasePageNode pageNode)
+        public KeyboardViewResize(iOSPage page)
         {
-            this.pageNode = pageNode;
-            this.bottomMargin = this.pageNode.View.SafeAreaInsets.Bottom;
+            this.page = page;
+            this.bottomMargin = this.page.View.SafeAreaInsets.Bottom;
             this.keyboardResizeType = Base.Impl.iOS.Registrar.appContainer.Resolve<IKeyboardResizeTypeService>();
             this.RegisterForKeyboardNotifications();
         }
@@ -58,21 +60,21 @@ namespace Base.Impl.Texture.iOS.UI.Utils
             var result = (NSValue)args.Notification.UserInfo.ObjectForKey(new NSString(UIKeyboard.FrameEndUserInfoKey));
             var keyboardSize = result.RectangleFValue.Size;
 
-            if (this.keyboardResizeType.CanResizeContent(this.pageNode.ViewModel.InstanceId))
+            if (this.keyboardResizeType.CanResizeContent(this.page.ViewModel.InstanceId))
             {
                 this.bottomMargin = (int)keyboardSize.Height;
-                this.pageNode.SetNeedsLayout();
-                this.pageNode.LayoutIfNeeded();
+                (this.page.Node as ASDisplayNode).SetNeedsLayout();
+                (this.page.Node as ASDisplayNode).LayoutIfNeeded();
             }
         }
 
         private void OnKeyboardHide(object sender, UIKeyboardEventArgs args)
         {
-            if (this.keyboardResizeType.CanResizeContent(this.pageNode.ViewModel.InstanceId))
+            if (this.keyboardResizeType.CanResizeContent(this.page.ViewModel.InstanceId))
             {
-                this.bottomMargin = this.pageNode.View.SafeAreaInsets.Bottom;
-                this.pageNode.SetNeedsLayout();
-                this.pageNode.LayoutIfNeeded();
+                this.bottomMargin = this.page.View.SafeAreaInsets.Bottom;
+                (this.page.Node as ASDisplayNode).SetNeedsLayout();
+                (this.page.Node as ASDisplayNode).LayoutIfNeeded();
             }
         }
     }

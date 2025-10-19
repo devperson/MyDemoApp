@@ -9,23 +9,15 @@ using System.Reflection;
 
 namespace Base.Impl.Texture.iOS.UI.Controls.Nodes;
 
-public class BasePageNode : ASDisplayNode
+public class AsPageNode<T> : ASDisplayNode, IAsPageNode where T : iOSLifecyclePage
 {    
-    protected readonly iOSLifecyclePage Page;    
-    public virtual PageViewModel ViewModel 
-    {
-        get
-        {
-            return this.Page.ViewModel;
-        }      
-    }
+    public readonly T Page;        
 
-    public BasePageNode(iOSLifecyclePage page)
-    {        
+    public AsPageNode(T page)
+    {
+        this.Page = page;
         this.BackgroundColor = ColorConstants.BgColor.ToUIColor();
         this.AutomaticallyManagesSubnodes = true;
-
-        this.Page = page;
     }
 
     public virtual void OnViewModelPropertyChanged(string propertyName)
@@ -36,5 +28,19 @@ public class BasePageNode : ASDisplayNode
     public virtual void Destroy()
     {
 
-    }    
+    }
+
+    public ASInsetLayoutSpec GetPageInsets()
+    {
+        var insetSpec = new ASInsetLayoutSpec();
+        insetSpec.Insets = new UIEdgeInsets(0, NumConstants.PageHMargin, 0, NumConstants.PageHMargin);
+        return insetSpec;
+    }
+}
+
+public interface IAsPageNode
+{
+    UIView View { get; }
+    void OnViewModelPropertyChanged(string propertyName);
+    void Destroy();    
 }

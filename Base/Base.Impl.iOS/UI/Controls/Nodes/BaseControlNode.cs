@@ -1,4 +1,6 @@
-﻿using Drastic.Texture;
+﻿using Base.Impl.Texture.iOS.UI.Utils.Styles;
+using Base.Impl.Texture.iOS.UI.Utils.XF.Extensions;
+using Drastic.Texture;
 
 namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
 {
@@ -11,9 +13,8 @@ namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
         public event EventHandler TouchUp;
         public event EventHandler TouchDown;
 
-        public BaseControlNode(UIColor normalColor) : this(normalColor, normalColor, normalColor, false)
-        {
-
+        public BaseControlNode(UIColor normalColor) : this(normalColor, ColorConstants.Gray100.ToUIColor())
+        {            
         }
 
         public BaseControlNode(UIColor normalColor, UIColor pressedColor) : this(normalColor, pressedColor, pressedColor, false)
