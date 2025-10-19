@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Base.Abstractions.Domain
 {
-    public interface Entity
+    public interface IEntity
     {
         int Id { get; set; }
     }

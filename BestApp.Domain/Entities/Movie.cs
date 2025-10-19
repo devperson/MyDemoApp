@@ -2,7 +2,7 @@
 
 namespace BestApp.Abstraction.Domain.Entities
 {
-    public class Movie : Entity
+    public class Movie : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

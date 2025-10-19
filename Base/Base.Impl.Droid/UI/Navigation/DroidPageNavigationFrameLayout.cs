@@ -130,6 +130,7 @@ namespace Base.Impl.Droid.UI.Navigation
         {
             var currentStack = GetNavStackModels();
             var currentUri = string.Join('/', currentStack);
+            
             Logger.Log($"{nameof(DroidPageNavigationFrameLayout)}: current stack: {currentUri}");
         }
 

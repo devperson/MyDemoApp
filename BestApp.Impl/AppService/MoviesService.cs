@@ -119,9 +119,7 @@ namespace BestApp.Impl.Cross.AppService
                 {
                     var movie = mapper.Value.Map<Movie>(dtoModel);
                     await this.movieRepository.Value.UpdateAsync(movie);
-
-                    var outDto = mapper.Value.Map<MovieDto>(movie);
-                    return new Some<MovieDto>(outDto);
+                    return new Some<MovieDto>(dtoModel);
                 }
                 catch (Exception ex)
                 {

@@ -90,15 +90,8 @@ namespace BestApp.ViewModels.Movies
                 var res = await Services.AlerDialogService.ConfirmAlert("Confirm", "Are you sure you want to delete this item?", "Yes", "No");
 
                 if (res == true)
-                {
-                    //TODO use mapper
-                    var dtoModel = new MovieDto
-                    {
-                        Id = this.Model.Id,
-                        Name = this.Model.Name,
-                        Overview = this.Model.Overview,
-                        PosterUrl = this.Model.PosterUrl,
-                    };
+                {                    
+                    var dtoModel = Model.ToDto();
                     var result = await movieService.Value.RemoveAsync(dtoModel);
 
                     if (result.Success)
@@ -137,15 +130,8 @@ namespace BestApp.ViewModels.Movies
 
                 Some<MovieDto> result = null;
                 if (this.IsEdit)
-                {
-                    //TODO use mapper
-                    var dtoModel = new MovieDto
-                    {
-                        Id = this.Model.Id,
-                        Name = this.Model.Name,
-                        Overview = this.Model.Overview,
-                        PosterUrl = this.Model.PosterUrl,
-                    };
+                {                    
+                    var dtoModel = this.Model.ToDto();
                     result = await movieService.Value.UpdateAsync(dtoModel);
                 }
                 else

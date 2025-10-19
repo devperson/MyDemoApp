@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Base.Abstractions.Diagnostic;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace Base.MVVM.Helper
@@ -15,6 +16,9 @@ namespace Base.MVVM.Helper
         Func<object, Task> _execute;
         Func<object, bool> _canExecute;
         ClickUtil doubleClickChecker = new ClickUtil();
+        public static ILoggingService LoggingService { get; set; }
+        public static bool DisableDoubleClickCheck { get; set; }        
+
         /// <summary>
         /// Use this constructor for commands that have a command parameter.
         /// </summary>
@@ -43,8 +47,14 @@ namespace Base.MVVM.Helper
 
         public Task ExecuteAsync(object param = null)
         {
-            if (!doubleClickChecker.IsOneClickEvent())
-                return Task.CompletedTask;
+            if (EnableOneClick == false)
+            {
+                if (!doubleClickChecker.IsOneClickEvent())
+                {
+                    LoggingService.LogWarning($"AsyncCommand.ExecuteAsync() is ignored because it is not permitted to execute second click withtin {ClickUtil.OneClickDelay}mls");
+                    return Task.CompletedTask;
+                }
+            }
 
             return _execute.Invoke(param);
         }
@@ -64,4 +74,6 @@ namespace Base.MVVM.Helper
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
+
+   
 }

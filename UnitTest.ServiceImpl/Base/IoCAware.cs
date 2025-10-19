@@ -53,7 +53,7 @@ namespace UnitTest.ServiceImpl.Base
             //container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
             container.Register<IMessagesCenter, SimpleMessageCenter>(Reuse.Singleton);
             LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
-
+            
             //register infrastructures                        
             container.Register<IRepository<Movie>, MockRepository<Movie>>();
             var mockDirectory = new Mock<IDirectoryService> { DefaultValue = DefaultValue.Mock };

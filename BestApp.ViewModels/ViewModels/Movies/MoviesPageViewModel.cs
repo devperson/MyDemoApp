@@ -38,13 +38,15 @@ namespace BestApp.ViewModels.Movies
             this.snackbarService = snackbarService;
             AddCommand = new AsyncCommand(OnAddCommand);
             ItemTappedCommand = new AsyncCommand(OnItemTappedCommand);
-            MenuTappedCommand = new AsyncCommand(OnMenuTappedCommand);
+            MenuTappedCommand = new AsyncCommand(OnMenuTappedCommand);            
         }
+
 
         public ObservableCollection<MovieItemViewModel> MovieItems { get; set; }
         public AsyncCommand MenuTappedCommand { get; }
         public AsyncCommand AddCommand { get; set; }
         public AsyncCommand ItemTappedCommand { get; set; }
+        
 
         public async override void Initialize(INavigationParameters parameters)
         {
@@ -81,8 +83,8 @@ namespace BestApp.ViewModels.Movies
 
             this.Services.EventAggregator.GetEvent<MovieCellItemUpdatedEvent>().Unsubscribe(OnMovieCellItemUpdatedEvent);
         }
-
         
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -131,8 +133,6 @@ namespace BestApp.ViewModels.Movies
 
         protected override async Task OnRefreshCommand(object arg)
         {
-            throw new NotImplementedException();
-
             IsRefreshing = true;
 
             await ShowLoadingAndHandleError(async () =>

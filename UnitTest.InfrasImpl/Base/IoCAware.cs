@@ -57,7 +57,9 @@ namespace UnitTest.InfrasImpl.Base
             container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
             container.Register<IPreferencesService, PreferenceService>(Reuse.Singleton);
             container.Register<IMessagesCenter, SimpleMessageCenter>(Reuse.Singleton);
-            LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
+            var logger = container.Resolve<ILoggingService>();
+            LogMethodsAttribute.LoggingService = logger;
+            //AsyncCommand.LoggingService = logger;
 
             BestApp.Impl.Cross.Registrar.RegisterInfrastructureService(container, mapperConfig);
             

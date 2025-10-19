@@ -10,7 +10,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
 {
     [LogMethods]
     public class SqliteRepository<TEntity, Tb> : IRepository<TEntity>
-        where TEntity : Entity
+        where TEntity : IEntity
         where Tb : ITable, new()
     {
         

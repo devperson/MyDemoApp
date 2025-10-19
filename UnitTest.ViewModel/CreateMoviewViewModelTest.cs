@@ -27,13 +27,13 @@ namespace UnitTest.ViewModel
             //check Name validation
             await createVm.SaveCommand.ExecuteAsync();
             await Task.Delay(200);//small delay to make sure that errorCount updated
-            Assert.IsTrue(errorCount == 1, "failed: name validation");
+            Assert.IsTrue(errorCount == 1, $"failed: name validation, the errorCount: {errorCount}");
 
             //check Overview validation
             createVm.Model.Name = "Test movie1";            
             await createVm.SaveCommand.ExecuteAsync();
             await Task.Delay(200);//small delay to make sure that errorCount updated
-            Assert.IsTrue(errorCount == 2, "failed: Overview validation");            
+            Assert.IsTrue(errorCount == 2, $"failed: Overview validation, the errorCount: {errorCount}");            
 
             //Create product
             createVm.Model.Overview = "test overview1";
@@ -42,7 +42,7 @@ namespace UnitTest.ViewModel
             await createVm.SaveCommand.ExecuteAsync();
             await Task.Delay(200);//small delay to make sure that errorCount updated
             Assert.IsTrue(errorCount == 2, "validation error");
-            Assert.IsFalse(loggingService.HasError, "There is another error beside validation error");
+            Assert.IsFalse(loggingService.HasError, $"There is another error beside validation error, the errorCount: {errorCount}");
         }
     }
 }

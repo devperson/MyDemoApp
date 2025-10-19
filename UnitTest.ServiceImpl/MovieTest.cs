@@ -44,7 +44,7 @@ namespace UnitTest.ServiceImpl
         }
 
         [TestMethod]
-        public async Task T1_3UpdateMovieTest()
+        public async Task T1_4UpdateMovieTest()
         {
             var movieService = Container.Resolve<IMoviesService>();
             var result = await movieService.GetById(1);
@@ -59,7 +59,7 @@ namespace UnitTest.ServiceImpl
         }
 
         [TestMethod]
-        public async Task T1_3RemoveMovieTest()
+        public async Task T1_5RemoveMovieTest()
         {
             var movieService = Container.Resolve<IMoviesService>();
             var result = await movieService.GetById(1);

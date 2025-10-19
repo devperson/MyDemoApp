@@ -6,6 +6,7 @@ using Base.Abstractions.REST;
 using Base.Abstractions.UI;
 using Base.Aspect;
 using Base.MVVM.Events;
+using Base.MVVM.Helper;
 using Base.MVVM.Navigation;
 using BestApp.Abstraction.Main.AppService;
 using BestApp.Abstraction.Main.AppService.Dto;
@@ -62,7 +63,11 @@ namespace UnitTest.ViewModel.Base
             container.Register<ILoggingService, MockAppLogging>(Reuse.Singleton);
             //container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);
             //container.Register<IMessagesCenter, SimpleMessageCenter>(Reuse.Singleton);
-            LogMethodsAttribute.LoggingService = container.Resolve<ILoggingService>();
+            var logger = container.Resolve<ILoggingService>();
+            LogMethodsAttribute.LoggingService = logger;
+            AsyncCommand.LoggingService = logger;
+            AsyncCommand.DisableDoubleClickCheck = true;
+
 
             //infrastructures
             var mockInfraService = new Mock<IInfrastructureServices> { DefaultValue = DefaultValue.Mock };

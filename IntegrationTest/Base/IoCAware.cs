@@ -16,6 +16,7 @@ using Base.Abstractions.Diagnostic;
 using Base.MVVM.Navigation;
 using Base.Aspect;
 using Base.Abstractions.Messaging;
+using Base.MVVM.Helper;
 
 namespace IntegrationTest.Base
 {
@@ -82,6 +83,8 @@ namespace IntegrationTest.Base
 
             Logger = container.Resolve<ILoggingService>();
             LogMethodsAttribute.LoggingService = Logger;
+            AsyncCommand.LoggingService = logger;
+            AsyncCommand.DisableDoubleClickCheck = true;
         }
 
 

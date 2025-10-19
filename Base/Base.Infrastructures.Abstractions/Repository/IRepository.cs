@@ -2,7 +2,7 @@
 
 namespace Base.Infrastructures.Abstractions.Repository
 {
-    public interface IRepository<TEntity> where TEntity : Entity
+    public interface IRepository<TEntity> where TEntity : IEntity
     {
         //TEntity FindById(Guid id);
         Task<TEntity> FindById(int id);

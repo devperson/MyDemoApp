@@ -2,7 +2,7 @@
 
 namespace BestApp.Abstraction.Domain.Entities
 {
-    public class Product : Entity
+    public class Product : IEntity
     {
         //private List<Return> returns = new List<Return>();
 

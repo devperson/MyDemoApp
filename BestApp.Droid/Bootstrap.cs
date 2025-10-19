@@ -10,6 +10,8 @@ using DryIoc;
 using Mapster;
 using MapsterMapper;
 using Base.Impl.UI;
+using Base.MVVM.Helper;
+
 
 
 #if ANDROID
@@ -77,6 +79,7 @@ BestApp.Impl.Droid.Registrar.RegisterTypes(container);
 
             var logger = container.Resolve<ILoggingService>();
             LogMethodsAttribute.LoggingService = logger;
+            AsyncCommand.LoggingService = logger;            
 
 
             //register ViewModel for navigation

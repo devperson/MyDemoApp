@@ -7,7 +7,7 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
 {
     [LogMethods]
     internal class MockRepository<TEntity> : IRepository<TEntity>
-        where TEntity : Entity
+        where TEntity : IEntity
     {
         protected static List<TEntity> records = new List<TEntity>();
         private readonly IMapper mapper;

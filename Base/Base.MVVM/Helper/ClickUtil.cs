@@ -8,6 +8,7 @@ namespace Base.MVVM.Helper
 {
     public class ClickUtil
     {
+        public const int OneClickDelay = 1000;
         private bool isInCall = false;
         private object syncLock = new object();
         public async Task ExecuteOnlyOnceAsync(Func<Task> inFunction)
@@ -65,7 +66,7 @@ namespace Base.MVVM.Helper
         public bool IsOneClickEvent()
         {
             var clickTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            if (clickTime - mLastClickTime < 1000)
+            if (clickTime - mLastClickTime < OneClickDelay)
                 return false;
 
             mLastClickTime = clickTime;
