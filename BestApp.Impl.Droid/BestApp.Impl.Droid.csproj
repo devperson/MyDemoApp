@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0-android</TargetFramework>
     <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>    
@@ -11,5 +11,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="DryIoc.dll" Version="4.5.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Base\Base.Impl.Droid\Base.Impl.Droid.csproj" />
+	  <ProjectReference Include="..\BestApp.Impl\BestApp.Impl.Cross.csproj" />
 	</ItemGroup>
 </Project>

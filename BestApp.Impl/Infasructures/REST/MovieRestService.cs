@@ -33,33 +33,26 @@ namespace BestApp.Impl.Cross.Infasructures.REST
                 WithBearer = false
             });
 
-            if(result.Success)
+            var list = result.Movies.Select(s =>
             {
-                var list = result.Movies.Select(s =>
+                var posterUrl = string.Empty;
+                if (s.PosterPath.StartsWith("/"))
                 {
-                    var posterUrl = string.Empty;
-                    if (s.PosterPath.StartsWith("/"))
-                    {
-                        var path = s.PosterPath.Substring(1);
-                        posterUrl = new Uri(ImageBaseUrl, path).ToString();
-                    }
+                    var path = s.PosterPath.Substring(1);
+                    posterUrl = new Uri(ImageBaseUrl, path).ToString();
+                }
 
-                    var movie = new Movie()
-                    {
-                        Id = s.Id,
-                        Name = s.Name,
-                        Overview = s.Overview,
-                        PosterUrl = posterUrl
-                    };
-                    return movie;
-                }).ToList();
+                var movie = new Movie()
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Overview = s.Overview,
+                    PosterUrl = posterUrl
+                };
+                return movie;
+            }).ToList();
 
-                return list;
-            }
-            else
-            {
-                throw new RestApiException(result.ErrorCode);
-            }
+            return list;
         }
     }
 

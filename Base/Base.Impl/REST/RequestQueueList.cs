@@ -4,7 +4,7 @@ using System.Timers;
 
 namespace BestApp.Impl.Cross.Infasructures.REST
 {
-    public class RequestQueueList : List<RequestQueueItem>, IRestQueueService
+    public class RequestQueueList : List<RequestQueueItem>
     {
         public RequestQueueList(Lazy<ILoggingService> loggingService)
         {

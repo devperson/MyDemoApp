@@ -1,17 +1,22 @@
 ﻿using Base.Infrastructures.Abstractions.Repository;
 using Base.Infrastructures.Abstractions.REST;
+using DryIoc;
 
 namespace BestApp.Impl.Cross.Infasructures
 {
     internal class MyInfrastructureService : InfrastructureService
     {
-        public MyInfrastructureService(Lazy<ILocalDbInitilizer> localDbInitilizer, Lazy<IRestQueueService> restQueueService) : base(localDbInitilizer, restQueueService)
+        private readonly Lazy<ILocalDbInitilizer> localDbInitilizer;
+
+        public MyInfrastructureService(IContainer container, Lazy<ILocalDbInitilizer> localDbInitilizer) : base(container)
         {
+            this.localDbInitilizer = localDbInitilizer;
         }
 
-        public override Task Start()
+        public override async Task Start()
         {
-            return base.Start();
+            await base.Start();
+            await localDbInitilizer.Value.Init();            
         }
 
         public override Task Pause()
@@ -24,9 +29,10 @@ namespace BestApp.Impl.Cross.Infasructures
             return base.Resume();
         }
 
-        public override Task Stop()
+        public override async Task Stop()
         {
-            return base.Stop();
+            await base.Stop();
+            await localDbInitilizer.Value.Release();
         }
     }
 }

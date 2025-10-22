@@ -12,22 +12,28 @@ public class iOSSnackbarService : ISnackbarService
 {
     private readonly IPageNavigationService pageNavigationService;
 
+    public event EventHandler<SeverityType> PopupShowed;
+
     public iOSSnackbarService(IPageNavigationService pageNavigationService)
     {
         this.pageNavigationService = pageNavigationService;
     }
     public void ShowError(string message)
     {
+        PopupShowed?.Invoke(this, SeverityType.Error);
         this.Show(message, SeverityType.Error);
     }
 
     public void ShowInfo(string message)
     {
+        PopupShowed?.Invoke(this, SeverityType.Info);
         this.Show(message, SeverityType.Info);
     }
 
     public void Show(string message, SeverityType severityType, int duration = 3000)
     {
+        PopupShowed?.Invoke(this, severityType);
+
         var page = pageNavigationService.GetCurrentPage() as iOSLifecyclePage;
 
         if (page != null)

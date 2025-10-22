@@ -53,20 +53,15 @@ namespace BestApp.X
             var mapperConfig = new TypeAdapterConfig();
             container.RegisterInstance(mapperConfig);
             // Register Mapster's service
-            container.Register<IMapper, Mapper>(Reuse.Singleton);
-
-
-            Base.Impl.Registrar.RegisterTypes(container);
-            BestApp.Impl.Cross.Registrar.RegisterTypes(container, mapperConfig);
+            container.Register<IMapper, Mapper>(Reuse.Singleton);            
 
 #if ANDROID
-Base.Impl.Droid.Registrar.RegisterTypes(container);            
-BestApp.Impl.Droid.Registrar.RegisterTypes(container);
+
+            BestApp.Impl.Droid.Registrar.RegisterTypes(container, mapperConfig);
 #else
             this.SetColors();
-            this.SetNumValues();
-            Base.Impl.iOS.Registrar.RegisterTypes(container);
-            //BestApp.Impl.iOS.Registrar.RegisterTypes(container);
+            this.SetNumValues();            
+            BestApp.Impl.iOS.Registrar.RegisterTypes(container, mapperConfig);
 #endif
 
             container.RegisterInstance(pageNavigationService);

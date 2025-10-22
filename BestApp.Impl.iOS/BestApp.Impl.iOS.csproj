@@ -19,4 +19,8 @@
   <ItemGroup>
     <PackageReference Include="DryIoc.dll" Version="4.5.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Base\Base.Impl.iOS\Base.Impl.Texture.iOS.csproj" />
+    <ProjectReference Include="..\BestApp.Impl\BestApp.Impl.Cross.csproj" />
+  </ItemGroup>
 </Project>

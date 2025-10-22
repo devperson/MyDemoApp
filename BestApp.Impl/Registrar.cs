@@ -21,18 +21,20 @@ namespace BestApp.Impl.Cross
     public static class Registrar
     {
         public static void RegisterTypes(IContainer container, TypeAdapterConfig mapperConfig)
-        {   
+        {
+            Base.Impl.Registrar.RegisterTypes(container);
             //register infrastructures           
-            RegisterInfrastructureService(container, mapperConfig);
+            RegisterInfrastructureService(container, mapperConfig, skipBase: true);
             //register appService
             RegisterAppService(container, mapperConfig);
         }
 
         
-        public static void RegisterInfrastructureService(IContainer container, TypeAdapterConfig mapperConfig)
+        public static void RegisterInfrastructureService(IContainer container, TypeAdapterConfig mapperConfig, bool skipBase = false)
         {
             //register infrastructures            
-            Base.Impl.Registrar.RegisterInfrastructureService(container);
+            if (!skipBase)
+                Base.Impl.Registrar.RegisterInfrastructureService(container);
             //Sqlite            
             RepoMapper.RegisterMapping(mapperConfig);
             container.Register<ILocalDbInitilizer, SqliteDbInitilizer>(Reuse.Singleton);
@@ -45,7 +47,7 @@ namespace BestApp.Impl.Cross
         }
 
         public static void RegisterAppService(IContainer container, TypeAdapterConfig mapperConfig)
-        {
+        {            
             AppMapper.RegisterMapping(mapperConfig);
             container.Register<IMoviesService, MoviesService>(Reuse.Singleton);
         }

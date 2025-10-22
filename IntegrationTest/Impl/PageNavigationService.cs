@@ -1,4 +1,5 @@
 ﻿using Base.MVVM.Navigation;
+using Base.MVVM.ViewModels;
 using BestApp.ViewModels.Base;
 using DryIoc;
 
@@ -22,7 +23,7 @@ namespace IntegrationTest.Impl
             return Task.CompletedTask;
         }
 
-        public object GetCurrentPageModel()
+        public PageViewModel GetCurrentPageModel()
         {
             if (ViewModelStackList.Count > 0)
             {
@@ -31,11 +32,10 @@ namespace IntegrationTest.Impl
             }
             else return null;
         }
-        public List<object> GetNavStackModels()
+        public List<PageViewModel> GetNavStackModels()
         {
-            var listViewModels = ViewModelStackList.ToList();
-            var listObj = listViewModels.Select(d => (object)d).ToList();
-            return listObj;
+            var listViewModels = ViewModelStackList.ToList();            
+            return listViewModels;
         }
 
         public bool HasPageInNavigation(string page)
@@ -148,7 +148,12 @@ namespace IntegrationTest.Impl
             return Task.CompletedTask;
         }
 
-        public object GetRootPageModel()
+        public PageViewModel GetRootPageModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPage GetCurrentPage()
         {
             throw new NotImplementedException();
         }

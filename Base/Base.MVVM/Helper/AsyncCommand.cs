@@ -47,7 +47,7 @@ namespace Base.MVVM.Helper
 
         public Task ExecuteAsync(object param = null)
         {
-            if (EnableOneClick == false)
+            if (DisableDoubleClickCheck == false)
             {
                 if (!doubleClickChecker.IsOneClickEvent())
                 {

@@ -43,8 +43,7 @@ namespace Base.Impl
             //rest service
             container.Register<IRestClient, RestClient>();
             container.Register<RequestQueueList>();
-            container.Register<IAuthTokenService, AuthTokenService>(Reuse.Singleton);
-            container.Register<IRestQueueService, RequestQueueList>(Reuse.Singleton);
+            container.Register<IAuthTokenService, AuthTokenService>(Reuse.Singleton);            
         }
     }
 }

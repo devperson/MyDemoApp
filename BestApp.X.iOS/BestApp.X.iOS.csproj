@@ -52,8 +52,7 @@
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Base\Base.Impl.iOS\Base.Impl.Texture.iOS.csproj" />
-    <ProjectReference Include="..\BestApp.Impl\BestApp.Impl.Cross.csproj" />
+    <ProjectReference Include="..\BestApp.Impl.iOS\BestApp.Impl.iOS.csproj" />
     <ProjectReference Include="..\BestApp.ViewModels\BestApp.ViewModels.csproj" />
   </ItemGroup>
 
