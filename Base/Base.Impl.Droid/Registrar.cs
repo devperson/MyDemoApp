@@ -18,6 +18,8 @@ namespace Base.Impl.Droid
         {
             appContainer = container;
 
+            Base.Impl.Registrar.RegisterTypes(container);
+
             container.Register<IPreferencesService, PreferencesService>(Reuse.Singleton);
             container.Register<IDirectoryService, DirectoryService>(Reuse.Singleton);            
             container.Register<IPlatformErrorService, PlatformErrorService>(Reuse.Singleton);            

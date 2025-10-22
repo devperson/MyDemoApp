@@ -21,8 +21,7 @@ namespace BestApp.Impl.Cross
     public static class Registrar
     {
         public static void RegisterTypes(IContainer container, TypeAdapterConfig mapperConfig)
-        {
-            Base.Impl.Registrar.RegisterTypes(container);
+        {            
             //register infrastructures           
             RegisterInfrastructureService(container, mapperConfig, skipBase: true);
             //register appService
