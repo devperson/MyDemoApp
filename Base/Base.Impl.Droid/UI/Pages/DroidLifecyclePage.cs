@@ -30,9 +30,6 @@ namespace Base.Impl.Droid.UI.Pages
 
         public bool IsPageEnterAnimationCompleted { get; set; }
 
-        protected const string TitleProp = "Title";
-        private const string BusyLoadingProp = "BusyLoading", ToastSeverityProp = "ToastSeverity", ToastMessageProp = "ToastMessage";
-
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -68,7 +65,7 @@ namespace Base.Impl.Droid.UI.Pages
 
             //set visibility for busy indicator via propertyChanged handler
             //this will check the model and set correct visibility for busy indicator            
-            ViewModel_PropertyChanged(null, new System.ComponentModel.PropertyChangedEventArgs(BusyLoadingProp));
+            ViewModel_PropertyChanged(null, new System.ComponentModel.PropertyChangedEventArgs(nameof(this.ViewModel.BusyLoading)));
             //pageLogger = loggingService.CreateSpecificLogger(AdvancedLogConstants.LogPageInsets);
 
             rootLayout = view as ViewGroup;
@@ -381,7 +378,7 @@ namespace Base.Impl.Droid.UI.Pages
         //}
 
         private bool IsCurrentPage()
-        {
+        {            
             var pageNavigationService = Registrar.appContainer.Resolve<IPageNavigationService>();
             var currentVisiblePage = pageNavigationService.GetCurrentPage();
 
