@@ -43,7 +43,7 @@ namespace Base.Impl.Droid.UI.Utils
         {
             return new Rectangle(left, top, right - left, bottom - top);
         }
-
+        
         public bool Equals(Rectangle other)
         {
             return X.Equals(other.X) && Y.Equals(other.Y) && Width.Equals(other.Width) && Height.Equals(other.Height);
