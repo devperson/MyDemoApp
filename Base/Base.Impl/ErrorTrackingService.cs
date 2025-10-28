@@ -90,9 +90,10 @@ namespace Base.Impl
                         var logger = container.Value.Resolve<ILoggingService>();
                         if (logger != null)
                         {
-                            logger.LogUnhandledError(ev.Exception);//log error into app logs     
-                            Task.Delay(300).Wait();//give time for logger
+                            logger.LogError(ev.Exception, string.Empty, handled: false);//log error into app logs     
 
+
+                            //Task.Delay(300).Wait();//give time for logger
                             var newLogPath = CreatePathForAttachment();
                             var logBytes = logger.GetLastSessionLogBytes();
                             if (logBytes != null)
