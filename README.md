@@ -87,14 +87,16 @@ The UI layer is implemented using **fully native frameworks** on each platform a
 
 ### Android
 - Native XML layouts
-- Custom page & control framework
-- MVVM with custom data binding
+- MVVM pattern
+- Navigation based on **FragmentManager**
+- Lifecycle handling based on native Fragment / Activity callbacks
 
 ### iOS
+- Native Swift
 - UIKit + AsyncDisplayKit (Texture)
-- Native layouting and rendering
-- Custom page & control framework
-- MVVM-based interaction with ViewModels
+- MVVM pattern
+- Navigation based on **UINavigationController**
+- Lifecycle handling based on native UIViewController lifecycle
 
 UI responsibility:
 - Rendering
