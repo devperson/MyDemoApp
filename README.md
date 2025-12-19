@@ -30,10 +30,13 @@ The goal of this project is to demonstrate my experience in creating **beautiful
 ### Other Implementations
 
 - **MoviesDemo (KMP – Fragment / UIKit)**  
-  https://github.com/yourname/moviesdemo-kmp-fragment-uikit
+  https://github.com/xusan/MoviesKmpSimplified
 
 - **MoviesDemo (KMP – Jetpack Compose / SwiftUI)**  
-  https://github.com/yourname/moviesdemo-kmp-compose-swiftui
+  https://github.com/xusan/movieskmpcompose
+  
+- **MoviesDemo (Swift – SwiftUI)**  
+  https://github.com/devperson/MoviesSwift
   
 > All *MoviesDemo* implementations have **identical domain models, architecture, and features**.
 > The repositories differ only in **platform technology and UI framework**, demonstrating how the same
