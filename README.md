@@ -186,13 +186,7 @@ This demo demonstrates how to build:
 - Long-term maintainability
 - Scalability for enterprise-grade applications
 
----
 
-## Screenshots
-
-*(Optional – add screenshots or GIFs here)*
-
----
 
 ## License
 
