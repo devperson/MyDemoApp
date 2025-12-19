@@ -35,7 +35,7 @@ The goal of this project is to demonstrate my experience in creating **beautiful
 - **MoviesDemo (KMP – Jetpack Compose / SwiftUI)**  
   https://github.com/yourname/moviesdemo-kmp-compose-swiftui
   
-> All *MoviesDemo* implementations share the same **domain model, architecture, and features**.
+> All *MoviesDemo* implementations have **identical domain models, architecture, and features**.
 > The repositories differ only in **platform technology and UI framework**, demonstrating how the same
 > core architecture can support multiple native UI approaches without changes to the business layer.
   
