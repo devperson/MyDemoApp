@@ -55,6 +55,12 @@ The project demonstrates how to combine **native performance** with **high code 
 - Update movie
 - Delete movie
 
+## Screenshots
+
+| iOS | Android |
+|-----|---------|
+| ![iOS Demo](assets/iosDemoApp.gif) | ![Android Demo](assets/androidDemo.gif) |
+
 ---
 
 ## Architecture Overview
