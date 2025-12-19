@@ -19,14 +19,12 @@ public class iOSSnackbarService : ISnackbarService
         this.pageNavigationService = pageNavigationService;
     }
     public void ShowError(string message)
-    {
-        PopupShowed?.Invoke(this, SeverityType.Error);
+    {        
         this.Show(message, SeverityType.Error);
     }
 
     public void ShowInfo(string message)
     {
-        PopupShowed?.Invoke(this, SeverityType.Info);
         this.Show(message, SeverityType.Info);
     }
 

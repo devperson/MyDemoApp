@@ -43,10 +43,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Base.Aspect\Base.Aspect.csproj" />
-	  <ProjectReference Include="..\Base.Infrastructures.Abstractions\Base.Abstractions.csproj" />
-	  <ProjectReference Include="..\Base.MVVM\Base.MVVM.csproj" />
-	  <ProjectReference Include="..\Base.Impl\Base.Impl.csproj" />
+	  <ProjectReference Include="..\Base.Aspect\Base.Aspect.csproj">
+	    <ReferenceSourceTarget></ReferenceSourceTarget>
+	  </ProjectReference>
+	  <ProjectReference Include="..\Base.Infrastructures.Abstractions\Base.Abstractions.csproj">
+	    <ReferenceSourceTarget></ReferenceSourceTarget>
+	  </ProjectReference>
+	  <ProjectReference Include="..\Base.MVVM\Base.MVVM.csproj">
+	    <ReferenceSourceTarget></ReferenceSourceTarget>
+	  </ProjectReference>
+	  <ProjectReference Include="..\Base.Impl\Base.Impl.csproj">
+	    <ReferenceSourceTarget></ReferenceSourceTarget>
+	  </ProjectReference>
 	</ItemGroup>
 
 	<Choose>
