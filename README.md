@@ -27,6 +27,18 @@ The demo shows how:
 
 The goal of this project is to demonstrate my experience in creating **beautiful**, **clear**, and **maintainable** mobile applications that can **scale to large, long-living products** without architectural bottlenecks.
 
+### Other Implementations
+
+- **MoviesDemo (KMP – Fragment / UIKit)**  
+  https://github.com/yourname/moviesdemo-kmp-fragment-uikit
+
+- **MoviesDemo (KMP – Jetpack Compose / SwiftUI)**  
+  https://github.com/yourname/moviesdemo-kmp-compose-swiftui
+  
+> All *MoviesDemo* implementations share the same **domain model, architecture, and features**.
+> The repositories differ only in **platform technology and UI framework**, demonstrating how the same
+> core architecture can support multiple native UI approaches without changes to the business layer.
+  
 ---
 
 ## Application Overview
