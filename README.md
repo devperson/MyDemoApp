@@ -14,7 +14,7 @@ This repository reflects my approach to designing **robust, testable, and scalab
 
 ## Project Overview – MoviesDemo (.NET Native – Fragment / UIKit)
 
-This project demonstrates how to build **fully native iOS and Android applications** using **.NET Native**, while applying proven architectural patterns such as **MVVM**, **ViewModel-driven navigation**, **Domain-Driven Design (DDD)**, and **Dependency Injection (DI)**. Additionally, each application layer is instrumented with logging, providing clear traceability across UI, ViewModel, Service, and Domain layers, which improves maintainability, debugging, and long-term support.
+This project demonstrates how to build **fully native iOS and Android applications** using **.NET Native**, while applying proven architectural patterns such as **MVVM**, **ViewModel-driven navigation**, **Domain-Driven Design (DDD)**, and **Dependency Injection (DI)**. Additionally, each application layer is instrumented with logging across UI, ViewModel, Service, and Domain layers, which improves maintainability and long-term support.
 
 The demo shows how:
 - Native iOS and Android apps can share **most of the business logic**
