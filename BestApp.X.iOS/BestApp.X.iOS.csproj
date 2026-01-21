@@ -6,6 +6,8 @@
     <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
 	  <UseInterpreter>true</UseInterpreter>
 	  <MtouchInterpreter>all</MtouchInterpreter>
+	  <ProvisioningType>manual</ProvisioningType>
+	  <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">		
@@ -18,8 +20,8 @@
 		<!--
       Enable full trimming in Release mode.
       To learn more, see: https://learn.microsoft.com/dotnet/core/deploying/trimming/trimming-options#trimming-granularity
-    -->
-		<TrimMode Condition="'$(Configuration)' == 'Release'">full</TrimMode>
+	  <TrimMode Condition="'$(Configuration)' == 'Release'">full</TrimMode>
+    -->		
 	</PropertyGroup>
 
 	<ItemGroup>
