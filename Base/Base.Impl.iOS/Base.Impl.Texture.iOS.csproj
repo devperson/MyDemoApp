@@ -43,6 +43,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\SvgKit.NET.iOS\SvgKit.NET.iOS.csproj" />
 	  <ProjectReference Include="..\Base.Aspect\Base.Aspect.csproj">
 	    <ReferenceSourceTarget></ReferenceSourceTarget>
 	  </ProjectReference>

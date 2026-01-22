@@ -10,12 +10,12 @@
     -->
     <IsTrimmable>true</IsTrimmable>
   </PropertyGroup>
-  <ItemGroup>
+  <!--<ItemGroup>
     <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\Container.cs" />
     <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\Expression.cs" />
     <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\FastExpressionCompiler.cs" />
     <Compile Remove="C:\Users\xusan\.nuget\packages\dryioc\4.5.0\contentFiles\cs\netstandard2.0\DryIoc\ImTools.cs" />
-  </ItemGroup>
+  </ItemGroup>-->
   <ItemGroup>
     <PackageReference Include="DryIoc.dll" Version="4.5.0" />
   </ItemGroup>

@@ -8,15 +8,16 @@
 	  <MtouchInterpreter>all</MtouchInterpreter>
 	  <ProvisioningType>manual</ProvisioningType>
 	  <CodesignKey>iPhone Developer</CodesignKey>
+	   <ApplicationId>com.companyname.bestapp.x.ios</ApplicationId>
   </PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">		
-		<DefineConstants>$(DefineConstants);SimulCompatibility;</DefineConstants>
+		<DefineConstants>$(DefineConstants);SimulCompatibility;</DefineConstants>		
+		<MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<MtouchDebug>False</MtouchDebug>
-
+		<MtouchDebug>False</MtouchDebug>       
 		<!--
       Enable full trimming in Release mode.
       To learn more, see: https://learn.microsoft.com/dotnet/core/deploying/trimming/trimming-options#trimming-granularity
@@ -56,6 +57,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BestApp.Impl.iOS\BestApp.Impl.iOS.csproj" />
     <ProjectReference Include="..\BestApp.ViewModels\BestApp.ViewModels.csproj" />
+    <ProjectReference Include="..\SvgKit.NET.iOS\SvgKit.NET.iOS.csproj" />
   </ItemGroup>
 
 
@@ -63,10 +65,6 @@
 		<When Condition="$(DefineConstants.Contains(SimulCompatibility)) != true">
 			<ItemGroup>				
 				<PackageReference Include="Drastic.SDWebImage" Version="1.0.7" />				
-			</ItemGroup>
-
-			<ItemGroup>
-				<ProjectReference Include="..\..\SvgKit.NET.iOS\SvgKit.NET.iOS.csproj" />				
 			</ItemGroup>
 		</When>
 	</Choose>

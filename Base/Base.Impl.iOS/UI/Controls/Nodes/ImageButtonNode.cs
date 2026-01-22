@@ -1,4 +1,7 @@
-﻿using Drastic.Texture;
+﻿#if !SimulCompatibility
+using Drastic.SDWebImage;
+#endif
+using Drastic.Texture;
 
 namespace Base.Impl.Texture.iOS.UI.Controls.Nodes
 {
