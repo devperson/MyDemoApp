@@ -58,7 +58,7 @@ namespace BestApp.ViewModels.Movies
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            base.OnNavigatedTo(parameters);
+            //keep empty to override base one
         }
 
         private async Task OnChangePhotoCommand(object arg)

@@ -57,7 +57,6 @@ public class AddEditMoviePage : iOSLifecyclePage
 
             // --- Image ---
             imgView = new UIImageViewNode();
-            imgView.Url = page.ViewModel.Model.PosterUrl;
             imgView.Style.PreferredLayoutSize = new ASLayoutSize
             {
                 width = new ASDimension { value = 200, unit = ASDimensionUnit.Points },
@@ -77,11 +76,12 @@ public class AddEditMoviePage : iOSLifecyclePage
                                                             });
 
             // --- Name Value ---
-            txtName = new ASEditTextNode();            
-            txtName.TextField.Text = page.ViewModel.Model.Name;
+            txtName = new ASEditTextNode();
+
             txtName.Style.FlexGrow = 1;
             txtName.Style.FlexShrink = 1;
             txtName.TextField.EditingChanged += txtName_EditingChanged;
+
 
 
 
@@ -97,14 +97,18 @@ public class AddEditMoviePage : iOSLifecyclePage
 
             // --- Description Value ---
             txtDescription = new ASEditTextNode();
-            txtDescription.TextField.Text = page.ViewModel.Model.Overview;
+
             txtDescription.Style.FlexGrow = 1;
             txtDescription.Style.MaxHeight = new ASDimension() { value = 200, unit = ASDimensionUnit.Points };
             txtDescription.TextField.EditingChanged += txtDescription_EditingChanged;
 
             btnSave = ButtonStyles.CreatePrimaryButton("Save");
             btnSave.TouchUp += BtnSave_TouchUp;
+            
+            ShowData(page);
         }
+
+        
 
         public override ASLayoutSpec LayoutSpecThatFits(ASSizeRange constrainedSize)
         {
@@ -180,6 +184,11 @@ public class AddEditMoviePage : iOSLifecyclePage
         public override void OnViewModelPropertyChanged(string propertyName)
         {
             base.OnViewModelPropertyChanged(propertyName);
+
+            if (propertyName == nameof(this.Page.ViewModel.Model))
+            {
+                ShowData(this.Page);
+            }
         }
 
         private void headerRightBtnNode_TouchUp(object sender, EventArgs e)
@@ -218,6 +227,13 @@ public class AddEditMoviePage : iOSLifecyclePage
             {
                 imgView.Clear();
             }
+        }
+
+        private void ShowData(AddEditMoviePage page)
+        {
+            imgView.Url = page.ViewModel.Model?.PosterUrl;
+            txtName.TextField.Text = page.ViewModel.Model?.Name;
+            txtDescription.TextField.Text = page.ViewModel.Model?.Overview;
         }
     }
 }
