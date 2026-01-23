@@ -73,16 +73,24 @@ namespace BestApp.Impl.Cross.Infasructures.Repositories
             }
         }
 
-        public async Task<int> RemoveAsync(TEntity entity)
+        public async Task<int> RemoveAsync(int id)
         {
             await semaphor.WaitAsync();
             try
             {  
                 EnsureInitalized();
-
-                var record = mapper.Value.Map<Tb>(entity);                
-                var res = await database.DeleteAsync(record);
-                return res;
+                                              
+                var record = await database.Table<Tb>().FirstOrDefaultAsync(x => x.Id == id);
+                if (record != null)
+                {
+                    var res = await database.DeleteAsync(record);
+                    return res;
+                }
+                else
+                {                    
+                    return 0;
+                }
+                
             }
             finally
             {

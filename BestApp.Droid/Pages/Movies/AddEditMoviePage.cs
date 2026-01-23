@@ -38,18 +38,18 @@ public class AddEditMoviePage : DroidLifecyclePage
         txtName = fragmentView.FindViewById<TextView>(Resource.Id.txtName);
         txtDescription = fragmentView.FindViewById<TextView>(Resource.Id.txtDescription);
 
-        txtTitle.Text = this.ViewModel.Title;
-        this.txtName.Text = this.ViewModel.Model.Name;
-        this.txtDescription.Text = this.ViewModel.Model.Overview;
-        this.btnDelete.Visibility = this.ViewModel.IsEdit.ToVisibility();
-
-        this.OnPhotoChanged();
+        txtTitle.Text = this.ViewModel.Title; 
         
         this.txtName.TextChanged += TxtName_TextChanged;
         this.txtDescription.TextChanged += TxtDesc_TextChanged;
         this.btnDelete.Click += BtnDelete_Click;
         this.btnPhoto.Click += BtnPhoto_Click;
         this.btnSave.Click += BtnSave_Click;
+
+        if(ViewModel.Model != null)
+        {
+            ShowData();
+        }
 
         return fragmentView;
     }
@@ -62,6 +62,25 @@ public class AddEditMoviePage : DroidLifecyclePage
         //this is so to avoid user accidental click while navigating, because delete is located in same place where we have edit button in prev page
         await Task.Delay(600);
         btnDelete.Enabled = true;
+    }
+
+    protected override void OnViewModelPropertyChanged(string propertyName)
+    {
+        base.OnViewModelPropertyChanged(propertyName);
+
+        if (propertyName == nameof(ViewModel.Model))
+        {
+            ShowData();
+        }
+    }
+
+    private void ShowData()
+    {
+        this.txtName.Text = this.ViewModel.Model.Name;
+        this.txtDescription.Text = this.ViewModel.Model.Overview;
+        this.btnDelete.Visibility = this.ViewModel.IsEdit.ToVisibility();
+
+        this.OnPhotoChanged();
     }
 
     private void BtnDelete_Click(object sender, EventArgs e)

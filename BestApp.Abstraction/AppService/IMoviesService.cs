@@ -7,8 +7,8 @@ namespace BestApp.Abstraction.Main.AppService
     {
         Task<Some<List<MovieDto>>> GetListAsync(int count = -1, int skip = 0, bool remoteList = false);
         Task<Some<MovieDto>> GetById(int id);
-        Task<Some<MovieDto>> AddAsync(string name, string Overview, string posterUrl);
-        Task<Some<MovieDto>> UpdateAsync(MovieDto dtoModel);
-        Task<Some<int>> RemoveAsync(MovieDto dtoModel);
+        Task<Some<int>> AddAsync(string name, string Overview, string posterUrl);
+        Task<Some<int>> UpdateAsync(MovieDto dtoModel);
+        Task<Some<int>> RemoveAsync(int id);
     }
 }

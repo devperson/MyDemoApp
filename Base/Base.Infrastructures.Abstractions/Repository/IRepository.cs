@@ -12,7 +12,7 @@ namespace Base.Infrastructures.Abstractions.Repository
         Task<int> AddAsync(TEntity entity);
         Task<int> UpdateAsync(TEntity entity);
         Task<int> AddAllAsync(List<TEntity> entities);
-        Task<int> RemoveAsync(TEntity entity);
+        Task<int> RemoveAsync(int id);
         Task<int> ClearAsync(string reason);
     }
 

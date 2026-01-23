@@ -85,45 +85,47 @@ namespace BestApp.Impl.Cross.AppService
             }
         }
 
-        public async Task<Some<MovieDto>> AddAsync(string name, string overview, string posterUrl)
+        public async Task<Some<int>> AddAsync(string name, string overview, string posterUrl)
         {
             try
             {
                 var movie = Movie.Create(name, overview, posterUrl);
                 await this.movieRepository.Value.AddAsync(movie).ConfigureAwait(false);
-
-                var dtoMovie = mapper.Value.Map<MovieDto>(movie);
-                return new Some<MovieDto>(dtoMovie);
+                
+                return new Some<int>(movie.Id);
             }
             catch (Exception ex)
             {
                 loggingService.Value.TrackError(ex);
-                return new Some<MovieDto>(ex);
+                return new Some<int>(ex);
             }
         }
 
-        public async Task<Some<MovieDto>> UpdateAsync(MovieDto dtoModel)
+        public async Task<Some<int>> UpdateAsync(MovieDto dtoModel)
         {
             try
             {
                 var movie = mapper.Value.Map<Movie>(dtoModel);
                 await this.movieRepository.Value.UpdateAsync(movie).ConfigureAwait(false);
-                return new Some<MovieDto>(dtoModel);
+                return new Some<int>(movie.Id);
             }
             catch (Exception ex)
             {
                 loggingService.Value.TrackError(ex);
-                return new Some<MovieDto>(ex);
+                return new Some<int>(ex);
             }
         }
 
        
-        public async Task<Some<int>> RemoveAsync(MovieDto dtoModel)
+        public async Task<Some<int>> RemoveAsync(int id)
         {
             try
-            {
-                var movie = mapper.Value.Map<Movie>(dtoModel);
-                var res = await this.movieRepository.Value.RemoveAsync(movie).ConfigureAwait(false);
+            {                
+                var res = await this.movieRepository.Value.RemoveAsync(id).ConfigureAwait(false);
+                if(res == 0)
+                {
+                    loggingService.Value.LogWarning("movieRepository.RemoveAsync() returned 0, so it actually doesn't remove anything");
+                }
 
                 return new Some<int>(res);
             }

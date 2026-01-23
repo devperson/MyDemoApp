@@ -31,7 +31,10 @@ public class MovieDetailPage : DroidLifecyclePage
         txtName = fragmentView.FindViewById<TextView>(Resource.Id.txtName);
         txtDescription = fragmentView.FindViewById<TextView>(Resource.Id.txtDescription);
 
-        this.OnModelUpdated();
+        if (ViewModel.Model != null)
+        {
+            this.OnModelUpdated();
+        }
      
         this.btnEdit.Click += BtnEdit_Click;
 

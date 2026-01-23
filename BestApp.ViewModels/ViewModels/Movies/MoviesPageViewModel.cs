@@ -11,7 +11,7 @@ using BestApp.ViewModels.Extensions;
 using BestApp.ViewModels.Login;
 using BestApp.ViewModels.Movies.ItemViewModel;
 using System.Collections.ObjectModel;
-using Example;
+using System.Threading.Tasks;
 
 namespace BestApp.ViewModels.Movies
 {
@@ -21,21 +21,18 @@ namespace BestApp.ViewModels.Movies
         private readonly Lazy<IMoviesService> movieService;
         private readonly Lazy<IAlertDialogService> alertDialogService;
         private readonly Lazy<IInfrastructureServices> infrastructureServices;
-        private readonly Lazy<ISnackbarService> snackbarService;
         private AuthErrorEvent authErrorEvent;
-        public const string SELECTED_ITEM = "selectedItem";
+        private MovieCellItemUpdatedEvent itemUpdatedEvent;
 
         public MoviesPageViewModel(PageInjectedServices services, 
             Lazy<IMoviesService> movieService, 
             Lazy<IAlertDialogService> alertDialogService,
-            Lazy<IInfrastructureServices> infrastructureServices,
-            Lazy<ISnackbarService> snackbarService) : base(services)
+            Lazy<IInfrastructureServices> infrastructureServices) : base(services)
         {
             
             this.movieService = movieService;
             this.alertDialogService = alertDialogService;
             this.infrastructureServices = infrastructureServices;
-            this.snackbarService = snackbarService;
             AddCommand = new AsyncCommand(OnAddCommand);
             ItemTappedCommand = new AsyncCommand(OnItemTappedCommand);
             MenuTappedCommand = new AsyncCommand(OnMenuTappedCommand);            
@@ -52,14 +49,16 @@ namespace BestApp.ViewModels.Movies
         {
             base.Initialize(parameters);
 
-            this.Services.EventAggregator.GetEvent<MovieCellItemUpdatedEvent>().Subscribe(OnMovieCellItemUpdatedEvent);
+            itemUpdatedEvent =  this.Services.EventAggregator.GetEvent<MovieCellItemUpdatedEvent>();
             authErrorEvent = Services.EventAggregator.GetEvent<AuthErrorEvent>();
+
+            itemUpdatedEvent.Subscribe(OnMovieCellItemUpdatedEvent);
             authErrorEvent.Subscribe(HandleAuthErrorEvent);
 
             //init infrastructure services (ie local storage, rest api)
             await infrastructureServices.Value.Start();
             
-            await ShowLoadingAndHandleError(async () =>
+            await ShowLoading(async () =>
             {
                 await LoadData();
             });
@@ -81,11 +80,12 @@ namespace BestApp.ViewModels.Movies
 
             infrastructureServices.Value.Stop();
 
-            this.Services.EventAggregator.GetEvent<MovieCellItemUpdatedEvent>().Unsubscribe(OnMovieCellItemUpdatedEvent);
+            authErrorEvent.Unsubscribe(HandleAuthErrorEvent);
+            itemUpdatedEvent.Unsubscribe(OnMovieCellItemUpdatedEvent);
         }
         
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
@@ -93,13 +93,18 @@ namespace BestApp.ViewModels.Movies
             {
                 if (parameters.ContainsKey(AddEditMoviePageViewModel.NEW_ITEM))
                 {
-                    var newProduct = parameters.GetValue<MovieItemViewModel>(AddEditMoviePageViewModel.NEW_ITEM);
-                    MovieItems.Insert(0, newProduct);
+                    var movieId = parameters.GetValue<int>(AddEditMoviePageViewModel.NEW_ITEM);
+                    var movieNew = await GetMovieFromDb(movieId);
+                    if (movieNew != null)
+                    {                        
+                        MovieItems.Insert(0, movieNew);
+                    }
                 }
                 else if (parameters.ContainsKey(AddEditMoviePageViewModel.REMOVE_ITEM))
                 {
-                    var removeItem = parameters.GetValue<MovieItemViewModel>(AddEditMoviePageViewModel.REMOVE_ITEM);
-                    MovieItems.Remove(removeItem);
+                    var movieId = parameters.GetValue<int>(AddEditMoviePageViewModel.REMOVE_ITEM);
+                    var oldMovie = MovieItems.FirstOrDefault(s => s.Id == movieId);
+                    MovieItems.Remove(oldMovie);
                 }
 
             }
@@ -122,14 +127,24 @@ namespace BestApp.ViewModels.Movies
             }
         }
 
-        private void OnMovieCellItemUpdatedEvent(MovieItemViewModel model)
+        private async void OnMovieCellItemUpdatedEvent(int movieId)
         {
-            var oldItem = this.MovieItems.FirstOrDefault(m => m.Id == model.Id);
-            var index = this.MovieItems.IndexOf(oldItem);
+            var newMovie = await GetMovieFromDb(movieId);
+            if (newMovie != null)
+            {
+                var oldItem = this.MovieItems.FirstOrDefault(m => m.Id == movieId);
+                var index = this.MovieItems.IndexOf(oldItem);
 
-            //this will raise Replace event for ObservableCollection and views will listen for it.
-            this.MovieItems[index] = model;
+                //this will raise Replace event for ObservableCollection and views are listening it.
+                this.MovieItems[index] = newMovie;
+            }
+            else
+            {
+                Services.LoggingService.LogWarning("Ignore OnMovieCellItemUpdatedEvent because GetMovieFromDb() failed");
+            }            
         }
+
+        
 
         protected override async Task OnRefreshCommand(object arg)
         {
@@ -160,7 +175,10 @@ namespace BestApp.ViewModels.Movies
             try
             {
                 var item = arg as MovieItemViewModel;
-                await this.Navigate(nameof(MovieDetailPageViewModel), new NavigationParameters { { SELECTED_ITEM, item } });
+                await this.Navigate(nameof(MovieDetailPageViewModel), new NavigationParameters 
+                { 
+                    { MovieDetailPageViewModel.SELECTED_ITEM, item.Id } 
+                });
             }
             catch(Exception ex)
             {
@@ -233,11 +251,26 @@ namespace BestApp.ViewModels.Movies
             if (result.Success)
             {
                 var list = result.Value.Select(x => new MovieItemViewModel(x));
-                MovieItems = new ObservableCollection<MovieItemViewModel>(list);
+                MovieItems = [.. list];
             }      
             else
             {
-                Services.LoggingService.TrackError(result.Exception);
+                HandleUIError(result.Exception);
+            }
+        }
+
+        private async Task<MovieItemViewModel> GetMovieFromDb(int movieId)
+        {
+            var result = await movieService.Value.GetById(movieId);
+            if (result.Success)
+            {
+                var newMovie = new MovieItemViewModel(result.Value);
+                return newMovie;
+            }
+            else
+            {
+                Services.LoggingService.LogWarning("MovieService.GetById() failed to get record from db");
+                return null;
             }
         }
 

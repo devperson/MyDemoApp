@@ -8,21 +8,23 @@ using BestApp.Abstraction.Main.AppService.Dto;
 using BestApp.ViewModels.Base;
 using BestApp.ViewModels.Helper;
 using BestApp.ViewModels.Movies.ItemViewModel;
+using System.Threading.Tasks;
 
 namespace BestApp.ViewModels.Movies
 {
     [LogMethods]
-    public class AddEditMoviePageViewModel : AppPageViewModel
+    public class AddEditMoviePageViewModel : MovieDetailPageViewModel
     {
+
         private readonly Lazy<IMoviesService> movieService;
         private readonly Lazy<IMediaPickerService> mediaPickerService;
         public const string NEW_ITEM = "newItem";
-        public const string UPDATE_ITEM = "updateItem";
+        public const string UPDATED_ITEM = "updatedItem";
         public const string REMOVE_ITEM = "removeItem";
 
         public AddEditMoviePageViewModel(PageInjectedServices services, 
                                       Lazy<IMoviesService> movieService,
-                                      Lazy<IMediaPickerService> mediaPickerService) : base(services)
+                                      Lazy<IMediaPickerService> mediaPickerService) : base(services, movieService)
         {            
             this.movieService = movieService;
             this.mediaPickerService = mediaPickerService; 
@@ -34,24 +36,29 @@ namespace BestApp.ViewModels.Movies
         public bool IsEdit { get; set; }        
         public AsyncCommand SaveCommand { get; set; }
         public AsyncCommand ChangePhotoCommand { get; set; }
-        public AsyncCommand DeleteCommand { get; set; }
-        public MovieItemViewModel Model { get; set; }        
+        public AsyncCommand DeleteCommand { get; set; }       
 
-        public override void Initialize(INavigationParameters parameters)
+        public override async void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
 
-            if(parameters.ContainsKey(MoviesPageViewModel.SELECTED_ITEM))
+            if(parameters.ContainsKey(SELECTED_ITEM))
             {
                 this.IsEdit = true;
-                this.Model = parameters.GetValue<MovieItemViewModel>(MoviesPageViewModel.SELECTED_ITEM);
                 this.Title = "Edit";
+                var movieId = parameters.GetValue<int>(SELECTED_ITEM);
+                await LoadMovie(movieId);
             }
             else
             {
                 this.Model = new MovieItemViewModel();
                 this.Title = "Add new";
             }
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
         }
 
         private async Task OnChangePhotoCommand(object arg)
@@ -90,15 +97,13 @@ namespace BestApp.ViewModels.Movies
                 var res = await Services.AlerDialogService.ConfirmAlert("Confirm", "Are you sure you want to delete this item?", "Yes", "No");
 
                 if (res == true)
-                {                    
-                    var dtoModel = Model.ToDto();
-                    var result = await movieService.Value.RemoveAsync(dtoModel);
-
+                {                       
+                    var result = await movieService.Value.RemoveAsync(Model.Id);
                     if (result.Success)
                     {                                                
                         await NavigateToRoot(new NavigationParameters()
                         {
-                            { REMOVE_ITEM, this.Model }
+                            { REMOVE_ITEM, this.Model.Id }
                         });
                     }
                     else
@@ -128,7 +133,7 @@ namespace BestApp.ViewModels.Movies
                     return;
                 }
 
-                Some<MovieDto> result = null;
+                Some<int> result = null;
                 if (this.IsEdit)
                 {                    
                     var dtoModel = this.Model.ToDto();
@@ -141,17 +146,16 @@ namespace BestApp.ViewModels.Movies
 
 
                 if (result.Success)
-                {                    
-                    var item = new MovieItemViewModel(result.Value);
-                    var key = this.IsEdit ? UPDATE_ITEM : NEW_ITEM;
+                {   
+                    var key = this.IsEdit ? UPDATED_ITEM : NEW_ITEM;
                     await NavigateBack(new NavigationParameters()
                     {
-                        {key, item}
+                        {key, result.Value}
                     });
                 }
                 else
                 {
-                    Services.SnackBarService.ShowError(CommonStrings.GeneralError);
+                    HandleUIError(result.Exception);
                 }                   
             }                        
             catch (Exception ex)
