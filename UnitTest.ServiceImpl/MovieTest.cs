@@ -66,7 +66,7 @@ namespace UnitTest.ServiceImpl
             Assert.IsTrue(result.Success, "IMoviesService.GetById() failed in T1_3UpdateMovieTest()");
 
             var item = result.Value;
-            var removeResult = await movieService.RemoveAsync(item);
+            var removeResult = await movieService.RemoveAsync(item.Id);
             Assert.IsTrue(removeResult.Success, "IMoviesService.RemoveAsync() failed in T1_3RemoveMovieTest()");
         }
     }

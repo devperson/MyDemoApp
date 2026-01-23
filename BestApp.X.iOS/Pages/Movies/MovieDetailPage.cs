@@ -78,8 +78,7 @@ public class MovieDetailPage : iOSLifecyclePage
             txtDescription.Style.FlexGrow = 1;
             txtDescription.Style.FlexShrink = 1;
 
-            ShowData();
-
+            ShowData(page);
         }
 
        
@@ -148,7 +147,7 @@ public class MovieDetailPage : iOSLifecyclePage
 
             if (propertyName == nameof(this.Page.ViewModel.Model))
             {
-                ShowData();
+                ShowData(this.Page);
             }
         }
 
@@ -157,23 +156,26 @@ public class MovieDetailPage : iOSLifecyclePage
             this.Page.ViewModel.EditCommand.Execute();
         }
 
-        private void ShowData()
-        {            
-            txtName.AttributedText = new NSAttributedString(this.Page.ViewModel.Model?.Name,
-                                                            new UIStringAttributes
-                                                            {
-                                                                Font = UIFont.FromName("Sen-SemiBold", 15),
-                                                                ForegroundColor = UIColorConstants.LabelColor
-                                                            });
-           
-            txtDescription.AttributedText = new NSAttributedString(this.Page.ViewModel.Model?.Overview,
-                                                                    new UIStringAttributes
-                                                                    {
-                                                                        Font = UIFont.FromName("Sen-Medium", 15),
-                                                                        ForegroundColor = UIColorConstants.LabelColor
-                                                                    });
+        private void ShowData(MovieDetailPage page)
+        {
+            if (page.ViewModel.Model != null)
+            {
+                txtName.AttributedText = new NSAttributedString(page.ViewModel.Model.Name,
+                                                                new UIStringAttributes
+                                                                {
+                                                                    Font = UIFont.FromName("Sen-SemiBold", 15),
+                                                                    ForegroundColor = UIColorConstants.LabelColor
+                                                                });
 
-            imgView.Url = this.Page.ViewModel.Model?.PosterUrl;
+                txtDescription.AttributedText = new NSAttributedString(page.ViewModel.Model.Overview,
+                                                                        new UIStringAttributes
+                                                                        {
+                                                                            Font = UIFont.FromName("Sen-Medium", 15),
+                                                                            ForegroundColor = UIColorConstants.LabelColor
+                                                                        });
+
+                imgView.Url = page.ViewModel.Model.PosterUrl;
+            }
         }
 
     }

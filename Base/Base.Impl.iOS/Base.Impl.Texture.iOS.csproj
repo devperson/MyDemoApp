@@ -42,8 +42,7 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\..\SvgKit.NET.iOS\SvgKit.NET.iOS.csproj" />
+	<ItemGroup>	 
 	  <ProjectReference Include="..\Base.Aspect\Base.Aspect.csproj">
 	    <ReferenceSourceTarget></ReferenceSourceTarget>
 	  </ProjectReference>
@@ -62,6 +61,7 @@
 		<When Condition="$(DefineConstants.Contains(SimulCompatibility)) != true">
 			<ItemGroup>
 				<PackageReference Include="Drastic.SDWebImage" Version="1.0.7" />
+				<ProjectReference Include="..\..\SvgKit.NET.iOS\SvgKit.NET.iOS.csproj" />
 			</ItemGroup>
 		</When>
 	</Choose>
