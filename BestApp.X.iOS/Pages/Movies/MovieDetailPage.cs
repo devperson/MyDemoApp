@@ -1,4 +1,5 @@
-﻿using Base.Impl.Texture.iOS.Pages;
+﻿using Base.Abstractions.Diagnostic;
+using Base.Impl.Texture.iOS.Pages;
 using Base.Impl.Texture.iOS.UI.Controls.Nodes;
 using BestApp.ViewModels.Movies;
 using BestApp.X.iOS.Utils;
@@ -14,6 +15,8 @@ public class MovieDetailPage : iOSLifecyclePage
         get => base.ViewModel as MovieDetailPageViewModel;
         set => base.ViewModel = value;
     }
+
+    //private ILoggingService loggingService;
 
     public override void ViewDidLoad()
     {
@@ -160,6 +163,8 @@ public class MovieDetailPage : iOSLifecyclePage
         {
             if (page.ViewModel.Model != null)
             {
+                page.loggingService.Log($"Enter ShowData() with Model {page.ViewModel.Model}");
+
                 txtName.AttributedText = new NSAttributedString(page.ViewModel.Model.Name,
                                                                 new UIStringAttributes
                                                                 {

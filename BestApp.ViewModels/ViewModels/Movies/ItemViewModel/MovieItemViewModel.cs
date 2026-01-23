@@ -35,5 +35,14 @@ namespace BestApp.ViewModels.Movies.ItemViewModel
 
             return movieDto;
         }
+
+        public override string ToString()
+        {
+            return $"MovieItemViewModel (" +
+                $"{nameof(Id)}: {Id}, " +
+                $"{nameof(Name)}: {Name}," +
+                $"{nameof(Overview)}: {Overview}," +
+                $"{nameof(PosterUrl)}: {PosterUrl})";
+        }
     }
 }

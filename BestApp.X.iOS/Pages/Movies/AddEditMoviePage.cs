@@ -157,11 +157,14 @@ public class AddEditMoviePage : iOSLifecyclePage
             centeredImage.CenteringOptions = ASCenterLayoutSpecCenteringOptions.X;
             centeredImage.Child = imgNode;
 
+            var spacer = new ASDisplayNode();
+            spacer.Style.FlexGrow = 1;
+
             var contentStack = new ASStackLayoutSpec();
             contentStack.Direction = ASStackLayoutDirection.Vertical;
             contentStack.Spacing = 25;
             contentStack.AlignItems = ASStackLayoutAlignItems.Stretch;
-            contentStack.Children = [centeredImage, rowsStack];
+            contentStack.Children = [centeredImage, rowsStack, spacer, btnSave];
 
             // --- Insets ---
             var contentHorizontalInset = this.GetPageInsets();
@@ -204,17 +207,17 @@ public class AddEditMoviePage : iOSLifecyclePage
 
         private void txtDescription_EditingChanged(object sender, EventArgs e)
         {
-            this.Page.ViewModel.Model.Name = this.txtName.TextField.Text;
+            this.Page.ViewModel.Model.Overview = this.txtDescription.TextField.Text;
         }
 
         private void txtName_EditingChanged(object sender, EventArgs e)
         {
-            this.Page.ViewModel.Model.Overview = this.txtDescription.TextField.Text;
+            this.Page.ViewModel.Model.Name = this.txtName.TextField.Text;
         }
 
         private void BtnSave_TouchUp(object sender, EventArgs e)
         {
-            this.Page.ViewModel.SaveCommand.Execute();
+            this.Page.ViewModel.SaveCommand.ExecuteAsync();
         }
 
         private void OnPhotoChanged()
