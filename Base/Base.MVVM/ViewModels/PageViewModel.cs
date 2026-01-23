@@ -188,14 +188,11 @@ namespace Base.MVVM.ViewModels
                     var error = x.Message.Replace("Response status code does not indicate success:", string.Empty);
                     injectedServices.SnackBarService.ShowError($"It seems server is not available, please try again later. ({(int)httpException.StatusCode} - {httpException.StatusCode}).");
                 }
-
-                return;
             }
             else if (x is AuthExpiredException)
             {
                 //we can ignore this type of exception because main page listening it and handles
-                injectedServices.LoggingService.LogWarning($"Skip showing error popup for user because this error is handled in main view, errorMessage: {nameof(AuthExpiredException)}: {x.Message}");
-                return;
+                injectedServices.LoggingService.LogWarning($"Skip showing error popup for user because this error is handled in main view, errorMessage: {nameof(AuthExpiredException)}: {x.Message}");                
             }
             else if (IsNoInternetException(x))//Is no Internet error
             {
