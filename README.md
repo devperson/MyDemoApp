@@ -6,6 +6,7 @@ This repository reflects my approach to designing **robust, testable, and scalab
 **Contact:**  
 📧 Email: khasanrah@gmail.com  
 💼 Upwork: https://www.upwork.com/freelancers/khasanr
+
 🔗 LinkedIn: https://www.linkedin.com/in/your-linkedin-id
 
 ---
